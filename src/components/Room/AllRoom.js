@@ -54,10 +54,10 @@ const AllRoom = () => {
   } else {
     return (
       <div className="container">
-        <div className="input-group">
+        <div className="input-group mb-3 mt-3">
           <input
             type="text"
-            className="form-control mb-3"
+            className="form-control"
             placeholder="พิมพ์เพื่อค้นหา"
             aria-label="Search"
             aria-describedby="search-addon"
@@ -68,63 +68,68 @@ const AllRoom = () => {
             onChange={(e) => setQ(e.target.value)}
           />
         </div>
-        <div className="mb-3">
-          <label
-            htmlFor="floorno"
-            className="form-label"
-            style={{
-              marginLeft: "3%",
-            }}
-          >
-            ชั้น:
-          </label>
-
-          <select
-            className="form-select"
-            onChange={(e) => {
-              setFilterParam(e.target.value);
-            }}
-            aria-label="Filter by floor number"
-            style={{
-              border: "1px solid #9ABCDF",
-              maxWidth: "100px",
-              width: "100%",
-              marginLeft: "3%",
-            }}
-          >
-            <option value="All">ชั้นที่ ...</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-          <label
-            htmlFor="floorno"
-            className="form-label"
-            style={{
-              marginLeft: "5%",
-            }}
-          >
-            สถานะ:
-          </label>
-
-          <select
-            className="form-select"
-            onChange={(e) => {
-              setFilterParam(e.target.value);
-            }}
-            aria-label="Filter by status"
-            style={{
-              border: "1px solid #9ABCDF",
-              maxWidth: "150px",
-              width: "100%",
-              marginLeft: "5%",
-            }}
-          >
-            <option value="All">เลือกสถานะ...</option>
-            <option value="AVAILABLE">AVAILABLE</option>
-            <option value="NOT AVAILABLE">NOT AVAILABLE</option>
-          </select>
+        <div class="row justify-content-start mb-3">
+          <div className="col-4 mb-3">
+            <select
+              className="form-select"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+              aria-label="Filter by floor number"
+              style={{
+                border: "1px solid #9ABCDF",
+                maxWidth: "100px",
+                width: "100%",
+                marginLeft: "3%",
+              }}
+            >
+              <option value="All">ชั้นที่ ...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+          <div className="col-4 mb-3">
+            <select
+              className="form-select"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+              aria-label="Filter by floor number"
+              style={{
+                border: "1px solid #9ABCDF",
+                maxWidth: "100px",
+                width: "100%",
+                marginLeft: "3%",
+              }}
+            >
+              <option value="All">ชั้นที่ ...</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+          <div className="col-4 mb-3">
+            <select
+              className="form-select"
+              onChange={(e) => {
+                setFilterParam(e.target.value);
+              }}
+              aria-label="Filter by status"
+              style={{
+                border: "1px solid #9ABCDF",
+                maxWidth: "150px",
+                width: "100%",
+                marginLeft: "5%",
+              }}
+            >
+              <option value="All">เลือกสถานะ...</option>
+              <option value="AVAILABLE">AVAILABLE</option>
+              <option value="NOT AVAILABLE">NOT AVAILABLE</option>
+            </select>
+          </div>
         </div>
+
         <div className="table-responsive">
           <table
             className="table table-hover align: middle table-borderless"
