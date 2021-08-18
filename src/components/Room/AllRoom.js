@@ -83,10 +83,10 @@ const AllRoom = () => {
                 marginLeft: "3%",
               }}
             >
-              <option value="All">ชั้นที่ ...</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
+              <option value="All">ตึก</option>
+              <option value="1">หนึ่ง</option>
+              <option value="2">สอง</option>
+              <option value="3">สาม</option>
             </select>
           </div>
           <div className="col-4 mb-3">
