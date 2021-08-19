@@ -16,7 +16,7 @@ function App() {
           <img src={Logo} alt="Adorminis" />
         </Link>
         <div className="navbar-nav ml-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/login"} className="nav-link">
               Login
             </Link>
@@ -24,6 +24,11 @@ function App() {
           <li className="nav-item">
             <Link to={"/register"} className="nav-link">
               Register
+            </Link>
+          </li> */}
+          <li className="nav-item">
+            <Link to={"/allroom/:dormID"} className="nav-link">
+              Room
             </Link>
           </li>
         </div>
