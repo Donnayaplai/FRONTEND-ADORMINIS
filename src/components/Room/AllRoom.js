@@ -70,7 +70,7 @@ const AllRoom = () => {
             onChange={(e) => setQ(e.target.value)}
           />
         </div>
-        <div class="row justify-content-start mb-3">
+        <div className="row justify-content-start mb-3">
           <div className="col-4 mb-3">
             <select
               className="form-select"
@@ -109,6 +109,7 @@ const AllRoom = () => {
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
+              <option value="4">4</option>
             </select>
           </div>
           <div className="col-4 mb-3">
@@ -156,7 +157,7 @@ const AllRoom = () => {
             </thead>
             <tbody>
               {search(items).map((item) => (
-                <tr style={rowstyle} key={item.id}>
+                <tr className={rowstyle} key={item.ROOMID}>
                   <td>{item.ROOMNO}</td>
                   <td>{item.STATUS}</td>
                   <td>
