@@ -4,7 +4,7 @@ const AllRoom = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [q, setQ] = useState("");
+  const [keyword, setKeyword] = useState("");
   const [searchParam] = useState(["ROOMNO", "STATUS"]);
   const [filterParam, setFilterParam] = useState(["All"]);
 
@@ -35,15 +35,15 @@ const AllRoom = () => {
     return items.filter((item) => {
       if (item.FLOOR == filterParam) {
         return searchParam.some((newItem) => {
-          return item[newItem].toString().indexOf(q) > -1;
+          return item[newItem].toString().indexOf(keyword) > -1;
         });
       } else if (item.STATUS == filterParam) {
         return searchParam.some((newItem) => {
-          return item[newItem].toString().indexOf(q) > -1;
+          return item[newItem].toString().indexOf(keyword) > -1;
         });
       } else if (filterParam == "All") {
         return searchParam.some((newItem) => {
-          return item[newItem].toString().indexOf(q) > -1;
+          return item[newItem].toString().indexOf(keyword) > -1;
         });
       }
     });
@@ -66,8 +66,8 @@ const AllRoom = () => {
             style={{
               border: "1px solid #9ABCDF",
             }}
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
           />
         </div>
         <div className="row justify-content-start mb-3">
