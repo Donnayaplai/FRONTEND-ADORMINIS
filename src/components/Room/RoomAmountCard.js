@@ -56,3 +56,4 @@ const RoomAmountCard = () => {
 };
 
 export default RoomAmountCard;
+//map => count จำนวน

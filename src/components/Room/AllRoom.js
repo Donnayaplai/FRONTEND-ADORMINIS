@@ -14,6 +14,8 @@ const AllRoom = () => {
     textAlign: "center",
   };
 
+  // const roomcount = items.reduce((rooms) => {});
+
   useEffect(() => {
     fetch("http://localhost:3001/room/100000003")
       .then((res) => res.json())
