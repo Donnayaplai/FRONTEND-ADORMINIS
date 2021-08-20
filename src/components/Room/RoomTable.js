@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import _ from "lodash";
+import { Link } from "react-router-dom";
+
 const pageSize = 5;
+
 const RoomTable = () => {
   let rowstyle = {
     backgroundColor: "#EAE7E2",
@@ -23,6 +25,7 @@ const RoomTable = () => {
   const [keyword, setKeyword] = useState("");
   const [searchParam] = useState(["ROOMNO", "STATUS"]);
   const [filterParam, setFilterParam] = useState(["All"]);
+  const [order, setOrder] = useState("ASC");
   useEffect(() => {
     axios.get("http://localhost:3001/room/100000003").then((res) => {
       console.log(res.data);
@@ -40,6 +43,25 @@ const RoomTable = () => {
     const paginated = _(rooms).slice(startIndex).take(pageSize).value();
     setPaginated(paginated);
   };
+
+  const sorting = (col) => {
+    if (order === "ASC") {
+      const sorted = [...rooms].sort((a, b) => (a[col] > b[col] ? 1 : -1));
+      setRooms(sorted);
+      setOrder("DSC");
+    }
+    if (order === "DSC") {
+      const sorted = [...rooms].sort((a, b) => (a[col] < b[col] ? 1 : -1));
+      setRooms(sorted);
+      setOrder("ASC");
+    }
+  };
+  let optionRoomStatus = rooms.map((room) => (
+    <option key={room.STATUS}>{room.STATUS}</option>
+  ));
+  let optionBuildingName = rooms.map((room) => (
+    <option key={room.BUILDINGID}>{room.BUILDINGNAME}</option>
+  ));
   function search(rooms) {
     return rooms.filter((item) => {
       if (item.FLOOR == filterParam) {
@@ -89,10 +111,11 @@ const RoomTable = () => {
               marginLeft: "3%",
             }}
           >
-            <option value="All">ตึก</option>
+            {optionBuildingName}
+            {/* <option value="All">ตึก</option>
             <option value="1">หนึ่ง</option>
             <option value="2">สอง</option>
-            <option value="3">สาม</option>
+            <option value="3">สาม</option> */}
           </select>
         </div>
         <div className="col-4 mb-3">
@@ -130,6 +153,7 @@ const RoomTable = () => {
               marginLeft: "5%",
             }}
           >
+            {/* {optionRoomStatus} */}
             <option value="All">เลือกสถานะ...</option>
             <option value="AVAILABLE">AVAILABLE</option>
             <option value="NOT AVAILABLE">NOT AVAILABLE</option>
@@ -155,10 +179,10 @@ const RoomTable = () => {
               </tr>
             </thead>
             <tbody>
-              {search(paginated).map((room, index) => (
-                <tr style={rowstyle} key={index}>
-                  <td>{room.FLOOR}</td>
-                  <td>{room.ROOMNO}</td>
+              {search(paginated).map((room) => (
+                <tr style={rowstyle} key={room.ROOMID}>
+                  <td onClick={() => sorting("FLOOR")}>{room.FLOOR}</td>
+                  <td onClick={() => sorting("ROOMNO")}>{room.ROOMNO}</td>
                   <td>
                     <p
                       className={
@@ -186,14 +210,14 @@ const RoomTable = () => {
                       aria-labelledby="exampleModalInfo"
                       aria-hidden="true"
                     >
-                      <div className="modal-dialog modal-lg">
+                      <div className="modal-dialog modal-md">
                         <div className="modal-content">
                           <div
                             className="modal-header"
                             style={{ backgroundColor: "#C7E5F0" }}
                           >
                             <h5 className="modal-title" id="exampleModalInfo">
-                              Resident Information
+                              ข้อมูลผู้เช่า
                             </h5>
                             <button
                               type="button"
@@ -214,8 +238,7 @@ const RoomTable = () => {
                               }}
                             >
                               <div className="row">
-                                <div className="col-3"></div>
-                                <div className="col-9">
+                                <div className="col-12">
                                   <div className="row justify-content-start">
                                     <div className="col-5">
                                       <p>ชื่อ</p>
@@ -304,9 +327,15 @@ const RoomTable = () => {
                                   placeholder="Please enter your resident code here..."
                                 ></textarea>
                                 <p>
-                                  <a href="/addresident/nocode" target="_blank">
+                                  <Link
+                                    to={"/addresident/nocode"}
+                                    target="_blank"
+                                  >
                                     No resident code?
-                                  </a>
+                                  </Link>
+                                  {/* <a href="/addresident/nocode" target="_blank">
+                                    No resident code?
+                                  </a> */}
                                 </p>
                               </div>
                             </form>
