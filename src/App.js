@@ -7,7 +7,7 @@ import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
 import Home from "./components/Home";
 import MainRoom from "./components/Room/MainRoom";
-
+import RoomTable from "./components/Room/RoomTable";
 function App() {
   return (
     <div className="App">
@@ -31,6 +31,11 @@ function App() {
               Room
             </Link>
           </li>
+          {/* <li className="nav-item">
+            <Link to={"/roomtable"} className="nav-link">
+              RoomTable
+            </Link>
+          </li> */}
         </div>
       </nav>
 
@@ -39,6 +44,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/allroom/:dormID" component={MainRoom} />
+        {/* <Route path="/roomtable" component={RoomTable} /> */}
       </Switch>
     </div>
   );
