@@ -1,5 +1,5 @@
 import React from "react";
-import AllRoom from "./AllRoom";
+// import AllRoom from "./AllRoom";
 import RoomAmountCard from "./RoomAmountCard";
 import RoomTable from "./RoomTable";
 
