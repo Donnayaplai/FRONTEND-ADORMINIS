@@ -26,6 +26,8 @@ const RoomTable = () => {
   const [searchParam] = useState(["ROOMNO", "STATUS"]);
   const [filterParam, setFilterParam] = useState(["All"]);
   const [order, setOrder] = useState("ASC");
+
+  //Fetch data from API
   useEffect(() => {
     axios.get("http://localhost:3001/room/100000003").then((res) => {
       console.log(res.data);
@@ -33,6 +35,8 @@ const RoomTable = () => {
       setPaginated(_(res.data).slice(0).take(pageSize).value());
     });
   }, []);
+
+  //Pagination
   const pageCount = rooms ? Math.ceil(rooms.length / pageSize) : 0;
   if (pageCount === 1) return null;
   const pages = _.range(1, pageCount + 1);
@@ -44,6 +48,7 @@ const RoomTable = () => {
     setPaginated(paginated);
   };
 
+  //Sorting
   const sorting = (col) => {
     if (order === "ASC") {
       const sorted = [...rooms].sort((a, b) => (a[col] > b[col] ? 1 : -1));
@@ -56,12 +61,16 @@ const RoomTable = () => {
       setOrder("ASC");
     }
   };
+
+  //Dynamic dropdown option
   let optionRoomStatus = rooms.map((room) => (
     <option key={room.STATUS}>{room.STATUS}</option>
   ));
   let optionBuildingName = rooms.map((room) => (
-    <option key={room.BUILDINGID}>{room.BUILDINGNAME}</option>
+    <option key={room.BUILDING.BUILDINGID}>{room.BUILDING.BUILDINGNAME}</option>
   ));
+
+  //Search and Filter
   function search(rooms) {
     return rooms.filter((item) => {
       if (item.FLOOR == filterParam) {
@@ -111,11 +120,11 @@ const RoomTable = () => {
               marginLeft: "3%",
             }}
           >
-            {optionBuildingName}
-            {/* <option value="All">ตึก</option>
+            {/* {optionBuildingName} */}
+            <option value="All">ตึก</option>
             <option value="1">หนึ่ง</option>
             <option value="2">สอง</option>
-            <option value="3">สาม</option> */}
+            <option value="3">สาม</option>
           </select>
         </div>
         <div className="col-4 mb-3">
@@ -178,19 +187,22 @@ const RoomTable = () => {
                 <th scope="col">เพิ่มคนเข้าห้อง</th>
               </tr>
             </thead>
+
             <tbody>
               {search(paginated).map((room) => (
                 <tr style={rowstyle} key={room.ROOMID}>
                   <td onClick={() => sorting("FLOOR")}>{room.FLOOR}</td>
                   <td onClick={() => sorting("ROOMNO")}>{room.ROOMNO}</td>
                   <td>
-                    <p
+                    {room.STATUS}
+                    {/* สร้าง function แทน */}
+                    {/* <p
                       className={
                         room.STATUS ? "bth btn-sucess" : "btn btn-danger"
                       }
                     >
                       {room.STATUS ? "AVAILABLE" : "NOT AVAILABLE"}
-                    </p>
+                    </p> */}
                   </td>
 
                   <td>
