@@ -21,14 +21,14 @@ function NoCodeRoom() {
   };
   return (
     <div className="container">
-      <h4>Personal Information</h4>
+      <h4>ข้อมูลส่วนตัว</h4>
       <form>
         <div className="form-content" style={formpersonalinfo}>
           <div className="row justify-content-around">
             <div className="col-6">
               <div className="mb-3">
                 <label for="exampleInputEmail1" className="form-label">
-                  Firstname
+                  ชื่อจริง
                 </label>
                 <input
                   type="text"
@@ -40,7 +40,7 @@ function NoCodeRoom() {
               </div>
               <div className="mb-3">
                 <label for="exampleInputPassword1" className="form-label">
-                  Lastname
+                  นามสกุล
                 </label>
                 <input
                   type="text"
@@ -51,7 +51,7 @@ function NoCodeRoom() {
               </div>
               <div className="mb-3">
                 <label for="exampleInputPassword1" className="form-label">
-                  ID Card
+                  รหัสบัตรประชาชน
                 </label>
                 <input
                   type="text"
@@ -62,10 +62,9 @@ function NoCodeRoom() {
               </div>
             </div>
             <div className="col-6">
-              {" "}
               <div className="mb-3">
                 <label for="exampleInputPassword1" className="form-label">
-                  Tel No.
+                  เบอร์โทร
                 </label>
                 <input
                   type="text"
@@ -76,7 +75,7 @@ function NoCodeRoom() {
               </div>
               <div className="mb-3">
                 <label for="exampleInputPassword1" className="form-label">
-                  Gender
+                  เพศ
                 </label>
                 <select
                   className="form-select"
@@ -90,7 +89,7 @@ function NoCodeRoom() {
             </div>
           </div>
         </div>
-        <h4>Additional Information</h4>
+        <h4>ข้อมูลเพิ่มเติม</h4>
         <div className="form-content" style={formadditionalinfo}>
           <div className="form-input">
             <label for="exampleInputPassword1" className="form-label">
