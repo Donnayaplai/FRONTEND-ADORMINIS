@@ -1,7 +1,59 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [IDCardNo, setIDCardNo] = useState("");
+  const [telno, setTelNo] = useState("");
+  const [gender, setGender] = useState("");
+  const [role, setRole] = useState("");
+
+  const onHandleEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+  };
+  const onHandlePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+  const onHandleFname = (e) => {
+    const fname = e.target.value;
+    setFname(fname);
+  };
+  const onHandleLname = (e) => {
+    const lname = e.target.value;
+    setLname(lname);
+  };
+  const onHandleIDCardNo = (e) => {
+    const IDCardNo = e.target.value;
+    setIDCardNo(IDCardNo);
+  };
+  const onHandleTelNo = (e) => {
+    const telno = e.target.value;
+    setTelNo(telno);
+  };
+  const onHandleGender = (e) => {
+    const gender = e.target.value;
+    setGender(gender);
+  };
+  const onHandleRole = (e) => {
+    const role = e.target.value;
+    setRole(role);
+  };
+  const onHandleRegister = (e) => {
+    console.log(email);
+    console.log(password);
+    console.log(fname);
+    console.log(lname);
+    console.log(telno);
+    console.log(IDCardNo);
+    console.log(role);
+    console.log(gender);
+    e.preventDefault();
+  };
   return (
     <div className="container">
       <div className="row">
@@ -25,6 +77,8 @@ const Register = () => {
                           className="form-control border-0"
                           name="email"
                           placeholder="อีเมล"
+                          value={email}
+                          onChange={onHandleEmail}
                           required
                         />
                       </div>
@@ -34,6 +88,8 @@ const Register = () => {
                           className="form-control border-0"
                           name="fname"
                           placeholder="ชื่อจริง"
+                          value={fname}
+                          onChange={onHandleFname}
                           required
                         />
                       </div>
@@ -43,6 +99,8 @@ const Register = () => {
                           className="form-control border-0 "
                           name="IDCardNo"
                           placeholder="เลขบัตรประชาชน"
+                          value={IDCardNo}
+                          onChange={onHandleIDCardNo}
                           required
                         />
                       </div>
@@ -52,6 +110,8 @@ const Register = () => {
                           className="form-control border-0"
                           placeholder="เบอร์โทรศัพท์"
                           name="telno"
+                          value={telno}
+                          onChange={onHandleTelNo}
                           required
                         />
                       </div>
@@ -63,6 +123,8 @@ const Register = () => {
                           className="form-control border-0"
                           name="password"
                           placeholder="รหัสผ่าน"
+                          value={password}
+                          onChange={onHandlePassword}
                           required
                         />
                       </div>
@@ -73,21 +135,33 @@ const Register = () => {
                           className="form-control border-0"
                           name="lname"
                           placeholder="นามสกุล"
+                          value={lname}
+                          onChange={onHandleLname}
                           required
                         />
                       </div>
                       <div className="form-input mt-3">
-                        <select className=" form-select border-0" required>
+                        <select
+                          className=" form-select border-0"
+                          required
+                          value={role}
+                          onChange={onHandleRole}
+                        >
                           <option selected>ตำแหน่ง...</option>
                           <option value="user">ผู้เช่า</option>
                           <option value="admin">พนักงาน</option>
                         </select>
                       </div>
                       <div className="form-input mt-3">
-                        <select className=" form-select border-0" required>
+                        <select
+                          className=" form-select border-0"
+                          value={gender}
+                          onChange={onHandleGender}
+                          required
+                        >
                           <option selected>เพศ...</option>
-                          <option value="Male">ชาย</option>
-                          <option value="Female">หญิง</option>
+                          <option value="male">ชาย</option>
+                          <option value="female">หญิง</option>
                         </select>
                       </div>
 
@@ -107,6 +181,7 @@ const Register = () => {
                     <button
                       className="btn w-75 p-2 mx-auto mt-3"
                       type="submit"
+                      onClick={onHandleRegister}
                       style={{
                         color: "#000",
                         backgroundColor: "#C7E5F0",
