@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const AllRoom = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [items, setItems] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [searchParam] = useState(["ROOMNO", "STATUS"]);
   const [filterParam, setFilterParam] = useState(["All"]);
@@ -14,15 +14,13 @@ const AllRoom = () => {
     textAlign: "center",
   };
 
-  // const roomcount = items.reduce((rooms) => {});
-
   useEffect(() => {
     fetch("http://localhost:3001/room/100000003")
       .then((res) => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
-          setItems(result);
+          setRooms(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -31,8 +29,8 @@ const AllRoom = () => {
       );
   }, []);
 
-  function search(items) {
-    return items.filter((item) => {
+  function search(rooms) {
+    return rooms.filter((item) => {
       if (item.FLOOR == filterParam) {
         return searchParam.some((newItem) => {
           return item[newItem].toString().indexOf(keyword) > -1;
@@ -149,6 +147,7 @@ const AllRoom = () => {
               }}
             >
               <tr>
+                <th scope="col">ชั้น</th>
                 <th scope="col">ห้องที่</th>
                 <th scope="col">สถานะ</th>
                 <th scope="col">ข้อมูลคนพัก</th>
@@ -156,8 +155,9 @@ const AllRoom = () => {
               </tr>
             </thead>
             <tbody>
-              {search(items).map((item) => (
+              {search(rooms).map((item) => (
                 <tr className={rowstyle} key={item.ROOMID}>
+                  <td>{item.FLOOR}</td>
                   <td>{item.ROOMNO}</td>
                   <td>{item.STATUS}</td>
                   <td>
@@ -237,10 +237,10 @@ const AllRoom = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              Close
+                              ยกเลิก
                             </button>
                             <button type="button" className="btn btn-primary">
-                              Ok
+                              ตกลง
                             </button>
                           </div>
                         </div>
@@ -309,7 +309,7 @@ const AllRoom = () => {
                               className="btn btn-secondary"
                               data-bs-dismiss="modal"
                             >
-                              Cancle
+                              ยกเลิก
                             </button>
                             <button
                               type="button"
@@ -317,7 +317,7 @@ const AllRoom = () => {
                               data-bs-toggle="modal"
                               data-bs-target="#addinfomodal"
                             >
-                              Confirm
+                              ยืนยัน
                             </button>
                             <div
                               className="modal fade"
@@ -507,13 +507,13 @@ const AllRoom = () => {
                                       className="btn btn-secondary"
                                       data-bs-dismiss="modal"
                                     >
-                                      Cancle
+                                      ยกเลิก
                                     </button>
                                     <button
                                       type="button"
                                       className="btn btn-primary"
                                     >
-                                      Save
+                                      ยืนยัน
                                     </button>
                                   </div>
                                 </div>
