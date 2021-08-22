@@ -7,7 +7,13 @@ import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
 import Home from "./components/Home";
 import MainRoom from "./components/Room/MainRoom";
-import RoomTable from "./components/Room/RoomTable";
+import NoCodeRoom from "./components/Room/NoCodeRoom";
+import Utility from "./components/Utility/Utility";
+import UtilitySummary from "./components/Utility/UtilitySummary";
+import DormSetting from "./components/Dorm/DormSetting";
+import Profile from "./components/PersonalInfo/Profile";
+import NotFoundPage from "./components/Others/NotFoundPage";
+
 function App() {
   return (
     <div className="App">
@@ -31,11 +37,21 @@ function App() {
               Room
             </Link>
           </li>
-          {/* <li className="nav-item">
-            <Link to={"/roomtable"} className="nav-link">
-              RoomTable
+          <li className="nav-item">
+            <Link to={"/utility"} className="nav-link">
+              Utilities
             </Link>
-          </li> */}
+          </li>
+          <li className="nav-item">
+            <Link to={"/dormsetting"} className="nav-link">
+              DormSetting
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to={"/profile"} className="nav-link">
+              Profile
+            </Link>
+          </li>
         </div>
       </nav>
 
@@ -43,8 +59,13 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/allroom/:dormID" component={MainRoom} />
-        {/* <Route path="/roomtable" component={RoomTable} /> */}
+        <Route path="/allroom" component={MainRoom} />
+        <Route path="/addresident/nocode" component={NoCodeRoom} />
+        <Route path="/utility" component={Utility} />
+        <Route path="/utilsummary" component={UtilitySummary} />
+        <Route path="/dormsetting" component={DormSetting} />
+        <Route path="/profile" component={Profile} />
+        <Route path="*" component={NotFoundPage} />
       </Switch>
     </div>
   );
