@@ -63,30 +63,31 @@ const RoomTable = () => {
   };
 
   //Dynamic dropdown option
-  let optionRoomStatus = rooms.map((room) => (
-    <option key={room.STATUS}>{room.STATUS}</option>
-  ));
-  let optionBuildingName = rooms.map((room) => (
-    <option key={room.BUILDING.BUILDINGID}>{room.BUILDING.BUILDINGNAME}</option>
-  ));
+  // let optionRoomStatus = rooms.map((room) => (
+  //   <option key={room.STATUS}>{room.STATUS}</option>
+  // ));
+  // let optionBuildingName = rooms.map((room) => (
+  //   <option key={room.BUILDING.BUILDINGID}>{room.BUILDING.BUILDINGNAME}</option>
+  // ));
 
   //Search and Filter
   function search(rooms) {
     return rooms.filter((item) => {
-      if (item.FLOOR == filterParam) {
+      if (item.FLOOR === filterParam) {
         return searchParam.some((newItem) => {
           return item[newItem].toString().indexOf(keyword) > -1;
         });
-      } else if (item.STATUS == filterParam) {
+      } else if (item.STATUS === filterParam) {
         return searchParam.some((newItem) => {
           return item[newItem].toString().indexOf(keyword) > -1;
         });
-      } else if (filterParam == "All") {
+      } else if (filterParam === "All") {
         return searchParam.some((newItem) => {
           return item[newItem].toString().indexOf(keyword) > -1;
         });
       }
     });
+    return;
   }
 
   return (
