@@ -87,7 +87,6 @@ const RoomTable = () => {
         });
       }
     });
-    return;
   }
 
   return (
