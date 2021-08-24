@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/logo.png";
-import "./style.css";
+// import "./style.css";
 export const PublicNav = () => {
   return (
     <nav
