@@ -6,8 +6,8 @@ import Logo from "./images/logo.png";
 import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
 import Home from "./components/Home";
-import MainRoom from "./components/Room/MainRoom";
-import NoCodeRoom from "./components/Room/NoCodeRoom";
+// import MainRoom from "./components/Room/MainRoom";
+// import NoCodeRoom from "./components/Room/NoCodeRoom";
 import Utility from "./components/Utility/Utility";
 import UtilitySummary from "./components/Utility/UtilitySummary";
 import DormSetting from "./components/Dorm/DormSetting";
@@ -21,21 +21,6 @@ function App() {
           <img src={Logo} alt="Adorminis" />
         </Link>
         <div className="navbar-nav ml-auto">
-          {/* <li className="nav-item">
-            <Link to={"/login"} className="nav-link">
-              Login
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={"/register"} className="nav-link">
-              Register
-            </Link>
-          </li> */}
-          <li className="nav-item">
-            <Link to={"/allroom/:dormID"} className="nav-link">
-              Room
-            </Link>
-          </li>
           <li className="nav-item">
             <Link to={"/utility"} className="nav-link">
               Utilities
@@ -53,8 +38,8 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/allroom" component={MainRoom} />
-        <Route path="/addresident/nocode" component={NoCodeRoom} />
+        {/* <Route path="/allroom" component={MainRoom} />
+        <Route path="/addresident/nocode" component={NoCodeRoom} /> */}
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
