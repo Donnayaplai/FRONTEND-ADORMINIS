@@ -11,7 +11,6 @@ import NoCodeRoom from "./components/Room/NoCodeRoom";
 import Utility from "./components/Utility/Utility";
 import UtilitySummary from "./components/Utility/UtilitySummary";
 import DormSetting from "./components/Dorm/DormSetting";
-import Profile from "./components/PersonalInfo/Profile";
 import NotFoundPage from "./components/Others/NotFoundPage";
 
 function App() {
@@ -47,11 +46,6 @@ function App() {
               DormSetting
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to={"/profile"} className="nav-link">
-              Profile
-            </Link>
-          </li>
         </div>
       </nav>
 
@@ -64,7 +58,6 @@ function App() {
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
-        <Route path="/profile" component={Profile} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </div>
