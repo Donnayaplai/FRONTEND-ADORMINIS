@@ -1,8 +1,8 @@
 import React from "react";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
-import Logo from "./images/logo.png";
+// import Logo from "./images/logo.png";
 import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
 import Home from "./components/Home";
@@ -12,11 +12,12 @@ import Utility from "./components/Utility/Utility";
 import UtilitySummary from "./components/Utility/UtilitySummary";
 import DormSetting from "./components/Dorm/DormSetting";
 import NotFoundPage from "./components/Others/NotFoundPage";
-
+import { PublicNav } from "./components/Navbar/PublicNav";
 function App() {
   return (
     <div className="App">
-      <nav className="navbar navbar-expand">
+      <PublicNav />
+      {/* <nav className="navbar navbar-expand">
         <Link to={"/"} className="navbar-brand">
           <img src={Logo} alt="Adorminis" />
         </Link>
@@ -32,8 +33,7 @@ function App() {
             </Link>
           </li>
         </div>
-      </nav>
-
+      </nav> */}
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
