@@ -36,7 +36,7 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
-        <Route path='/allroom/:dormid' component={AllRoom} />
+        <Route path='/allroom' component={AllRoom} />
         {/* <Route path="/allroom" component={MainRoom} />
         <Route path="/addresident/nocode" component={NoCodeRoom} /> */}
         <Route path='/utility' component={Utility} />
