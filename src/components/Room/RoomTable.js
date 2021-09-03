@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useParams } from 'react-router';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ const RoomTable = () => {
     height: '30px',
   };
   const [rooms, setRooms] = useState([]);
+  // const [resinfo, setResidentInfo] = useState([]);
   const [paginated, setPaginated] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [keyword, setKeyword] = useState('');
@@ -27,16 +28,40 @@ const RoomTable = () => {
   const [filterParam, setFilterParam] = useState(['All']);
   // const [order, setOrder] = useState('ASC');
 
+  //dynamic parameter
+  const { dormid } = useParams();
+  const { buildingid } = useParams();
+  // const { roomid } = useParams();
+
   //Fetch data from API
+  async function getAllRooms() {
+    const response = await fetch(
+      `http://localhost:3001/api/dorm/${dormid}/${buildingid}`
+    );
+    const responseJson = await response.json();
+    setRooms(responseJson);
+  }
+  // async function getResidentInfo() {
+  //   const response = await fetch(
+  //     `http://localhost:3001/api/dorm/${dormid}/${buildingid}/${roomid}`
+  //   );
+  //   const responseJson = await response.json();
+  //   setResidentInfo(responseJson);
+  // }
+
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/api/dorm/100000003/120000001')
-      .then(res => {
-        console.log(res.data);
-        setRooms(res.data);
-        setPaginated(_(res.data).slice(0).take(pageSize).value());
-      });
+    getAllRooms();
+    // getResidentInfo();
   }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3001/api/dorm/100000003/120000001')
+  //     .then(res => {
+  //       console.log(res.data);
+  //       setRooms(res.data);
+  //       setPaginated(_(res.data).slice(0).take(pageSize).value());
+  //     });
+  // }, []);
 
   //Pagination
   const pageCount = rooms ? Math.ceil(rooms.length / pageSize) : 0;
@@ -183,17 +208,7 @@ const RoomTable = () => {
                 <tr style={rowstyle} key={room.ROOMID}>
                   <td>{room.FLOOR}</td>
                   <td>{room.ROOMNO}</td>
-                  <td>
-                    {room.STATUS}
-                    {/* สร้าง function แทน */}
-                    {/* <p
-                      className={
-                        room.STATUS ? "bth btn-sucess" : "btn btn-danger"
-                      }
-                    >
-                      {room.STATUS ? "AVAILABLE" : "NOT AVAILABLE"}
-                    </p> */}
-                  </td>
+                  <td>{room.STATUS}</td>
 
                   <td>
                     <button
