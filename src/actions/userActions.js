@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setAlert } from './alert';
+import { setAlert } from './alertActions';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,8 +8,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from './types.js';
+} from '../constants/userConstants';
 import setAuthToken from '../utils/setAuthToken';
+
 //Load user
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -27,6 +28,7 @@ export const loadUser = () => async dispatch => {
     });
   }
 };
+
 //Register User
 export const register =
   ({ fname, lname, telno, IDCardNo, gender, email, password, role }) =>
