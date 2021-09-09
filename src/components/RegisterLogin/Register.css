@@ -1,0 +1,8 @@
+/* Register */
+.card-img-left {
+  width: 30%;
+  /* Link to your background image using in the property below! */
+  background: scroll center
+    url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+  background-size: cover;
+}

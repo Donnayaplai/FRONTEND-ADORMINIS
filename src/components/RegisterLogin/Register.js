@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
+import { setAlert } from '../../actions/alertActions';
+import { register } from '../../actions/userActions';
 import PropTypes from 'prop-types';
 import { Roles } from '../../systemdata/Role';
 
-import '../../App.css';
+import './Register.css';
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -29,9 +29,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     register({ email, password, fname, lname, IDCardNo, telno, gender, role });
   };
 
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />;
+  // }
 
   return (
     <div className='container'>

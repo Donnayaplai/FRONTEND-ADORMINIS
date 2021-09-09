@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import { login } from '../../actions/userActions';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -12,25 +12,18 @@ const Login = ({ login, isAuthenticated }) => {
 
   const { email, password } = formData;
 
-  const onChange = e =>
+  const onChangeInput = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async e => {
     e.preventDefault();
     login(email, password);
+    console.log(formData);
   };
 
   //Redirect if logged in
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
-
-  // function onSignIn(googleUser) {
-  //   var profile = googleUser.getBasicProfile();
-  //   console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  //   console.log('Name: ' + profile.getName());
-  //   console.log('Image URL: ' + profile.getImageUrl());
-  //   console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  // if (isAuthenticated) {
+  //   return <Redirect to='/login' />;
   // }
 
   return (
@@ -53,8 +46,7 @@ const Login = ({ login, isAuthenticated }) => {
                     placeholder='อีเมล'
                     name='email'
                     value={email}
-                    onChange={e => onChange(e)}
-                    // onChange={onHandleEmail}
+                    onChange={e => onChangeInput(e)}
                   />
                 </div>
                 <div className='form-group'>
@@ -64,8 +56,7 @@ const Login = ({ login, isAuthenticated }) => {
                     placeholder='รหัสผ่าน'
                     name='password'
                     value={password}
-                    onChange={e => onChange(e)}
-                    // onChange={onHandlePassword}
+                    onChange={e => onChangeInput(e)}
                   />
                 </div>
                 <div className='form-group text-center mt-2'>
@@ -79,7 +70,6 @@ const Login = ({ login, isAuthenticated }) => {
                     className='btn w-50 p-2 mx-auto mt-3 '
                     type='submit'
                     value='Login'
-                    // onClick={onHandleLogin}
                     style={{
                       color: '#000',
                       backgroundColor: '#C7E5F0',
