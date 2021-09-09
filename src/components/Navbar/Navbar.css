@@ -1,6 +1,7 @@
-.navbar {
+nav.navbar {
   background-color: #97d9fb;
-  height: 60px;
+  height: 50px;
+  position: static;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,11 +20,11 @@
 .navbar-logo {
   color: #000;
   justify-self: start;
-  margin-left: 10px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2rem;
-  margin-top: 0;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin-left: 0%;
 }
 
 .fa-firstdraft {
@@ -33,12 +34,13 @@
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(3, auto);
   grid-gap: 5px;
   list-style: none;
   text-align: center;
   width: 70vw;
   justify-content: end;
+  margin-left: 6rem;
   margin-right: 2rem;
 }
 
@@ -62,7 +64,8 @@
 }
 
 .fa-bars {
-  color: #fff;
+  color: #000;
+  width: 10px;
 }
 
 .nav-links-mobile {
@@ -82,12 +85,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 90vh;
+    height: 25vh;
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
+    padding: 0;
+    margin: 0;
   }
 
   .nav-menu.active {
@@ -103,18 +108,20 @@
     padding: 2rem;
     width: 100%;
     display: table;
+    color: #fff;
   }
 
   .nav-links:hover {
     background-color: #1888ff;
     border-radius: 0;
+    padding: 0.5rem;
   }
 
   .navbar-logo {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    transform: translate(20%, 30%);
   }
 
   .menu-icon {
@@ -122,13 +129,13 @@
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
+    transform: translate(-200%, 20%);
+    font-size: 1.7rem;
     cursor: pointer;
   }
 
   .fa-times {
-    color: #fff;
+    color: #000;
     font-size: 2rem;
   }
 
@@ -138,7 +145,7 @@
     padding: 1.5rem;
     margin: 2rem auto;
     border-radius: 4px;
-    width: 80%;
+    width: 100%;
     background: #1888ff;
     text-decoration: none;
     color: #fff;
@@ -147,8 +154,8 @@
 
   .nav-links-mobile:hover {
     background: #fff;
-    color: #1888ff;
-    transition: 250ms;
+    color: #687685;
+    transition: 200ms;
   }
 
   button {
@@ -156,11 +163,7 @@
   }
 }
 
-:root {
-  --primary: #97d9fb;
-}
-
-.btn {
+/* .btn {
   padding: 8px 20px;
   border-radius: 4px;
   outline: none;
@@ -168,7 +171,7 @@
   font-size: 18px;
   color: #000;
   cursor: pointer;
-  background-color: var(--primary);
+  background-color: #97d9fb;
 }
 
 .btn:hover {
@@ -179,4 +182,4 @@
   border-radius: 4px;
   border: 2px solid var(--primary);
   transition: all 0.3s ease-out;
-}
+} */

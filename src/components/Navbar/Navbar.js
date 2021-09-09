@@ -20,38 +20,36 @@ function Navbar() {
   window.addEventListener('scroll', changeBackground);
 
   return (
-    <>
-      <nav className={navbar ? 'navbar active' : 'navbar'}>
-        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          ADORMINIS
-          <i class='fab fa-firstdraft' />
-        </Link>
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-        </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-              หน้าหลัก
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link to='/faq' className='nav-links' onClick={closeMobileMenu}>
-              คำถามที่พบบ่อย
-            </Link>
-          </li>
-          <li className='nav-item'>
-            <Link
-              to='/contact-us'
-              className='nav-links'
-              onClick={closeMobileMenu}
-            >
-              ติดต่อเรา
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </>
+    <nav className={navbar ? 'navbar active' : 'navbar'}>
+      <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+        ADORMINIS
+        <i class='fab fa-firstdraft' />
+      </Link>
+      <div className='menu-icon' onClick={handleClick}>
+        <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+      </div>
+      <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+        <li className='nav-item'>
+          <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+            หน้าหลัก
+          </Link>
+        </li>
+        <li className='nav-item'>
+          <Link to='/faq' className='nav-links' onClick={closeMobileMenu}>
+            คำถามที่พบบ่อย
+          </Link>
+        </li>
+        <li className='nav-item'>
+          <Link
+            to='/contact-us'
+            className='nav-links'
+            onClick={closeMobileMenu}
+          >
+            ติดต่อเรา
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
