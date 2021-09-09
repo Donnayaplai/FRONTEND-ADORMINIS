@@ -10,7 +10,7 @@ import Utility from './components/Utility/Utility';
 import UtilitySummary from './components/Utility/UtilitySummary';
 import DormSetting from './components/Dorm/DormSetting';
 import NotFound from './components/Others/NotFound';
-import Room from './pages/Room';
+// import Room from './pages/Room';
 // import AllRoom from './components/Room/AllRoom';
 // import Accordion from './components/Accordion/Accordion';
 import DormList from './pages/DormList';
@@ -44,7 +44,7 @@ function App() {
           <Route path='/faq' exact component={FrequentlyAskQuestions} />
           <Route path='contact-us' exact component={ContactUs} />
           <Route path='/all-building/:dormid' component={DormList} />
-          <Route path='/all-room/:buildingid' component={Room} />
+          {/* <Route path='/all-room/:buildingid' component={Room} /> */}
           <Route path='/utility' component={Utility} />
           <Route path='/utilsummary' component={UtilitySummary} />
           <Route path='/dormsetting' component={DormSetting} />
