@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import Accordion from '../components/Accordion/Accordion';
 function FAQ() {
   return (
-    <Fragment>
+    <div className='mt-3 pt-5'>
       <Accordion />
-    </Fragment>
+    </div>
   );
 }
 
