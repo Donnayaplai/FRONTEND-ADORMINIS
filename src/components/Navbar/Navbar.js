@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../../images/logo.png';
+import logo from '../../assets/images/buildings.png';
 
 function Navbar() {
   return (
@@ -15,14 +15,14 @@ function Navbar() {
           className='navbar-toggler'
           type='button'
           data-bs-toggle='collapse'
-          data-bs-target='#navbarTogglerDemo02'
-          aria-controls='navbarTogglerDemo02'
+          data-bs-target='#navbarToggler'
+          aria-controls='navbarToggler'
           aria-expanded='false'
           aria-label='Toggle navigation'
         >
-          <span className='navbar-toggler-icon'></span>
+          <i className='fas fa-bars'></i>
         </button>
-        <div className='collapse navbar-collapse' id='navbarTogglerDemo02'>
+        <div className='collapse navbar-collapse' id='navbarToggler'>
           <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
             <li className='nav-item'>
               <Link to='/' className='nav-link' aria-current='page'>
@@ -37,6 +37,13 @@ function Navbar() {
             <li className='nav-item'>
               <Link to='/contact-us' className='nav-link' aria-current='page'>
                 ติดต่อเรา
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link to='/register' className='nav-link'>
+                <button type='button' className='btn btn-light'>
+                  ลงทะเบียน
+                </button>
               </Link>
             </li>
           </ul>

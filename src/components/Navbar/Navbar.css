@@ -1,22 +1,30 @@
 nav {
-  background-color: #97d9fb;
-  height: 50px;
+  background-color: #212121;
+  height: 60px;
 }
 .navbar-brand {
-  color: #000;
+  color: #fff;
   font-weight: bolder;
-  margin-right: 40%;
+  margin-right: 30%;
   margin-left: 5%;
+  font-size: 1.5rem;
+}
+button.navbar-toggler {
+  margin-right: 0;
 }
 li.nav-item {
-  margin-left: 50px;
+  margin-left: 30px;
+  margin-right: 20px;
 }
 .nav-link {
-  color: #000;
+  color: #fff;
   font-size: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
 }
 .nav-link:hover {
-  color: #33e8ff;
+  color: #4d5784;
 }
 .nav-link:active {
   color: #33e8ff;
@@ -24,4 +32,9 @@ li.nav-item {
 img {
   width: 30px;
   margin-left: 10%;
+}
+.fas.fa-bars {
+  color: aliceblue;
+  width: 35px;
+  height: 30px;
 }
