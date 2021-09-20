@@ -27,11 +27,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     e.preventDefault();
     console.log(formData);
     register({ email, password, fname, lname, IDCardNo, telno, gender, role });
+    setAlert('You has been registered!', 'success');
   };
 
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />;
-  // }
+  if (!isAuthenticated) {
+    return <Redirect to='/login' />;
+  }
 
   return (
     <div className='container'>

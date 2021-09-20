@@ -98,7 +98,7 @@ export const login =
     }
   };
 
-//Logout / Clear Profile
+//Logout
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
 };
