@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -9,11 +8,12 @@ import store from './store';
 import { loadUser } from './actions/userActions';
 import setAuthToken from './utils/setAuthToken';
 import { LOGOUT } from './constants/userConstants';
+
+//Page
 import Routes from './Routes';
-import HomePage from './pages/HomePage';
+import HomePage from './components/Homepage/HomePage';
 import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Navbar/Footer';
-// import Header from './components/Navbar/Header';
+import ResInfo from './components/ResidentInfo/ResidentInfo';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -36,12 +36,16 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route component={Routes} />
-        </Switch>
-        <Footer />
+        <div>
+          <Navbar />
+        </div>
+        <div>
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route exact path='/user/info/:roomid' component={ResInfo} />
+            <Route component={Routes} />
+          </Switch>
+        </div>
       </Router>
     </Provider>
   );
