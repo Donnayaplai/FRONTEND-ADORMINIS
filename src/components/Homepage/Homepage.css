@@ -6,9 +6,9 @@ header {
     rgba(137, 228, 236, 0.43881302521008403) 35%,
     rgba(139, 224, 241, 1) 100%
   );
-  padding-top: 2rem;
   padding-bottom: 5%;
   height: fit-content;
+  padding-top: 2%;
 }
 
 .btn-header {
@@ -46,11 +46,12 @@ header {
 button.fas.fa-sign-in-alt {
   width: 10px;
 }
+/* Features */
 .second-sec {
   padding-top: 3%;
   height: fit-content;
   background-color: azure;
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }
 .feature-img {
   max-width: 200px;
@@ -58,6 +59,8 @@ button.fas.fa-sign-in-alt {
   margin-left: 30%;
   margin-right: 50%;
 }
+
+/* FAQ */
 .third-sec {
   padding-top: 3%;
   padding-bottom: 10%;
