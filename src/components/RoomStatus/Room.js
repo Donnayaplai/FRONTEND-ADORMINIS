@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 
 import RoomTable from './RoomTable';
 import Pagination from './Pagination';
-import Search from './Search';
+import Search from '../Search/Search';
 
 const Room = () => {
   const [rooms, setRooms] = useState([]);
