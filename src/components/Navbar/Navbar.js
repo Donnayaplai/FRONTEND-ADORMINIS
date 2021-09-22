@@ -5,7 +5,7 @@ import logo from '../../assets/images/buildings.png';
 
 function Navbar() {
   return (
-    <nav className='navbar fixed-top navbar-expand-lg'>
+    <nav className='navbar navbar-expand-lg'>
       <div className='container-fluid'>
         <Link to='/' className='navbar-brand'>
           ADORMINIS
@@ -22,7 +22,7 @@ function Navbar() {
         >
           <i className='fas fa-bars'></i>
         </button>
-        <div className='collapse navbar-collapse' id='navbarToggler'>
+        <div className='collapse navbar-collapse'>
           <ul className='navbar-nav me-auto mb-2 mb-lg-0'>
             <li className='nav-item'>
               <Link to='/' className='nav-link' aria-current='page'>
@@ -42,7 +42,7 @@ function Navbar() {
             <li className='nav-item'>
               <Link to='/register' className='nav-link'>
                 <button type='button' className='btn btn-light'>
-                  ลงทะเบียน
+                  สร้างบัญชีใหม่
                 </button>
               </Link>
             </li>
