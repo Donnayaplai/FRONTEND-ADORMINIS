@@ -99,20 +99,6 @@ const Login = ({ login, isAuthenticated }) => {
                     <i className='fab fa-google me-2'></i>เข้าสู่ระบบด้วย Google
                   </button>
                 </div> */}
-                {/* <div className='d-grid'>
-                  <button
-                    className='btn w-75 p-2 mx-auto mt-3'
-                    type='submit'
-                    style={{
-                      color: '#fff',
-                      backgroundColor: '#415993',
-                      boxShadow: '0px 4px 4px 0px #00000040',
-                    }}
-                  >
-                    <i className='fab fa-facebook-f me-2'></i> เข้าสู่ระบบด้วย
-                    Facebook
-                  </button>
-                </div> */}
               </form>
             </div>
           </div>
