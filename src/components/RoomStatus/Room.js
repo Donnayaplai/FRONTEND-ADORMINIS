@@ -12,22 +12,30 @@ const Room = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [roomsPerPage] = useState(10);
   const { buildingid } = useParams();
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('search');
-  const [searchTerm, setSearchTerm] = useState(query || '');
+  const [filteredRoom, setFilteredRoom] = useState([]);
+
+  const [searchText, setSearchText] = useState('');
+
+  const handleInput = (e) => {
+    const text = e.target.value;
+    setSearchText(text);
+    let copyRoom = [...rooms];
+    console.log(copyRoom.filter((room) => room.ROOMNO === text));
+    setFilteredRoom(copyRoom.filter((room) => room.ROOMNO.includes(text)));
+  };
 
   useEffect(() => {
-    let fetchRooms = async () => {
-      setLoading(true);
-      let res = await axios.get(
-        `http://localhost:3001/api/room/all/${buildingid}`
-      );
-      setRooms(res.data);
-      setLoading(false);
-    };
-
     fetchRooms();
-  }, [buildingid]);
+  }, []);
+
+  let fetchRooms = async () => {
+    setLoading(true);
+    let res = await axios.get(
+      `http://localhost:3001/api/room/all/${buildingid}`
+    );
+    setRooms(res.data);
+    setLoading(false);
+  };
 
   // Get current rooms
   const indexOfLastRoom = currentPage * roomsPerPage;
@@ -43,8 +51,14 @@ const Room = () => {
         สถานะห้องพัก &nbsp;
         <i className="fas fa-door-open" style={{ color: '#000' }}></i>
       </h1>
-      <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <RoomTable rooms={currentRooms} loading={loading} />
+      <Search handleInput={handleInput} searchText={searchText} />
+      <RoomTable
+        rooms={currentRooms}
+        loading={loading}
+        filteredRoom={filteredRoom}
+        searchText={searchText}
+        fetchRooms={fetchRooms}
+      />
       <Pagination
         roomsPerPage={roomsPerPage}
         totalRooms={rooms.length}

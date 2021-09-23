@@ -1,16 +1,53 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import env from '../../env';
+import '../ResidentInfo/ResInfo.css';
+import { Modal, Button } from 'react-bootstrap';
 import AddUser from '../../assets/images/add-user.png';
-
-const RoomTable = ({ rooms, loading, filteredRooms }) => {
+import UserProfile from '../../assets/images/profile-user.png';
+const RoomTable = ({
+  rooms,
+  loading,
+  filteredRoom,
+  searchText,
+  fetchRooms,
+}) => {
   const [userInfo, setUserInfo] = useState([]);
+  const [selectRoom, setSelectRoom] = useState();
+  const [personalCode, setPersonalCode] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const getUserInfo = async (roomid) => {
     let res = await axios.get(`http://localhost:3001/api/user/info/${roomid}`);
+    // let res = await axios.get(`${env.url}/api/user/info/${roomid}`);
     setUserInfo(res.data);
     console.log(res.data);
+  };
+
+  const addResident = async () => {
+    // axios.post(`http://localhost:3001/api/room/${selectRoom}`, {
+    //   personalCode: personalCode,
+    // });
+    console.log('add complete');
+    Cancle();
+    fetchRooms();
+    setModalOpen(false);
+  };
+
+  const Cancle = async () => {
+    setPersonalCode('');
+    setSelectRoom('');
+    setModalOpen(false);
+    console.log('clear state');
+  };
+
+  const getRooms = () => {
+    if (searchText === '') {
+      return rooms;
+    } else {
+      return filteredRoom;
+    }
   };
 
   if (loading) {
@@ -19,11 +56,9 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
 
   return (
     <>
+      {getRooms().length === 0 && <h3>ไม่พบข้อมูล</h3>}
       <div className="table-responsive ">
-        <table
-          className="table table-hover align: middle table-borderless mt-3 mx-auto w-75"
-          // style={{ maxWidth: '800px' }}
-        >
+        <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
           <thead
             style={{
               backgroundColor: '#C7E5F0',
@@ -45,7 +80,7 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
           </thead>
 
           <tbody>
-            {rooms.map((room) => (
+            {getRooms().map((room) => (
               <tr
                 style={{
                   backgroundColor: '#EAE7E2',
@@ -140,7 +175,63 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                         </div>
                         {userInfo.map((info) => (
                           <div className="modal-body" key={info.ROOMID}>
-                            <div className="col-12">
+                            <h5 className="fw-bold">ห้อง: {info.ROOMNO}</h5>
+                            <div className="card">
+                              <div className="row g-0">
+                                <div className="col-md-3">
+                                  <img
+                                    src={UserProfile}
+                                    className="user-profile"
+                                    alt="User Profile"
+                                  />
+                                </div>
+                                <div className="col-md-9">
+                                  <div className="card-body ms-5">
+                                    <h5 className="card-title">
+                                      {info.FNAME} &nbsp; {info.LNAME}
+                                    </h5>
+                                    <p className="card-text">
+                                      เพศ:
+                                      <span className="content">
+                                        {info.GENDER}
+                                      </span>
+                                    </p>
+                                    <p className="card-text">
+                                      เบอร์โทร:
+                                      <span className="content">
+                                        {info.TELNO}
+                                      </span>
+                                    </p>
+                                    <p className="card-text">
+                                      อีเมล:
+                                      <span className="content">
+                                        {info.EMAIL}
+                                      </span>
+                                    </p>
+                                    <hr />
+                                    <p className="card-text">
+                                      วันเริ่มสัญญา:
+                                      <span className="content">
+                                        {info.STARTDATE}
+                                      </span>
+                                    </p>
+                                    <p className="card-text">
+                                      วันสิ้นสุดสัญญา:
+                                      <span className="content">
+                                        {info.ENDDATE}
+                                      </span>
+                                    </p>
+                                    <p className="card-text">
+                                      วันที่เข้าพัก:
+                                      <span className="content">
+                                        {info.CHECKINDATE}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {/* <div className="col-12">
                               <h3 className="fw-bold mb-3">
                                 ห้อง: {info.ROOMNO}
                               </h3>
@@ -164,7 +255,7 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                                   <p>{info.CHECKINDATE}</p>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         ))}
                       </div>
@@ -175,9 +266,12 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                   <button
                     type="button"
                     className="btn"
-                    onClick={console.log}
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    onClick={() => {
+                      setSelectRoom(room.ROOMID);
+                      setModalOpen(true);
+                    }}
+                    // data-bs-toggle="modal"
+                    // data-bs-target="#exampleModal"
                   >
                     <img
                       src={AddUser}
@@ -185,7 +279,24 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                       style={{ width: '2em' }}
                     />
                   </button>
-                  <div
+                  <Modal show={modalOpen}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      Woohoo, you're reading this text in a modal!
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={Cancle}>
+                        Close
+                      </Button>
+                      <Button variant="primary" onClick={Cancle}>
+                        Save Changes
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
+
+                  {/* <div
                     className="modal fade"
                     id="exampleModal"
                     tabIndex="-1"
@@ -206,6 +317,7 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                             className="btn-close"
                             data-bs-dismiss="modal"
                             aria-label="Close"
+                            onClick={Cancle}
                           ></button>
                         </div>
                         <div className="modal-body">
@@ -217,10 +329,14 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                               >
                                 รหัสผู้เช่า:
                               </label>
-                              <textarea
+                              <input
                                 className="form-control"
                                 placeholder="Please enter your resident code here..."
-                              ></textarea>
+                                value={personalCode}
+                                onChange={(e) =>
+                                  setPersonalCode(e.target.value)
+                                }
+                              ></input>
                               <p>
                                 <Link
                                   to={'/addresident/nocode'}
@@ -237,16 +353,21 @@ const RoomTable = ({ rooms, loading, filteredRooms }) => {
                             type="button"
                             className="btn btn-secondary"
                             data-bs-dismiss="modal"
+                            onClick={Cancle}
                           >
                             ยกเลิก
                           </button>
-                          <button type="button" className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={addResident}
+                          >
                             เพิ่ม
                           </button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </td>
               </tr>
             ))}
