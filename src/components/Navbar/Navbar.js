@@ -14,7 +14,7 @@ function Navbar() {
         </h2>
       </div>
       <input type="checkbox" id="click" />
-      <label for="click" className="menu-btn">
+      <label htmlFor="click" className="menu-btn">
         <i className="fas fa-bars"></i>
       </label>
       <ul>
