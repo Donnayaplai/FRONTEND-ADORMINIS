@@ -9,7 +9,9 @@ import UtilitySummary from './components/Utility/UtilitySummary';
 import DormSetting from './components/Dorm/DormSetting';
 import BuildingList from './components/RoomStatus/BuildingList';
 import Room from './components/RoomStatus/Room';
-
+import Profile from './components/Profile/Profile';
+import Billing from './components/Resident/Invoice';
+import PaymentStatus from './components/Resident/PaymentStatus';
 const Routes = () => {
   return (
     <>
@@ -18,9 +20,12 @@ const Routes = () => {
         <Route path="/register" exact component={Register} />
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
+        <Route path="/profile" component={Profile} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
+        <Route path="/invoice" component={Billing} />
+        <Route path="/payment/status" component={PaymentStatus} />
         <Route path="*" component={NotFound} />
       </Switch>
     </>
