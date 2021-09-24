@@ -3,6 +3,7 @@
 * {
   box-sizing: border-box;
   margin-top: 0;
+  padding: 0;
 }
 
 body {
@@ -22,4 +23,5 @@ h1 {
   padding-top: 5%;
   text-align: center;
   font-weight: bold;
+  margin-bottom: 1.5rem;
 }

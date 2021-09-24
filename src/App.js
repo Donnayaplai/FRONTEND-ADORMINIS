@@ -9,10 +9,7 @@ import Navbar from './components/Navbar/Navbar';
 function App() {
   return (
     <Router>
-      <div>
-        <Navbar />
-      </div>
-
+      <Navbar />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route component={Routes} />
