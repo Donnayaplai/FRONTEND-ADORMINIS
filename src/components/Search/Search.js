@@ -1,24 +1,34 @@
 import React from 'react';
-
+import { Form } from 'react-bootstrap';
 function Search(props) {
   return (
-    <div className="col-xl-6 col-md-4 mb-3 mx-auto">
-      <div className="input-group">
-        <input
-          type="text"
-          className="form-control"
-          aria-label="Search"
-          aria-describedby="search-addon"
-          placeholder="พิมพ์เพื่อค้นหา..."
-          style={{
-            border: '1px solid #9ABCDF',
-          }}
-          value={props.searchText}
-          onChange={props.handleInput}
-          name="search"
-        />
-      </div>
-    </div>
+    <>
+      <Form>
+        <Form.Group className="mb-3 ">
+          <Form.Control
+            type="text"
+            placeholder="พิมพ์เพื่อค้นหา..."
+            value={props.searchText}
+            onChange={props.handleSearchInput}
+            name="search"
+            className="w-100"
+          />
+        </Form.Group>
+      </Form>
+      {/* <input
+        type="text"
+        className="form-control"
+        aria-label="Search"
+        aria-describedby="search-addon"
+        placeholder="พิมพ์เพื่อค้นหา..."
+        style={{
+          border: '1px solid #9ABCDF',
+        }}
+        value={props.searchText}
+        onChange={props.handleSearchInput}
+        name="search"
+      /> */}
+    </>
   );
 }
 
