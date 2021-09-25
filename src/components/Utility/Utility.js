@@ -1,5 +1,5 @@
-import React from "react";
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 function Utility() {
   return (
     <div className="container">
@@ -19,10 +19,10 @@ function Utility() {
       </div>
       <div className="container">
         <div className="mb-3">
-          <a href="/utilsummary" style={{ float: "right", fontSize: "20px" }}>
+          <Link to="/utilsummary" style={{ float: 'right', fontSize: '20px' }}>
             สรุปรวมทั้งหมด
-          </a>
-          <h5 className="fw-bold mb-3" style={{ float: "left" }}>
+          </Link>
+          <h5 className="fw-bold mb-3" style={{ float: 'left' }}>
             ห้อง 101
           </h5>
           <br />
@@ -30,10 +30,10 @@ function Utility() {
 
         <div
           className="container mb-3 pt-2 pb-3"
-          style={{ backgroundColor: "#EAE7E2", width: "100%" }}
+          style={{ backgroundColor: '#EAE7E2', width: '100%' }}
         >
           <br />
-          <h6 className="fw-bold mb-2 text-center">ค่าน้ำ</h6>
+          <h5 className="fw-bold mb-2 text-center">ค่าน้ำ</h5>
           <div className="row g-3">
             <div className="col">
               <label for="text" className="form-label col-md-6">
@@ -61,8 +61,8 @@ function Utility() {
               />
             </div>
           </div>
-          <hr className="my-2" />
-          <h6 className="fw-bold mb-2 text-center">ค่าไฟ</h6>
+          <hr className="my-2 mt-3 mb-3" />
+          <h5 className="fw-bold mb-2 text-center">ค่าไฟ</h5>
           <div className="row g-3">
             <div className="col">
               <label for="text" className="form-label col-md-6">
