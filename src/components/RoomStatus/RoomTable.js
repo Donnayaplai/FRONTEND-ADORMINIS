@@ -1,44 +1,71 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory, withRouter } from 'react-router';
 import env from '../../env';
 import '../ResidentInfo/ResInfo.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import AddUser from '../../assets/images/add-user.png';
-import UserProfile from '../../assets/images/profile-user.png';
+
+// import { useParams } from 'react-router';
+
 const RoomTable = ({
   rooms,
   loading,
   filteredRoom,
   searchText,
   fetchRooms,
+  ...props
 }) => {
   const [userInfo, setUserInfo] = useState([]);
   const [selectRoom, setSelectRoom] = useState();
   const [personalCode, setPersonalCode] = useState();
   const [modalOpen, setModalOpen] = useState(false);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [isAddComplete, setAddComplete] = useState(false);
+  // const { personalcode } = useParams();
+  const history = useHistory();
 
   const getUserInfo = async (roomid) => {
-    let res = await axios.get(`http://localhost:3001/api/user/info/${roomid}`);
-    // let res = await axios.get(`${env.url}/api/user/info/${roomid}`);
+    let res = await axios.get(`${env.url}api/user/info/${roomid}`);
     setUserInfo(res.data);
     console.log(res.data);
   };
 
   const addResident = async () => {
-    // axios.post(`http://localhost:3001/api/room/${selectRoom}`, {
-    //   personalCode: personalCode,
-    // });
-    console.log('add complete');
+    // console.log('select');
+    const data = await axios.post(
+      `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
+      {
+        personalCode: personalCode,
+      }
+    );
+    console.log(data);
+    console.log('Add resident complete');
     Cancle();
     fetchRooms();
     setModalOpen(false);
+    setAddComplete(true);
+    console.log(isAddComplete);
+
+    // eslint-disable-next-line no-lone-blocks
+    // {
+    !isAddComplete ? (
+      history.push({
+        pathname: `/profile/${personalCode}`,
+        state: data.data,
+      })
+    ) : (
+      <h2>มีบางอย่างผิดพลาด</h2>
+    );
   };
+
+  // eslint-disable-next-line no-lone-blocks
 
   const Cancle = async () => {
     setPersonalCode('');
     setSelectRoom('');
     setModalOpen(false);
+    setInfoModalOpen(false);
     console.log('clear state');
   };
 
@@ -56,7 +83,11 @@ const RoomTable = ({
 
   return (
     <>
-      {getRooms().length === 0 && <h3>ไม่พบข้อมูล</h3>}
+      {getRooms().length === 0 && (
+        <h3 className="text-danger fw-bold text-center mt-5">
+          ไม่พบข้อมูลที่ค้นหา
+        </h3>
+      )}
       <div className="table-responsive ">
         <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
           <thead
@@ -135,9 +166,10 @@ const RoomTable = ({
                   <button
                     type="button"
                     className="btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"
-                    onClick={() => getUserInfo(room.ROOMID)}
+                    onClick={() => {
+                      setInfoModalOpen(true);
+                      getUserInfo(room.ROOMID);
+                    }}
                   >
                     <i
                       className="fas fa-info-circle"
@@ -147,120 +179,66 @@ const RoomTable = ({
                       }}
                     ></i>
                   </button>
-
-                  <div
-                    className="modal fade"
-                    id="staticBackdrop"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabIndex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true"
+                  <Modal
+                    show={infoModalOpen}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    style={{ background: 'transparent' }}
+                    size="xl"
                   >
-                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                      <div className="modal-content">
-                        <div
-                          className="modal-header"
-                          style={{ backgroundColor: '#C7E5F0' }}
-                        >
-                          <h5 className="modal-title" id="staticBackdropLabel">
-                            ข้อมูลผู้เช่า
-                          </h5>
-                          <button
-                            type="button"
-                            className="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                          ></button>
-                        </div>
-                        {userInfo.map((info) => (
-                          <div className="modal-body" key={info.ROOMID}>
-                            <h5 className="fw-bold">ห้อง: {info.ROOMNO}</h5>
-                            <div className="card">
-                              <div className="row g-0">
-                                <div className="col-md-3">
-                                  <img
-                                    src={UserProfile}
-                                    className="user-profile"
-                                    alt="User Profile"
-                                  />
-                                </div>
-                                <div className="col-md-9">
-                                  <div className="card-body ms-5">
-                                    <h5 className="card-title">
-                                      {info.FNAME} &nbsp; {info.LNAME}
-                                    </h5>
-                                    <p className="card-text">
-                                      เพศ:
-                                      <span className="content">
-                                        {info.GENDER}
-                                      </span>
-                                    </p>
-                                    <p className="card-text">
-                                      เบอร์โทร:
-                                      <span className="content">
-                                        {info.TELNO}
-                                      </span>
-                                    </p>
-                                    <p className="card-text">
-                                      อีเมล:
-                                      <span className="content">
-                                        {info.EMAIL}
-                                      </span>
-                                    </p>
-                                    <hr />
-                                    <p className="card-text">
-                                      วันเริ่มสัญญา:
-                                      <span className="content">
-                                        {info.STARTDATE}
-                                      </span>
-                                    </p>
-                                    <p className="card-text">
-                                      วันสิ้นสุดสัญญา:
-                                      <span className="content">
-                                        {info.ENDDATE}
-                                      </span>
-                                    </p>
-                                    <p className="card-text">
-                                      วันที่เข้าพัก:
-                                      <span className="content">
-                                        {info.CHECKINDATE}
-                                      </span>
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            {/* <div className="col-12">
-                              <h3 className="fw-bold mb-3">
-                                ห้อง: {info.ROOMNO}
-                              </h3>
-                              <div className="row">
-                                <div className="col-5">
-                                  <p>ชื่อ:</p>
-                                  <p>นามสกุล:</p>
-                                  <p>โทร:</p>
-                                  <p>เพศ:</p>
-                                  <p>วันเริ่มสัญญา:</p>
-                                  <p>วันสิ้นสุดสัญญา:</p>
-                                  <p>วันที่เข้าพัก:</p>
-                                </div>
-                                <div className="col-7">
-                                  <p>{info.FNAME}</p>
-                                  <p> {info.LNAME}</p>
-                                  <p> {info.TELNO}</p>
+                    <Modal.Header
+                      closeButton
+                      onClick={Cancle}
+                      style={{ backgroundColor: '#C7E5F0' }}
+                    >
+                      <Modal.Title>
+                        ข้อมูลผู้เช่า <i className="fas fa-id-card"></i>
+                      </Modal.Title>
+                    </Modal.Header>
+                    {userInfo.map((info) => (
+                      <Modal.Body key={info.ROOMID}>
+                        <h5 className="fw-bold">ห้อง: {info.ROOMNO}</h5>
+
+                        <Card>
+                          <Card.Body>
+                            <Container>
+                              <Row>
+                                <Col>
+                                  <p>ชื่อ-นามสกุล</p>
+                                  <p>เพศ</p>
+                                  <p>เบอร์โทร</p>
+                                  <p>อีเมล</p>
+                                </Col>
+                                <Col>
+                                  <p>
+                                    {info.FNAME} {info.LNAME}
+                                  </p>
                                   <p>{info.GENDER}</p>
+                                  <p>{info.TELNO}</p>
+                                  <p>{info.EMAIL}</p>
+                                </Col>
+                              </Row>
+                            </Container>
+                            <hr />
+                            <Container>
+                              <Row>
+                                <Col>
+                                  <p>วันเริ่มสัญญา</p>
+                                  <p>วันสิ้นสุดสัญญา</p>
+                                  <p>วันที่เข้าพัก</p>
+                                </Col>
+                                <Col>
                                   <p>{info.STARTDATE}</p>
                                   <p>{info.ENDDATE}</p>
                                   <p>{info.CHECKINDATE}</p>
-                                </div>
-                              </div>
-                            </div> */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                                </Col>
+                              </Row>
+                            </Container>
+                          </Card.Body>
+                        </Card>
+                      </Modal.Body>
+                    ))}
+                  </Modal>
                 </td>
                 <td>
                   <button
@@ -268,10 +246,9 @@ const RoomTable = ({
                     className="btn"
                     onClick={() => {
                       setSelectRoom(room.ROOMID);
+                      console.log(room.ROOMID);
                       setModalOpen(true);
                     }}
-                    // data-bs-toggle="modal"
-                    // data-bs-target="#exampleModal"
                   >
                     <img
                       src={AddUser}
@@ -280,94 +257,63 @@ const RoomTable = ({
                     />
                   </button>
                   <Modal show={modalOpen}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Header
+                      closeButton
+                      onClick={Cancle}
+                      style={{ backgroundColor: '#C7E5F0' }}
+                    >
+                      <Modal.Title style={{ fontWeight: 'bold' }}>
+                        เพิ่มผู้เช่า
+                      </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                      Woohoo, you're reading this text in a modal!
+                      <form>
+                        <div
+                          style={{
+                            textAlign: 'center',
+                            marginBottom: '5%',
+                          }}
+                        >
+                          <label
+                            htmlFor="personalcode-title"
+                            className="col-form-label"
+                            style={{ marginBottom: '2%', fontSize: '1.25rem' }}
+                          >
+                            รหัสผู้เช่า:
+                          </label>
+                          <input
+                            className="form-control mx-auto w-75 mb-2"
+                            placeholder="โปรดป้อนรหัสผู้เช่า..."
+                            value={personalCode}
+                            onChange={(e) => setPersonalCode(e.target.value)}
+                            style={{
+                              fontSize: '1rem',
+                            }}
+                          ></input>
+                          {/* <p>
+                            <Link to={'/addresident/nocode'} target="_blank">
+                              ไม่มีรหัสผู้เช่า
+                            </Link>
+                          </p> */}
+                        </div>
+                      </form>
                     </Modal.Body>
                     <Modal.Footer>
                       <Button variant="secondary" onClick={Cancle}>
-                        Close
+                        ยกเลิก
                       </Button>
-                      <Button variant="primary" onClick={Cancle}>
-                        Save Changes
+                      <Button
+                        variant="primary"
+                        // onClick={addResident}
+                        onClick={() => {
+                          addResident();
+                          setAddComplete(true);
+                        }}
+                      >
+                        ตกลง
                       </Button>
                     </Modal.Footer>
                   </Modal>
-
-                  {/* <div
-                    className="modal fade"
-                    id="exampleModal"
-                    tabIndex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div
-                          className="modal-header"
-                          style={{ backgroundColor: '#C7E5F0' }}
-                        >
-                          <h5 className="modal-title" id="exampleModalLabel">
-                            เพิ่มผู้เช่า
-                          </h5>
-                          <button
-                            type="button"
-                            className="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                            onClick={Cancle}
-                          ></button>
-                        </div>
-                        <div className="modal-body">
-                          <form>
-                            <div className="mb-3">
-                              <label
-                                htmlFor="message-text"
-                                className="col-form-label fs-5"
-                              >
-                                รหัสผู้เช่า:
-                              </label>
-                              <input
-                                className="form-control"
-                                placeholder="Please enter your resident code here..."
-                                value={personalCode}
-                                onChange={(e) =>
-                                  setPersonalCode(e.target.value)
-                                }
-                              ></input>
-                              <p>
-                                <Link
-                                  to={'/addresident/nocode'}
-                                  target="_blank"
-                                >
-                                  No resident code?
-                                </Link>
-                              </p>
-                            </div>
-                          </form>
-                        </div>
-                        <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                            onClick={Cancle}
-                          >
-                            ยกเลิก
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={addResident}
-                          >
-                            เพิ่ม
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </td>
               </tr>
             ))}
@@ -378,4 +324,4 @@ const RoomTable = ({
   );
 };
 
-export default RoomTable;
+export default withRouter(RoomTable);
