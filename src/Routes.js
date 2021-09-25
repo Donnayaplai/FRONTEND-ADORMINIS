@@ -20,12 +20,12 @@ const Routes = () => {
         <Route path="/register" exact component={Register} />
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
-        <Route path="/profile" component={Profile} />
+        <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
-        <Route path="/invoice" component={Billing} />
-        <Route path="/payment/status" component={PaymentStatus} />
+        <Route path="/resident/invoice" component={Billing} />
+        <Route path="/resident/payment/status" component={PaymentStatus} />
         <Route path="*" component={NotFound} />
       </Switch>
     </>
