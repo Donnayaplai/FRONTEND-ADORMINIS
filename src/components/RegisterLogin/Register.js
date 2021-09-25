@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { Roles } from '../../systemdata/Role';
-
 import './Register.css';
+
 const Register = () => {
   const [formData, setFormData] = useState({
     email: '',
@@ -20,9 +19,10 @@ const Register = () => {
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(formData);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   //   register({ email, password, fname, lname, IDCardNo, telno, gender, role });
   //   setAlert('You has been registered!', 'success');
   // };
@@ -97,7 +97,7 @@ const Register = () => {
                     <div className="col-md-6">
                       <div className="form-input mb-3">
                         <input
-                          type="text"
+                          type="password"
                           className="form-control border-0"
                           name="password"
                           placeholder="รหัสผ่าน"
@@ -144,8 +144,8 @@ const Register = () => {
                           required
                         >
                           <option selected>เพศ...</option>
-                          <option value="male">ชาย</option>
-                          <option value="female">หญิง</option>
+                          <option value="ชาย">ชาย</option>
+                          <option value="หญิง">หญิง</option>
                         </select>
                       </div>
                     </div>
@@ -153,9 +153,9 @@ const Register = () => {
 
                   <div className="d-grid mb-2">
                     <button
-                      className="btn w-75 p-2 mx-auto mt-3"
+                      className="btn w-75 p-2 mx-auto mt-5"
                       type="submit"
-                      value="Register"
+                      onClick={onSubmit}
                       style={{
                         color: '#000',
                         backgroundColor: '#C7E5F0',
@@ -169,7 +169,7 @@ const Register = () => {
                     มีบัญชีผู้ใช้อยู่แล้ว ? เข้าสู่ระบบ
                   </Link>
 
-                  <hr className="my-4" />
+                  {/*  <hr className="my-4" />
 
                   <div className="d-grid mb-2">
                     <button
@@ -179,7 +179,7 @@ const Register = () => {
                       <i className="fab fa-google me-2"></i> ดำเนินการต่อด้วย
                       Google
                     </button>
-                  </div>
+                  </div> */}
 
                   {/* <div className='d-grid'>
                     <button
