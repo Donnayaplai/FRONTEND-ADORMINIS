@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
+import { withRouter, useLocation } from 'react-router';
+
 // import UserProfile from '../../assets/images/profile-user.png';
-function Profile() {
+function Profile(props) {
   const [userInfo, setUserInfo] = useState([]);
+  const personalCode = props.match.params.personalCode;
   const [additionalInfo, setAdditionalInfo] = useState({
     startDate: '',
     endDate: '',
     checkinDate: '',
   });
-
+  const location = useLocation();
   const { startDate, endDate, checkinDate } = additionalInfo;
 
   const onChange = (e) =>
@@ -18,18 +21,26 @@ function Profile() {
   const onSubmitData = async (e) => {
     e.preventDefault();
     console.log(additionalInfo);
-    axios.post(`${env.url}api/`);
+    axios.post(
+      `${env.url}api/room/addRes/${location.state.dormID}/${location.state.roomID}/${location.state.newCoRID}`,
+      additionalInfo
+    );
   };
+  //Redirect to RoomTable//
+  console.log(location.state);
+  // console.log(props.match.params);
 
   let getUserProfile = async () => {
-    // let res = await axios.get(`${env.url}`);
-    // setUserInfo(res.data);
+    let res = await axios.get(`${env.url}api/room/${personalCode}`);
+    setUserInfo(res.data);
+    console.log(res.data);
+    console.log(personalCode);
   };
 
   useEffect(() => {
     getUserProfile();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [personalCode]);
 
   let button = {
     backgroundColor: '#8be0f1',
@@ -50,34 +61,25 @@ function Profile() {
       <h1>
         ข้อมูลส่วนตัว<i className="fas fa-address-card ms-3"></i>
       </h1>
+
       <div
         className="col-10 p-3 mx-auto mb-5 w-50"
         style={{ backgroundColor: '#EAE7E2' }}
       >
-        {/* <div
-          style={{
-            marginBottom: '5%',
-          }}
-        >
-          <img
-            src={UserProfile}
-            alt="user-profile"
-            style={{ maxWidth: '8rem' }}
-          />
-        </div> */}
         <h4 className="fw-bold text-center">ข้อมูลส่วนตัวผู้เช่า</h4>
+
         <div className="row mx-auto mb-3 mt-3">
           <div className="col-6">
             <label htmlFor="fname" className="form-label col-2">
               ชื่อ
             </label>
-            <input type="text" className="form-control" required />
+            <p>{userInfo.FNAME}</p>
           </div>
           <div className="col-6">
             <label htmlFor="lname" className="form-label col-2">
               นามสกุล
             </label>
-            <input type="text" className="form-control" required />
+            <p> {userInfo.LNAME}</p>
           </div>
         </div>
         <div className="row mx-auto mb-3">
@@ -85,50 +87,29 @@ function Profile() {
             <label htmlFor="telno" className="form-label col-sm-6">
               เบอร์โทร
             </label>
-            <input type="text" className="form-control" required />
+            <p>{userInfo.TELNO}</p>
           </div>
           <div className="col-6">
             <label htmlFor="email" className="form-label col-3">
               อีเมล
             </label>
-            <input type="text" className="form-control" required />
+            <p>{userInfo.EMAIL}</p>
           </div>
         </div>
         <div className="row mx-auto">
           <div className="col-6">
             <h6 className="me-3">เพศ: </h6>
-            <div className="form-check form-check-inline me-4">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="femaleGender"
-                value="option1"
-              />
-              <label className="form-check-label" htmlFor="femaleGender">
-                หญิง
-              </label>
-            </div>
 
-            <div className="form-check form-check-inline me-4">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="inlineRadioOptions"
-                id="maleGender"
-                value="option2"
-              />
-              <label className="form-check-label" htmlFor="maleGender">
-                ชาย
-              </label>
-            </div>
+            <p>{userInfo.GENDER}</p>
           </div>
 
           <div className="col-6">
-            <label htmlFor="IDCardNo" className="form-label col-sm-6 col-md-8">
+            <label htmlFor="IDCardNo" className="form-label col-sm-6 col-md-10">
               รหัสบัตรประชาชน
             </label>
-            <input type="text" className="form-control" required />
+            <p>
+              <p>{userInfo.IDCARDNO}</p>
+            </p>
           </div>
         </div>
         <hr />
@@ -138,7 +119,7 @@ function Profile() {
             <div className="col-6">
               <label
                 htmlFor="startdate"
-                className="form-label col-md-6 col-sm-6"
+                className="form-label col-md-10 col-sm-6"
               >
                 วันเริ่มสัญญา
               </label>
@@ -152,7 +133,10 @@ function Profile() {
               />
             </div>
             <div className="col-6">
-              <label htmlFor="enddate" className="form-label col-sm-6 col-md-8">
+              <label
+                htmlFor="enddate"
+                className="form-label col-md-10 col-sm-6"
+              >
                 วันสิ้นสุดสัญญา
               </label>
               <input
@@ -167,7 +151,10 @@ function Profile() {
           </div>
           <div className="row mx-auto mb-3 mt-3">
             <div className="col-6">
-              <label htmlFor="startdate" className="form-label col-sm-6">
+              <label
+                htmlFor="startdate"
+                className="form-label col-sm-6 col-md-6"
+              >
                 วันที่เข้าพัก
               </label>
               <input
@@ -194,4 +181,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default withRouter(Profile);
