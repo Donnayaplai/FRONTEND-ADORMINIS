@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import building from '../../assets/images/building.jpg';
+import env from '../../env';
 
 const BuildingList = () => {
   const { dormid } = useParams();
@@ -12,7 +13,7 @@ const BuildingList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/building/all/${dormid}`)
+      .get(`${env.url}api/building/all/${dormid}`)
       .then((res) => {
         console.log(res.data);
         setDormList(res.data);
@@ -26,7 +27,7 @@ const BuildingList = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center">
+      <h1>
         อาคารทั้งหมด <i className="fas fa-building"></i>
       </h1>
       <div className="row">
