@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
-import { withRouter, useLocation } from 'react-router';
+import { withRouter, useLocation, useHistory } from 'react-router';
 
-// import UserProfile from '../../assets/images/profile-user.png';
 function Profile(props) {
   const [userInfo, setUserInfo] = useState([]);
   const personalCode = props.match.params.personalCode;
@@ -12,18 +11,30 @@ function Profile(props) {
     endDate: '',
     checkinDate: '',
   });
+  const [isAddResComplete, setAddResComplete] = useState(false);
   const location = useLocation();
+  const history = useHistory();
   const { startDate, endDate, checkinDate } = additionalInfo;
 
   const onChange = (e) =>
     setAdditionalInfo({ ...additionalInfo, [e.target.name]: e.target.value });
 
   const onSubmitData = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     console.log(additionalInfo);
     axios.post(
       `${env.url}api/room/addRes/${location.state.dormID}/${location.state.roomID}/${location.state.newCoRID}`,
       additionalInfo
+    );
+    setAddResComplete(true);
+    window.alert('การเพิ่มผู้เช่าเสร็จสิ้น');
+
+    !isAddResComplete ? (
+      history.push({
+        pathname: '/',
+      })
+    ) : (
+      <h2>มีบางอย่างผิดพลาด</h2>
     );
   };
   //Redirect to RoomTable//
@@ -129,7 +140,7 @@ function Profile(props) {
                 name="startDate"
                 value={startDate}
                 onChange={(e) => onChange(e)}
-                required
+                // required
               />
             </div>
             <div className="col-6">
@@ -145,7 +156,7 @@ function Profile(props) {
                 name="endDate"
                 value={endDate}
                 onChange={(e) => onChange(e)}
-                required
+                // required
               />
             </div>
           </div>
@@ -163,7 +174,7 @@ function Profile(props) {
                 name="checkinDate"
                 value={checkinDate}
                 onChange={(e) => onChange(e)}
-                required
+                // required
               />
             </div>
           </div>
@@ -171,7 +182,11 @@ function Profile(props) {
             className="btn"
             style={button}
             type="submit"
-            onClick={onSubmitData}
+            // onClick={onSubmitData}
+            onClick={() => {
+              onSubmitData();
+              setAddResComplete(true);
+            }}
           >
             บันทึก
           </button>
