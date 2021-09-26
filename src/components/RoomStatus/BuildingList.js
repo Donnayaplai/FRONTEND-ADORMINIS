@@ -34,7 +34,7 @@ const BuildingList = () => {
         {loading &&
           dormList.map((list) => (
             <div
-              className="col-sm-6 col-lg-4 col-xl-3 mt-3"
+              className="col-sm-6 col-lg-6 col-xl-3 mt-3 mx-auto justify-conter-center"
               key={list.BUILDINGID}
             >
               <div className="card col-lg-4" style={{ width: '18rem' }}>
