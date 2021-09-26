@@ -22,7 +22,7 @@ function Navbar() {
           <Link to="/">หน้าหลัก</Link>
         </li>
         <li>
-          <Link to="/">เกี่ยวกับเรา</Link>
+          <Link to="/all-building/100000003">ตึกและห้องพัก</Link>
         </li>
         <li>
           <Link to="/">ติดต่อเรา</Link>
