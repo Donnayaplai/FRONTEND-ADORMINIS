@@ -5,7 +5,7 @@ import env from '../../env';
 import RoomTable from './RoomTable';
 import Pagination from './Pagination';
 import Search from '../Search/Search';
-import FilterDropdown from '../FilterDropdown/FilterDropdown';
+
 const Room = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -60,21 +60,10 @@ const Room = () => {
         สถานะห้องพัก &nbsp;
         <i className="fas fa-door-open" style={{ color: '#000' }}></i>
       </h1>
-      <div className="row justify-content-center mt-5">
-        <div className="col-6">
-          <Search
-            handleSearchInput={handleSearchInput}
-            searchText={searchText}
-          />
-        </div>
-        <div className="col-3">
-          <FilterDropdown
-          // selectedStatus={selectedStatus}
-          // handleStatusFilter={handleStatusFilter}
-          />
-        </div>
+
+      <div className="col-6  mx-auto">
+        <Search handleSearchInput={handleSearchInput} searchText={searchText} />
       </div>
-      <div className="col-xl-6 col-md-6 col-sm-4 mx-auto"></div>
 
       <RoomTable
         rooms={currentRooms}
