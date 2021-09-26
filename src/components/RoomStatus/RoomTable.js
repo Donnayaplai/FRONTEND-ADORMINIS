@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, withRouter } from 'react-router';
 import env from '../../env';
-import '../ResidentInfo/ResInfo.css';
 import { Modal, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import AddUser from '../../assets/images/add-user.png';
-
-// import { useParams } from 'react-router';
 
 const RoomTable = ({
   rooms,
@@ -32,7 +29,6 @@ const RoomTable = ({
   };
 
   const addResident = async () => {
-    // console.log('select');
     const data = await axios.post(
       `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
       {
@@ -192,7 +188,9 @@ const RoomTable = ({
                       style={{ backgroundColor: '#C7E5F0' }}
                     >
                       <Modal.Title>
-                        ข้อมูลผู้เช่า <i className="fas fa-id-card"></i>
+                        <h2 className="bold">
+                          ข้อมูลผู้เช่า <i className="fas fa-id-card"></i>
+                        </h2>
                       </Modal.Title>
                     </Modal.Header>
                     {userInfo.map((info) => (
@@ -203,7 +201,12 @@ const RoomTable = ({
                           <Card.Body>
                             <Container>
                               <Row>
-                                <Col>
+                                <Col
+                                  style={{
+                                    fontSize: '1.1rem',
+                                    fontWeight: 'bold',
+                                  }}
+                                >
                                   <p>ชื่อ-นามสกุล</p>
                                   <p>เพศ</p>
                                   <p>เบอร์โทร</p>
@@ -222,7 +225,12 @@ const RoomTable = ({
                             <hr />
                             <Container>
                               <Row>
-                                <Col>
+                                <Col
+                                  style={{
+                                    fontSize: '1.1rem',
+                                    fontWeight: 'bold',
+                                  }}
+                                >
                                   <p>วันเริ่มสัญญา</p>
                                   <p>วันสิ้นสุดสัญญา</p>
                                   <p>วันที่เข้าพัก</p>
