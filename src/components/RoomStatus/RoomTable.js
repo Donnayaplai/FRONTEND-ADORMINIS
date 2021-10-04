@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import env from '../../env';
 import { Modal, Button, Card, Container, Row, Col } from 'react-bootstrap';
 import AddUser from '../../assets/images/add-user.png';
+import RemoveUser from '../../assets/images/delete.png';
+import EditUser from '../../assets/images/edit.png';
 
 const RoomTable = ({
   rooms,
@@ -19,7 +22,7 @@ const RoomTable = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [isAddComplete, setAddComplete] = useState(false);
-  // const { personalcode } = useParams();
+
   const history = useHistory();
 
   const getUserInfo = async (roomid) => {
@@ -56,6 +59,9 @@ const RoomTable = ({
   };
 
   // eslint-disable-next-line no-lone-blocks
+  const removeResident = async (rentid, roomid) => {
+    return await axios.post(`${env.url}/remove/${roomid}/${rentid}`);
+  };
 
   const Cancle = async () => {
     setPersonalCode('');
@@ -179,8 +185,7 @@ const RoomTable = ({
                     show={infoModalOpen}
                     aria-labelledby="contained-modal-title-vcenter"
                     centered
-                    style={{ background: 'transparent' }}
-                    size="xl"
+                    size="lg"
                   >
                     <Modal.Header
                       closeButton
@@ -193,10 +198,45 @@ const RoomTable = ({
                         </h2>
                       </Modal.Title>
                     </Modal.Header>
-                    {userInfo.map((info) => (
-                      <Modal.Body key={info.ROOMID}>
-                        <h5 className="fw-bold">ห้อง: {info.ROOMNO}</h5>
 
+                    {userInfo.map((info) => (
+                      <Modal.Body key={info.ROOMID} scrollable>
+                        <Row>
+                          <Col>
+                            <h4 className="fw-bold">ห้อง: {info.ROOMNO}</h4>
+                          </Col>
+                          <Col>
+                            <Button
+                              style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                float: 'right',
+                              }}
+                            >
+                              <Link to="/resinfo/edit">
+                                <img
+                                  src={EditUser}
+                                  alt="Edit resident info"
+                                  style={{ width: '1.5em' }}
+                                />
+                              </Link>
+                            </Button>
+                            <Button
+                              style={{
+                                backgroundColor: 'transparent',
+                                border: 'none',
+                                float: 'right',
+                              }}
+                            >
+                              <img
+                                src={RemoveUser}
+                                alt="Remove resident"
+                                style={{ width: '1.5em' }}
+                                onClick={removeResident}
+                              />
+                            </Button>
+                          </Col>
+                        </Row>
                         <Card>
                           <Card.Body>
                             <Container>
@@ -298,11 +338,11 @@ const RoomTable = ({
                               fontSize: '1rem',
                             }}
                           ></input>
-                          {/* <p>
+                          <p>
                             <Link to={'/addresident/nocode'} target="_blank">
                               ไม่มีรหัสผู้เช่า
                             </Link>
-                          </p> */}
+                          </p>
                         </div>
                       </form>
                     </Modal.Body>
