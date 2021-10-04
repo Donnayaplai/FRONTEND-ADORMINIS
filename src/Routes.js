@@ -12,6 +12,8 @@ import Room from './components/RoomStatus/Room';
 import Profile from './components/Profile/Profile';
 import Billing from './components/Resident/Invoice';
 import PaymentStatus from './components/Resident/PaymentStatus';
+import AddResNoCode from './components/RoomStatus/AddResNoCode';
+import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
 const Routes = () => {
   return (
     <>
@@ -21,6 +23,8 @@ const Routes = () => {
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
         <Route path="/profile/:personalCode" component={Profile} />
+        <Route path="/resinfo/edit" component={UpdateResInfo} />
+        <Route path="/addresident/nocode" component={AddResNoCode} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
