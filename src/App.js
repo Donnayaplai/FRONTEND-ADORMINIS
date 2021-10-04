@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Routes from './Routes';
 import HomePage from './components/Homepage/Homepage';
 import Navbar from './components/Navbar/Navbar';
+import History from './components/Others/History';
 
 function App() {
   return (
-    <Router>
+    <Router history={History}>
       <Navbar />
       <Switch>
         <Route exact path="/" component={HomePage} />
