@@ -1,4 +1,7 @@
+import axios from 'axios';
+import env from '../../env';
 import React, { useState } from 'react';
+import { Card, Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -12,30 +15,20 @@ const Login = () => {
   const onChangeInput = (e) =>
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const Login = async (e) => {
     e.preventDefault();
+    await axios.post(`${env.url}users/login`, loginData);
     console.log(loginData);
   };
 
-  let button = {
-    backgroundColor: '#8be0f1',
-    textAlign: 'center',
-    color: 'black',
-    fontSize: '1.125rem',
-    height: '50px',
-    maxHeight: '50px',
-    width: '100%',
-    maxWidth: '300px',
-    float: 'right',
-    marginTop: '2rem',
-  };
-  let loginGGButton = {
-    color: '#fff',
-    backgroundColor: '#cd5642',
-    boxShadow: '0px 4px 4px 0px #00000040',
-    width: '100%',
-    maxWidth: '300px',
-  };
+  // let loginGGButton = {
+  //   color: '#fff',
+  //   backgroundColor: '#cd5642',
+  //   boxShadow: '0px 4px 4px 0px #00000040',
+  //   width: '100%',
+  //   maxHeight: '50px',
+  //   height: '100%',
+  // };
 
   //Redirect if logged in
   // if (!isAuthenticated) {
@@ -43,81 +36,82 @@ const Login = () => {
   // }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto mt-3">
-          <div className="card border-0 shadow rounded-3 my-3 ">
-            <div
-              className="card-body p-sm-5"
-              style={{ backgroundColor: '#EAE7E2' }}
+    <Container>
+      <h1>เข้าสู่ระบบ</h1>
+      <Card
+        className="mx-auto p-5 border-0"
+        style={{ backgroundColor: '#EAE7E2', maxWidth: '400px', width: '100%' }}
+      >
+        <Form>
+          <Container>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>อีเมล</Form.Label>
+              <Form.Control
+                type="email"
+                className="border-0"
+                placeholder="อีเมล"
+                name="email"
+                value={email}
+                onChange={(e) => onChangeInput(e)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>รหัสผ่าน</Form.Label>
+              <Form.Control
+                type="password"
+                className="border-0"
+                placeholder="รหัสผ่าน"
+                name="password"
+                value={password}
+                onChange={(e) => onChangeInput(e)}
+                required
+              />
+            </Form.Group>
+          </Container>
+
+          <Container className="d-grid">
+            <Button
+              className="btn mx-auto w-100 mt-3 mb-2"
+              style={{
+                backgroundColor: '#C7E5F0',
+                border: 'none',
+                fontSize: '1em',
+                color: '#000',
+                maxHeight: '50px',
+                height: '100%',
+                boxShadow: '0px 4px 4px 0px #00000040',
+              }}
+              onClick={Login}
             >
-              <h3 className="card-title text-center mb-5 text-uppercase fw-bold">
-                Login with Adorminis
-              </h3>
-              {/* <form onSubmit={onSubmit}> */}
-              <form>
-                <div className="form-group mb-3">
-                  <input
-                    className="form-control border-0 p-2 mx-auto"
-                    type="text"
-                    placeholder="อีเมล"
-                    name="email"
-                    value={email}
-                    onChange={(e) => onChangeInput(e)}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    className="form-control border-0 p-2 mx-auto"
-                    type="password"
-                    placeholder="รหัสผ่าน"
-                    name="password"
-                    value={password}
-                    onChange={(e) => onChangeInput(e)}
-                  />
-                </div>
-                <div className="form-group text-center mt-2">
-                  <Link to="/forgotpassword" className="fs-6">
-                    ลืมรหัสผ่าน
-                  </Link>
-                </div>
+              ลงทะเบียนผู้ใช้ <i className="fas fa-sign-in-alt"></i>
+            </Button>
+            <Link to="/login" className="d-block text-center mt-3 smaill">
+              มีบัญชีผู้ใช้อยู่แล้ว? เข้าสู่ระบบ
+            </Link>
+          </Container>
+          <hr className="mb-3 mt-5" />
 
-                <div className="d-grid mx-auto text-center">
-                  <button
-                    className="btn p-2 mt-3 mb-3 "
-                    type="submit"
-                    onClick={onSubmit}
-                    style={button}
-                  >
-                    เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
-                  </button>
-                </div>
-                <hr className="mb-3" />
-
-                <div className="d-grid">
-                  <button
-                    className="btn p-2 mx-auto"
-                    type="submit"
-                    style={loginGGButton}
-                  >
-                    <i className="fab fa-google me-2"></i>เข้าสู่ระบบด้วย Google
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <Container className="d-grid mx-auto">
+            <Button
+              className="btn p-2 mx-auto w-100"
+              style={{
+                backgroundColor: '#cd5642',
+                border: 'none',
+                fontSize: '1em',
+                color: '#fff',
+                maxHeight: '50px',
+                height: '100%',
+                boxShadow: '0px 4px 4px 0px #00000040',
+              }}
+            >
+              <i className="fab fa-google me-2"></i> เข้าสู่ระบบด้วย Google
+            </Button>
+          </Container>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 export default Login;
-// Login.propTypes = {
-//   login: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool,
-// };
-
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
-// export default connect(mapStateToProps, { login })(Login);

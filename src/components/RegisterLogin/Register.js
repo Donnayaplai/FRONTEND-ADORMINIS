@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import env from '../../env';
 import { Link } from 'react-router-dom';
-import { Roles } from '../../systemdata/Role';
-import './Register.css';
+import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
+  const [registerData, setRegisterData] = useState({
     email: '',
     password: '',
     fname: '',
@@ -12,191 +13,146 @@ const Register = () => {
     IDCardNo: '',
     telno: '',
     gender: '',
-    role: '',
   });
-  const { email, password, fname, lname, IDCardNo, telno, gender, role } =
-    formData;
+  const { email, password, fname, lname, IDCardNo, telno, gender } =
+    registerData;
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const Register = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    await axios.post(`${env.url}users/login`, registerData);
+    console.log(registerData);
   };
-  //   register({ email, password, fname, lname, IDCardNo, telno, gender, role });
-  //   setAlert('You has been registered!', 'success');
-  // };
 
   // if (!isAuthenticated) {
   //   return <Redirect to="/login" />;
   // }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-10 col-xl-9 mx-auto">
-          <div className="card flex-row border-0 shadow rounded-3 overflow-hidden mt-5">
-            <div className="card-img-left d-none d-md-flex" />
-            <div
-              className="card-body p-sm-5"
-              style={{ backgroundColor: '#EAE7E2' }}
+    <Container>
+      <h1>สร้างบัญชีผู้ใช้ใหม่</h1>
+      <Card
+        className="w-75 mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
+        style={{ backgroundColor: '#EAE7E2', maxWidth: '600px', width: '100%' }}
+      >
+        <Form className="w-100 mx-auto p-3">
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridEmail">
+              <Form.Label>ชื่อ</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="ชื่อ"
+                name="fname"
+                value={fname}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridPassword">
+              <Form.Label>นามสกุล</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="นามสกุล"
+                value={lname}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridCity">
+              <Form.Label>เลขประจำตัวประชาชน</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="เลขประจำตัวประชาชน"
+                name="IDCardNo"
+                value={IDCardNo}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+          </Row>
+
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>เพศ</Form.Label>
+              <Form.Select
+                defaultValue="เลือกเพศ..."
+                onChange={(e) => onChange(e)}
+                name="gender"
+                value={gender}
+                required
+              >
+                <option>เลือกเพศ...</option>
+                <option value="1">หญิง</option>
+                <option value="2">ชาย</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridZip">
+              <Form.Label>เบอร์โทร</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="เบอร์โทร"
+                name="telno"
+                value={telno}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="formGridEmail">
+              <Form.Label>อีเมล</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="อีเมล"
+                name="email"
+                value={email}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridPassword">
+              <Form.Label>รหัสผ่าน</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="รหัสผ่าน"
+                name="password"
+                value={password}
+                onChange={(e) => onChange(e)}
+                required
+              />
+            </Form.Group>
+          </Row>
+
+          <hr className="mt-3" />
+          <Container className="d-grid mb-2">
+            <Button
+              className="btn mx-auto w-75 mb-3 mt-3"
+              style={{
+                backgroundColor: '#C7E5F0',
+                border: 'none',
+                fontSize: '1em',
+                color: '#000',
+                maxHeight: '50px',
+                height: '100%',
+                boxShadow: '0px 4px 4px 0px #00000040',
+              }}
+              onClick={Register}
             >
-              <h3 className="card-title text-center mb-3 text-uppercase">
-                Register with Adorminis
-              </h3>
-              {/* <form onSubmit={onSubmit}> */}
-              <form>
-                <div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-input mb-3">
-                        <input
-                          type="email"
-                          className="form-control border-0"
-                          name="email"
-                          value={email}
-                          placeholder="อีเมล"
-                          onChange={(e) => onChange(e)}
-                          required
-                        />
-                      </div>
-                      <div className="form-input mb-3">
-                        <input
-                          type="text"
-                          className="form-control border-0"
-                          name="fname"
-                          placeholder="ชื่อจริง"
-                          onChange={(e) => onChange(e)}
-                          value={fname}
-                          required
-                        />
-                      </div>
-                      <div className="form-input mb-3">
-                        <input
-                          type="text"
-                          className="form-control border-0 "
-                          name="IDCardNo"
-                          placeholder="เลขบัตรประชาชน"
-                          onChange={(e) => onChange(e)}
-                          value={IDCardNo}
-                          required
-                        />
-                      </div>
-                      <div className="form-input mb-2">
-                        <input
-                          type="text"
-                          className="form-control border-0"
-                          placeholder="เบอร์โทรศัพท์"
-                          name="telno"
-                          onChange={(e) => onChange(e)}
-                          value={telno}
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="form-input mb-3">
-                        <input
-                          type="password"
-                          className="form-control border-0"
-                          name="password"
-                          placeholder="รหัสผ่าน"
-                          onChange={(e) => onChange(e)}
-                          value={password}
-                          required
-                        />
-                      </div>
-
-                      <div className="form-input mb-3">
-                        <input
-                          type="text"
-                          className="form-control border-0"
-                          name="lname"
-                          placeholder="นามสกุล"
-                          onChange={(e) => onChange(e)}
-                          value={lname}
-                          required
-                        />
-                      </div>
-                      <div className="form-input mt-3">
-                        <select
-                          className=" form-select border-0"
-                          onChange={(e) => onChange(e)}
-                          value={role}
-                          name="role"
-                        >
-                          {Roles.map((role) => {
-                            return (
-                              <option value={role.id}>{role.label}</option>
-                            );
-                          })}
-                          {/* <option selected>ตำแหน่ง...</option>
-                          <option value='user'>ผู้เช่า</option>
-                          <option value='admin'>พนักงาน</option> */}
-                        </select>
-                      </div>
-                      <div className="form-input mt-3">
-                        <select
-                          className=" form-select border-0"
-                          onChange={(e) => onChange(e)}
-                          name="gender"
-                          value={gender}
-                          required
-                        >
-                          <option selected>เพศ...</option>
-                          <option value="ชาย">ชาย</option>
-                          <option value="หญิง">หญิง</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="d-grid mb-2">
-                    <button
-                      className="btn w-75 p-2 mx-auto mt-5"
-                      type="submit"
-                      onClick={onSubmit}
-                      style={{
-                        color: '#000',
-                        backgroundColor: '#C7E5F0',
-                        boxShadow: '0px 4px 4px 0px #00000040',
-                      }}
-                    >
-                      ลงทะเบียน<i className="fas fa-sign-in-alt"></i>
-                    </button>
-                  </div>
-                  <Link to="/login" className="d-block text-center mt-2 small">
-                    มีบัญชีผู้ใช้อยู่แล้ว ? เข้าสู่ระบบ
-                  </Link>
-
-                  {/*  <hr className="my-4" />
-
-                  <div className="d-grid mb-2">
-                    <button
-                      className="btn btn-lg btn-google btn-login fw-bold"
-                      type="submit"
-                    >
-                      <i className="fab fa-google me-2"></i> ดำเนินการต่อด้วย
-                      Google
-                    </button>
-                  </div> */}
-
-                  {/* <div className='d-grid'>
-                    <button
-                      className='btn btn-lg btn-facebook btn-login fw-bold'
-                      type='submit'
-                    >
-                      <i className='fab fa-facebook-f me-2'></i>
-                      ดำเนินการต่อด้วย Facebook
-                    </button>
-                  </div> */}
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              ลงทะเบียน <i className="fas fa-sign-in-alt"></i>
+            </Button>
+            <Link to="/login" className="d-block text-center mt-2 small">
+              มีบัญชีผู้ใช้อยู่แล้ว? เข้าสู่ระบบ
+            </Link>
+          </Container>
+        </Form>
+      </Card>
+    </Container>
   );
 };
 
