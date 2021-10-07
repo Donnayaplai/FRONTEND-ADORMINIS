@@ -3,7 +3,16 @@ import axios from 'axios';
 import { useHistory, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import env from '../../env';
-import { Modal, Button, Card, Container, Row, Col } from 'react-bootstrap';
+import {
+  Modal,
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  ButtonGroup,
+  Form,
+} from 'react-bootstrap';
 import AddUser from '../../assets/images/add-user.png';
 import RemoveUser from '../../assets/images/delete.png';
 import EditUser from '../../assets/images/edit.png';
@@ -18,11 +27,14 @@ const RoomTable = ({
 }) => {
   const [userInfo, setUserInfo] = useState([]);
   const [selectRoom, setSelectRoom] = useState();
+  const [selectRoomID, setSelectRoomID] = useState();
+  const [selectRentID, setSelectRentID] = useState();
   const [personalCode, setPersonalCode] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
   const [infoModalOpen, setInfoModalOpen] = useState(false);
   const [isAddComplete, setAddComplete] = useState(false);
-
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [isRemoveComplete, setRemoveComplete] = useState(false);
+  const [isAvailable, setAvailable] = useState(false);
   const history = useHistory();
 
   const getUserInfo = async (roomid) => {
@@ -42,7 +54,7 @@ const RoomTable = ({
     console.log('Add resident complete');
     Cancle();
     fetchRooms();
-    setModalOpen(false);
+
     setAddComplete(true);
     console.log(isAddComplete);
 
@@ -59,15 +71,37 @@ const RoomTable = ({
   };
 
   // eslint-disable-next-line no-lone-blocks
-  const removeResident = async (rentid, roomid) => {
-    return await axios.post(`${env.url}/remove/${roomid}/${rentid}`);
+  const removeResident = async () => {
+    console.log(selectRentID);
+    console.log(selectRoomID);
+    await axios.post(
+      `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
+    );
+    // eslint-disable-next-line no-unreachable
+    console.log('Remove resident complete!');
+    setRemoveComplete(true);
+
+    //สร้าง function มาทำ alert กับ push แล้วเรียกฟังก์ชันมาทำใน condition
+
+    // eslint-disable-next-line no-lone-blocks
+    {
+      !isRemoveComplete
+        ? window.alert('การลบผู้เช่าเสร็จสิ้น') && history.push('/')
+        : window.alert('มีบางอย่างผิดพลาด') &&
+          history.push('/all-building/100000003');
+    }
   };
+
+  const disabledInfoButton = async () => {};
 
   const Cancle = async () => {
     setPersonalCode('');
     setSelectRoom('');
-    setModalOpen(false);
     setInfoModalOpen(false);
+    setSelectRoomID('');
+    setSelectRentID('');
+    setShowConfirmDeleteModal(false);
+
     console.log('clear state');
   };
 
@@ -171,6 +205,7 @@ const RoomTable = ({
                     onClick={() => {
                       setInfoModalOpen(true);
                       getUserInfo(room.ROOMID);
+                      console.log(room.ROOMID);
                     }}
                   >
                     <i
@@ -200,168 +235,148 @@ const RoomTable = ({
                     </Modal.Header>
 
                     {userInfo.map((info) => (
-                      <Modal.Body key={info.ROOMID} scrollable>
-                        <Row>
-                          <Col>
-                            <h4 className="fw-bold">ห้อง: {info.ROOMNO}</h4>
-                          </Col>
-                          <Col>
-                            <Button
-                              style={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                float: 'right',
-                              }}
-                            >
-                              <Link to="/resinfo/edit">
-                                <img
-                                  src={EditUser}
-                                  alt="Edit resident info"
-                                  style={{ width: '1.5em' }}
-                                />
-                              </Link>
-                            </Button>
-                            <Button
-                              style={{
-                                backgroundColor: 'transparent',
-                                border: 'none',
-                                float: 'right',
-                              }}
-                            >
-                              <img
-                                src={RemoveUser}
-                                alt="Remove resident"
-                                style={{ width: '1.5em' }}
-                                onClick={removeResident}
-                              />
-                            </Button>
-                          </Col>
-                        </Row>
-                        <Card>
-                          <Card.Body>
-                            <Container>
-                              <Row>
-                                <Col
+                      <Modal.Body key={info.ROOMID} scrollable="true">
+                        <Container>
+                          <Row>
+                            <Col xl={10} md={8} xs={8}>
+                              <h4 className="fw-bold">ห้อง: {info.ROOMNO}</h4>
+                            </Col>
+                            <Col>
+                              <ButtonGroup aria-label="Basic example">
+                                <Link to="/edit/resident/info/">
+                                  <Button
+                                    style={{
+                                      backgroundColor: 'transparent',
+                                      border: 'none',
+                                      boxShadow: 'none',
+                                    }}
+                                  >
+                                    <img
+                                      src={EditUser}
+                                      alt="Edit resident info"
+                                      style={{ width: '1.5em' }}
+                                      onClick={() => {}}
+                                    />
+                                  </Button>
+                                </Link>
+                                <Button
                                   style={{
-                                    fontSize: '1.1rem',
-                                    fontWeight: 'bold',
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    boxShadow: 'none',
+                                  }}
+                                  onClick={() => {
+                                    setSelectRentID(info.RENTID);
+                                    setSelectRoomID(info.ROOMID);
+                                    setShowConfirmDeleteModal(true);
                                   }}
                                 >
-                                  <p>ชื่อ-นามสกุล</p>
-                                  <p>เพศ</p>
-                                  <p>เบอร์โทร</p>
-                                  <p>อีเมล</p>
-                                </Col>
-                                <Col>
-                                  <p>
-                                    {info.FNAME} {info.LNAME}
-                                  </p>
-                                  <p>{info.GENDER}</p>
-                                  <p>{info.TELNO}</p>
-                                  <p>{info.EMAIL}</p>
-                                </Col>
-                              </Row>
-                            </Container>
-                            <hr />
-                            <Container>
-                              <Row>
-                                <Col
-                                  style={{
-                                    fontSize: '1.1rem',
-                                    fontWeight: 'bold',
-                                  }}
+                                  <img
+                                    src={RemoveUser}
+                                    alt="Remove resident"
+                                    style={{ width: '1.5em' }}
+                                  />
+                                </Button>
+                                <Modal
+                                  show={showConfirmDeleteModal}
+                                  onHide={Cancle}
                                 >
-                                  <p>วันเริ่มสัญญา</p>
-                                  <p>วันสิ้นสุดสัญญา</p>
-                                  <p>วันที่เข้าพัก</p>
-                                </Col>
-                                <Col>
-                                  <p>{info.STARTDATE}</p>
-                                  <p>{info.ENDDATE}</p>
-                                  <p>{info.CHECKINDATE}</p>
-                                </Col>
-                              </Row>
-                            </Container>
-                          </Card.Body>
-                        </Card>
+                                  <Modal.Header closeButton>
+                                    <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
+                                  </Modal.Header>
+                                  <Modal.Body>
+                                    Woohoo, you're reading this text in a modal!
+                                  </Modal.Body>
+                                  <Modal.Footer>
+                                    <Button
+                                      variant="secondary"
+                                      onClick={Cancle}
+                                    >
+                                      ยกเลิก
+                                    </Button>
+                                    <Button
+                                      variant="primary"
+                                      onClick={() => removeResident()}
+                                    >
+                                      ยืนยัน
+                                    </Button>
+                                  </Modal.Footer>
+                                </Modal>
+                              </ButtonGroup>
+                            </Col>
+                          </Row>
+                        </Container>
+                        <Form>
+                          <Card>
+                            <Card.Body>
+                              <Container>
+                                <Row>
+                                  <Col
+                                    style={{
+                                      fontSize: '1.1rem',
+                                      fontWeight: 'bold',
+                                    }}
+                                  >
+                                    <p>ชื่อ-นามสกุล</p>
+                                    <p>เพศ</p>
+                                    <p>เบอร์โทร</p>
+                                    <p>อีเมล</p>
+                                  </Col>
+                                  <Col>
+                                    <p>
+                                      {info.FNAME} {info.LNAME}
+                                    </p>
+
+                                    <p>{info.GENDER}</p>
+                                    <p>{info.TELNO}</p>
+                                    <p>{info.EMAIL}</p>
+                                  </Col>
+                                </Row>
+                              </Container>
+                              <hr />
+                              <Container>
+                                <Row>
+                                  <Col
+                                    style={{
+                                      fontSize: '1.1rem',
+                                      fontWeight: 'bold',
+                                    }}
+                                  >
+                                    <p>วันเริ่มสัญญา</p>
+                                    <p>วันสิ้นสุดสัญญา</p>
+                                    <p>วันที่เข้าพัก</p>
+                                  </Col>
+                                  <Col>
+                                    <p>{info.STARTDATE}</p>
+                                    <p>{info.ENDDATE}</p>
+                                    <p>{info.CHECKINDATE}</p>
+                                  </Col>
+                                </Row>
+                              </Container>
+                            </Card.Body>
+                          </Card>
+                        </Form>
                       </Modal.Body>
                     ))}
                   </Modal>
                 </td>
                 <td>
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => {
-                      setSelectRoom(room.ROOMID);
-                      console.log(room.ROOMID);
-                      setModalOpen(true);
-                    }}
-                  >
-                    <img
-                      src={AddUser}
-                      alt="Add resident"
-                      style={{ width: '2em' }}
-                    />
-                  </button>
-                  <Modal show={modalOpen}>
-                    <Modal.Header
-                      closeButton
-                      onClick={Cancle}
-                      style={{ backgroundColor: '#C7E5F0' }}
+                  <Link to="/addresident">
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => {
+                        setSelectRoom(room.ROOMID);
+                        console.log(room.ROOMID);
+                      }}
                     >
-                      <Modal.Title style={{ fontWeight: 'bold' }}>
-                        เพิ่มผู้เช่า
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <form>
-                        <div
-                          style={{
-                            textAlign: 'center',
-                            marginBottom: '5%',
-                          }}
-                        >
-                          <label
-                            htmlFor="personalcode-title"
-                            className="col-form-label"
-                            style={{ marginBottom: '2%', fontSize: '1.25rem' }}
-                          >
-                            รหัสผู้เช่า:
-                          </label>
-                          <input
-                            className="form-control mx-auto w-75 mb-2"
-                            placeholder="โปรดป้อนรหัสผู้เช่า..."
-                            value={personalCode}
-                            onChange={(e) => setPersonalCode(e.target.value)}
-                            style={{
-                              fontSize: '1rem',
-                            }}
-                          ></input>
-                          <p>
-                            <Link to={'/addresident/nocode'} target="_blank">
-                              ไม่มีรหัสผู้เช่า
-                            </Link>
-                          </p>
-                        </div>
-                      </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={Cancle}>
-                        ยกเลิก
-                      </Button>
-                      <Button
-                        variant="primary"
-                        // onClick={addResident}
-                        onClick={() => {
-                          addResident();
-                          setAddComplete(true);
-                        }}
-                      >
-                        ตกลง
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                      <img
+                        src={AddUser}
+                        alt="Add resident"
+                        style={{ width: '2em' }}
+                      />
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}
