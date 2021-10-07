@@ -1,0 +1,153 @@
+button#btn-save.btn.btn-primary {
+  -webkit-appearance: button;
+  background-color: #c7e5f0;
+  border: none;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  max-width: 15rem;
+  width: 100%;
+  max-height: 50px;
+  height: 100%;
+  padding: 0.375rem 0.75rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  vertical-align: middle;
+  word-wrap: break-word;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  justify-items: center;
+}
+
+button#btn-save.btn.btn-primary:hover {
+  background-color: #97d9fb;
+  border-color: #0a58ca;
+}
+
+button#btn-save.btn.btn-primary:focus {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  box-shadow: rgba(55, 58, 63, 0.5) 0 0 0 0.25rem;
+  outline: 0;
+}
+
+button#btn-save.btn.btn-primary:disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+button#btn-save.btn.btn-primary:active {
+  background-color: #0a58ca;
+  border-color: #0a53be;
+}
+
+button#btn-save.btn.btn-primary:active:focus {
+  box-shadow: rgba(49, 132, 253, 0.5) 0 0 0 0.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition-property: none;
+    transition-delay: initial;
+    transition-timing-function: initial;
+    transition-duration: initial;
+  }
+}
+
+i.fas.fa-sign-in-alt {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Font Awesome 5 Free';
+  font-variant-position: normal;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+  text-rendering: auto;
+  word-wrap: break-word;
+}
+
+i.fas.fa-sign-in-alt:before {
+  content: '';
+}
+
+button.btn.btn-primary {
+  background-color: #cd5642;
+  border: none;
+  max-width: 20rem;
+  width: 100%;
+  max-height: 50px;
+  height: 100%;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+button.btn.btn-primary:hover {
+  background-color: #cd5642;
+  color: #000;
+  border: none;
+  max-width: 20rem;
+  width: 100%;
+  max-height: 50px;
+  height: 100%;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+i.fab.fa-google.me-2 {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Font Awesome 5 Brands';
+  font-variant-position: normal;
+  font-weight: 400;
+  line-height: 1;
+  margin-right: 0.5rem;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+  text-rendering: auto;
+  word-wrap: break-word;
+}
+
+i.fab.fa-google.me-2:hover {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Font Awesome 5 Brands';
+  font-variant-position: normal;
+  font-weight: 400;
+  line-height: 1;
+  margin-right: 0.5rem;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+  text-rendering: auto;
+  word-wrap: break-word;
+}
+
+i.fab.fa-google.me-2:before {
+  content: '';
+}
