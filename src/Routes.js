@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import NotFound from './components/Others/NotFound';
-import Register from './components/RegisterLogin/Register';
+import adminRegister from './components/RegisterLogin/adminRegister';
+import residentRegister from './components/RegisterLogin/residentRegister';
+import SelectRole from './components/RegisterLogin/SelectRole';
 import Login from './components/RegisterLogin/Login';
 import Utility from './components/Utility/Utility';
 import UtilitySummary from './components/Utility/UtilitySummary';
@@ -12,19 +14,21 @@ import Room from './components/RoomStatus/Room';
 import Profile from './components/Profile/Profile';
 import Billing from './components/Resident/Invoice';
 import PaymentStatus from './components/Resident/PaymentStatus';
-import AddResNoCode from './components/RoomStatus/AddResNoCode';
 import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
+import AddResident from './components/RoomStatus/AddResident';
 const Routes = () => {
   return (
     <>
       <Switch>
         <Route path="/login" exact component={Login} />
-        <Route path="/register" exact component={Register} />
+        <Route path="/role-selection" component={SelectRole} />
+        <Route path="/admin/register" exact component={adminRegister} />
+        <Route path="/resident/register" exact component={residentRegister} />
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
-        <Route path="/addresident/nocode" component={AddResNoCode} />
+        <Route path="/addresident" component={AddResident} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormSetting} />
