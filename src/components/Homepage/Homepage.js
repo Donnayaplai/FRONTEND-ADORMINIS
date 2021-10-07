@@ -11,7 +11,7 @@ const Homepage = () => {
       <header className="header">
         <h1>ร่วมรับประสบการณ์ดี ๆ กับ ADORMINIS วันนี้!</h1>
         <div className="d-grid gap-2 col-4 mx-auto">
-          <Link to={'/register'}>
+          <Link to={'/role-selection'}>
             <button type="button" className="btn-header">
               สร้างบัญชีใหม่ &nbsp;<i className="fas fa-sign-in-alt fa-2x"></i>
             </button>
