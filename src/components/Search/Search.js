@@ -11,7 +11,6 @@ function Search(props) {
             value={props.searchText}
             onChange={props.handleSearchInput}
             name="search"
-            className="w-100"
           />
         </Form.Group>
       </Form>
