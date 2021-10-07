@@ -7,7 +7,7 @@ import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useHistory } from 'react-router';
 import validation from './validation';
-import AlertMessage from '../Others/Alert';
+
 const residentRegister = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [registerData, setRegisterData] = useState({
@@ -38,8 +38,7 @@ const residentRegister = () => {
     } else if (!isRegisterSuccess) {
       return history.push(`/login`);
     } else {
-      <AlertMessage title="เกิดข้อผิดพลาด" /> &&
-        history.push(`/resident/register`);
+      history.push(`/resident/register`);
     }
     // await axios.post(`${env.url}api/user/adminRegister`, registerData);
     // setRegisterSuccess(true);
