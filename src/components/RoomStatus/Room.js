@@ -14,8 +14,7 @@ const Room = () => {
   const { buildingid } = useParams();
   const [filteredRoom, setFilteredRoom] = useState([]);
   const [searchText, setSearchText] = useState('');
-  // const [selectedStatus, setSelectedStatus] = useState('');
-  // const [filteredStatusRoom, setfilteredStatusRoom] = useState([]);
+
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
