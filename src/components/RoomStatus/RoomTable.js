@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useHistory, withRouter } from 'react-router';
+import { Redirect, useHistory, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import env from '../../env';
 import {
@@ -29,12 +29,11 @@ const RoomTable = ({
   const [selectRoom, setSelectRoom] = useState();
   const [selectRoomID, setSelectRoomID] = useState();
   const [selectRentID, setSelectRentID] = useState();
-  const [personalCode, setPersonalCode] = useState();
   const [infoModalOpen, setInfoModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [isAddComplete, setAddComplete] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [isRemoveComplete, setRemoveComplete] = useState(false);
-  const [isAvailable, setAvailable] = useState(false);
   const history = useHistory();
 
   const getUserInfo = async (roomid) => {
@@ -46,62 +45,57 @@ const RoomTable = ({
   const addResident = async () => {
     const data = await axios.post(
       `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
-      {
-        personalCode: personalCode,
-      }
+      {}
     );
     console.log(data);
     console.log('Add resident complete');
     Cancle();
     fetchRooms();
-
     setAddComplete(true);
     console.log(isAddComplete);
-
-    // eslint-disable-next-line no-lone-blocks
-    // {
-    !isAddComplete ? (
-      history.push({
-        pathname: `/profile/${personalCode}`,
-        state: data.data,
-      })
-    ) : (
-      <h2>มีบางอย่างผิดพลาด</h2>
-    );
   };
 
   // eslint-disable-next-line no-lone-blocks
   const removeResident = async () => {
     console.log(selectRentID);
     console.log(selectRoomID);
-    await axios.post(
-      `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
-    );
+    // await axios.post(
+    //   `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
+    // );
     // eslint-disable-next-line no-unreachable
     console.log('Remove resident complete!');
     setRemoveComplete(true);
 
-    //สร้าง function มาทำ alert กับ push แล้วเรียกฟังก์ชันมาทำใน condition
-
     // eslint-disable-next-line no-lone-blocks
     {
-      !isRemoveComplete
-        ? window.alert('การลบผู้เช่าเสร็จสิ้น') && history.push('/')
-        : window.alert('มีบางอย่างผิดพลาด') &&
-          history.push('/all-building/100000003');
+      !isRemoveComplete ? AlertComplete() : AlertInComplete();
     }
   };
 
-  const disabledInfoButton = async () => {};
+  //สร้าง function มาทำ alert กับ push แล้วเรียกฟังก์ชันมาทำใน condition
+  const AlertComplete = async () => {
+    window.alert('การลบผู้เช่าเสร็จสิ้น');
+    setInfoModalOpen(false);
+    setShowConfirmDeleteModal(false);
+    <Redirect to="/all-room/120000001" />;
+    setRemoveComplete(false);
+  };
+
+  const AlertInComplete = async () => {
+    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+    setInfoModalOpen(false);
+    setShowConfirmDeleteModal(false);
+    <Redirect to="/all-room/120000001" />;
+    setRemoveComplete(false);
+  };
 
   const Cancle = async () => {
-    setPersonalCode('');
     setSelectRoom('');
+    setModalOpen(false);
     setInfoModalOpen(false);
     setSelectRoomID('');
     setSelectRentID('');
     setShowConfirmDeleteModal(false);
-
     console.log('clear state');
   };
 
@@ -206,6 +200,11 @@ const RoomTable = ({
                       setInfoModalOpen(true);
                       getUserInfo(room.ROOMID);
                       console.log(room.ROOMID);
+                      if (room.STATUS === true) {
+                        setInfoModalOpen(false);
+                      } else {
+                        setInfoModalOpen(true);
+                      }
                     }}
                   >
                     <i
@@ -277,15 +276,12 @@ const RoomTable = ({
                                     style={{ width: '1.5em' }}
                                   />
                                 </Button>
-                                <Modal
-                                  show={showConfirmDeleteModal}
-                                  onHide={Cancle}
-                                >
+                                <Modal onHide={Cancle}>
                                   <Modal.Header closeButton>
                                     <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
                                   </Modal.Header>
                                   <Modal.Body>
-                                    Woohoo, you're reading this text in a modal!
+                                    คุณต้องการลบผู้เช่าใช่หรือไม่
                                   </Modal.Body>
                                   <Modal.Footer>
                                     <Button
@@ -368,6 +364,7 @@ const RoomTable = ({
                       onClick={() => {
                         setSelectRoom(room.ROOMID);
                         console.log(room.ROOMID);
+                        setModalOpen(true);
                       }}
                     >
                       <img
@@ -377,6 +374,53 @@ const RoomTable = ({
                       />
                     </button>
                   </Link>
+                  {/* <Modal show={modalOpen} onHide={Cancle}>
+                    <Modal.Header
+                      closeButton
+                      onClick={Cancle}
+                      style={{ backgroundColor: '#C7E5F0' }}
+                    >
+                      <Modal.Title style={{ fontWeight: 'bold' }}>
+                        เพิ่มผู้เช่า
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <form>
+                        <div
+                          style={{
+                            textAlign: 'center',
+                            marginBottom: '5%',
+                          }}
+                        ></div>
+                      </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={Cancle}>
+                        ยกเลิก
+                      </Button>
+                      <Button
+                        style={{
+                          backgroundColor: '#c7e5f0',
+                          border: 'none',
+                          borderRadius: '0.25rem',
+                          color: '#000',
+                          fontSize: '1rem',
+                          fontWeight: 400,
+                          lineHeight: 1.5,
+                          maxWidth: '10rem',
+                          width: '100%',
+                          maxHeight: '50px',
+                          height: '100%',
+                        }}
+                        onClick={() => {
+                          addResident();
+                          setAddComplete(true);
+                        }}
+                      >
+                        ตกลง
+                      </Button>
+                    </Modal.Footer>
+                  </Modal> */}
                 </td>
               </tr>
             ))}
