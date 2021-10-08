@@ -39,8 +39,8 @@ const adminRegister = () => {
         สร้างบัญชีผู้ใช้ใหม่ <i className="fas fa-user-plus"></i>
       </h1>
       <Card
-        className="w-75 mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
-        style={{ backgroundColor: '#EAE7E2' }}
+        className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
+        style={{ backgroundColor: '#EAE7E2', maxWidth: '600px', width: '100%' }}
       >
         <Form className="w-100 p-3">
           <Row className="mb-3">
@@ -75,7 +75,7 @@ const adminRegister = () => {
           </Row>
 
           <Row className="mb-3">
-            <Form.Group as={Col}>
+            <Form.Group as={Col} xs={12} sm={12} md={6} xl={6}>
               <Form.Label sm={'auto'} xs={'auto'}>
                 รหัสบัตรประชาชน
               </Form.Label>
