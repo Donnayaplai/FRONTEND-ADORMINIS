@@ -1,71 +1,91 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from "react";
-import axios from "axios";
-import env from "../../env";
-import { Link } from "react-router-dom";
-import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
-import "./RegisterLogin.css";
-import { useHistory } from "react-router";
-import validation from "./validation";
+import axios from 'axios';
+import env from '../../env';
+import React, { useState } from 'react';
+import { Card, Container, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './RegisterLogin.css';
+import validation from './validation';
 
 const residentRegister = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [registerData, setRegisterData] = useState({
-    idCardNo: "",
-    DOB: "",
-    
+    email: '',
+    password: '',
   });
+  const [errors, setErrors] = useState({});
+
+  const { email, password } = registerData;
+
+  const onChangeInput = (e) =>
+    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+
+  const Register = async (e) => {
+    e.preventDefault();
+    setErrors(validation(registerData));
+    await axios.post(`${env.url}api/user/residentRegister`, registerData);
+    console.log(registerData);
+  };
+
+  //Redirect if logged in
+  // if (!isAuthenticated) {
+  //   return <Redirect to="/profile" />;
+  // }
 
   return (
     <Container>
-      <h1>สร้างบัญชีผู้ใช้ใหม่</h1>
+      <h1>เข้าสู่ระบบ</h1>
       <Card
         className="mx-auto p-5 border-0"
-        style={{ backgroundColor: "#EAE7E2", maxWidth: "400px", width: "100%" }}
+        style={{ backgroundColor: '#EAE7E2', maxWidth: '400px', width: '100%' }}
       >
         <Form>
           <Container>
-            <Form.Group className="mb-3" controlId="formBasicidCardNo">
-              <Form.Label>รหัสบัตรประชาชน</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>อีเมล</Form.Label>
               <Form.Control
-                type="text"
+                type="email"
                 className="border-0"
-                placeholder="รหัสบัตรประชาชน 13 หลัก"
-                name="idCardNo"
-                // value={idCardNo}
-                // onChange={(e) => onChangeInput(e)}
+                placeholder="อีเมล"
+                name="email"
+                value={email}
+                onChange={(e) => onChangeInput(e)}
                 required
               />
+              {errors.email && (
+                <p className="text-danger small">{errors.email}</p>
+              )}
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicDOB">
-              <Form.Label>วันเกิด</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>รหัสผ่าน</Form.Label>
               <Form.Control
-                type="date"
+                type="password"
                 className="border-0"
-                placeholder="วว/ดด/ปปปป"
-                name="DOB"
-                // value={DOB}
-                //onChange={(e) => onChangeInput(e)}
+                placeholder="รหัสผ่าน"
+                name="password"
+                value={password}
+                onChange={(e) => onChangeInput(e)}
                 required
               />
             </Form.Group>
           </Container>
+          <hr className="mb-3 mt-3" />
 
-          <Container>
-            <center>
-              <Button
-                // onClick={next}
-                id="btn-save"
-              >
-                ต่อไป <i className="fas fa-sign-in-alt"></i>
-              </Button>
-            </center>
-          </Container>
+          <center>
+            <Button onClick={Register} id="btn-save">
+              เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
+            </Button>
+          </center>
+          <Link
+            to="/resident/check-account"
+            className="d-block text-center mt-3 small"
+          >
+            ยังไม่มีบัญชีผู้ใช้? ลงทะเบียน
+          </Link>
         </Form>
       </Card>
     </Container>
   );
 };
-
 export default residentRegister;
