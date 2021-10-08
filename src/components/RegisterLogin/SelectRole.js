@@ -32,7 +32,7 @@ const SelectRole = () => {
                 <Card.Title></Card.Title>
                 <Card.Text>
                   <div className="d-flex justify-content-center">
-                    <Link to="/resident/register">
+                    <Link to="/resident/check-account">
                       <Button id="btn-save">ผู้เช่า</Button>
                     </Link>
                   </div>
