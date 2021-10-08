@@ -4,6 +4,8 @@ import env from '../../env';
 import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
+// import { useHistory } from 'react-router';
+import validation from './validation';
 
 const adminRegister = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -13,16 +15,20 @@ const adminRegister = () => {
     fname: '',
     lname: '',
     IDCardNo: '',
+    dob: '',
     telno: '',
     gender: '',
   });
-  const { email, password, fname, lname, IDCardNo, telno, gender } =
+  const { email, password, fname, lname, IDCardNo, dob, telno, gender } =
     registerData;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [errors, setErrors] = useState({});
   const onChange = (e) =>
     setRegisterData({ ...registerData, [e.target.name]: e.target.value });
 
   const Register = async (e) => {
     e.preventDefault();
+    setErrors(validation(registerData));
     await axios.post(`${env.url}api/user/adminRegister`, registerData);
     console.log(registerData);
   };
@@ -34,10 +40,10 @@ const adminRegister = () => {
       </h1>
       <Card
         className="w-75 mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
-        style={{ backgroundColor: '#EAE7E2', maxWidth: '600px', width: '100%' }}
+        style={{ backgroundColor: '#EAE7E2' }}
       >
         <Form className="w-100 p-3">
-          <Row>
+          <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>ชื่อ</Form.Label>
               <Form.Control
@@ -48,6 +54,9 @@ const adminRegister = () => {
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.fname && (
+                <p className="text-danger small pt-2">{errors.fname}</p>
+              )}
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -59,23 +68,31 @@ const adminRegister = () => {
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.lname && (
+                <p className="text-danger small pt-2">{errors.lname}</p>
+              )}
             </Form.Group>
           </Row>
+
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>เลขประจำตัวประชาชน</Form.Label>
+              <Form.Label sm={'auto'} xs={'auto'}>
+                รหัสบัตรประชาชน
+              </Form.Label>
               <Form.Control
+                sm={'auto'}
+                xs={'auto'}
                 type="text"
-                placeholder="เลขประจำตัวประชาชน"
+                placeholder="รหัสบัตรประชาชน"
                 name="IDCardNo"
                 value={IDCardNo}
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.IDCardNo && (
+                <p className="text-danger small pt-2">{errors.IDCardNo}</p>
+              )}
             </Form.Group>
-          </Row>
-
-          <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>เพศ</Form.Label>
               <Form.Select
@@ -89,6 +106,9 @@ const adminRegister = () => {
                 <option value="1">หญิง</option>
                 <option value="2">ชาย</option>
               </Form.Select>
+              {errors.gender && (
+                <p className="text-danger small pt-2">{errors.gender}</p>
+              )}
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -101,6 +121,9 @@ const adminRegister = () => {
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.telno && (
+                <p className="text-danger small pt-2">{errors.telno}</p>
+              )}
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -114,6 +137,9 @@ const adminRegister = () => {
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.email && (
+                <p className="text-danger small pt-2">{errors.email}</p>
+              )}
             </Form.Group>
 
             <Form.Group as={Col}>
@@ -126,6 +152,9 @@ const adminRegister = () => {
                 onChange={(e) => onChange(e)}
                 required
               />
+              {errors.password && (
+                <p className="text-danger small pt-2">{errors.password}</p>
+              )}
             </Form.Group>
           </Row>
 
@@ -143,7 +172,7 @@ const adminRegister = () => {
               ลงทะเบียน <i className="fas fa-sign-in-alt"></i>
             </Button>
             <Link to="/login" className="d-block text-center mt-2 small">
-              มีบัญชีผู้ใช้อยู่แล้ว? เข้าสู่ระบบ
+              มีบัญชีอยู่แล้วใช่ไหม? เข้าสู่ระบบ
             </Link>
           </Container>
         </Form>
