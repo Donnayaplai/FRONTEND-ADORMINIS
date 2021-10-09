@@ -8,7 +8,8 @@ import SelectRole from './components/RegisterLogin/SelectRole';
 import Login from './components/RegisterLogin/Login';
 import Utility from './components/Utility/Utility';
 import UtilitySummary from './components/Utility/UtilitySummary';
-import DormSetting from './components/Dorm/DormSetting';
+// import DormSetting from './components/Dorm/DormSetting';
+import DormitorySetting from './components/Dorm/DormitorySetting';
 import BuildingList from './components/RoomStatus/BuildingList';
 import Room from './components/RoomStatus/Room';
 import Profile from './components/Profile/Profile';
@@ -33,7 +34,7 @@ const Routes = () => {
         <Route path="/addresident" component={AddResident} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
-        <Route path="/dormsetting" component={DormSetting} />
+        <Route path="/dormsetting" component={DormitorySetting} />
         <Route path="/resident/invoice" component={Billing} />
         <Route path="/resident/payment/status" component={PaymentStatus} />
         <Route path="*" component={NotFound} />
