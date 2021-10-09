@@ -3,8 +3,9 @@ import env from '../../env';
 import { useState } from 'react';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-// import { useHistory } from 'react-router';
-const AddResident = ({ ...props }) => {
+import { withRouter, useLocation } from 'react-router';
+
+const AddResident = () => {
   const [isAddComplete, setAddComplete] = useState(false);
   const [formData, setFormData] = useState({
     fname: '',
@@ -30,15 +31,21 @@ const AddResident = ({ ...props }) => {
   } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  const location = useLocation();
 
   const addResident = async (e) => {
-    console.log(formData);
-    // await axios.post(`${env.url}addNoCode/:buildingID/:roomID`, {
-    //   formData: formData,
-    // });
+    const residentinfo = await console.log(formData);
+    axios.post(
+      `${env.url}api/room/${location.state.buildingID}/${location.state.roomID}`,
+      {
+        formData: formData,
+      }
+    );
+    console.log(residentinfo);
     setAddComplete(true);
+    console.log(isAddComplete);
   };
-
+  // console.log(location.state);
   return (
     <>
       <h1>เพิ่มผู้เช่า</h1>
@@ -222,4 +229,4 @@ const AddResident = ({ ...props }) => {
   );
 };
 
-export default AddResident;
+export default withRouter(AddResident);
