@@ -34,7 +34,7 @@ const residentRegister = () => {
 
   return (
     <Container>
-      <h1>เข้าสู่ระบบ</h1>
+      <h1>ลงทะเบียนผู้ใช้งาน</h1>
       <Card
         className="mx-auto p-5 border-0"
         style={{ backgroundColor: '#EAE7E2', maxWidth: '400px', width: '100%' }}

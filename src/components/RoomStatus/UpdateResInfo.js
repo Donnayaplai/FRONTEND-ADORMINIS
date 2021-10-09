@@ -16,7 +16,6 @@ const UpdateResInfo = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const history = useHistory();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const onSubmit = async (e) => {

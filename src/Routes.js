@@ -31,7 +31,7 @@ const Routes = () => {
         <Route path="/all-room/:buildingid" component={Room} />
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
-        <Route path="/addresident" component={AddResident} />
+        <Route path="/addresident/:buildingid/:roomid" component={AddResident} />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormitorySetting} />

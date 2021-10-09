@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Redirect, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
-import env from '../../env';
+import React, { useState } from "react";
+import axios from "axios";
+import { Redirect, withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import env from "../../env";
 import {
   Modal,
   Button,
@@ -12,10 +12,10 @@ import {
   Col,
   ButtonGroup,
   Form,
-} from 'react-bootstrap';
-import AddUser from '../../assets/images/add-user.png';
-import RemoveUser from '../../assets/images/delete.png';
-import EditUser from '../../assets/images/edit.png';
+} from "react-bootstrap";
+import AddUser from "../../assets/images/add-user.png";
+import RemoveUser from "../../assets/images/delete.png";
+import EditUser from "../../assets/images/edit.png";
 
 const RoomTable = ({
   rooms,
@@ -30,11 +30,24 @@ const RoomTable = ({
   const [selectRoomID, setSelectRoomID] = useState();
   const [selectRentID, setSelectRentID] = useState();
   const [infoModalOpen, setInfoModalOpen] = useState(false);
-  // const [modalOpen, setModalOpen] = useState(false);
-  // const [isAddComplete, setAddComplete] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [isRemoveComplete, setRemoveComplete] = useState(false);
   // const history = useHistory();
+const[editUserID,seteditUserID] = useState(null);
+//const[editUserData,seteditUserData] = useState();
+const [editUserData,seteditUserData] = useState({
+  
+   startDate: '',
+   endDate: '',
+   checkInDate: '',
+ });
+ const {
+   startDate,
+   endDate,
+   checkInDate,
+ } = editUserData;
+ const onChangeEditInput = (e) =>
+ seteditUserData({ ...editUserData, [e.target.name]: e.target.value });
 
   const getUserInfo = async (roomid) => {
     let res = await axios.get(`${env.url}api/user/info/${roomid}`);
@@ -59,11 +72,11 @@ const RoomTable = ({
   const removeResident = async () => {
     console.log(selectRentID);
     console.log(selectRoomID);
-    // await axios.post(
-    //   `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
-    // );
+    await axios.post(
+      `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
+    );
     // eslint-disable-next-line no-unreachable
-    console.log('Remove resident complete!');
+    console.log("Remove resident complete!");
     setRemoveComplete(true);
     setShowConfirmDeleteModal(false);
     setInfoModalOpen(false);
@@ -77,7 +90,7 @@ const RoomTable = ({
 
   //สร้าง function มาทำ alert กับ push แล้วเรียกฟังก์ชันมาทำใน condition
   const AlertComplete = async () => {
-    window.alert('การลบผู้เช่าเสร็จสิ้น');
+    window.alert("การลบผู้เช่าเสร็จสิ้น");
     setInfoModalOpen(false);
     setShowConfirmDeleteModal(false);
     <Redirect to="/all-room/120000001" />;
@@ -85,7 +98,7 @@ const RoomTable = ({
   };
 
   const AlertInComplete = async () => {
-    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+    window.alert("มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง");
     setInfoModalOpen(false);
     setShowConfirmDeleteModal(false);
     <Redirect to="/all-room/120000001" />;
@@ -93,17 +106,17 @@ const RoomTable = ({
   };
 
   const Cancle = async () => {
-    setSelectRoom('');
+    setSelectRoom("");
     // setModalOpen(false);
     setInfoModalOpen(false);
-    setSelectRoomID('');
-    setSelectRentID('');
+    setSelectRoomID("");
+    setSelectRentID("");
     setShowConfirmDeleteModal(false);
-    console.log('clear state');
+    console.log("clear state");
   };
 
   const getRooms = () => {
-    if (searchText === '') {
+    if (searchText === "") {
       return rooms;
     } else {
       return filteredRoom;
@@ -112,6 +125,17 @@ const RoomTable = ({
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
+
+  const Edituser = async (RENTID,CONTRACTOFRENTID) => {
+    // const editData = await  axios.post(
+    //   `${env.url}api/room/edit/:rentID/:CoRID'${props.match.params.buildingid}/${props.match.params.roomid}`,
+    //   {
+    //     editUserData: editUserData,
+
+    //   }
+    // );
+    console.log(RENTID,CONTRACTOFRENTID)
   }
 
   return (
@@ -125,13 +149,13 @@ const RoomTable = ({
         <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
           <thead
             style={{
-              backgroundColor: '#C7E5F0',
-              textAlign: 'center',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '18px',
-              height: '30px',
-              border: 'none',
+              backgroundColor: "#C7E5F0",
+              textAlign: "center",
+              color: "black",
+              fontWeight: "bold",
+              fontSize: "18px",
+              height: "30px",
+              border: "none",
             }}
           >
             <tr>
@@ -147,9 +171,9 @@ const RoomTable = ({
             {getRooms().map((room) => (
               <tr
                 style={{
-                  backgroundColor: '#EAE7E2',
-                  border: 'none',
-                  textAlign: 'center',
+                  backgroundColor: "#EAE7E2",
+                  border: "none",
+                  textAlign: "center",
                 }}
                 key={room.ROOMID}
               >
@@ -161,14 +185,14 @@ const RoomTable = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: '#32CD32',
-                        color: '#fff',
-                        maxWidth: '100px',
-                        width: '100%',
-                        height: '30px',
-                        fontSize: '16px',
-                        margin: '10px',
-                        padding: '3px',
+                        backgroundColor: "#32CD32",
+                        color: "#fff",
+                        maxWidth: "100px",
+                        width: "100%",
+                        height: "30px",
+                        fontSize: "16px",
+                        margin: "10px",
+                        padding: "3px",
                       }}
                       disabled
                     >
@@ -179,14 +203,14 @@ const RoomTable = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: '#FF0000',
-                        color: '#fff',
-                        maxWidth: '100px',
-                        width: '100%',
-                        height: '30px',
-                        fontSize: '16px',
-                        margin: '10px',
-                        padding: '5px',
+                        backgroundColor: "#FF0000",
+                        color: "#fff",
+                        maxWidth: "100px",
+                        width: "100%",
+                        height: "30px",
+                        fontSize: "16px",
+                        margin: "10px",
+                        padding: "5px",
                       }}
                       disabled
                     >
@@ -213,8 +237,8 @@ const RoomTable = ({
                     <i
                       className="fas fa-info-circle"
                       style={{
-                        color: '#8D9293',
-                        fontSize: '2em',
+                        color: "#8D9293",
+                        fontSize: "2em",
                       }}
                     ></i>
                   </button>
@@ -227,7 +251,7 @@ const RoomTable = ({
                     <Modal.Header
                       closeButton={Cancle}
                       onClick={Cancle}
-                      style={{ backgroundColor: '#C7E5F0' }}
+                      style={{ backgroundColor: "#C7E5F0" }}
                     >
                       <Modal.Title>
                         <h2 className="bold">
@@ -237,7 +261,7 @@ const RoomTable = ({
                     </Modal.Header>
 
                     {userInfo.map((info) => (
-                      <Modal.Body key={info.ROOMID} scrollable="true">
+                      <Modal.Body key={info.USERID} scrollable="true">
                         <Container>
                           <Row>
                             <Col xl={10} md={8} xs={8}>
@@ -245,65 +269,43 @@ const RoomTable = ({
                             </Col>
                             <Col>
                               <ButtonGroup aria-label="Basic example">
-                                <Link to="/edit/resident/info/">
+                                
                                   <Button
                                     style={{
-                                      backgroundColor: 'transparent',
-                                      border: 'none',
-                                      boxShadow: 'none',
+                                      backgroundColor: "transparent",
+                                      border: "none",
+                                      boxShadow: "none",
                                     }}
                                   >
                                     <img
                                       src={EditUser}
                                       alt="Edit resident info"
-                                      style={{ width: '1.5em' }}
-                                      onClick={() => {}}
+                                      style={{ width: "1.5em" }}
+                                      onClick={() => {seteditUserID(info.USERID)
+                                      console.log(info.RENTID)
+                                      }}
                                     />
                                   </Button>
-                                </Link>
+                               
                                 <Button
                                   style={{
-                                    backgroundColor: 'transparent',
-                                    border: 'none',
-                                    boxShadow: 'none',
+                                    backgroundColor: "transparent",
+                                    border: "none",
+                                    boxShadow: "none",
                                   }}
                                   onClick={() => {
                                     setSelectRentID(info.RENTID);
                                     setSelectRoomID(info.ROOMID);
                                     setShowConfirmDeleteModal(true);
+                                    setInfoModalOpen(false);
                                   }}
                                 >
                                   <img
                                     src={RemoveUser}
                                     alt="Remove resident"
-                                    style={{ width: '1.5em' }}
+                                    style={{ width: "1.5em" }}
                                   />
                                 </Button>
-                                <Modal
-                                  show={showConfirmDeleteModal}
-                                  onHide={Cancle}
-                                >
-                                  <Modal.Header closeButton>
-                                    <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
-                                  </Modal.Header>
-                                  <Modal.Body>
-                                    คุณต้องการลบผู้เช่าใช่หรือไม่
-                                  </Modal.Body>
-                                  <Modal.Footer>
-                                    <Button
-                                      variant="secondary"
-                                      onClick={Cancle}
-                                    >
-                                      ยกเลิก
-                                    </Button>
-                                    <Button
-                                      variant="primary"
-                                      onClick={() => removeResident()}
-                                    >
-                                      ยืนยัน
-                                    </Button>
-                                  </Modal.Footer>
-                                </Modal>
                               </ButtonGroup>
                             </Col>
                           </Row>
@@ -315,8 +317,8 @@ const RoomTable = ({
                                 <Row>
                                   <Col
                                     style={{
-                                      fontSize: '1.1rem',
-                                      fontWeight: 'bold',
+                                      fontSize: "1.1rem",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <p>ชื่อ-นามสกุล</p>
@@ -340,19 +342,43 @@ const RoomTable = ({
                                 <Row>
                                   <Col
                                     style={{
-                                      fontSize: '1.1rem',
-                                      fontWeight: 'bold',
+                                      fontSize: "1.1rem",
+                                      fontWeight: "bold",
                                     }}
                                   >
                                     <p>วันเริ่มสัญญา</p>
                                     <p>วันสิ้นสุดสัญญา</p>
                                     <p>วันที่เข้าพัก</p>
                                   </Col>
-                                  <Col>
-                                    <p>{info.STARTDATE}</p>
-                                    <p>{info.ENDDATE}</p>
-                                    <p>{info.CHECKINDATE}</p>
-                                  </Col>
+                                  <Form>
+                                    <Col>
+                                      <Form.Control type="date" 
+                                      value={info.STARTDATE} 
+                                      disabled ={info.USERID !== editUserID } 
+                                      name=" startDate"
+                                      //value={ startDate}
+                                      type="date"
+                                     // onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                      <Form.Control type="date" value={info.ENDDATE} disabled ={info.USERID !== editUserID}
+                                      name="endDate"
+                                      value={endDate}
+                                      type="date"
+                                      onChange={(e) => onChangeEditInput(e)}
+                                        />
+                                      <Form.Control type="date" value={info.CHECKINDATE} disabled ={info.USERID !== editUserID }
+                                      name=" checkInDate"
+                                      value={ checkInDate}
+                                      type="date"
+                                      onChange={(e) => onChangeEditInput(e)}
+                                        />
+                                      
+                                    </Col>
+                                    <Button variant="secondary" onClick={() => Edituser(info.RENTID,info.CONTRACTOFRENTID)
+                                    }>
+                        บันทึก
+                      </Button>
+                                  </Form>
                                 </Row>
                               </Container>
                             </Card.Body>
@@ -361,9 +387,28 @@ const RoomTable = ({
                       </Modal.Body>
                     ))}
                   </Modal>
+                  <Modal show={showConfirmDeleteModal} onHide={Cancle}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>คุณต้องการลบผู้เช่าใช่หรือไม่</Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={Cancle}>
+                        ยกเลิก
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={() => removeResident()}
+                      >
+                        ยืนยัน
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </td>
                 <td>
-                  <Link to="/addresident">
+                  <Link
+                    to={`/addresident/${props.match.params.buildingid}/${room.ROOMID}`}
+                  >
                     <button
                       type="button"
                       className="btn"
@@ -376,57 +421,11 @@ const RoomTable = ({
                       <img
                         src={AddUser}
                         alt="Add resident"
-                        style={{ width: '2em' }}
+                        style={{ width: "2em" }}
                       />
                     </button>
                   </Link>
-                  {/* <Modal show={modalOpen} onHide={Cancle}>
-                    <Modal.Header
-                      closeButton
-                      onClick={Cancle}
-                      style={{ backgroundColor: '#C7E5F0' }}
-                    >
-                      <Modal.Title style={{ fontWeight: 'bold' }}>
-                        เพิ่มผู้เช่า
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <form>
-                        <div
-                          style={{
-                            textAlign: 'center',
-                            marginBottom: '5%',
-                          }}
-                        ></div>
-                      </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={Cancle}>
-                        ยกเลิก
-                      </Button>
-                      <Button
-                        style={{
-                          backgroundColor: '#c7e5f0',
-                          border: 'none',
-                          borderRadius: '0.25rem',
-                          color: '#000',
-                          fontSize: '1rem',
-                          fontWeight: 400,
-                          lineHeight: 1.5,
-                          maxWidth: '10rem',
-                          width: '100%',
-                          maxHeight: '50px',
-                          height: '100%',
-                        }}
-                        onClick={() => {
-                          addResident();
-                          setAddComplete(true);
-                        }}
-                      >
-                        ตกลง
-                      </Button>
-                    </Modal.Footer>
-                  </Modal> */}
+                  
                 </td>
               </tr>
             ))}

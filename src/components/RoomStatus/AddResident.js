@@ -5,29 +5,29 @@ import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter, useLocation } from 'react-router';
 
-const AddResident = () => {
+const AddResident = (props) => {
   const [isAddComplete, setAddComplete] = useState(false);
   const [formData, setFormData] = useState({
-    fname: '',
-    lname: '',
-    IDCardNo: '',
+   fName: '',
+   lName: '',
+    idCardNo: '',
     telno: '',
-    dob: '',
+    dateOfBirth: '',
     gender: '',
     startDate: '',
     endDate: '',
-    checkinDate: '',
+    checkInDate: '',
   });
   const {
-    fname,
-    lname,
-    IDCardNo,
+   fName,
+   lName,
+    idCardNo,
     telno,
-    dob,
+    dateOfBirth,
     gender,
     startDate,
     endDate,
-    checkinDate,
+    checkInDate,
   } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +36,7 @@ const AddResident = () => {
   const addResident = async (e) => {
     const residentinfo = await console.log(formData);
     axios.post(
-      `${env.url}api/room/${location.state.buildingID}/${location.state.roomID}`,
+      `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
       {
         formData: formData,
       }
@@ -62,8 +62,8 @@ const AddResident = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>ชื่อ</Form.Label>
                     <Form.Control
-                      name="fname"
-                      value={fname}
+                      name="fName"
+                      value={fName}
                       type="text"
                       placeholder="สมศรี"
                       onChange={(e) => onChange(e)}
@@ -75,8 +75,8 @@ const AddResident = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>นามสกุล</Form.Label>
                     <Form.Control
-                      name="lname"
-                      value={lname}
+                      name="lName"
+                      value={lName}
                       type="text"
                       placeholder="โชคดี"
                       onChange={(e) => onChange(e)}
@@ -88,8 +88,8 @@ const AddResident = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>วันเกิด</Form.Label>
                     <Form.Control
-                      name="dob"
-                      value={dob}
+                      name="dateOfBirth"
+                      value={dateOfBirth}
                       type="date"
                       onChange={(e) => onChange(e)}
                       required
@@ -102,8 +102,8 @@ const AddResident = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>รหัสบัตรประชาชน</Form.Label>
                     <Form.Control
-                      name="IDCardNo"
-                      value={IDCardNo}
+                      name="idCardNo"
+                      value={idCardNo}
                       type="text"
                       placeholder="xxxxxxxxxxxxx"
                       onChange={(e) => onChange(e)}
@@ -192,8 +192,8 @@ const AddResident = () => {
                   <Form.Group className="mb-3">
                     <Form.Label>วันที่เข้าพัก</Form.Label>
                     <Form.Control
-                      name="checkinDate"
-                      value={checkinDate}
+                      name="checkInDate"
+                      value={checkInDate}
                       type="date"
                       onChange={(e) => onChange(e)}
                       required
