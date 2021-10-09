@@ -11,7 +11,7 @@ const AddResident = (props) => {
    fName: '',
    lName: '',
     idCardNo: '',
-    telno: '',
+    telNo: '',
     dateOfBirth: '',
     gender: '',
     startDate: '',
@@ -22,7 +22,7 @@ const AddResident = (props) => {
    fName,
    lName,
     idCardNo,
-    telno,
+    telNo,
     dateOfBirth,
     gender,
     startDate,
@@ -115,8 +115,8 @@ const AddResident = (props) => {
                   <Form.Group className="mb-3">
                     <Form.Label>เบอร์โทรศัพท์</Form.Label>
                     <Form.Control
-                      name="telno"
-                      value={telno}
+                      name="telNo"
+                      value={telNo}
                       type="text"
                       placeholder="0xx-xxx-xxxx"
                       onChange={(e) => onChange(e)}
