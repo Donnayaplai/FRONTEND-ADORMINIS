@@ -324,7 +324,7 @@ const [editUserData,seteditUserData] = useState({
                                     <p>ชื่อ-นามสกุล</p>
                                     <p>เพศ</p>
                                     <p>เบอร์โทร</p>
-                                    <p>อีเมล</p>
+                                   
                                   </Col>
                                   <Col>
                                     <p>
@@ -333,7 +333,7 @@ const [editUserData,seteditUserData] = useState({
 
                                     <p>{info.GENDER}</p>
                                     <p>{info.TELNO}</p>
-                                    <p>{info.EMAIL}</p>
+                                  
                                   </Col>
                                 </Row>
                               </Container>
