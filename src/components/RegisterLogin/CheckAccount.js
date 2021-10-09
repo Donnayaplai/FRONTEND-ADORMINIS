@@ -9,25 +9,25 @@ import validation from './validation';
 
 const CheckAccount = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [registerData, setRegisterData] = useState({
+  const [verifyData, setVerifyData] = useState({
     idCardNo: '',
-    dob: '',
+    dateofBirth: '',
   });
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [errors, setErrors] = useState({});
   const [isFindUser, setFindUser] = useState(false);
 
-  const { idCardNo, dob } = registerData;
+  const { idCardNo, dateofBirth } = verifyData;
 
   const onChangeInput = (e) =>
-    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+    setVerifyData({ ...verifyData, [e.target.name]: e.target.value });
 
   const history = useHistory();
 
   const checkExistAccount = async (e) => {
-    setErrors(validation(registerData));
-    await axios.post(`${env.url}api/user/adminRegister`, { registerData });
-    console.log(registerData);
+    setErrors(validation(verifyData));
+    await axios.post(`${env.url}api/user/verifyUser`, { verifyData });
+    console.log(verifyData);
     setFindUser(true);
     console.log(isFindUser);
 
@@ -36,6 +36,8 @@ const CheckAccount = () => {
       isFindUser ? history.push('/') : history.push('/');
     }
   };
+
+  //ส่ง userid ไป หน้า register
 
   return (
     <Container>
@@ -68,8 +70,8 @@ const CheckAccount = () => {
                 type="date"
                 className="border-0"
                 placeholder="วว/ดด/ปปปป"
-                name="dob"
-                value={dob}
+                name="dateofBirth"
+                value={dateofBirth}
                 onChange={(e) => onChangeInput(e)}
                 required
               />
