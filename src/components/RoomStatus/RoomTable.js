@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Redirect, useHistory, withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import env from '../../env';
 import {
@@ -30,11 +30,11 @@ const RoomTable = ({
   const [selectRoomID, setSelectRoomID] = useState();
   const [selectRentID, setSelectRentID] = useState();
   const [infoModalOpen, setInfoModalOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [isAddComplete, setAddComplete] = useState(false);
+  // const [modalOpen, setModalOpen] = useState(false);
+  // const [isAddComplete, setAddComplete] = useState(false);
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [isRemoveComplete, setRemoveComplete] = useState(false);
-  const history = useHistory();
+  // const history = useHistory();
 
   const getUserInfo = async (roomid) => {
     let res = await axios.get(`${env.url}api/user/info/${roomid}`);
@@ -42,18 +42,18 @@ const RoomTable = ({
     console.log(res.data);
   };
 
-  const addResident = async () => {
-    const data = await axios.post(
-      `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
-      {}
-    );
-    console.log(data);
-    console.log('Add resident complete');
-    Cancle();
-    fetchRooms();
-    setAddComplete(true);
-    console.log(isAddComplete);
-  };
+  // const addResident = async () => {
+  //   const data = await axios.post(
+  //     `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
+  //     {}
+  //   );
+  //   console.log(data);
+  //   console.log('Add resident complete');
+  //   Cancle();
+  //   fetchRooms();
+  //   setAddComplete(true);
+  //   console.log(isAddComplete);
+  // };
 
   // eslint-disable-next-line no-lone-blocks
   const removeResident = async () => {
@@ -65,6 +65,9 @@ const RoomTable = ({
     // eslint-disable-next-line no-unreachable
     console.log('Remove resident complete!');
     setRemoveComplete(true);
+    setShowConfirmDeleteModal(false);
+    setInfoModalOpen(false);
+    fetchRooms();
 
     // eslint-disable-next-line no-lone-blocks
     {
@@ -91,7 +94,7 @@ const RoomTable = ({
 
   const Cancle = async () => {
     setSelectRoom('');
-    setModalOpen(false);
+    // setModalOpen(false);
     setInfoModalOpen(false);
     setSelectRoomID('');
     setSelectRentID('');
@@ -222,7 +225,7 @@ const RoomTable = ({
                     size="lg"
                   >
                     <Modal.Header
-                      closeButton
+                      closeButton={Cancle}
                       onClick={Cancle}
                       style={{ backgroundColor: '#C7E5F0' }}
                     >
@@ -276,7 +279,10 @@ const RoomTable = ({
                                     style={{ width: '1.5em' }}
                                   />
                                 </Button>
-                                <Modal onHide={Cancle}>
+                                <Modal
+                                  show={showConfirmDeleteModal}
+                                  onHide={Cancle}
+                                >
                                   <Modal.Header closeButton>
                                     <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
                                   </Modal.Header>
@@ -364,7 +370,7 @@ const RoomTable = ({
                       onClick={() => {
                         setSelectRoom(room.ROOMID);
                         console.log(room.ROOMID);
-                        setModalOpen(true);
+                        // setModalOpen(true);
                       }}
                     >
                       <img
