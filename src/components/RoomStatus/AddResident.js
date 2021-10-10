@@ -3,13 +3,13 @@ import env from '../../env';
 import { useState } from 'react';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withRouter, useLocation } from 'react-router';
+import { withRouter } from 'react-router';
 
 const AddResident = (props) => {
   const [isAddComplete, setAddComplete] = useState(false);
   const [formData, setFormData] = useState({
-   fName: '',
-   lName: '',
+    fName: '',
+    lName: '',
     idCardNo: '',
     telNo: '',
     dateOfBirth: '',
@@ -19,8 +19,8 @@ const AddResident = (props) => {
     checkInDate: '',
   });
   const {
-   fName,
-   lName,
+    fName,
+    lName,
     idCardNo,
     telNo,
     dateOfBirth,
@@ -31,7 +31,6 @@ const AddResident = (props) => {
   } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  const location = useLocation();
 
   const addResident = async (e) => {
     const residentinfo = await console.log(formData);
@@ -45,7 +44,7 @@ const AddResident = (props) => {
     setAddComplete(true);
     console.log(isAddComplete);
   };
-  // console.log(location.state);
+
   return (
     <>
       <h1>เพิ่มผู้เช่า</h1>
