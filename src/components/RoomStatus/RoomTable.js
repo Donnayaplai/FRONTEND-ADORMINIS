@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Redirect, withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import env from "../../env";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Redirect, withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import env from '../../env';
 import {
   Modal,
   Button,
@@ -12,10 +12,10 @@ import {
   Col,
   ButtonGroup,
   Form,
-} from "react-bootstrap";
-import AddUser from "../../assets/images/add-user.png";
-import RemoveUser from "../../assets/images/delete.png";
-import EditUser from "../../assets/images/edit.png";
+} from 'react-bootstrap';
+import AddUser from '../../assets/images/add-user.png';
+import RemoveUser from '../../assets/images/delete.png';
+import EditUser from '../../assets/images/edit.png';
 
 const RoomTable = ({
   rooms,
@@ -33,40 +33,22 @@ const RoomTable = ({
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [isRemoveComplete, setRemoveComplete] = useState(false);
   // const history = useHistory();
-const[editUserID,seteditUserID] = useState(null);
-//const[editUserData,seteditUserData] = useState();
-const [editUserData,seteditUserData] = useState({
-  
-   startDate: '',
-   endDate: '',
-   checkInDate: '',
- });
- const {
-   startDate,
-   endDate,
-   checkInDate,
- } = editUserData;
- const onChangeEditInput = (e) =>
- seteditUserData({ ...editUserData, [e.target.name]: e.target.value });
+  const [isEditMode, setEditMode] = useState(false);
+  const [editUserID, seteditUserID] = useState(null);
+  const [editUserData, seteditUserData] = useState({
+    startDate: '',
+    endDate: '',
+    checkInDate: '',
+  });
+  const { startDate, endDate, checkInDate } = editUserData;
+  const onChangeEditInput = (e) =>
+    seteditUserData({ ...editUserData, [e.target.name]: e.target.value });
 
   const getUserInfo = async (roomid) => {
     let res = await axios.get(`${env.url}api/user/info/${roomid}`);
     setUserInfo(res.data);
     console.log(res.data);
   };
-
-  // const addResident = async () => {
-  //   const data = await axios.post(
-  //     `${env.url}api/room/${props.match.params.buildingid}/${selectRoom}`,
-  //     {}
-  //   );
-  //   console.log(data);
-  //   console.log('Add resident complete');
-  //   Cancle();
-  //   fetchRooms();
-  //   setAddComplete(true);
-  //   console.log(isAddComplete);
-  // };
 
   // eslint-disable-next-line no-lone-blocks
   const removeResident = async () => {
@@ -76,7 +58,7 @@ const [editUserData,seteditUserData] = useState({
       `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
     );
     // eslint-disable-next-line no-unreachable
-    console.log("Remove resident complete!");
+    console.log('Remove resident complete!');
     setRemoveComplete(true);
     setShowConfirmDeleteModal(false);
     setInfoModalOpen(false);
@@ -88,9 +70,8 @@ const [editUserData,seteditUserData] = useState({
     }
   };
 
-  //สร้าง function มาทำ alert กับ push แล้วเรียกฟังก์ชันมาทำใน condition
   const AlertComplete = async () => {
-    window.alert("การลบผู้เช่าเสร็จสิ้น");
+    window.alert('การลบผู้เช่าเสร็จสิ้น');
     setInfoModalOpen(false);
     setShowConfirmDeleteModal(false);
     <Redirect to="/all-room/120000001" />;
@@ -98,7 +79,7 @@ const [editUserData,seteditUserData] = useState({
   };
 
   const AlertInComplete = async () => {
-    window.alert("มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง");
+    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
     setInfoModalOpen(false);
     setShowConfirmDeleteModal(false);
     <Redirect to="/all-room/120000001" />;
@@ -106,17 +87,18 @@ const [editUserData,seteditUserData] = useState({
   };
 
   const Cancle = async () => {
-    setSelectRoom("");
+    setSelectRoom('');
     // setModalOpen(false);
     setInfoModalOpen(false);
-    setSelectRoomID("");
-    setSelectRentID("");
+    setSelectRoomID('');
+    setSelectRentID('');
     setShowConfirmDeleteModal(false);
-    console.log("clear state");
+    setEditMode(false);
+    console.log('clear state');
   };
 
   const getRooms = () => {
-    if (searchText === "") {
+    if (searchText === '') {
       return rooms;
     } else {
       return filteredRoom;
@@ -127,16 +109,19 @@ const [editUserData,seteditUserData] = useState({
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
 
-  const Edituser = async (RENTID,CONTRACTOFRENTID) => {
-    // const editData = await  axios.post(
-    //   `${env.url}api/room/edit/:rentID/:CoRID'${props.match.params.buildingid}/${props.match.params.roomid}`,
-    //   {
-    //     editUserData: editUserData,
-
-    //   }
-    // );
-    console.log(RENTID,CONTRACTOFRENTID)
-  }
+  const editUser = async (RENTID, CONTRACTOFRENTID) => {
+    const editData = await axios.post(
+      `${env.url}api/room/edit/${RENTID}/${CONTRACTOFRENTID}`,
+      {
+        editUserData: editUserData,
+      }
+    );
+    console.log(editData);
+    setEditMode(false);
+    fetchRooms();
+    console.log(RENTID);
+    console.log(CONTRACTOFRENTID);
+  };
 
   return (
     <>
@@ -149,13 +134,13 @@ const [editUserData,seteditUserData] = useState({
         <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
           <thead
             style={{
-              backgroundColor: "#C7E5F0",
-              textAlign: "center",
-              color: "black",
-              fontWeight: "bold",
-              fontSize: "18px",
-              height: "30px",
-              border: "none",
+              backgroundColor: '#C7E5F0',
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: '18px',
+              height: '30px',
+              border: 'none',
             }}
           >
             <tr>
@@ -171,9 +156,9 @@ const [editUserData,seteditUserData] = useState({
             {getRooms().map((room) => (
               <tr
                 style={{
-                  backgroundColor: "#EAE7E2",
-                  border: "none",
-                  textAlign: "center",
+                  backgroundColor: '#EAE7E2',
+                  border: 'none',
+                  textAlign: 'center',
                 }}
                 key={room.ROOMID}
               >
@@ -185,14 +170,14 @@ const [editUserData,seteditUserData] = useState({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: "#32CD32",
-                        color: "#fff",
-                        maxWidth: "100px",
-                        width: "100%",
-                        height: "30px",
-                        fontSize: "16px",
-                        margin: "10px",
-                        padding: "3px",
+                        backgroundColor: '#32CD32',
+                        color: '#fff',
+                        maxWidth: '100px',
+                        width: '100%',
+                        height: '30px',
+                        fontSize: '16px',
+                        margin: '10px',
+                        padding: '3px',
                       }}
                       disabled
                     >
@@ -203,14 +188,14 @@ const [editUserData,seteditUserData] = useState({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: "#FF0000",
-                        color: "#fff",
-                        maxWidth: "100px",
-                        width: "100%",
-                        height: "30px",
-                        fontSize: "16px",
-                        margin: "10px",
-                        padding: "5px",
+                        backgroundColor: '#FF0000',
+                        color: '#fff',
+                        maxWidth: '100px',
+                        width: '100%',
+                        height: '30px',
+                        fontSize: '16px',
+                        margin: '10px',
+                        padding: '5px',
                       }}
                       disabled
                     >
@@ -237,8 +222,8 @@ const [editUserData,seteditUserData] = useState({
                     <i
                       className="fas fa-info-circle"
                       style={{
-                        color: "#8D9293",
-                        fontSize: "2em",
+                        color: '#8D9293',
+                        fontSize: '2em',
                       }}
                     ></i>
                   </button>
@@ -251,7 +236,7 @@ const [editUserData,seteditUserData] = useState({
                     <Modal.Header
                       closeButton={Cancle}
                       onClick={Cancle}
-                      style={{ backgroundColor: "#C7E5F0" }}
+                      style={{ backgroundColor: '#C7E5F0' }}
                     >
                       <Modal.Title>
                         <h2 className="bold">
@@ -269,29 +254,31 @@ const [editUserData,seteditUserData] = useState({
                             </Col>
                             <Col>
                               <ButtonGroup aria-label="Basic example">
-                                
-                                  <Button
-                                    style={{
-                                      backgroundColor: "transparent",
-                                      border: "none",
-                                      boxShadow: "none",
-                                    }}
-                                  >
-                                    <img
-                                      src={EditUser}
-                                      alt="Edit resident info"
-                                      style={{ width: "1.5em" }}
-                                      onClick={() => {seteditUserID(info.USERID)
-                                      console.log(info.RENTID)
-                                      }}
-                                    />
-                                  </Button>
-                               
                                 <Button
                                   style={{
-                                    backgroundColor: "transparent",
-                                    border: "none",
-                                    boxShadow: "none",
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    boxShadow: 'none',
+                                  }}
+                                >
+                                  <img
+                                    src={EditUser}
+                                    alt="Edit resident info"
+                                    style={{ width: '1.5em' }}
+                                    onClick={() => {
+                                      seteditUserID(info.USERID);
+                                      console.log(info.RENTID);
+                                      console.log(info.CONTRACTOFRENTID);
+                                      setEditMode(true);
+                                    }}
+                                  />
+                                </Button>
+
+                                <Button
+                                  style={{
+                                    backgroundColor: 'transparent',
+                                    border: 'none',
+                                    boxShadow: 'none',
                                   }}
                                   onClick={() => {
                                     setSelectRentID(info.RENTID);
@@ -303,87 +290,173 @@ const [editUserData,seteditUserData] = useState({
                                   <img
                                     src={RemoveUser}
                                     alt="Remove resident"
-                                    style={{ width: "1.5em" }}
+                                    style={{ width: '1.5em' }}
                                   />
                                 </Button>
                               </ButtonGroup>
                             </Col>
                           </Row>
                         </Container>
-                        <Form>
-                          <Card>
-                            <Card.Body>
-                              <Container>
-                                <Row>
-                                  <Col
-                                    style={{
-                                      fontSize: "1.1rem",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <p>ชื่อ-นามสกุล</p>
-                                    <p>เพศ</p>
-                                    <p>เบอร์โทร</p>
-                                   
-                                  </Col>
-                                  <Col>
-                                    <p>
-                                      {info.FNAME} {info.LNAME}
-                                    </p>
+                        {!isEditMode ? (
+                          <Form>
+                            <Card>
+                              <Card.Body>
+                                <Container>
+                                  <Row>
+                                    <Col
+                                      style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                      }}
+                                    >
+                                      <p>ชื่อ-นามสกุล</p>
+                                      <p>เพศ</p>
+                                      <p>วันเกิด</p>
+                                      <p>เบอร์โทร</p>
 
-                                    <p>{info.GENDER}</p>
-                                    <p>{info.TELNO}</p>
-                                  
-                                  </Col>
-                                </Row>
-                              </Container>
-                              <hr />
-                              <Container>
-                                <Row>
-                                  <Col
-                                    style={{
-                                      fontSize: "1.1rem",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    <p>วันเริ่มสัญญา</p>
-                                    <p>วันสิ้นสุดสัญญา</p>
-                                    <p>วันที่เข้าพัก</p>
-                                  </Col>
-                                  <Form>
-                                    <Col>
-                                      <Form.Control type="date" 
-                                      value={info.STARTDATE} 
-                                      disabled ={info.USERID !== editUserID } 
-                                      name=" startDate"
-                                      //value={ startDate}
-                                      type="date"
-                                     // onChange={(e) => onChangeEditInput(e)}
-                                      />
-                                      <Form.Control type="date" value={info.ENDDATE} disabled ={info.USERID !== editUserID}
-                                      name="endDate"
-                                      value={endDate}
-                                      type="date"
-                                      onChange={(e) => onChangeEditInput(e)}
-                                        />
-                                      <Form.Control type="date" value={info.CHECKINDATE} disabled ={info.USERID !== editUserID }
-                                      name=" checkInDate"
-                                      value={ checkInDate}
-                                      type="date"
-                                      onChange={(e) => onChangeEditInput(e)}
-                                        />
-                                      
+                                      <p>ที่อยู่</p>
                                     </Col>
-                                    <Button variant="secondary" onClick={() => Edituser(info.RENTID,info.CONTRACTOFRENTID)
-                                    }>
-                        บันทึก
-                      </Button>
-                                  </Form>
-                                </Row>
-                              </Container>
-                            </Card.Body>
-                          </Card>
-                        </Form>
+                                    <Col>
+                                      <p>
+                                        {info.FNAME} {info.LNAME}
+                                      </p>
+                                      <p>{info.GENDER}</p>
+                                      <p>{info.DATEOFBIRTH}</p>
+                                      <p>{info.TELNO}</p>
+                                      <p>{info.ADDRESS}</p>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                                <hr />
+                                <Container>
+                                  <Row>
+                                    <Col
+                                      style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                      }}
+                                    >
+                                      <p>วันเริ่มสัญญา</p>
+                                      <p>วันสิ้นสุดสัญญา</p>
+                                      <p>วันที่เริ่มเข้าพัก</p>
+                                    </Col>
+
+                                    <Col>
+                                      <Form.Control
+                                        type="date"
+                                        value={info.STARTDATE}
+                                        disabled={info.USERID !== editUserID}
+                                        name=" startDate"
+                                      />
+                                      <Form.Control
+                                        type="date"
+                                        value={info.ENDDATE}
+                                        disabled={info.USERID !== editUserID}
+                                        name="endDate"
+                                        onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                      <Form.Control
+                                        type="date"
+                                        value={info.CHECKINDATE}
+                                        disabled={info.USERID !== editUserID}
+                                        name=" checkInDate"
+                                        onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row></Row>
+                                </Container>
+                              </Card.Body>
+                            </Card>
+                          </Form>
+                        ) : (
+                          <Form>
+                            <Card>
+                              <Card.Body>
+                                <Container>
+                                  <Row>
+                                    <Col
+                                      style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                      }}
+                                    >
+                                      <p>ชื่อ-นามสกุล</p>
+                                      <p>เพศ</p>
+                                      <p>วันเกิด</p>
+                                      <p>เบอร์โทร</p>
+
+                                      <p>ที่อยู่</p>
+                                    </Col>
+                                    <Col>
+                                      <p>
+                                        {info.FNAME} {info.LNAME}
+                                      </p>
+                                      <p>{info.GENDER}</p>
+                                      <p>{info.DATEOFBIRTH}</p>
+                                      <p>{info.TELNO}</p>
+                                      <p>{info.ADDRESS}</p>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                                <hr />
+                                <Container>
+                                  <Row>
+                                    <Col
+                                      style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                      }}
+                                    >
+                                      <p>วันเริ่มสัญญา</p>
+                                      <p>วันสิ้นสุดสัญญา</p>
+                                      <p>วันที่เริ่มเข้าพัก</p>
+                                    </Col>
+
+                                    <Col>
+                                      <Form.Control
+                                        type="date"
+                                        name="startDate"
+                                        value={startDate}
+                                        onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                      <Form.Control
+                                        type="date"
+                                        name="endDate"
+                                        value={endDate}
+                                        onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                      <Form.Control
+                                        type="date"
+                                        name="checkInDate"
+                                        value={checkInDate}
+                                        onChange={(e) => onChangeEditInput(e)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row>
+                                    <Col>
+                                      <Button
+                                        variant="secondary"
+                                        xs={12}
+                                        md={12}
+                                        lg={12}
+                                        onClick={() =>
+                                          editUser(
+                                            info.RENTID,
+                                            info.CONTRACTOFRENTID
+                                          )
+                                        }
+                                      >
+                                        บันทึก
+                                      </Button>
+                                    </Col>
+                                  </Row>
+                                </Container>
+                              </Card.Body>
+                            </Card>
+                          </Form>
+                        )}
                       </Modal.Body>
                     ))}
                   </Modal>
@@ -415,17 +488,15 @@ const [editUserData,seteditUserData] = useState({
                       onClick={() => {
                         setSelectRoom(room.ROOMID);
                         console.log(room.ROOMID);
-                        // setModalOpen(true);
                       }}
                     >
                       <img
                         src={AddUser}
                         alt="Add resident"
-                        style={{ width: "2em" }}
+                        style={{ width: '2em' }}
                       />
                     </button>
                   </Link>
-                  
                 </td>
               </tr>
             ))}
