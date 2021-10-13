@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 
 const AdminRegister = () => {
   const {
@@ -15,11 +15,20 @@ const AdminRegister = () => {
     reset,
     trigger,
   } = useForm();
+  const [success, setSuccess] = useState(false);
 
   const onSubmit = async (data) => {
     const info = await axios.post(`${env.url}api/user/adminRegister`, data);
     console.log(data);
+    setSuccess(true);
+    {
+      success ? history.push(`/login`) : history.push(`/`);
+    }
+    console.log(success);
+    console.log(data);
   };
+
+  const history = useHistory();
 
   return (
     <Container>
@@ -239,6 +248,7 @@ const AdminRegister = () => {
             <Button
               id="btn-save"
               type="submit"
+              onClick={() => setSuccess(true)}
               style={{
                 marginLeft: '50%',
                 transform: 'translateX(-50%)',
