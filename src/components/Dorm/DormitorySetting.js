@@ -3,6 +3,7 @@ import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button, Modal } from 'react-bootstrap';
 import { Provinces } from '../../systemdata/Provinces';
+import { Redirect } from 'react-router';
 
 const DormitorySetting = () => {
   const [dormData, setDormData] = useState({
@@ -34,8 +35,18 @@ const DormitorySetting = () => {
   const dormRegister = async (e) => {
     e.preventDefault();
     let data = await axios.post(`${env.url}api/dorm`, dormData);
-    console.log(data);
     setCreateDorm(true);
+    setDormData('');
+
+    {
+      isCreateDorm ? (
+        <Redirect to="/" />
+      ) : (
+        window.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง') && (
+          <Redirect to="/dormsetting" />
+        )
+      );
+    }
   };
   const handleClose = () => setConfirmModalOpen(false);
   const handleShow = () => setConfirmModalOpen(true);
