@@ -4,45 +4,34 @@ import env from '../../env';
 import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
+import { useForm } from 'react-hook-form';
 // import { useHistory } from 'react-router';
-import validation from './validation';
 
-const adminRegister = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [registerData, setRegisterData] = useState({
-    email: '',
-    password: '',
-    fname: '',
-    lname: '',
-    IDCardNo: '',
-    dob: '',
-    telno: '',
-    gender: '',
-  });
-  const { email, password, fname, lname, IDCardNo, dob, telno, gender } =
-    registerData;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [errors, setErrors] = useState({});
-  const onChange = (e) =>
-    setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+const AdminRegister = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    trigger,
+  } = useForm();
 
-  const Register = async (e) => {
-    e.preventDefault();
-    setErrors(validation(registerData));
-    await axios.post(`${env.url}api/user/adminRegister`, registerData);
-    console.log(registerData);
+  const onSubmit = async (data) => {
+    await axios.post(`${env.url}api/user/adminRegister`, data);
+    console.log(data);
+    reset();
   };
 
   return (
     <Container>
       <h1>
-        สร้างบัญชีผู้ใช้ใหม่ <i className="fas fa-user-plus"></i>
+        ลงทะเบียนผู้จัดการหอพัก <i className="fas fa-user-plus"></i>
       </h1>
       <Card
         className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
-        style={{ backgroundColor: '#EAE7E2', maxWidth: '600px', width: '100%' }}
+        style={{ backgroundColor: '#EAE7E2', maxWidth: '800px', width: '100%' }}
       >
-        <Form className="w-100 p-3">
+        <Form className="w-100 p-3" onSubmit={handleSubmit(onSubmit)}>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>ชื่อ</Form.Label>
@@ -50,12 +39,13 @@ const adminRegister = () => {
                 type="text"
                 placeholder="ชื่อ"
                 name="fname"
-                value={fname}
-                onChange={(e) => onChange(e)}
-                required
+                {...register('fName', { required: 'โปรดกรอกชื่อจริง' })}
+                onKeyUp={() => {
+                  trigger('fName');
+                }}
               />
-              {errors.fname && (
-                <p className="text-danger small pt-2">{errors.fname}</p>
+              {errors.fName && (
+                <small className="text-danger">{errors.fName.message}</small>
               )}
             </Form.Group>
 
@@ -64,18 +54,41 @@ const adminRegister = () => {
               <Form.Control
                 type="text"
                 placeholder="นามสกุล"
-                value={lname}
-                onChange={(e) => onChange(e)}
-                required
+                {...register('lName', { required: 'โปรดกรอกนามสกุล' })}
+                onKeyUp={() => {
+                  trigger('lName');
+                }}
               />
-              {errors.lname && (
-                <p className="text-danger small pt-2">{errors.lname}</p>
+              {errors.lName && (
+                <small className="text-danger">{errors.lName.message}</small>
+              )}
+            </Form.Group>
+            <Form.Group as={Col}>
+              <Form.Label sm={'auto'} xs={'auto'}>
+                วันเกิด
+              </Form.Label>
+              <Form.Control
+                sm={'auto'}
+                xs={'auto'}
+                type="date"
+                name="dateOfBirth"
+                {...register('dateOfBirth', {
+                  required: 'โปรดกรอกวัน/เดือน/ปี เกิด',
+                })}
+                onKeyUp={() => {
+                  trigger('dateOfBirth');
+                }}
+              />
+              {errors.dateOfBirth && (
+                <small className="text-danger">
+                  {errors.dateOfBirth.message}
+                </small>
               )}
             </Form.Group>
           </Row>
 
           <Row className="mb-3">
-            <Form.Group as={Col} xs={12} sm={12} md={6} xl={6}>
+            <Form.Group as={Col}>
               <Form.Label sm={'auto'} xs={'auto'}>
                 รหัสบัตรประชาชน
               </Form.Label>
@@ -84,45 +97,77 @@ const adminRegister = () => {
                 xs={'auto'}
                 type="text"
                 placeholder="รหัสบัตรประชาชน"
-                name="IDCardNo"
-                value={IDCardNo}
-                onChange={(e) => onChange(e)}
-                required
+                name="idCardNo"
+                className={`form-control ${errors.idCardNo && 'invalid'}`}
+                {...register('idCardNo', {
+                  required: 'โปรดกรอกรหัสบัตรประชาชน',
+                  minLength: {
+                    value: 13,
+                    message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                  },
+                  maxLength: {
+                    value: 13,
+                    message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger('idCardNo');
+                }}
               />
-              {errors.IDCardNo && (
-                <p className="text-danger small pt-2">{errors.IDCardNo}</p>
+              {errors.idCardNo && (
+                <small className="text-danger">{errors.idCardNo.message}</small>
               )}
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>เพศ</Form.Label>
-              <Form.Select
-                defaultValue="เลือกเพศ..."
-                onChange={(e) => onChange(e)}
-                name="gender"
-                value={gender}
-                required
-              >
+              <Form.Select defaultValue="เลือกเพศ..." name="gender">
                 <option>เลือกเพศ...</option>
                 <option value="1">หญิง</option>
                 <option value="2">ชาย</option>
               </Form.Select>
-              {errors.gender && (
-                <p className="text-danger small pt-2">{errors.gender}</p>
-              )}
             </Form.Group>
 
             <Form.Group as={Col}>
-              <Form.Label>เบอร์โทร</Form.Label>
+              <Form.Label>เบอร์โทรศัพท์</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="เบอร์โทร"
+                placeholder="เบอร์โทรศัพท์"
                 name="telno"
-                value={telno}
-                onChange={(e) => onChange(e)}
-                required
+                className={`form-control ${errors.telNo && 'invalid'}`}
+                {...register('telNo', {
+                  required: 'โปรดกรอกเบอร์โทรศัพท์',
+                  pattern: {
+                    value:
+                      /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                    message: 'เบอร์โทรศัพท์',
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger('telNo');
+                }}
               />
-              {errors.telno && (
-                <p className="text-danger small pt-2">{errors.telno}</p>
+              {errors.telNo && (
+                <small className="text-danger">{errors.telNo.message}</small>
+              )}
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group className="mb-3">
+              <Form.Label>ที่อยู่</Form.Label>
+              <Form.Control
+                style={{ maxWidth: '800px', padding: '2em' }}
+                type="text"
+                name="address"
+                placeholder="126/54 ซอยบางบอน 5 ซอย 7 ถนนบางบอน 3 แขวงบางบอน​ เขต​บางบอน​ กรุงเทพ​มหานคร​ 10150"
+                {...register('address', {
+                  required: 'โปรดกรอกที่อยู่ปัจจุบัน',
+                })}
+                onKeyUp={() => {
+                  trigger('address');
+                }}
+              />
+              {errors.address && (
+                <small className="text-danger">{errors.address.message}</small>
               )}
             </Form.Group>
           </Row>
@@ -133,12 +178,20 @@ const adminRegister = () => {
                 type="email"
                 placeholder="อีเมล"
                 name="email"
-                value={email}
-                onChange={(e) => onChange(e)}
-                required
+                className={`form-control ${errors.email && 'invalid'}`}
+                {...register('email', {
+                  required: 'โปรดกรอกอีเมล',
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'โปรดกรอกอีเมลให้ถูกต้อง',
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger('email');
+                }}
               />
               {errors.email && (
-                <p className="text-danger small pt-2">{errors.email}</p>
+                <small className="text-danger">{errors.email.message}</small>
               )}
             </Form.Group>
 
@@ -148,12 +201,24 @@ const adminRegister = () => {
                 type="password"
                 placeholder="รหัสผ่าน"
                 name="password"
-                value={password}
-                onChange={(e) => onChange(e)}
-                required
+                className={`form-control ${errors.password && 'invalid'}`}
+                {...register('password', {
+                  required: 'โปรดกรอกรหัสผ่าน',
+                  minLength: {
+                    value: 6,
+                    message: 'รหัสผ่านควรมีอย่างน้อย 6 ตัว',
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: 'รหัสผ่านควรสามารถมีได้มากสุด 20 ตัว',
+                  },
+                })}
+                onKeyUp={() => {
+                  trigger('password');
+                }}
               />
               {errors.password && (
-                <p className="text-danger small pt-2">{errors.password}</p>
+                <small className="text-danger">{errors.password.message}</small>
               )}
             </Form.Group>
           </Row>
@@ -162,7 +227,7 @@ const adminRegister = () => {
           <Container>
             <Button
               id="btn-save"
-              onClick={Register}
+              type="submit"
               style={{
                 marginLeft: '50%',
                 transform: 'translateX(-50%)',
@@ -181,4 +246,4 @@ const adminRegister = () => {
   );
 };
 
-export default adminRegister;
+export default AdminRegister;
