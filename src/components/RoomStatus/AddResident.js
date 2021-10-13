@@ -1,7 +1,7 @@
 import axios from 'axios';
 import env from '../../env';
-// import { useState } from 'react';
-import { Row, Container, Col, Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { Row, Container, Col, Form, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
@@ -16,12 +16,12 @@ const AddResident = (props) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await axios.post(
+    const info = await axios.post(
       `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
       data
     );
-    console.log(data);
-    reset();
+    console.log(info);
+    await reset();
   };
 
   return (
@@ -277,9 +277,35 @@ const AddResident = (props) => {
                 </Link>
               </Col>
               <Col>
-                <Button id="btn-save" type="submit" style={{ float: 'right' }}>
+                <Button
+                  id="btn-save"
+                  type="submit"
+                  // onClick={handleShow}
+                  style={{ float: 'right' }}
+                >
                   ตกลง
                 </Button>
+                {/* <Modal
+                  show={show}
+                  onHide={handleClose}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>ยืนยันข้อมูล</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    คุณแน่ใจหรือไม่ว่าข้อมูลทั้งหมดที่กรอกมาทั้งหมดถูกต้อง
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      ยกเลิก
+                    </Button>
+                    <Button variant="primary" type="submit" register="true">
+                      ตกลง
+                    </Button>
+                  </Modal.Footer>
+                </Modal> */}
               </Col>
             </Row>
           </Container>
