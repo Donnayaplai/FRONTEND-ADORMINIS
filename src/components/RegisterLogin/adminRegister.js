@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Link } from 'react-router-dom';
@@ -17,9 +17,8 @@ const AdminRegister = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await axios.post(`${env.url}api/user/adminRegister`, data);
+    const info = await axios.post(`${env.url}api/user/adminRegister`, data);
     console.log(data);
-    reset();
   };
 
   return (
@@ -120,18 +119,30 @@ const AdminRegister = () => {
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>เพศ</Form.Label>
-              <Form.Select defaultValue="เลือกเพศ..." name="gender">
+              <Form.Select
+                defaultValue="เลือกเพศ..."
+                name="gender"
+                {...register('gender', {
+                  required: 'โปรดกรอกเพศ',
+                })}
+                onKeyUp={() => {
+                  trigger('gender');
+                }}
+              >
                 <option>เลือกเพศ...</option>
-                <option value="1">หญิง</option>
-                <option value="2">ชาย</option>
+                <option value="หญิง">หญิง</option>
+                <option value="ชาย">ชาย</option>
               </Form.Select>
+              {errors.gender && (
+                <small className="text-danger">{errors.gender.message}</small>
+              )}
             </Form.Group>
 
             <Form.Group as={Col}>
               <Form.Label>เบอร์โทรศัพท์</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="เบอร์โทรศัพท์"
+                placeholder="0xx-xxx-xxxx"
                 name="telno"
                 className={`form-control ${errors.telNo && 'invalid'}`}
                 {...register('telNo', {
@@ -151,7 +162,7 @@ const AdminRegister = () => {
               )}
             </Form.Group>
           </Row>
-          <Row>
+          {/* <Row>
             <Form.Group className="mb-3">
               <Form.Label>ที่อยู่</Form.Label>
               <Form.Control
@@ -170,7 +181,7 @@ const AdminRegister = () => {
                 <small className="text-danger">{errors.address.message}</small>
               )}
             </Form.Group>
-          </Row>
+          </Row> */}
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>อีเมล</Form.Label>
