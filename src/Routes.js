@@ -17,7 +17,8 @@ import Billing from './components/Resident/Invoice';
 import PaymentStatus from './components/Resident/PaymentStatus';
 import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
 import AddResident from './components/RoomStatus/AddResident';
-import CheckAccount from './components/RegisterLogin/CheckAccount';
+// import CheckAccount from './components/RegisterLogin/CheckAccount';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
 const Routes = () => {
   return (
     <>
@@ -25,13 +26,20 @@ const Routes = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
-        <Route path="/resident/check-account" exact component={CheckAccount} />
+        <Route
+          path="/resident/check-account"
+          exact
+          component={CheckExistAccount}
+        />
         <Route path="/resident/register" exact component={residentRegister} />
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
-        <Route path="/addresident/:buildingid/:roomid" component={AddResident} />
+        <Route
+          path="/addresident/:buildingid/:roomid"
+          component={AddResident}
+        />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dormsetting" component={DormitorySetting} />
