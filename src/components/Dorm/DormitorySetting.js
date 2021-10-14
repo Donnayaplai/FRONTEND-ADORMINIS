@@ -9,6 +9,7 @@ const DormitorySetting = () => {
   const [dormData, setDormData] = useState({
     dormnameth: '',
     dormnameeng: '',
+    telno: '',
     address: '',
     street: '',
     district: '',
@@ -19,6 +20,7 @@ const DormitorySetting = () => {
   const {
     dormnameth,
     dormnameeng,
+    telno,
     address,
     street,
     district,
@@ -55,33 +57,31 @@ const DormitorySetting = () => {
     <>
       <h1>ลงทะเบียนหอพัก</h1>
       <Form>
-        <Container className="w-75">
+        <Container className="w-50">
           <h5>ข้อมูลและที่อยู่</h5>
           <Container
             className="p-3 rounded w-100 mb-3"
             style={{ backgroundColor: '#EAE7E2' }}
           >
             <Row className="mb-3">
-              <Col>
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>ชื่อหอพัก (ไทย)</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="ตัวอย่าง: หอพักกอไก่"
+                    placeholder="หอพักกอไก่"
                     name="dormnameth"
                     value={dormnameth}
                     onChange={(e) => onChangeInput(e)}
                   />
                 </Form.Group>
               </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col>
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>ชื่อหอพัก (อังกฤษ)</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="ตัวอย่าง: Kokai Resident"
+                    placeholder="Kokai Resident"
                     name="dormnameeng"
                     value={dormnameeng}
                     onChange={(e) => onChangeInput(e)}
@@ -90,7 +90,19 @@ const DormitorySetting = () => {
               </Col>
             </Row>
             <Row className="mb-3">
-              <Col>
+            <Col xs={5} >
+                <Form.Group>
+                  <Form.Label>เบอร์โทรศัพท์</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="0812359684"
+                    name="telno"
+                    value={telno}
+                    onChange={(e) => onChangeInput(e)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>ที่อยู่</Form.Label>
                   <Form.Control
@@ -103,8 +115,9 @@ const DormitorySetting = () => {
                 </Form.Group>
               </Col>
             </Row>
+            
             <Row className="mb-3">
-              <Col>
+            <Col xs={5}>
                 <Form.Group>
                   <Form.Label>ถนน</Form.Label>
                   <Form.Control
@@ -116,7 +129,7 @@ const DormitorySetting = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col>
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>แขวง</Form.Label>
                   <Form.Control
@@ -128,7 +141,10 @@ const DormitorySetting = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col>
+            </Row>
+            <Row className="mb-3">
+          
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>เขต</Form.Label>
                   <Form.Control
@@ -140,9 +156,7 @@ const DormitorySetting = () => {
                   />
                 </Form.Group>
               </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col>
+              <Col xs={5}>
                 <Form.Group className="mb-3">
                   <Form.Label>รหัสไปรษณีย์</Form.Label>
                   <Form.Control
@@ -154,7 +168,10 @@ const DormitorySetting = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col>
+            </Row>
+            <Row className="mb-3">
+              
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>จังหวัด</Form.Label>
                   <Form.Select
@@ -168,6 +185,7 @@ const DormitorySetting = () => {
                   </Form.Select>
                 </Form.Group>
               </Col>
+              <Col></Col>
             </Row>
           </Container>
           <Button
