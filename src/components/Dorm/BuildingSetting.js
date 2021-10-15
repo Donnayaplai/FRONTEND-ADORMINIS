@@ -86,7 +86,6 @@ const BuildingSetting = () => {
 
   return (
     <>
-      <h1>ตั้งค่าหอพัก</h1>
       <Container className="w-75">
         <Form>
           <h3>ตั้งค่าตึก</h3>
@@ -97,7 +96,7 @@ const BuildingSetting = () => {
             {form.map((item, index) => (
               <Container key={`item-${index}`}>
                 <Row className="mb-3">
-                  <Col xl={4} md={4}>
+                  <Col xl={4} md={4} sm={4} xs={4}>
                     <Form.Group className="mb-3">
                       <Form.Label>ชื่อตึก</Form.Label>
                       <Form.Control
@@ -119,7 +118,7 @@ const BuildingSetting = () => {
                       )}
                     </Form.Group>
                   </Col>
-                  <Col xl={4} md={4}>
+                  <Col xl={4} md={4} sm={4} xs={4}>
                     <Form.Group className="mb-3">
                       <Form.Label>จำนวนชั้น</Form.Label>
                       <Form.Control
@@ -142,7 +141,7 @@ const BuildingSetting = () => {
                     </Form.Group>
                   </Col>
 
-                  <Col>
+                  <Col xl={4} md={4} sm={4} xs={4}>
                     <Button
                       style={{
                         backgroundColor: 'transparent',
@@ -155,7 +154,7 @@ const BuildingSetting = () => {
                       <img
                         src={RemoveUser}
                         alt="Remove resident"
-                        style={{ width: '2em', marginTop: '1.5em' }}
+                        style={{ maxWidth: '2rem', marginTop: '1.5em' }}
                       />
                     </Button>
                   </Col>
@@ -178,7 +177,7 @@ const BuildingSetting = () => {
                 id="btn-save"
                 type="submit"
                 style={{ float: 'right' }}
-                onClick={console.log('hi')}
+                // onClick={console.log('hi')}
               >
                 บันทึก
               </Button>

@@ -1,7 +1,7 @@
-import { Container, Row, Col, Form, Button, Modal, Nav } from "react-bootstrap";
-import React, { useState } from "react";
-import RemoveUser from "../../assets/images/delete.png";
-import EditUser from '../../assets/images/edit.png';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import RemoveUser from '../../assets/images/delete.png';
+
 const RoomType = () => {
   const [type, setType] = useState([]);
 
@@ -10,19 +10,19 @@ const RoomType = () => {
       return true;
     }
     const Empty = type.some(
-      (item) => item.roomtype === "" || item.roomprice === ""
+      (item) => item.roomtype === '' || item.roomprice === ''
     );
 
     if (Empty) {
       type.map((item, index) => {
         const allPrev = [...type];
 
-        if (type[index].roomtype === "") {
-          allPrev[index].errors.roomtype = "Type of room is required";
+        if (type[index].roomtype === '') {
+          allPrev[index].errors.roomtype = 'Type of room is required';
         }
 
-        if (type[index].roomprice === "") {
-          allPrev[index].errors.roomprice = "Price is required";
+        if (type[index].roomprice === '') {
+          allPrev[index].errors.roomprice = 'Price is required';
         }
         setType(allPrev);
       });
@@ -34,8 +34,8 @@ const RoomType = () => {
   const handleAddType = (e) => {
     e.preventDefault();
     const inputState = {
-      roomtype: "",
-      roomprice: "",
+      roomtype: '',
+      roomprice: '',
 
       errors: {
         roomtype: null,
@@ -67,7 +67,7 @@ const RoomType = () => {
             [event.target.name]:
               event.target.value.length > 0
                 ? null
-                : [event.target.name] + " Is required",
+                : [event.target.name] + ' Is required',
           },
         };
       });
@@ -80,34 +80,14 @@ const RoomType = () => {
   };
 
   return (
-    <>
-      <Row>
-         
-        <h1>การตั้งค่าหอพัก</h1>
-        
-     
-        {/* <Button
-          style={{
-            backgroundColor: "transparent",
-            border: "none",
-            boxShadow: "none",
-          }}
-        >
-          <img
-            src={EditUser}
-            alt="Edit resident info"
-            style={{ width: "1.5em" }}
-          />
-        </Button> */}
-      
-      </Row>
-      <Container style={{ marginBottom: "5%" }}>
+    <Container>
+      <Container style={{ marginBottom: '5%' }}>
         <Form>
-          <Container style={{ maxWidth: "800px" }}>
+          <Container className="w-75">
             <h3>ตั้งค่าประเภทห้อง</h3>
             <Container
               className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
+              style={{ backgroundColor: '#EAE7E2' }}
             >
               {type.map((item, index) => (
                 <Container key={`item-${index}`}>
@@ -118,8 +98,8 @@ const RoomType = () => {
                         <Form.Control
                           className={
                             item.errors.roomtype
-                              ? "form-control  is-invalid"
-                              : "form-control"
+                              ? 'form-control  is-invalid'
+                              : 'form-control'
                           }
                           name="roomtype"
                           id="roomtype"
@@ -137,8 +117,8 @@ const RoomType = () => {
                           type="text"
                           className={
                             item.errors.roomprice
-                              ? "form-control  is-invalid"
-                              : "form-control"
+                              ? 'form-control  is-invalid'
+                              : 'form-control'
                           }
                           name="roomprice"
                           placeholder="4000"
@@ -152,9 +132,9 @@ const RoomType = () => {
                     <Col>
                       <Button
                         style={{
-                          backgroundColor: "transparent",
-                          border: "none",
-                          boxShadow: "none",
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          boxShadow: 'none',
                         }}
                         variant="danger"
                         onClick={(e) => handleRemove(e, index)}
@@ -162,7 +142,7 @@ const RoomType = () => {
                         <img
                           src={RemoveUser}
                           alt="Remove resident"
-                          style={{ width: "1.5em" }}
+                          style={{ width: '1.5em' }}
                         />
                       </Button>
                     </Col>
@@ -173,20 +153,20 @@ const RoomType = () => {
                 เพิ่มประเภทห้องพัก
               </Button>
             </Container>
+            <Row style={{ marginTop: '5%' }}>
+              <Col>
+                <Button id="btn-save">ย้อนกลับ</Button>
+              </Col>
+              <Col>
+                <Button id="btn-save" type="submit" style={{ float: 'right' }}>
+                  บันทึก
+                </Button>
+              </Col>
+            </Row>
           </Container>
-          <Row style={{ marginTop: "5%" }}>
-            <Col>
-              <Button id="btn-save">ย้อนกลับ</Button>
-            </Col>
-            <Col>
-              <Button id="btn-save" type="submit" style={{ float: "right" }}>
-                บันทึก
-              </Button>
-            </Col>
-          </Row>
         </Form>
       </Container>
-    </>
+    </Container>
   );
 };
 

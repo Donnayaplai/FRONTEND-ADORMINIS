@@ -37,6 +37,7 @@ const DormitorySetting = () => {
   const dormRegister = async (e) => {
     e.preventDefault();
     let data = await axios.post(`${env.url}api/dorm`, dormData);
+    console.log(data);
     setCreateDorm(true);
     setDormData('');
 
