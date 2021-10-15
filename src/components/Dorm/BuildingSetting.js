@@ -1,6 +1,6 @@
-import { Container, Row, Col, Form, Button, Modal, Nav } from "react-bootstrap";
-import React, { useState } from "react";
-import RemoveUser from "../../assets/images/delete.png";
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import RemoveUser from '../../assets/images/delete.png';
 
 const BuildingSetting = () => {
   const [form, setForm] = useState([]);
@@ -9,37 +9,37 @@ const BuildingSetting = () => {
     if (form.length === 0) {
       return true;
     }
+
     const someEmpty = form.some(
-      (item) => item.buildingname === "" || item.numoffloor === ""
+      (item) => item.buildingName === '' || item.numOfFloor === ''
     );
 
     if (someEmpty) {
       form.map((item, index) => {
         const allPrev = [...form];
 
-        if (form[index].buildingname === "") {
-          allPrev[index].errors.buildingname = "Buildingname is required";
+        if (form[index].buildingName === '') {
+          allPrev[index].errors.buildingName = 'โปรดกรอกชื่อตึก';
         }
 
-        if (form[index].numoffloor === "") {
-          allPrev[index].errors.numoffloor = "Number of floor is required";
+        if (form[index].Username === '') {
+          allPrev[index].errors.numOfFloor = 'โปรดกรอกจำนวนชั้น';
         }
         setForm(allPrev);
       });
     }
-
     return !someEmpty;
   };
 
   const handleAddLink = (e) => {
     e.preventDefault();
     const inputState = {
-      buildingname: "",
-      numoffloor: "",
+      buildingName: '',
+      numOfFloor: '',
 
       errors: {
-        buildingname: null,
-        numoffloor: null,
+        buildingName: null,
+        numOfFloor: null,
       },
     };
 
@@ -67,7 +67,7 @@ const BuildingSetting = () => {
             [event.target.name]:
               event.target.value.length > 0
                 ? null
-                : [event.target.name] + " Is required",
+                : [event.target.name] + ' จำเป็นต้องกรอก',
           },
         };
       });
@@ -76,93 +76,100 @@ const BuildingSetting = () => {
 
   const handleRemoveField = (e, index) => {
     e.preventDefault();
-
     setForm((prev) => prev.filter((item) => item !== prev[index]));
   };
 
-  const buildingdata = async (form) => {
-    form.preventDefault();
-    console.log(form);
-  };
+  // const settingBuilding = async (form) => {
+  //   form.preventDefault();
+  //   console.log(form);
+  // };
 
   return (
     <>
-      <h1>การตั้งค่าหอพัก</h1>
-      <Container style={{ marginBottom: "5%" }}>
+      <h1>ตั้งค่าหอพัก</h1>
+      <Container className="w-75">
         <Form>
-          <Container style={{ maxWidth: "800px" }}>
-            <h3>ตั้งค่าตึก</h3>
-            <Container
-              className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
-            >
-              {form.map((item, index) => (
-                <Container key={`item-${index}`}>
-                  <Row className="mb-3">
-                    <Col xl={4}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>ชื่อตึก</Form.Label>
-                        <Form.Control
-                          className={
-                            item.errors.buildingname
-                              ? "form-control  is-invalid"
-                              : "form-control"
-                          }
-                          name="buildingname"
-                          id="buildingname"
-                          value={item.buildingname}
-                         onChange={(e) => onChange(index, e)}
-                       
-                          type="text"
-                          placeholder="กอไก่ 1"
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col xl={4}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>จำนวนชั้น</Form.Label>
-                        <Form.Control
-                          type="number"
-                          className={
-                            item.errors.numoffloor
-                              ? "form-control  is-invalid"
-                              : "form-control"
-                          }
-                          name="numoffloor"
-                          id="numoffloor"
-                          value={item.numoffloor}
-                          onChange={(e) => onChange(index, e)}
-                          min="1"
-                        />
-                      </Form.Group>
-                    </Col>
+          <h3>ตั้งค่าตึก</h3>
+          <Container
+            className="py-4 rounded mb-3"
+            style={{ backgroundColor: '#EAE7E2' }}
+          >
+            {form.map((item, index) => (
+              <Container key={`item-${index}`}>
+                <Row className="mb-3">
+                  <Col xl={4} md={4}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>ชื่อตึก</Form.Label>
+                      <Form.Control
+                        className={
+                          item.errors.buildingName
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        }
+                        name="buildingName"
+                        value={item.buildingName}
+                        onChange={(e) => onChange(index, e)}
+                        type="text"
+                        placeholder="กอไก่ 1"
+                      />
+                      {item.errors.buildingName && (
+                        <div className="invalid-feedback">
+                          {item.errors.buildingName}
+                        </div>
+                      )}
+                    </Form.Group>
+                  </Col>
+                  <Col xl={4} md={4}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>จำนวนชั้น</Form.Label>
+                      <Form.Control
+                        type="number"
+                        className={
+                          item.errors.numOfFloor
+                            ? 'form-control  is-invalid'
+                            : 'form-control'
+                        }
+                        name="numOfFloor"
+                        value={item.numOfFloor}
+                        onChange={(e) => onChange(index, e)}
+                        min="1"
+                      />
+                      {item.errors.numOfFloor && (
+                        <div className="invalid-feedback">
+                          {item.errors.numOfFloor}
+                        </div>
+                      )}
+                    </Form.Group>
+                  </Col>
 
-                    <Col>
-                      <Button
-                        style={{
-                          backgroundColor: "transparent",
-                          border: "none",
-                          boxShadow: "none",
-                        }}
-                        variant="danger"
-                        onClick={(e) => handleRemoveField(e, index)}
-                      >
-                        <img
-                          src={RemoveUser}
-                          alt="Remove resident"
-                          style={{ width: "1.5em" }}
-                        />
-                      </Button>
-                    </Col>
-                  </Row>
-                </Container>
-              ))}
+                  <Col>
+                    <Button
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                        width: 'fit-content',
+                      }}
+                      onClick={(e) => handleRemoveField(e, index)}
+                    >
+                      <img
+                        src={RemoveUser}
+                        alt="Remove resident"
+                        style={{ width: '2em', marginTop: '1.5em' }}
+                      />
+                    </Button>
+                  </Col>
+                </Row>
+              </Container>
+            ))}
+            <Container>
               <Button variant="light" onClick={handleAddLink}>
                 เพิ่มจำนวนตึก
               </Button>
             </Container>
           </Container>
-          <Row style={{ marginTop: "5%" }}>
+
+          <Row style={{ marginTop: '5%' }}>
             <Col>
               <Button id="btn-save">ย้อนกลับ</Button>
             </Col>
@@ -170,8 +177,8 @@ const BuildingSetting = () => {
               <Button
                 id="btn-save"
                 type="submit"
-                style={{ float: "right" }}
-                onClick={console.log("hi")}
+                style={{ float: 'right' }}
+                onClick={console.log('hi')}
               >
                 บันทึก
               </Button>
