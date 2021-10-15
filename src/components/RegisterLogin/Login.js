@@ -3,6 +3,7 @@ import env from '../../env';
 import { Card, Container, Form, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import './RegisterLogin.css';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,22 +13,21 @@ const Login = () => {
   const submit = async (e) => {
     e.preventDefault();
 
-    console.log(email, password);
+    await axios
+      .post(`${env.url}api/user/login`, {
+        email,
+        password,
+      })
+      .then((res) => {
+        localStorage.setItem('authorization', res.data.TOKEN);
+      });
 
-    // await fetch(`${env.url}api/user/login`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   credentials: 'include',
-    //   body: JSON.stringify({
-    //     email,
-    //     password,
-    //   }),
-    // });
     setRedirect(true);
   };
   if (redirect) {
     return <Redirect to="/" />;
   }
+  //เช็ค role ที่ได้กลับมาเพื่อ redirectไปหน้าของ role นั้น ๆ
   return (
     <Container>
       <h1>เข้าสู่ระบบ</h1>
