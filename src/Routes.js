@@ -19,10 +19,9 @@ import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
 import AddResident from './components/RoomStatus/AddResident';
 // import CheckAccount from './components/RegisterLogin/CheckAccount';
 import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
-import UtilitySetting from './components/Dorm/UtilitySetting';
-import BuildingSetting from './components/Dorm/BuildingSetting';
-import RoomType from './components/Dorm/RoomType';
+
 import DynamicForm from './components/Setting/DynamicForm';
+import Setting from './components/Dorm/Setting';
 const Routes = () => {
   return (
     <>
@@ -47,10 +46,8 @@ const Routes = () => {
         />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
-        <Route path="/dormsetting" component={DormitorySetting} />
-        <Route path="/utilitysetting" component={UtilitySetting} />
-        <Route path="/buildingsetting" component={BuildingSetting} />
-        <Route path="/roomtype" component={RoomType} />
+        <Route path="/dorm-registration" component={DormitorySetting} />
+        <Route path="/dorm-setting" component={Setting} />
         <Route path="/resident/invoice" component={Billing} />
         <Route path="/resident/payment/status" component={PaymentStatus} />
         <Route path="*" component={NotFound} />
