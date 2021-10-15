@@ -22,6 +22,7 @@ import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
 import UtilitySetting from './components/Dorm/UtilitySetting';
 import BuildingSetting from './components/Dorm/BuildingSetting';
 import RoomType from './components/Dorm/RoomType';
+import DynamicForm from './components/Setting/DynamicForm';
 const Routes = () => {
   return (
     <>
@@ -34,6 +35,7 @@ const Routes = () => {
           exact
           component={CheckExistAccount}
         />
+        <Route path="/form" exact component={DynamicForm} />
         <Route path="/resident/register" exact component={residentRegister} />
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
