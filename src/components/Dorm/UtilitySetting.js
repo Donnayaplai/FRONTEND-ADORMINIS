@@ -109,6 +109,56 @@ const UtilitySetting = () => {
             <Col></Col>
             <Col></Col>
           </Row>
+          <Row>
+          <Col xs={10} sm={8} md={4}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  ค่าส่วนกลาง &nbsp;
+                  <small>(บาท)</small>
+                </Form.Label>
+                <Form.Control name="maintenancefee" type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+            <Col xs={10} sm={8} md={4}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  ค่าที่จอดรถ &nbsp;
+                  <small>(บาท)</small>
+                </Form.Label>
+                <Form.Control name="parkingfee" type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+            <Col xs={10} sm={8} md={4}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  ค่าอินเทอร์เน็ต &nbsp;
+                  <small>(บาท)</small>
+                </Form.Label>
+                <Form.Control name="internetfee" type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+            </Row>
+            <Row>
+          <Col xs={10} sm={8} md={4}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  ค่าทำความสะอาด &nbsp;
+                  <small>(บาท)</small>
+                </Form.Label>
+                <Form.Control name="cleaningfee" type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+            <Col xs={10} sm={8} md={4}>
+              <Form.Group className="mb-3">
+                <Form.Label>
+                  อื่นๆ &nbsp;
+                  <small>(บาท)</small>
+                </Form.Label>
+                <Form.Control name="otherfee" type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+           
+            </Row>
           {/* <Row>
             <Col>
               <h5 className="fw-bold">น้ำประปา</h5>
