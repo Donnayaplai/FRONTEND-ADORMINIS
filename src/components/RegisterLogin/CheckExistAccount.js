@@ -4,9 +4,12 @@ import env from '../../env';
 import { Card, Form, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 
 const CheckExistAccount = () => {
   const [userId, setUserId] = useState(null);
+  const [isExistAccount, setExistAccount] = useState(false);
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -15,17 +18,30 @@ const CheckExistAccount = () => {
     trigger,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    await axios
+  const onSubmit = (data) => {
+    axios
       .post(`${env.url}api/user/verifyUser`, data)
-      .then((data) => setUserId(data.data.USERID));
+      .then((data) => setUserId(data.data.USERID), setExistAccount(true))
+      .then(() => {
+        checkExist();
+      });
     console.log(data);
+
     reset();
   };
+
+  function checkExist() {
+    if (isExistAccount === true) {
+      window.alert('รหัสผู้ใช้งานของคุณ:' + userId);
+    } else {
+      window.alert('ไม่พบผู้ใช้งานในระบบ โปรดติดต่อทางหอพัก');
+    }
+  }
+
   return (
     <Container>
       <h1>ลงทะเบียนผู้ใช้งาน</h1>
-      <h1>Your userid is: {userId}</h1>
+      <h3>รหัสผู้ใช้งานของคุณ: {userId}</h3>
 
       <Card
         className="mx-auto p-5 border-0"
