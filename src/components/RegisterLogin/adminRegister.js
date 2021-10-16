@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 
 const AdminRegister = () => {
+  const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState('');
   const {
     register,
     handleSubmit,
@@ -15,26 +17,38 @@ const AdminRegister = () => {
     reset,
     trigger,
   } = useForm();
-  const [success, setSuccess] = useState(false);
 
   const onSubmit = async (data) => {
-    const info = await axios.post(`${env.url}api/user/adminRegister`, data);
-    console.log(data);
+    const info = await axios
+      .post(`${env.url}api/user/adminRegister`, data)
+      .then((result) => {
+        setMessage(result.data.message);
+      })
+      .catch((error) => {
+        error = new Error();
+      });
     setSuccess(true);
-    {
-      success ? history.push(`/login`) : history.push(`/`);
-    }
-    console.log(success);
-    console.log(data);
-  };
+    console.log(info);
 
-  const history = useHistory();
+    // {
+    //   success ? history.push(`/login`) : history.push(`/`);
+    // }
+    // console.log(success);
+    // console.log(info);
+
+    reset();
+  };
+  if (success) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <Container>
       <h1>
         ลงทะเบียนผู้จัดการหอพัก <i className="fas fa-user-plus"></i>
       </h1>
+      {/* displaying our message from our API call */}
+      <h4 className="text-center text-danger">{message}</h4>
       <Card
         className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
         style={{ backgroundColor: '#EAE7E2', maxWidth: '800px', width: '100%' }}
