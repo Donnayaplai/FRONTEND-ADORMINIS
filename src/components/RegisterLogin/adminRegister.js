@@ -30,12 +30,6 @@ const AdminRegister = () => {
     setSuccess(true);
     console.log(info);
 
-    // {
-    //   success ? history.push(`/login`) : history.push(`/`);
-    // }
-    // console.log(success);
-    // console.log(info);
-
     reset();
   };
   if (success) {
@@ -54,6 +48,17 @@ const AdminRegister = () => {
         style={{ backgroundColor: '#EAE7E2', maxWidth: '800px', width: '100%' }}
       >
         <Form className="w-100 p-3" onSubmit={handleSubmit(onSubmit)}>
+          <Row>
+            <Col>
+              <button
+                type="button"
+                onClick={() => reset()}
+                className="btn btn-secondary"
+              >
+                ค่าเริ่มต้น
+              </button>
+            </Col>
+          </Row>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label>ชื่อ</Form.Label>
