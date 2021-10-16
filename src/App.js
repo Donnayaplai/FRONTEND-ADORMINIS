@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import './App.css';
-import AuthService from './Services/AuthService';
+// import AuthService from './Services/AuthService';
 
 import Routes from './Routes';
 import HomePage from './components/Homepage/Homepage';
