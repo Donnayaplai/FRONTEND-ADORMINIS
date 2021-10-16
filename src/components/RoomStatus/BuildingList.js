@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import building from '../../assets/images/building.jpg';
 import env from '../../env';
 
-const BuildingList = () => {
+const BuildingList = (props) => {
   const { dormid } = useParams();
 
   const [dormList, setDormList] = useState([]);
@@ -13,7 +13,7 @@ const BuildingList = () => {
 
   useEffect(() => {
     axios
-      .get(`${env.url}api/building/all/${dormid}`)
+      .get(`${env.url}api/building/all/${dormid}`) //ส่ง dormid ที่ได้จาก userdetail /App มา
       .then((res) => {
         console.log(res.data);
         setDormList(res.data);
