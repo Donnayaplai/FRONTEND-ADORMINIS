@@ -26,6 +26,7 @@ const Routes = () => {
   return (
     <>
       <Switch>
+        {/* Public routes */}
         <Route path="/login" exact component={Login} />
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
@@ -36,6 +37,7 @@ const Routes = () => {
         />
         <Route path="/form" exact component={DynamicForm} />
         <Route path="/resident/register" exact component={residentRegister} />
+        {/* Admin routes */}
         <Route path="/all-building/:dormid" component={BuildingList} />
         <Route path="/all-room/:buildingid" component={Room} />
         <Route path="/profile/:personalCode" component={Profile} />
@@ -48,6 +50,7 @@ const Routes = () => {
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dorm-registration" component={DormitorySetting} />
         <Route path="/dorm-setting" component={Setting} />
+        {/* Resident routes */}
         <Route path="/resident/invoice" component={Billing} />
         <Route path="/resident/payment/status" component={PaymentStatus} />
         <Route path="*" component={NotFound} />
