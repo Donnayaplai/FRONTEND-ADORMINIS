@@ -18,30 +18,27 @@ const CheckExistAccount = () => {
     trigger,
   } = useForm();
 
-  const onSubmit = (data) => {
-    axios
+  const onSubmit = async (data) => {
+    await axios
       .post(`${env.url}api/user/verifyUser`, data)
-      .then((data) => setUserId(data.data.USERID), setExistAccount(true))
-      .then(() => {
-        checkExist();
-      });
+      .then((data) => setUserId(data.data.USERID));
+
+    // eslint-disable-next-line no-lone-blocks
+    {
+      isExistAccount
+        ? history.push('/resident/register')
+        : window.alert('มีบางอย่างผิดพลาด');
+    }
+
     console.log(data);
 
     reset();
   };
-
-  function checkExist() {
-    if (isExistAccount === true) {
-      window.alert('รหัสผู้ใช้งานของคุณ:' + userId);
-    } else {
-      window.alert('ไม่พบผู้ใช้งานในระบบ โปรดติดต่อทางหอพัก');
-    }
-  }
+  // eslint-disable-next-line no-lone-blocks
 
   return (
     <Container>
       <h1>ลงทะเบียนผู้ใช้งาน</h1>
-      <h3>รหัสผู้ใช้งานของคุณ: {userId}</h3>
 
       <Card
         className="mx-auto p-5 border-0"
@@ -101,12 +98,16 @@ const CheckExistAccount = () => {
               id="btn-save"
               style={{ marginTop: '5%' }}
               value="Send message"
+              onClick={() => setExistAccount(true)}
             >
               ต่อไป <i className="fas fa-sign-in-alt"></i>
             </Button>
           </center>
         </Form>
       </Card>
+      <h4 className="text-center mt-3 text-primary">
+        รหัสผู้ใช้งานของคุณ: {userId}
+      </h4>
     </Container>
   );
 };
