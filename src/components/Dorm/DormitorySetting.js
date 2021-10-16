@@ -3,7 +3,6 @@ import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button, Modal } from 'react-bootstrap';
 import { Provinces } from '../../systemdata/Provinces';
-import { Redirect } from 'react-router';
 
 const DormitorySetting = () => {
   const [dormData, setDormData] = useState({
@@ -40,16 +39,6 @@ const DormitorySetting = () => {
     console.log(data);
     setCreateDorm(true);
     setDormData('');
-
-    {
-      isCreateDorm ? (
-        <Redirect to="/" />
-      ) : (
-        window.alert('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง') && (
-          <Redirect to="/dormsetting" />
-        )
-      );
-    }
   };
   const handleClose = () => setConfirmModalOpen(false);
   const handleShow = () => setConfirmModalOpen(true);
@@ -91,7 +80,7 @@ const DormitorySetting = () => {
               </Col>
             </Row>
             <Row className="mb-3">
-            <Col xs={5} >
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>เบอร์โทรศัพท์</Form.Label>
                   <Form.Control
@@ -116,9 +105,9 @@ const DormitorySetting = () => {
                 </Form.Group>
               </Col>
             </Row>
-            
+
             <Row className="mb-3">
-            <Col xs={5}>
+              <Col xs={5}>
                 <Form.Group>
                   <Form.Label>ถนน</Form.Label>
                   <Form.Control
@@ -144,7 +133,6 @@ const DormitorySetting = () => {
               </Col>
             </Row>
             <Row className="mb-3">
-          
               <Col xs={5}>
                 <Form.Group>
                   <Form.Label>เขต</Form.Label>
@@ -171,7 +159,6 @@ const DormitorySetting = () => {
               </Col>
             </Row>
             <Row className="mb-3">
-              
               <Col xs={5}>
                 <Form.Group>
                   <Form.Label>จังหวัด</Form.Label>
