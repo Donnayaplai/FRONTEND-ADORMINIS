@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 
-function Billing() {
+function Billing(props) {
+  console.log(props.roleId);
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    }
+  }, []);
   return (
     <div className="container mb-5">
       <h1>ใบแจ้งค่าใช้จ่าย</h1>

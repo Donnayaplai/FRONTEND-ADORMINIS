@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import env from '../../env';
 import { Card, Container, Form, Button } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './RegisterLogin.css';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [redirect, setRedirect] = useState(false);
+  // const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -20,13 +22,19 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem('authorization', res.data.TOKEN);
+        props.setRoleId(res.data.ROLEID);
+        if (res.data.ROLEID === 0) {
+          history.push(`/resident/payment/status`); //resident
+        } else if (res.data.ROLEID === 1) {
+          history.push(`/dorm-registration`); //admin
+        } else {
+          window.alert('มีบางอย่างผิดพลาด');
+        }
       });
-
-    setRedirect(true);
   };
-  if (redirect) {
-    return <Redirect to="/" />;
-  }
+  // if (redirect) {
+  //   return <Redirect to="/" />;
+  // }
   //เช็ค role ที่ได้กลับมาเพื่อ redirectไปหน้าของ role นั้น ๆ
   return (
     <Container>

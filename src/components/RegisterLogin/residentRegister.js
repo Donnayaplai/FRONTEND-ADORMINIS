@@ -1,12 +1,12 @@
+import React from 'react';
 import axios from 'axios';
 import env from '../../env';
-// import React, { useState } from 'react';
 import { Card, Container, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
 
-const ResidentRegister = () => {
+const ResidentRegister = (props) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +16,10 @@ const ResidentRegister = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await axios.post(`${env.url}api/user/residentRegister`, data);
+    await axios.post(
+      `${env.url}api/user/register/${props.match.params.userid}`,
+      data
+    );
     console.log(data);
     reset();
   };
@@ -96,4 +99,4 @@ const ResidentRegister = () => {
     </Container>
   );
 };
-export default ResidentRegister;
+export default withRouter(ResidentRegister);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Card, Form, Container, Button } from 'react-bootstrap';
@@ -7,8 +7,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
 const CheckExistAccount = () => {
-  const [userId, setUserId] = useState(null);
-  const [isExistAccount, setExistAccount] = useState(false);
   const history = useHistory();
   const {
     register,
@@ -21,14 +19,11 @@ const CheckExistAccount = () => {
   const onSubmit = async (data) => {
     await axios
       .post(`${env.url}api/user/verifyUser`, data)
-      .then((data) => setUserId(data.data.USERID));
-
-    // eslint-disable-next-line no-lone-blocks
-    {
-      isExistAccount
-        ? history.push('/resident/register')
-        : window.alert('มีบางอย่างผิดพลาด');
-    }
+      .then((data) =>
+        data.data.USERID
+          ? history.push(`/resident/register/${data.data.USERID}`)
+          : window.alert('มีบางอย่างผิดพลาด')
+      );
 
     console.log(data);
 
@@ -98,16 +93,12 @@ const CheckExistAccount = () => {
               id="btn-save"
               style={{ marginTop: '5%' }}
               value="Send message"
-              onClick={() => setExistAccount(true)}
             >
               ต่อไป <i className="fas fa-sign-in-alt"></i>
             </Button>
           </center>
         </Form>
       </Card>
-      <h4 className="text-center mt-3 text-primary">
-        รหัสผู้ใช้งานของคุณ: {userId}
-      </h4>
     </Container>
   );
 };
