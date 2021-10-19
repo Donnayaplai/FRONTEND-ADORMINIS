@@ -3,12 +3,12 @@ import { useHistory } from 'react-router';
 
 function Billing(props) {
   console.log(props.roleId);
-  const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 0) {
-      history.push('/login');
-    }
-  }, []);
+  // const history = useHistory();
+  // useEffect(() => {
+  //   if (props.roleId !== 0) {
+  //     history.push('/login');
+  //   }
+  // }, []);
   return (
     <div className="container mb-5">
       <h1>ใบแจ้งค่าใช้จ่าย</h1>

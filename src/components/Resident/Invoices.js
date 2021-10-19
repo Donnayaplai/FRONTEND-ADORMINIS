@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
 
-function PaymentStatus() {
+function Invoices(props) {
+  // const history = useHistory();
+  // useEffect(() => {
+  //   if (props.roleId !== 0) {
+  //     history.push('/login');
+  //   }
+  // }, []);
+
   let rowstyle = {
     backgroundColor: '#EAE7E2',
     border: 'none',
@@ -59,4 +67,4 @@ function PaymentStatus() {
     </div>
   );
 }
-export default PaymentStatus;
+export default Invoices;
