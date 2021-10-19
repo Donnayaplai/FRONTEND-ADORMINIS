@@ -4,16 +4,16 @@ import axios from 'axios';
 import './App.css';
 import env from './env';
 
-// import AuthService from './Services/AuthService';
-
 import Routes from './Routes';
-import HomePage from './components/Homepage/Homepage';
+import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
 import History from './components/Others/History';
 import ResidentNav from './components/Navbar/ResidentNav';
 import AdminNav from './components/Navbar/AdminNav';
 function App() {
   const [roleId, setRoleId] = useState();
+  const [dormId, setDormId] = useState();
+  const [buildingId, setBuildingId] = useState();
   //ทำงานก่อน render
   useEffect(() => {
     if (localStorage.getItem('authorization')) {
@@ -26,6 +26,8 @@ function App() {
         .then((data) => {
           console.log(data.data);
           setRoleId(data.data.ROLEID);
+          setDormId(data.data.DORMID);
+          setBuildingId(data.data.BUILDINGID);
         });
     }
   }, []);
@@ -44,9 +46,9 @@ function App() {
     <Router history={History}>
       {RenderNav()}
       <Switch>
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={LandingPage} />
         <Route>
-          <Routes setRoleId={setRoleId} roleId={roleId} />
+          <Routes setRoleId={setRoleId} roleId={roleId} dormId={dormId} />
         </Route>
       </Switch>
     </Router>
