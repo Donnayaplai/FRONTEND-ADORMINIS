@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Homepage.css';
+import './LandingPage.css';
 
 import Receipt from '../../assets/images/receipt.png';
 import Utility from '../../assets/images/utilities.png';
 import RoomStatus from '../../assets/images/room-status.png';
-const Homepage = () => {
+const LandingPage = () => {
   return (
     <>
       <header className="header">
@@ -48,4 +48,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default LandingPage;
