@@ -2,8 +2,16 @@ import React from 'react';
 import './Navbar.css';
 import logo from '../../assets/images/building-nav.png';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useHistory, Redirect } from 'react-router';
 
 const ResidentNav = () => {
+  // const history = useHistory();
+
+  const logout = () => {
+    localStorage.removeItem('authorization');
+    <Redirect to="/login" />;
+  };
   return (
     <nav>
       <div className="logo">
@@ -22,13 +30,13 @@ const ResidentNav = () => {
           <Link to="/">ข้อมูลหอพัก</Link>
         </li>
         <li>
-          <Link to="/resident/invoice">ใบแจ้งหนี้</Link>
-        </li>
-        <li>
-          <Link to="/resident/payment/status">สถานะการชำระเงิน</Link>
+          <Link to="/resident/invoices">ใบแจ้งหนี้</Link>
         </li>
         <li>
           <Link to="/resident/complain">แจ้งปัญหา</Link>
+        </li>
+        <li>
+          <Button onClick={logout}>ออกจากระบบ</Button>
         </li>
       </ul>
     </nav>
