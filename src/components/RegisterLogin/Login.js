@@ -24,9 +24,9 @@ const Login = (props) => {
         localStorage.setItem('authorization', res.data.TOKEN);
         props.setRoleId(res.data.ROLEID);
         if (res.data.ROLEID === 0) {
-          history.push(`/resident/payment/status`); //resident
+          history.push(`/resident/home`); //resident
         } else if (res.data.ROLEID === 1) {
-          history.push(`/dorm-registration`); //admin
+          history.push(`/admin/home`); //admin
         } else {
           window.alert('มีบางอย่างผิดพลาด');
         }
