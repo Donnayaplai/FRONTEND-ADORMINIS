@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { useHistory, Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 
 import './Navbar.css';
 import logo from '../../assets/images/building-nav.png';
