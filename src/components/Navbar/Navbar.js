@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
-import logo from '../../assets/images/building-nav.png';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Navbar.css'
+import logo from '../../assets/images/building-nav.png'
 
 function Navbar() {
   return (
@@ -22,14 +22,11 @@ function Navbar() {
           <Link to="/">หน้าหลัก</Link>
         </li>
         <li>
-          <Link to="/all-building/100000003">ตึกและห้องพัก</Link>
-        </li>
-        <li>
           <Link to="/">ติดต่อเรา</Link>
         </li>
       </ul>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
