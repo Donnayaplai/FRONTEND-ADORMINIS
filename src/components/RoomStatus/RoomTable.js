@@ -16,6 +16,7 @@ import {
 import AddUser from '../../assets/images/add-user.png';
 import RemoveUser from '../../assets/images/delete.png';
 import EditUser from '../../assets/images/edit.png';
+import RoomInfo from '../../assets/images/roominfo.png';
 
 const RoomTable = ({
   rooms,
@@ -147,6 +148,7 @@ const RoomTable = ({
               <th scope="col">ห้อง</th>
               <th scope="col">ชั้น</th>
               <th scope="col">สถานะ</th>
+              <th scope="col">ข้อมูลห้องพัก</th>
               <th scope="col">ข้อมูลผู้เช่า</th>
               <th scope="col">เพิ่มคน</th>
             </tr>
@@ -202,6 +204,22 @@ const RoomTable = ({
                       ไม่ว่าง
                     </button>
                   )}
+                </td>
+                <td>
+                  <Button
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }}
+                    onClick={() => {}}
+                  >
+                    <img
+                      src={RoomInfo}
+                      alt="Room Information"
+                      style={{ width: '2em' }}
+                    />
+                  </Button>
                 </td>
 
                 <td>
