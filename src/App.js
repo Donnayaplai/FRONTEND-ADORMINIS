@@ -36,7 +36,7 @@ function App() {
     if (roleId === 0) {
       return <ResidentNav />;
     } else if (roleId === 1) {
-      return <AdminNav />;
+      return <AdminNav dormId={dormId} />;
     } else {
       return <Navbar />;
     }
