@@ -16,7 +16,10 @@ const ResidentNav = () => {
     <nav>
       <div className="logo">
         <h2 className="title">
-          <Link to="/" style={{ textDecoration: 'none', color: '#fff' }}>
+          <Link
+            to="/resident/home"
+            style={{ textDecoration: 'none', color: '#fff' }}
+          >
             adorminis <img src={logo} alt="ADORMINIS-ICON" />{' '}
           </Link>
         </h2>
