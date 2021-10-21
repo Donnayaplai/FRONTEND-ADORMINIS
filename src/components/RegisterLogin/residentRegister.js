@@ -5,6 +5,7 @@ import { Card, Container, Form, Button } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 
 const ResidentRegister = (props) => {
   const {
@@ -14,13 +15,14 @@ const ResidentRegister = (props) => {
     reset,
     trigger,
   } = useForm();
+  const history = useHistory();
 
   const onSubmit = async (data) => {
     await axios.post(
       `${env.url}api/user/register/${props.match.params.userid}`,
       data
     );
-    console.log(data);
+    history.push('/login');
     reset();
   };
   return (
