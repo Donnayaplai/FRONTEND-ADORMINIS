@@ -32,13 +32,11 @@ const Login = (props) => {
         }
       });
   };
-  // if (redirect) {
-  //   return <Redirect to="/" />;
-  // }
-  //เช็ค role ที่ได้กลับมาเพื่อ redirectไปหน้าของ role นั้น ๆ
+
   return (
     <Container>
       <h1>เข้าสู่ระบบ</h1>
+
       <Card
         className="mx-auto p-5 border-0"
         style={{
