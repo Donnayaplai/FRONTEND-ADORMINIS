@@ -6,7 +6,7 @@ import adminRegister from './components/RegisterLogin/adminRegister';
 import residentRegister from './components/RegisterLogin/residentRegister';
 import SelectRole from './components/RegisterLogin/SelectRole';
 import Login from './components/RegisterLogin/Login';
-import Utility from './components/Utility/Utility';
+import Utility from './components/Utility/MeterRecord';
 import UtilitySummary from './components/Utility/UtilitySummary';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import BuildingList from './components/RoomStatus/BuildingList';
@@ -22,6 +22,7 @@ import ResidentHome from './components/Home/ResidentHome';
 import DynamicForm from './components/Setting/DynamicForm';
 import Setting from './components/Dorm/Setting';
 import Complain from './components/Resident/Complain';
+import SelectBuilding from './components/Utility/SelectBuilding';
 const Routes = (props) => {
   return (
     <>
@@ -58,6 +59,10 @@ const Routes = (props) => {
         <Route
           path="/addresident/:buildingid/:roomid"
           component={AddResident}
+        />
+        <Route
+          path="/select-building/meter-record"
+          component={SelectBuilding}
         />
         <Route path="/utility" component={Utility} />
         <Route path="/utilsummary" component={UtilitySummary} />
