@@ -36,7 +36,7 @@ function App() {
     if (roleId === 0) {
       return <ResidentNav />;
     } else if (roleId === 1) {
-      return <AdminNav dormId={dormId} />;
+      return <AdminNav dormId={dormId} buildingId={buildingId} />;
     } else {
       return <Navbar />;
     }
@@ -48,7 +48,12 @@ function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route>
-          <Routes setRoleId={setRoleId} roleId={roleId} dormId={dormId} />
+          <Routes
+            setRoleId={setRoleId}
+            roleId={roleId}
+            dormId={dormId}
+            buildingId={buildingId}
+          />
         </Route>
       </Switch>
     </Router>
