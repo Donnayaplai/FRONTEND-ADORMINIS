@@ -6,7 +6,7 @@ import adminRegister from './components/RegisterLogin/adminRegister';
 import residentRegister from './components/RegisterLogin/residentRegister';
 import SelectRole from './components/RegisterLogin/SelectRole';
 import Login from './components/RegisterLogin/Login';
-import Utility from './components/Utility/MeterRecord';
+import MeterRecord from './components/Utility/SelectBuilding';
 import UtilitySummary from './components/Utility/UtilitySummary';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import BuildingList from './components/RoomStatus/BuildingList';
@@ -23,6 +23,8 @@ import DynamicForm from './components/Setting/DynamicForm';
 import Setting from './components/Dorm/Setting';
 import Complain from './components/Resident/Complain';
 import SelectBuilding from './components/Utility/SelectBuilding';
+import RentHistory from './components/History/RentHistory';
+import InvoiceList from './components/Invoice/InvoiceList';
 const Routes = (props) => {
   return (
     <>
@@ -53,21 +55,31 @@ const Routes = (props) => {
           <BuildingList dormId={props.dormId} />
         </Route>
         {/* <Route path="/all-building/:dormid" component={BuildingList} /> */}
-        <Route path="/all-room/:buildingid" component={Room} />
+        {/* <Route path="/all-room">
+          <Room buildingId={props.buildingId} />
+        </Route> */}
+        <Route
+          path="/all-room/:buildingid"
+          component={Room}
+          buildingId={props.buildingId}
+        />
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
         <Route
           path="/addresident/:buildingid/:roomid"
           component={AddResident}
+          dormId={props.dormId}
         />
         <Route
           path="/select-building/meter-record"
           component={SelectBuilding}
         />
-        <Route path="/utility" component={Utility} />
+        <Route path="/all-invoice/list" component={InvoiceList} />
+        <Route path="/select-building/meter-record" component={MeterRecord} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dorm-registration" component={DormitoryRegister} />
         <Route path="/dorm-setting" component={Setting} />
+        <Route path="/rent/history" component={RentHistory} />
 
         {/* Resident routes */}
         <Route path="/resident/home">
