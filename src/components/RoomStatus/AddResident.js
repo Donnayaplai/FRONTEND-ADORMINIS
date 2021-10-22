@@ -1,12 +1,12 @@
-import axios from "axios";
-import env from "../../env";
+import axios from 'axios';
+import env from '../../env';
 //import { Multiselect } from "multiselect-react-dropdown";
-import "./AddResident.css";
-import { Row, Container, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
+import './AddResident.css';
+import { Row, Container, Col, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 
 const AddResident = (props) => {
   const {
@@ -18,44 +18,87 @@ const AddResident = (props) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const info = await axios.post(
-      `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
-      data
-    );
-    console.log(info);
+    console.log(data);
+    // const info = await axios.post(
+    //   `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
+    //   data
+    // )
+    // console.log(info);
     await reset();
   };
+  const [formData, setFormData] = useState([]);
+  const [checked, setChecked] = useState([]); // categories
+  const [costList] = useState([
+    {
+      id: 4,
+      costName: 'ส่วนกลาง',
+    },
 
-  const [costList, setCostList] = useState([]);
+    {
+      id: 5,
+      costName: 'ที่จอดรถ',
+    },
+    {
+      id: 6,
+      costName: 'อินเทอร์เน็ต',
+    },
+    {
+      id: 7,
+      costName: 'รักษาความสะอาด',
+    },
+    {
+      id: 8,
+      costName: 'อื่น ๆ',
+    },
+  ]);
+  useEffect(() => {
+    setFormData(new FormData());
+  }, []);
 
-  const selectList = (e) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      setCostList([...costList, e.target.value]);
+  const handleToggle = (c) => () => {
+    const clickedCostList = checked.indexOf(c);
+    const all = [...checked];
+
+    if (clickedCostList === -1) {
+      all.push(c);
     } else {
-      let index = costList.indexOf(e.target.value);
-      costList.splice(index, 1);
-      setCostList({ costList: costList });
+      all.splice(clickedCostList, 1);
     }
-    console.log(e.target.checked);
+    console.log(all);
+    setChecked(all);
+    formData.set('costList', all);
   };
 
-  let onSubmitCost = (e) => {
-    e.preventDefault();
-    console.log(costList);
-  };
-  // const costdata = [
-  //   { cost: "ค่าส่วนกลาง", id: 1 },
-  //   { cost: "ค่าที่จอดรถ", id: 2 },
-  //   { cost: "ค่าอินเทอร์เน็ต", id: 1 },
-  //   { cost: "ค่าทำความสะอาด", id: 1 },
-  //   { cost: "อื่นๆ", id: 1 },
-  // ];
-  // const [options] = useState(costdata);
-  // const [collectoptions, setcollectoptions] = useState([]);
+  // let [selected, setSelected] = useState([]);
+  // const onChangeItem = (id) => {
+  //   let selected = selected;
+  //   let find = selected.findIndex((item) => item.id === id);
 
-  // const selectCost = async (collectoptions) => {
-  //   console.log(collectoptions);
+  //   if (find > -1) {
+  //     selected.splice(find, 1);
+  //   } else {
+  //     selected.push(costList.find((item) => item.id === id));
+  //   }
+
+  //   setSelected({ selected });
+  // };
+  // console.log(selected);
+
+  // const selectList = (e) => {
+  //   const isChecked = e.target.checked;
+  //   if (isChecked) {
+  //     setCostList([...costList, e.target.value]);
+  //   } else {
+  //     let index = costList.indexOf(e.target.value);
+  //     costList.splice(index, 1);
+  //     setCostList({ costList: costList });
+  //   }
+  //   console.log(e.target.checked);
+  // };
+
+  // let onSubmitCost = (e) => {
+  //   e.preventDefault();
+  //   console.log(costList);
   // };
 
   return (
@@ -63,349 +106,279 @@ const AddResident = (props) => {
       <h1>
         เพิ่มผู้เช่า <i className="fas fa-user-plus"></i>
       </h1>
-      <Container style={{ marginBottom: "5%" }}>
-        {/* <Form onSubmit={handleSubmit(onSubmit)}> */}
-        <Container style={{ maxWidth: "800px" }}>
-          <h3>ข้อมูลส่วนตัว</h3>
-          <Container
-            className="py-4 rounded mb-3"
-            style={{ backgroundColor: "#EAE7E2" }}
-          >
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>ชื่อ</Form.Label>
-                  <Form.Control
-                    name="fName"
-                    type="text"
-                    placeholder="สมศรี"
-                    {...register("fName", { required: "โปรดกรอกชื่อจริง" })}
-                    onKeyUp={() => {
-                      trigger("fName");
-                    }}
-                  />
-                  {errors.fName && (
-                    <small className="text-danger">
-                      {errors.fName.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>นามสกุล</Form.Label>
-                  <Form.Control
-                    name="lName"
-                    type="text"
-                    placeholder="โชคดี"
-                    {...register("lName", { required: "โปรดกรอกนามสกุล" })}
-                    onKeyUp={() => {
-                      trigger("lName");
-                    }}
-                  />
-                  {errors.lName && (
-                    <small className="text-danger">
-                      {errors.lName.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>วันเกิด</Form.Label>
-                  <Form.Control
-                    name="dateOfBirth"
-                    type="date"
-                    {...register("dateOfBirth", {
-                      required: "โปรดกรอกวัน/เดือน/ปี เกิด",
-                    })}
-                    onKeyUp={() => {
-                      trigger("dateOfBirth");
-                    }}
-                  />
-                  {errors.dateOfBirth && (
-                    <small className="text-danger">
-                      {errors.dateOfBirth.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>รหัสบัตรประชาชน</Form.Label>
-                  <Form.Control
-                    name="idCardNo"
-                    type="text"
-                    placeholder="รหัสบัตรประชาชน 13 หลัก"
-                    className={`form-control ${errors.idCardNo && "invalid"}`}
-                    {...register("idCardNo", {
-                      required: "โปรดกรอกรหัสบัตรประชาชน",
-                      minLength: {
-                        value: 13,
-                        message: "รหัสบัตรประชาชนควรมี 13 หลัก",
-                      },
-                      maxLength: {
-                        value: 13,
-                        message: "รหัสบัตรประชาชนควรมี 13 หลัก",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("idCardNo");
-                    }}
-                  />
-                  {errors.idCardNo && (
-                    <small className="text-danger">
-                      {errors.idCardNo.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>เบอร์โทรศัพท์</Form.Label>
-                  <Form.Control
-                    name="telNo"
-                    type="text"
-                    placeholder="0xx-xxx-xxxx"
-                    className={`form-control ${errors.telNo && "invalid"}`}
-                    {...register("telNo", {
-                      required: "โปรดกรอกเบอร์โทรศัพท์",
-                      pattern: {
-                        value:
-                          /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                        message: "เบอร์โทรศัพท์",
-                      },
-                    })}
-                    onKeyUp={() => {
-                      trigger("telNo");
-                    }}
-                  />
-                  {errors.telNo && (
-                    <small className="text-danger">
-                      {errors.telNo.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>เพศ</Form.Label>
-                  <Form.Select
-                    name="gender"
-                    {...register("gender", {
-                      required: "โปรดกรอกเพศ",
-                    })}
-                    onKeyUp={() => {
-                      trigger("gender");
-                    }}
-                  >
-                    <option defaultValue>เลือกเพศ...</option>
-                    <option value="หญิง">หญิง</option>
-                    <option value="ชาย">ชาย</option>
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>ที่อยู่</Form.Label>
-                  <Form.Control
-                    style={{ maxWidth: "800px", padding: "30px" }}
-                    name="address"
-                    type="text"
-                    placeholder="126/54 ซอยบางบอน 5 ซอย 7 ถนนบางบอน 3 แขวงบางบอน​ เขต​บางบอน​ กรุงเทพ​มหานคร​ 10150"
-                    {...register("address", {
-                      required: "โปรดกรอกที่อยู่ปัจจุบัน",
-                    })}
-                    onKeyUp={() => {
-                      trigger("address");
-                    }}
-                  />
-                  {errors.address && (
-                    <small className="text-danger">
-                      {errors.address.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
+      <Container style={{ marginBottom: '5%' }}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Container style={{ maxWidth: '800px' }}>
+            <h3>ข้อมูลส่วนตัว</h3>
+            <Container
+              className="py-4 rounded mb-3"
+              style={{ backgroundColor: '#EAE7E2' }}
+            >
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>ชื่อ</Form.Label>
+                    <Form.Control
+                      name="fName"
+                      type="text"
+                      placeholder="สมศรี"
+                      {...register('fName', { required: 'โปรดกรอกชื่อจริง' })}
+                      onKeyUp={() => {
+                        trigger('fName');
+                      }}
+                    />
+                    {errors.fName && (
+                      <small className="text-danger">
+                        {errors.fName.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>นามสกุล</Form.Label>
+                    <Form.Control
+                      name="lName"
+                      type="text"
+                      placeholder="โชคดี"
+                      {...register('lName', { required: 'โปรดกรอกนามสกุล' })}
+                      onKeyUp={() => {
+                        trigger('lName');
+                      }}
+                    />
+                    {errors.lName && (
+                      <small className="text-danger">
+                        {errors.lName.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>วันเกิด</Form.Label>
+                    <Form.Control
+                      name="dateOfBirth"
+                      type="date"
+                      {...register('dateOfBirth', {
+                        required: 'โปรดกรอกวัน/เดือน/ปี เกิด',
+                      })}
+                      onKeyUp={() => {
+                        trigger('dateOfBirth');
+                      }}
+                    />
+                    {errors.dateOfBirth && (
+                      <small className="text-danger">
+                        {errors.dateOfBirth.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>รหัสบัตรประชาชน</Form.Label>
+                    <Form.Control
+                      name="idCardNo"
+                      type="text"
+                      placeholder="รหัสบัตรประชาชน 13 หลัก"
+                      className={`form-control ${errors.idCardNo && 'invalid'}`}
+                      {...register('idCardNo', {
+                        required: 'โปรดกรอกรหัสบัตรประชาชน',
+                        minLength: {
+                          value: 13,
+                          message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                        },
+                        maxLength: {
+                          value: 13,
+                          message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger('idCardNo');
+                      }}
+                    />
+                    {errors.idCardNo && (
+                      <small className="text-danger">
+                        {errors.idCardNo.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>เบอร์โทรศัพท์</Form.Label>
+                    <Form.Control
+                      name="telNo"
+                      type="text"
+                      placeholder="0xx-xxx-xxxx"
+                      className={`form-control ${errors.telNo && 'invalid'}`}
+                      {...register('telNo', {
+                        required: 'โปรดกรอกเบอร์โทรศัพท์',
+                        pattern: {
+                          value:
+                            /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                          message: 'เบอร์โทรศัพท์',
+                        },
+                      })}
+                      onKeyUp={() => {
+                        trigger('telNo');
+                      }}
+                    />
+                    {errors.telNo && (
+                      <small className="text-danger">
+                        {errors.telNo.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>เพศ</Form.Label>
+                    <Form.Select
+                      name="gender"
+                      {...register('gender', {
+                        required: 'โปรดกรอกเพศ',
+                      })}
+                      onKeyUp={() => {
+                        trigger('gender');
+                      }}
+                    >
+                      <option defaultValue>เลือกเพศ...</option>
+                      <option value="หญิง">หญิง</option>
+                      <option value="ชาย">ชาย</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>ที่อยู่</Form.Label>
+                    <Form.Control
+                      style={{ maxWidth: '800px', padding: '30px' }}
+                      name="address"
+                      type="text"
+                      placeholder="126/54 ซอยบางบอน 5 ซอย 7 ถนนบางบอน 3 แขวงบางบอน​ เขต​บางบอน​ กรุงเทพ​มหานคร​ 10150"
+                      {...register('address', {
+                        required: 'โปรดกรอกที่อยู่ปัจจุบัน',
+                      })}
+                      onKeyUp={() => {
+                        trigger('address');
+                      }}
+                    />
+                    {errors.address && (
+                      <small className="text-danger">
+                        {errors.address.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Container>
           </Container>
-        </Container>
 
-        <Container style={{ maxWidth: "800px", marginTop: "3%" }}>
-          <h3>ข้อมูลการเช่าพัก</h3>
+          <Container style={{ maxWidth: '800px', marginTop: '3%' }}>
+            <h3>ข้อมูลการเช่าพัก</h3>
 
-          <Container
-            className="py-4 rounded mb-3"
-            style={{ backgroundColor: "#EAE7E2" }}
-          >
-            <Row>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>วันเริ่มสัญญา</Form.Label>
-                  <Form.Control
-                    name="startDate"
-                    type="date"
-                    {...register("startDate", {
-                      required: "โปรดกรอกวันเริ่มสัญญา",
-                    })}
-                    onKeyUp={() => {
-                      trigger("startDate");
-                    }}
-                  />
-                  {errors.startDate && (
-                    <small className="text-danger">
-                      {errors.startDate.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>วันสิ้นสุดสัญญา</Form.Label>
-                  <Form.Control
-                    name="endDate"
-                    type="date"
-                    {...register("endDate", {
-                      required: "โปรดกรอกวันสิ้นสุดสัญญา",
-                    })}
-                    onKeyUp={() => {
-                      trigger("endDate");
-                    }}
-                  />
-                  {errors.endDate && (
-                    <small className="text-danger">
-                      {errors.endDate.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3">
-                  <Form.Label>วันที่เริ่มเข้าพัก</Form.Label>
-                  <Form.Control
-                    name="checkInDate"
-                    type="date"
-                    {...register("checkInDate", {
-                      required: "โปรดกรอกวันที่เริ่มเข้าพัก",
-                    })}
-                    onKeyUp={() => {
-                      trigger("checkInDate");
-                    }}
-                  />
-                  {errors.checkInDate && (
-                    <small className="text-danger">
-                      {errors.checkInDate.message}
-                    </small>
-                  )}
-                </Form.Group>
-              </Col>
-            </Row>
+            <Container
+              className="py-4 rounded mb-3"
+              style={{ backgroundColor: '#EAE7E2' }}
+            >
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>วันเริ่มสัญญา</Form.Label>
+                    <Form.Control
+                      name="startDate"
+                      type="date"
+                      {...register('startDate', {
+                        required: 'โปรดกรอกวันเริ่มสัญญา',
+                      })}
+                      onKeyUp={() => {
+                        trigger('startDate');
+                      }}
+                    />
+                    {errors.startDate && (
+                      <small className="text-danger">
+                        {errors.startDate.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>วันสิ้นสุดสัญญา</Form.Label>
+                    <Form.Control
+                      name="endDate"
+                      type="date"
+                      {...register('endDate', {
+                        required: 'โปรดกรอกวันสิ้นสุดสัญญา',
+                      })}
+                      onKeyUp={() => {
+                        trigger('endDate');
+                      }}
+                    />
+                    {errors.endDate && (
+                      <small className="text-danger">
+                        {errors.endDate.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label>วันที่เริ่มเข้าพัก</Form.Label>
+                    <Form.Control
+                      name="checkInDate"
+                      type="date"
+                      {...register('checkInDate', {
+                        required: 'โปรดกรอกวันที่เริ่มเข้าพัก',
+                      })}
+                      onKeyUp={() => {
+                        trigger('checkInDate');
+                      }}
+                    />
+                    {errors.checkInDate && (
+                      <small className="text-danger">
+                        {errors.checkInDate.message}
+                      </small>
+                    )}
+                  </Form.Group>
+                </Col>
+              </Row>
+            </Container>
           </Container>
-        </Container>
-        <Form onSubmit={onSubmitCost}>
-          <Container style={{ maxWidth: "800px", marginTop: "3%" }}>
+
+          <Container style={{ maxWidth: '800px', marginTop: '3%' }}>
             <h3>ค่าใช้จ่ายเพิ่มเติม</h3>
 
             <Container
               className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
+              style={{ backgroundColor: '#EAE7E2' }}
             >
-              <Row>
-                {/* <Col>
-                    <h6>กรุณาเลือกค่าใช้จ่ายที่ต้องการ</h6>
-                    <div
-                      style={{
-                        Width: "90%",
-                        justifyContent: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Multiselect
-                        options={options}
-                        displayValue="cost"
-                        onRemove={function noRefCheck() {}}
-                        onSearch={function noRefCheck() {}}
-                        onSelect={function noRefCheck() {}}
+              {costList.map((c) => {
+                return (
+                  <Row key={c.id}>
+                    <Col>
+                      <input
+                        type="checkbox"
+                        onChange={handleToggle(c.id)}
+                        // onChange={() => onChangeItem(item.id)}
+                        // selected={selected.includes(item.id)}
+                        id="checkbox"
                       />
-                    </div>
-                  </Col> */}
-                <Col>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      name="costList"
-                      onChange={selectList}
-                      value="maintenanceFee"
-                    />
-                    <label htmlFor="checkbox">ค่าส่วนกลาง</label>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      name="costList"
-                      onChange={selectList}
-                      value="parkingFee"
-                    />
-                    <label htmlFor="checkbox">ค่าที่จอดรถ</label>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      name="costList"
-                      onChange={selectList}
-                      value="internetFee"
-                    />
-                    <label htmlFor="checkbox">ค่าอินเทอร์เน็ต</label>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      name="costList"
-                      onChange={selectList}
-                      value="cleaningFee"
-                    />
-                    <label htmlFor="checkbox">ค่าทำความสะอาด</label>
-                  </div>
-                </Col>
-                <Col>
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      name="costList"
-                      onChange={selectList}
-                      value="otherFee"
-                    />
-                    <label htmlFor="checkbox">อื่นๆ</label>
-                  </div>
-                </Col>
-                <Col></Col>
-              </Row>
-              <input type="submit" value="Submit" />
+                      <label>{c.costName}</label>
+                    </Col>
+                  </Row>
+                );
+              })}
             </Container>
 
-            <Row style={{ marginTop: "5%" }}>
+            <Row className="mt-3">
               <Col>
-                <Link to="/all-room/120000001">
-                  <Button variant="outline-secondary" id="btn-back">
-                    ย้อนกลับ
-                  </Button>
+                <Link to={`/all-room/${props.buildingId}`}>
+                  <Button id="btn-back">ย้อนกลับ</Button>
                 </Link>
               </Col>
               <Col>
@@ -440,7 +413,6 @@ const AddResident = (props) => {
               </Col>
             </Row>
           </Container>
-          {/* </Form> */}
         </Form>
       </Container>
     </>
