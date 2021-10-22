@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { useParams } from 'react-router';
 import { Container, Button, Card, Row, Col } from 'react-bootstrap';
 import building from '../../assets/images/building.jpg';
 import env from '../../env';
@@ -14,7 +13,7 @@ const BuildingList = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${env.url}api/building/all/${props.dormId}`) //ส่ง dormid ที่ได้จาก userdetail /App มา
+      .get(`${env.url}api/building/all/${props.dormId}`)
       .then((res) => {
         console.log(res.data);
         setDormList(res.data);
@@ -47,14 +46,8 @@ const BuildingList = (props) => {
         <Row>
           {loading &&
             dormList.map((list) => (
-              <Col>
-                <Card
-                  key={list.BUILDINGID}
-                  className="card-building"
-                  xs={10}
-                  sm={10}
-                  md={10}
-                >
+              <Col key={list.BUILDINGNAME}>
+                <Card className="card-building" xs={10} sm={10} md={10}>
                   <Card.Img
                     src={building}
                     className="card-img"
