@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import { useEffect } from 'react-router';
+// import { useEffect } from 'react-router';
 const Complain = (props) => {
   // const history = useHistory();
 
