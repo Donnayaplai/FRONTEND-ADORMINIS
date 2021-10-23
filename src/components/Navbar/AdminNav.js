@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 
 import './Navbar.css';
 import logo from '../../assets/images/building-nav.png';
 
 const AdminNav = (props) => {
-  // const history = useHistory();
+  const history = useHistory();
   const logout = () => {
     localStorage.removeItem('authorization');
-    <Redirect to="/login" />;
+    history.push('/login');
   };
   return (
     <nav>
@@ -34,22 +34,19 @@ const AdminNav = (props) => {
       </label>
       <ul>
         <li>
-          <Link to="/dashboard">แดชบอร์ด</Link>
-        </li>
-        <li>
           <Link to={`/all-building/${props.dormId}`}>ตึกและห้องพัก</Link>
         </li>
         <li>
-          <Link to="/">ใบแจ้งหนี้</Link>
+          <Link to="/all-invoice/list">ใบแจ้งหนี้</Link>
         </li>
         <li>
-          <Link to="/">จดมิเตอร์</Link>
+          <Link to="/select-building/meter-record">จดมิเตอร์</Link>
         </li>
         <li>
           <Link to="/">เรื่องร้องเรียน</Link>
         </li>
         <li>
-          <Link to="/">ประวัติ</Link>
+          <Link to="/rent/history">ประวัติการเช่าพัก</Link>
         </li>
         <li>
           <Button onClick={logout}>ออกจากระบบ</Button>
