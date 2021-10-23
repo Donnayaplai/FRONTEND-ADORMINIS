@@ -62,6 +62,7 @@ const Routes = (props) => {
           path="/all-room/:buildingid"
           component={Room}
           buildingId={props.buildingId}
+          dormId={props.dormId}
         />
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
@@ -78,7 +79,10 @@ const Routes = (props) => {
         <Route path="/select-building/meter-record" component={MeterRecord} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/dorm-registration" component={DormitoryRegister} />
-        <Route path="/dorm-setting" component={Setting} />
+        {/* <Route path="/dorm-setting" component={Setting} /> */}
+        <Route path="/dorm-setting">
+          <Setting dormId={props.dormId} />
+        </Route>
         <Route path="/rent/history" component={RentHistory} />
 
         {/* Resident routes */}
