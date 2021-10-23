@@ -58,12 +58,16 @@ const Routes = (props) => {
         {/* <Route path="/all-room">
           <Room buildingId={props.buildingId} />
         </Route> */}
-        <Route
+        <Route path="/all-room/:buildingid">
+          <Room buildingId={props.buildingId} dormId={props.dormId} />
+        </Route>
+        {/* <Route
           path="/all-room/:buildingid"
           component={Room}
           buildingId={props.buildingId}
           dormId={props.dormId}
-        />
+        /> */}
+        {console.log(props.dormId, '=--------')}
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
         <Route
