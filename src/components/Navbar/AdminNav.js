@@ -10,6 +10,7 @@ const AdminNav = (props) => {
   const history = useHistory();
   const logout = () => {
     localStorage.removeItem('authorization');
+    props.setRoleId(null);
     history.push('/login');
   };
   return (
