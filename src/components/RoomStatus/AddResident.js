@@ -1,14 +1,14 @@
 import axios from 'axios';
 import env from '../../env';
-//import { Multiselect } from "multiselect-react-dropdown";
 import './AddResident.css';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 
 const AddResident = (props) => {
+  const [isAddComplete, setAddComplete] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,17 +17,37 @@ const AddResident = (props) => {
     trigger,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    console.log(data);
-    // const info = await axios.post(
-    //   `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
-    //   data
-    // )
-    // console.log(info);
-    await reset();
+  const AlertComplete = () => {
+    window.alert('การเพิ่มผู้เช่าเสร็จสิ้น');
+    <Redirect to={`/all-room/${props.buildingId}`} />;
+    setAddComplete(false);
   };
+
+  const AlertInComplete = () => {
+    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+    <Redirect to={`/all-room/${props.buildingId}`} />;
+    setAddComplete(false);
+  };
+
+  const onSubmit = async (data) => {
+    data.listOfCost = checked;
+    console.log(checked);
+    console.log(data);
+    const info = await axios.post(
+      `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
+      data
+    );
+    console.log(info);
+    reset();
+
+    // eslint-disable-next-line no-lone-blocks
+    {
+      !isAddComplete ? AlertComplete() : AlertInComplete();
+    }
+  };
+
   const [formData, setFormData] = useState([]);
-  const [checked, setChecked] = useState([]); // categories
+  const [checked, setChecked] = useState([]);
   const [costList] = useState([
     {
       id: 4,
@@ -51,6 +71,7 @@ const AddResident = (props) => {
       costName: 'อื่น ๆ',
     },
   ]);
+
   useEffect(() => {
     setFormData(new FormData());
   }, []);
@@ -68,38 +89,6 @@ const AddResident = (props) => {
     setChecked(all);
     formData.set('costList', all);
   };
-
-  // let [selected, setSelected] = useState([]);
-  // const onChangeItem = (id) => {
-  //   let selected = selected;
-  //   let find = selected.findIndex((item) => item.id === id);
-
-  //   if (find > -1) {
-  //     selected.splice(find, 1);
-  //   } else {
-  //     selected.push(costList.find((item) => item.id === id));
-  //   }
-
-  //   setSelected({ selected });
-  // };
-  // console.log(selected);
-
-  // const selectList = (e) => {
-  //   const isChecked = e.target.checked;
-  //   if (isChecked) {
-  //     setCostList([...costList, e.target.value]);
-  //   } else {
-  //     let index = costList.indexOf(e.target.value);
-  //     costList.splice(index, 1);
-  //     setCostList({ costList: costList });
-  //   }
-  //   console.log(e.target.checked);
-  // };
-
-  // let onSubmitCost = (e) => {
-  //   e.preventDefault();
-  //   console.log(costList);
-  // };
 
   return (
     <>
@@ -364,8 +353,6 @@ const AddResident = (props) => {
                       <input
                         type="checkbox"
                         onChange={handleToggle(c.id)}
-                        // onChange={() => onChangeItem(item.id)}
-                        // selected={selected.includes(item.id)}
                         id="checkbox"
                       />
                       <label>{c.costName}</label>
@@ -377,39 +364,16 @@ const AddResident = (props) => {
 
             <Row className="mt-3">
               <Col>
-                <Link to={`/all-room/${props.buildingId}`}>
+                <Link to={`/all-room/${props.location.state.buildingId}`}>
+                  {/* //ส่ง state ไปกับ link */}
+                  {/* {console.log(props.location.state)} */}
                   <Button id="btn-back">ย้อนกลับ</Button>
                 </Link>
               </Col>
               <Col>
-                <Button
-                  id="btn-add"
-                  type="submit"
-                  // onClick={handleShow}
-                >
+                <Button id="btn-add" type="submit">
                   ตกลง
                 </Button>
-                {/* <Modal
-                  show={show}
-                  onHide={handleClose}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>ยืนยันข้อมูล</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    คุณแน่ใจหรือไม่ว่าข้อมูลทั้งหมดที่กรอกมาทั้งหมดถูกต้อง
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      ยกเลิก
-                    </Button>
-                    <Button variant="primary" type="submit" register="true">
-                      ตกลง
-                    </Button>
-                  </Modal.Footer>
-                </Modal> */}
               </Col>
             </Row>
           </Container>
