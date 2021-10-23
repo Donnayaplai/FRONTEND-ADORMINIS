@@ -6,7 +6,7 @@ import RoomTable from './RoomTable';
 import Pagination from './Pagination';
 import Search from '../Search/Search';
 
-const Room = () => {
+const Room = (props) => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,16 +22,6 @@ const Room = () => {
     console.log(copyRoom.filter((room) => room.ROOMNO === text));
     setFilteredRoom(copyRoom.filter((room) => room.ROOMNO.includes(text)));
   };
-
-  // const handleStatusFilter = (e) => {
-  //   const filter = e.target.value;
-  //   setSelectedStatus(filter);
-  //   console.log(filter);
-  //   let filteredRoomStatus = [...rooms];
-  //   setfilteredStatusRoom(
-  //     filteredRoomStatus.filter((room) => (room.STATUS = filter))
-  //   );
-  // };
 
   useEffect(() => {
     fetchRooms();
@@ -70,6 +60,7 @@ const Room = () => {
         filteredRoom={filteredRoom}
         searchText={searchText}
         fetchRooms={fetchRooms}
+        dormId={props.dormId}
       />
       <Pagination
         roomsPerPage={roomsPerPage}
