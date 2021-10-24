@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 
 const AdminRegister = () => {
-  const [message, setMessage] = useState('');
-  const [success, setSuccess] = useState('');
+  const [success, setSuccess] = useState(false);
   const {
     register,
     handleSubmit,
@@ -17,37 +16,39 @@ const AdminRegister = () => {
     reset,
     trigger,
   } = useForm();
-
+  const history = useHistory();
   const onSubmit = async (data) => {
-    const info = await axios
-      .post(`${env.url}api/user/adminRegister`, data)
-      .then((result) => {
-        setMessage(result.data.message);
-      })
-      .catch((error) => {
-        error = new Error();
-      });
-    setSuccess(true);
+    const info = await axios.post(`${env.url}api/user//adminRegister`, data);
+
     console.log(info);
 
     reset();
   };
-  if (success) {
-    return <Redirect to="/login" />;
+  if (success === true) {
+    window.alert('การลงทะเบียนเสร็จสิ้น');
+    history.push('/login');
   }
+
+  // const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  // const handleClose = () => setShowConfirmModal(false);
+  // const handleShow = () => setShowConfirmModal(true);
 
   return (
     <Container>
-      <h1>
-        ลงทะเบียนผู้จัดการหอพัก <i className="fas fa-user-plus"></i>
-      </h1>
-      {/* displaying our message from our API call */}
-      <h4 className="text-center text-danger">{message}</h4>
-      <Card
-        className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
-        style={{ backgroundColor: '#EAE7E2', maxWidth: '800px', width: '100%' }}
-      >
-        <Form className="w-100 p-3" onSubmit={handleSubmit(onSubmit)}>
+      <Form className="w-100 p-3" onSubmit={handleSubmit(onSubmit)}>
+        <h1>
+          ลงทะเบียนผู้จัดการหอพัก <i className="fas fa-user-plus"></i>
+        </h1>
+
+        <Card
+          className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
+          style={{
+            backgroundColor: '#EAE7E2',
+            maxWidth: '800px',
+            width: '100%',
+          }}
+        >
           <Row>
             <Col>
               <button
@@ -267,7 +268,9 @@ const AdminRegister = () => {
             <Button
               id="btn-save"
               type="submit"
-              onClick={() => setSuccess(true)}
+              onClick={() => {
+                setSuccess(true);
+              }}
               style={{
                 marginLeft: '50%',
                 transform: 'translateX(-50%)',
@@ -280,8 +283,29 @@ const AdminRegister = () => {
               มีบัญชีอยู่แล้วใช่ไหม? เข้าสู่ระบบ
             </Link>
           </Container>
-        </Form>
-      </Card>
+        </Card>
+        {/* <Modal show={showConfirmModal} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              ยกเลิก
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                handleClose();
+                setSuccess(true);
+              }}
+              type="submit"
+            >
+              ยืนยัน
+            </Button>
+          </Modal.Footer>
+        </Modal> */}
+      </Form>
     </Container>
   );
 };
