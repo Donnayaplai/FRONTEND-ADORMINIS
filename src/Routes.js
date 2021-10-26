@@ -1,30 +1,31 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import NotFound from './components/Others/NotFound';
-import adminRegister from './components/RegisterLogin/adminRegister';
-import residentRegister from './components/RegisterLogin/residentRegister';
-import SelectRole from './components/RegisterLogin/SelectRole';
-import Login from './components/RegisterLogin/Login';
-import MeterRecord from './components/Utility/SelectBuilding';
-import UtilitySummary from './components/Utility/UtilitySummary';
-import DormitoryRegister from './components/Dorm/DormitoryRegister';
-import BuildingList from './components/RoomStatus/BuildingList';
-import Room from './components/RoomStatus/Room';
-import Profile from './components/Profile/Profile';
-import Billing from './components/Resident/InvoiceDetail';
-import Invoices from './components/Resident/Invoices';
-import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
-import AddResident from './components/RoomStatus/AddResident';
-import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
-import AdminHome from './components/Home/AdminHome';
-import ResidentHome from './components/Home/ResidentHome';
-import DynamicForm from './components/Setting/DynamicForm';
-import Setting from './components/Dorm/Setting';
-import Complain from './components/Resident/Complain';
-import SelectBuilding from './components/Utility/SelectBuilding';
-import RentHistory from './components/History/RentHistory';
-import InvoiceList from './components/Invoice/InvoiceList';
+import NotFound from "./components/Others/NotFound";
+import adminRegister from "./components/RegisterLogin/adminRegister";
+import residentRegister from "./components/RegisterLogin/residentRegister";
+import SelectRole from "./components/RegisterLogin/SelectRole";
+import Login from "./components/RegisterLogin/Login";
+import MeterRecord from "./components/Utility/SelectBuilding";
+import UtilitySummary from "./components/Utility/UtilitySummary";
+import DormitoryRegister from "./components/Dorm/DormitoryRegister";
+import BuildingList from "./components/RoomStatus/BuildingList";
+import Room from "./components/RoomStatus/Room";
+import Profile from "./components/Profile/Profile";
+import Billing from "./components/Resident/Billing";
+import Invoices from "./components/Resident/Invoices";
+import UpdateResInfo from "./components/RoomStatus/UpdateResInfo";
+import AddResident from "./components/RoomStatus/AddResident";
+import CheckExistAccount from "./components/RegisterLogin/CheckExistAccount";
+import AdminHome from "./components/Home/AdminHome";
+import ResidentHome from "./components/Home/ResidentHome";
+import DynamicForm from "./components/Setting/DynamicForm";
+import Setting from "./components/Dorm/Setting";
+import Complain from "./components/Resident/Complain";
+import SelectBuilding from "./components/Utility/SelectBuilding";
+import RentHistory from "./components/History/RentHistory";
+import InvoiceList from "./components/Invoice/InvoiceList";
+import InvoiceDetail from "./components/Invoice/InvoiceDetail";
 const Routes = (props) => {
   return (
     <>
@@ -36,6 +37,7 @@ const Routes = (props) => {
         </Route>
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
+        <Route path="/admin/Invoice-detail" component={InvoiceDetail} />
         <Route
           path="/resident/check-account"
           exact
