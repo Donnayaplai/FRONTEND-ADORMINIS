@@ -34,9 +34,15 @@ function App() {
 
   function RenderNav() {
     if (roleId === 0) {
-      return <ResidentNav />;
+      return <ResidentNav setRoleId={setRoleId} />;
     } else if (roleId === 1) {
-      return <AdminNav dormId={dormId} buildingId={buildingId} />;
+      return (
+        <AdminNav
+          dormId={dormId}
+          buildingId={buildingId}
+          setRoleId={setRoleId}
+        />
+      );
     } else {
       return <Navbar />;
     }
