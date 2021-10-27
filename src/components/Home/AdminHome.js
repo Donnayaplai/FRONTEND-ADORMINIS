@@ -68,7 +68,7 @@ const AdminHome = (props) => {
           <Row>
             <Col>
               <Card id="card">
-                <Card.Header id="cardheader" as="h4">
+                <Card.Header id="cardheaderrescount" as="h4">
                   จำนวนผู้เช่าทั้งหมด
                 </Card.Header>
                 <Card.Body id="cardbody">
@@ -80,7 +80,7 @@ const AdminHome = (props) => {
             </Col>
             <Col>
               <Card id="card">
-                <Card.Header id="cardheader" as="h4">
+                <Card.Header id="cardheadercomplain" as="h4">
                   จำนวนเรื่องร้องเรียน
                 </Card.Header>
                 <Card.Body id="cardbody">

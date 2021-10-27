@@ -26,6 +26,8 @@ import SelectBuilding from "./components/Utility/SelectBuilding";
 import RentHistory from "./components/History/RentHistory";
 import InvoiceList from "./components/Invoice/InvoiceList";
 import InvoiceDetail from "./components/Invoice/InvoiceDetail";
+import ResidentProfile from "./components/Resident/Profile";
+import DormProfile from "./components/Profile/DormProfile";
 const Routes = (props) => {
   return (
     <>
@@ -38,6 +40,8 @@ const Routes = (props) => {
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
         <Route path="/admin/Invoice-detail" component={InvoiceDetail} />
+        <Route path="/resident/profile" component={ResidentProfile} />
+        <Route path="/admin/dormprofile" component={DormProfile} />
         <Route
           path="/resident/check-account"
           exact

@@ -29,7 +29,8 @@
   width: 3em;
 }
 #cardheadernores {
-  background-color: #d45113;
+  background-color: #dc3545;
+
   font-weight: bold;
   width: 330px;
   height: 70px;
@@ -37,7 +38,7 @@
   padding: 20px;
 }
 #cardheaderres {
-  background-color: #95b94f;
+  background-color: #198754;
   font-weight: bold;
   width: 330px;
   height: 70px;
@@ -45,7 +46,23 @@
   padding: 20px;
 }
 #cardheaderroom {
-  background-color: #efcf63;
+  background-color: #ffc107;
+  font-weight: bold;
+  width: 330px;
+  height: 70px;
+  text-align: center;
+  padding: 20px;
+}
+#cardheaderrescount {
+  background-color: #0dcaf0;
+  font-weight: bold;
+  width: 330px;
+  height: 70px;
+  text-align: center;
+  padding: 20px;
+}
+#cardheadercomplain {
+  background-color: orange;
   font-weight: bold;
   width: 330px;
   height: 70px;
