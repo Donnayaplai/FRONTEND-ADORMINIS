@@ -69,7 +69,7 @@ const Routes = (props) => {
           buildingId={props.buildingId}
           dormId={props.dormId}
         /> */}
-        {console.log(props.dormId, '=--------')}
+        {/* {console.log(props.dormId, '=--------')} */}
         <Route path="/profile/:personalCode" component={Profile} />
         <Route path="/resinfo/edit" component={UpdateResInfo} />
         <Route
