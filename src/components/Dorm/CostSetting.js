@@ -3,27 +3,35 @@ import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import Edit from '../../assets/images/edit.png';
 
-const UtilitySetting = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    trigger,
-  } = useForm();
+const CostSetting = (props) => {
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    const info = await axios.post(`${env.url}setting//setCost/:dormID`, data);
-    console.log(info);
+    const costSetting = await axios.post(
+      `${env.url}setting/setCost/${props.dormId}`,
+      data
+    );
+    console.log(costSetting);
 
     reset();
   };
 
   return (
     <Container className="w-75 mb-5">
-      <h3>ค่าใช้จ่าย</h3>
-
+      <Row>
+        <Col>
+          <h3>ค่าใช้จ่าย</h3>
+        </Col>
+        <Col>
+          <img
+            src={Edit}
+            alt="Edit cost setting"
+            style={{ maxWidth: '2rem', float: 'right' }}
+          />
+        </Col>
+      </Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Container
           className="p-5 rounded"
@@ -35,7 +43,7 @@ const UtilitySetting = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ราคา/หน่วย &nbsp;
@@ -43,24 +51,16 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="waterPrice"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('waterPrice', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('waterPrice');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('waterPrice')}
                 />
-                {errors.waterPrice && (
-                  <small className="text-danger">
-                    {errors.waterPrice.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
 
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   หน่วยขั้นต่ำ &nbsp;
@@ -68,24 +68,16 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="minWaterUnit"
-                  type="text"
-                  placeholder="0"
-                  {...register(' minWaterUnit', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('minWaterUnit');
-                  }}
+                  type="number"
+                  defaultValue="0"
+                  max="99999"
+                  min="0"
+                  {...register('minWaterUnit')}
                 />
-                {errors.fName && (
-                  <small className="text-danger">
-                    {errors.minWaterUnit.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
 
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ราคา/หน่วย &nbsp;
@@ -93,20 +85,12 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="minWaterPrice"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('  minWaterPrice', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('minWaterPrice');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('minWaterPrice')}
                 />
-                {errors.minWaterPrice && (
-                  <small className="text-danger">
-                    {errors.minWaterPrice.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
           </Row>
@@ -116,7 +100,7 @@ const UtilitySetting = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs={10} sm={10} md={6}>
+            <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ราคา/หน่วย &nbsp;
@@ -124,20 +108,12 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="electricityPrice"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('electricityPrice', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('electricityPrice');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('electricityPrice')}
                 />
-                {errors.electricityPrice && (
-                  <small className="text-danger">
-                    {errors.electricityPrice.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
           </Row>
@@ -148,7 +124,7 @@ const UtilitySetting = () => {
             </Col>
           </Row>
           <Row>
-            <Col xs={10} sm={10} md={6}>
+            <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ค่าประกัน &nbsp;
@@ -156,26 +132,18 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="guaranteeFee"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('guaranteeFee', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('guaranteeFee');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('guaranteeFee')}
                 />
-                {errors.guaranteeFee && (
-                  <small className="text-danger">
-                    {errors.guaranteeFee.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
             <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>ค่าเช่าล่วงหน้า (เดือน)</Form.Label>
-                <Form.Select name="multPrePaid">
+                <Form.Select name="multPrePaid" {...register('multPrePaid')}>
                   <option defaultValue>เลือกจำนวนเดือน...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -207,7 +175,7 @@ const UtilitySetting = () => {
             <Col></Col>
           </Row>
           <Row>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ค่าส่วนกลาง &nbsp;
@@ -215,23 +183,15 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="maintenanceFee"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('maintenanceFee', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('maintenanceFee');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('maintenanceFee')}
                 />
-                {errors.maintenanceFee && (
-                  <small className="text-danger">
-                    {errors.maintenanceFee.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ค่าที่จอดรถ &nbsp;
@@ -239,23 +199,15 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="parkingFee"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('parkingFee', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('parkingFee');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('parkingFee')}
                 />
-                {errors.parkingFee && (
-                  <small className="text-danger">
-                    {errors.parkingFee.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ค่าอินเทอร์เน็ต &nbsp;
@@ -263,25 +215,17 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="internetFee"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('internetFee', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('internetFee');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('internetFee')}
                 />
-                {errors.internetFee && (
-                  <small className="text-danger">
-                    {errors.internetFee.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
           </Row>
           <Row>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   ค่าทำความสะอาด &nbsp;
@@ -289,29 +233,28 @@ const UtilitySetting = () => {
                 </Form.Label>
                 <Form.Control
                   name="cleaningFee"
-                  type="text"
+                  type="number"
                   defaultValue="0"
-                  {...register('cleaningFee', {
-                    required: 'โปรดกรอกถนน',
-                  })}
-                  onKeyUp={() => {
-                    trigger('cleaningFee');
-                  }}
+                  max="99999"
+                  min="0"
+                  {...register('cleaningFee')}
                 />
-                {errors.cleaningFee && (
-                  <small className="text-danger">
-                    {errors.cleaningFee.message}
-                  </small>
-                )}
               </Form.Group>
             </Col>
-            <Col xs={10} sm={10} md={4}>
+            <Col xs={10} sm={12} md={4}>
               <Form.Group className="mb-3">
                 <Form.Label>
                   อื่นๆ &nbsp;
                   <small>(บาท)</small>
                 </Form.Label>
-                <Form.Control name="other" type="text" defaultValue="0" />
+                <Form.Control
+                  name="other"
+                  type="number"
+                  defaultValue="0"
+                  max="99999"
+                  min="0"
+                  {...register('other')}
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -328,4 +271,4 @@ const UtilitySetting = () => {
   );
 };
 
-export default UtilitySetting;
+export default CostSetting;
