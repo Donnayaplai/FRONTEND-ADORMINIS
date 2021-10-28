@@ -58,7 +58,6 @@ const Routes = (props) => {
           exact
           component={residentRegister}
         />
-        <Route path="*" component={NotFound} />
 
         {/* Admin routes */}
         <Route path="/admin/home">
@@ -117,6 +116,7 @@ const Routes = (props) => {
         <Route path="/resident/complain-request">
           <Complain roleId={props.roleId} />
         </Route>
+        <Route path="*" component={NotFound} />
       </Switch>
 
       {/* Unused route */}
