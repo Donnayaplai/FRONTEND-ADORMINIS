@@ -54,12 +54,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route>
-          <Routes
-            setRoleId={setRoleId}
-            roleId={roleId}
-            dormId={dormId}
-            buildingId={buildingId}
-          />
+          <Routes setRoleId={setRoleId} roleId={roleId} dormId={dormId} />
         </Route>
       </Switch>
     </Router>
