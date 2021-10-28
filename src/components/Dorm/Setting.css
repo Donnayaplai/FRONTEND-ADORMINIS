@@ -1,0 +1,15 @@
+#button-add {
+  background-color: bisque;
+  color: #000;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+}
+
+#button-add:hover {
+  background-color: fuchsia;
+  color: #000;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+}
