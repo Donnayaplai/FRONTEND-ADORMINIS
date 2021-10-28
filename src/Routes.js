@@ -23,7 +23,7 @@ import UtilitySummary from './components/Utility/UtilitySummary';
 import Invoice from './components/Invoice/Invoice';
 import InvoiceDetail from './components/Invoice/InvoiceDetail';
 import RentHistory from './components/History/RentHistory';
-
+import MainRoom from './components/RoomStatus/MainRoom';
 // import DynamicForm from './components/Setting/DynamicForm';
 // import Profile from './components/Profile/Profile';
 
@@ -73,26 +73,28 @@ const Routes = (props) => {
           <BuildingList dormId={props.dormId} roleId={props.roleId} />
         </Route>
         <Route path="/all-room/:buildingid">
+          <MainRoom dormId={props.dormId} roleId={props.roleId} />
+        </Route>
+        {/* <Route path="/all-room/:buildingid">
           <Room
             buildingId={props.buildingId}
             dormId={props.dormId}
             roleId={props.roleId}
           />
-        </Route>
+        </Route> */}
         <Route path="/addresident/:buildingid/:roomid">
           <AddResident dormId={props.dormId} roleId={props.roleId} />
         </Route>
         <Route path="/all-invoice">
-          <Invoice roleId={props.roleId} />
+          <Invoice roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/invoice-detail">
-          <InvoiceDetail roleId={props.roleId} />
+          <InvoiceDetail roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/resinfo/edit" component={UpdateResInfo} />
-        <Route
-          path="/select-building/meter-record"
-          component={SelectBuilding}
-        />
+        <Route path="/select-building/meter-record">
+          <SelectBuilding roleId={props.roleId} dormId={props.dormId} />
+        </Route>
         <Route path="/select-building/meter-record" component={MeterRecord} />
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/rent/history" component={RentHistory} />
@@ -133,6 +135,10 @@ const Routes = (props) => {
       {/* {console.log(props.dormId, '=--------')} */}
       {/* <Route path="/profile/:personalCode" component={Profile} /> */}
       {/* <Route path="/form" exact component={DynamicForm} /> */}
+      {/* <Route
+          path="/select-building/meter-record"
+          component={SelectBuilding}
+        /> */}
     </>
   );
 };
