@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Row, Col } from 'react-bootstrap';
+import { withRouter } from 'react-router';
 import BillInfo from '../../assets/images/billinfo.png';
 
 const InvoiceList = ({ invoiceList, loading, ...props }) => {
@@ -13,7 +14,7 @@ const InvoiceList = ({ invoiceList, loading, ...props }) => {
         <Row>
           <Col style={{ float: 'left' }}>
             <h5>
-              รอบบิล: <span>{invoiceList.billingCycle}</span>
+              รอบบิล: <span>{}</span>
             </h5>
           </Col>
         </Row>
@@ -36,7 +37,6 @@ const InvoiceList = ({ invoiceList, loading, ...props }) => {
                 <th scope="col">รายละเอียดใบแจ้งหนี้</th>
               </tr>
             </thead>
-
             <tbody>
               <tr
                 style={{
@@ -45,8 +45,8 @@ const InvoiceList = ({ invoiceList, loading, ...props }) => {
                   textAlign: 'center',
                 }}
               >
-                <td>{invoiceList.roomNo}</td>
-                <td>{invoiceList.totalPrice}</td>
+                <td>{props.roomNo}</td>
+                <td>{props.roomPrice}</td>
                 <td>
                   <Link
                     to={{
@@ -80,4 +80,4 @@ const InvoiceList = ({ invoiceList, loading, ...props }) => {
   );
 };
 
-export default InvoiceList;
+export default withRouter(InvoiceList);

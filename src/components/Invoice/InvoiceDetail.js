@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
 import env from '../../env';
 import { Row, Col, Button, Container } from 'react-bootstrap';
+
 function InvoiceDetail(props) {
   const [invoiceDetail, setInvoiceDetail] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getInvoiceList();
-  }, []);
+  // useEffect(() => {
+  //   getInvoiceList();
+  // }, []);
 
-  async function getInvoiceList() {
-    try {
-      let invoiceData = await axios.get(`${env.url}invoice/list/:dormID`);
-      setInvoiceDetail(invoiceData.data);
+  // async function getInvoiceList() {
+  //   try {
+  //     let invoiceData = await axios.get(`${env.url}invoice/list/:dormID`);
+  //     setInvoiceDetail(invoiceData.data);
+  //     setLoading(true);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  useEffect(() => {
+    let getInvoiceList = async () => {
+      try {
+        const response = await axios.get(
+          `${env.url}invoice/history/${props.dormId}`
+        );
+        setInvoiceDetail(response.data);
+      } catch (error) {
+        console.error(error);
+      }
       setLoading(true);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+    };
+
+    getInvoiceList();
+  }, [props.dormId]);
+  console.error(invoiceDetail);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
