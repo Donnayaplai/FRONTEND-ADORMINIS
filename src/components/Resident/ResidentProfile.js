@@ -28,7 +28,7 @@ const ResidentProfile = (props) => {
     };
 
     getUserProfile();
-  }, []);
+  });
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
