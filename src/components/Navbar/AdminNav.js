@@ -38,7 +38,7 @@ const AdminNav = (props) => {
           <Link to={`/all-building/${props.dormId}`}>ตึกและห้องพัก</Link>
         </li>
         <li>
-          <Link to="/all-invoice/list">ใบแจ้งหนี้</Link>
+          <Link to={`/all-invoice/list/${props.dormId}`}>ใบแจ้งหนี้</Link>
         </li>
         <li>
           <Link to="/select-building/meter-record">จดมิเตอร์</Link>

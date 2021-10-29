@@ -6,8 +6,6 @@ import { Button } from 'react-bootstrap';
 import { Redirect } from 'react-router';
 
 const ResidentNav = (props) => {
-  // const history = useHistory();
-
   const logout = () => {
     localStorage.removeItem('authorization');
     <Redirect to="/login" />;
