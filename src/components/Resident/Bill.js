@@ -7,24 +7,29 @@ import BillPagination from './BillPagination';
 import Search from '../Search/Search';
 
 const Bill = (props) => {
-  const [billList, setBillist] = useState([]);
+  const [billList, setBillList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [billPerPage] = useState(10);
   const [filteredBill, setFilteredBill] = useState([]);
   const [searchText, setSearchText] = useState('');
-  // const { rentid } = useParams();
 
   useEffect(() => {
-    getAllBill();
-  }, []);
+    let getBill = async () => {
+      try {
+        const response = await axios.get(
+          `${env.url}invoice/history/${props.rentId}`
+        );
+        setBillList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(true);
+    };
 
-  let getAllBill = async () => {
-    setLoading(true);
-    let response = await axios.get(`${env.url}invoice/history/${props.rentid}`);
-    setBillist(response.data);
-    setLoading(false);
-  };
+    getBill();
+  }, [props.rentId]);
+
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
@@ -58,7 +63,6 @@ const Bill = (props) => {
       <Container>
         <BillingList
           billList={currentBill}
-          getAllBill={getAllBill}
           loading={loading}
           filteredBill={filteredBill}
           searchText={searchText}

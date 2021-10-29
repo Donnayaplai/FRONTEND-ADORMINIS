@@ -8,6 +8,7 @@ const BillingList = ({
   billList,
   filteredBill,
   searchText,
+  getBill,
   ...props
 }) => {
   const [selectInvoiceId, setSelectInvoiceId] = useState();

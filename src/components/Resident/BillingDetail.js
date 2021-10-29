@@ -15,7 +15,7 @@ const BillingDetail = (props) => {
         const response = await axios.get(
           `${env.url}invoice/${props.match.params.invoiceid}/${props.match.params.buildingid}`
         );
-        setBilDetail(response);
+        setBilDetail(response.data);
       } catch (error) {
         console.error(error.message);
       }
@@ -24,6 +24,8 @@ const BillingDetail = (props) => {
 
     getBillDetail();
   }, []);
+
+  console.log(billDetail);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
