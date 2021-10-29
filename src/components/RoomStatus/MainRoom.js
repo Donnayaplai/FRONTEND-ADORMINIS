@@ -16,6 +16,7 @@ const MainRoom = (props) => {
   const [roomsPerPage] = useState(10);
 
   const { buildingid } = useParams();
+
   useEffect(() => {
     getAllRoom();
   }, []);

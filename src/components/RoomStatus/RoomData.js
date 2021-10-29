@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { withRouter } from 'react-router';
+import { withRouter, Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import env from '../../env';
 import {
@@ -81,7 +81,7 @@ const RoomData = ({
     }
   };
 
-  //Edit Cor and rent info
+  //Edit CoR and rent info
   const editCor = async (RENTID, CONTRACTOFRENTID) => {
     try {
       await axios.post(
@@ -106,18 +106,62 @@ const RoomData = ({
     }
   };
 
+  // const AlertEditComplete = async () => {
+  //   window.alert('การแก้ไขข้อมูลเสร็จสิ้น');
+  //   <Redirect to={`/all-room/${props.buildingId}`} />;
+  //   setEditComplete(false);
+  //   setResInfoModalOpen(false);
+  // };
+
+  // const AlertEditInComplete = async () => {
+  //   window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+  //   <Redirect to={`/all-room/${props.buildingId}`} />;
+  //   setEditComplete(false);
+  //   setResInfoModalOpen(false);
+  // };
+
   //Remove resident from room
   const removeResident = async () => {
-    try {
-      await axios
-        .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
-        .then(setRemoveComplete(true))
-        .then(setShowConfirmDeleteModal(false))
-        .then(setResInfoModalOpen(false))
-        .then(getAllRoom());
-    } catch (err) {
-      console.log(err);
+    // console.log(selectRentID);
+    // console.log(selectRoomID);
+    await axios.post(
+      `${env.url}api/room/remove/${selectRoomID}/${selectRentID}`
+    );
+
+    setRemoveComplete(true);
+    getAllRoom();
+
+    // eslint-disable-next-line no-lone-blocks
+    {
+      !removeComplete ? AlertRemoveComplete() : AlertRemoveInComplete();
     }
+  };
+  // const removeResident = async () => {
+  //   try {
+  //     await axios
+  //       .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
+  //       .then(setRemoveComplete(true))
+  //       .then(setShowConfirmDeleteModal(false))
+  //       .then(setResInfoModalOpen(false))
+  //       .then(getAllRoom());
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  const AlertRemoveComplete = async () => {
+    window.alert('การลบผู้เช่าเสร็จสิ้น');
+    setResInfoModalOpen(false);
+    setShowConfirmDeleteModal(false);
+    <Redirect to={`/all-room/${props.buildingId}`} />;
+    setRemoveComplete(false);
+  };
+
+  const AlertRemoveInComplete = async () => {
+    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+    setResInfoModalOpen(false);
+    setShowConfirmDeleteModal(false);
+    <Redirect to={`/all-room/${props.buildingId}`} />;
+    setRemoveComplete(false);
   };
 
   //Get room information
@@ -127,7 +171,6 @@ const RoomData = ({
         `${env.url}api/room/info/${props.dormId}/${ROOMID}`
       );
       setRoomInfo(roomData.data);
-      console.log(roomInfo, '.....');
     } catch (err) {
       console.log(err);
     }
