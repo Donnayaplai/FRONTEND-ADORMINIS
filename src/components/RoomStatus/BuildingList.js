@@ -6,23 +6,36 @@ import building from '../../assets/images/building.jpg';
 import env from '../../env';
 import './BuildingList.css';
 const BuildingList = (props) => {
-  // const { dormid } = useParams();
-
-  const [dormList, setDormList] = useState([]);
+  const [buildingList, setBuildingList] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${env.url}api/building/all/${props.dormId}`)
+  //     .then((res) => {
+  //       setDormList(res.data);
+  //       setLoading(true);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    axios
-      .get(`${env.url}api/building/all/${props.dormId}`)
-      .then((res) => {
-        console.log(res.data);
-        setDormList(res.data);
-        setLoading(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    const getBuildingList = async () => {
+      try {
+        const response = await axios.get(
+          `${env.url}api/building/all/${props.dormId}`
+        );
+        setBuildingList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(true);
+    };
+
+    getBuildingList();
+  }, [props.dormId]);
 
   // useEffect(() => {
   //   axios
@@ -45,7 +58,7 @@ const BuildingList = (props) => {
         </h1>
         <Row>
           {loading &&
-            dormList.map((list) => (
+            buildingList.map((list) => (
               <Col key={list.BUILDINGNAME}>
                 <Card className="card-building" xs={10} sm={10} md={10}>
                   <Card.Img
