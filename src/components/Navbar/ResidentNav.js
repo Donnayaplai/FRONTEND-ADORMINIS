@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Redirect } from 'react-router';
 
-const ResidentNav = () => {
+const ResidentNav = (props) => {
   // const history = useHistory();
 
   const logout = () => {
@@ -30,10 +30,10 @@ const ResidentNav = () => {
       </label>
       <ul>
         <li>
-          <Link to="/">ข้อมูลหอพัก</Link>
+          <Link to={`/resident/dorm-info/${props.dormId}`}>ข้อมูลหอพัก </Link>
         </li>
         <li>
-          <Link to="/resident/invoices">ใบแจ้งหนี้</Link>
+          <Link to="/resident/all-bill">ใบแจ้งหนี้</Link>
         </li>
         <li>
           <Link to="/resident/complain">แจ้งปัญหา</Link>
