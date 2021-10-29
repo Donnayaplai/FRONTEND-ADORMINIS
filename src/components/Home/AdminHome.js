@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router";
-import { Row, Container, Col, Card } from "react-bootstrap";
-import "./AdminHome.css";
-import RoomInfo from "../../assets/images/roominfo.png";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router';
+import { Row, Container, Col, Card } from 'react-bootstrap';
+import './AdminHome.css';
+import Room from '../../assets/images/roominfo.png';
 const AdminHome = (props) => {
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 1) {
-      history.push("/login");
+      history.push('/login');
     }
   }, []);
   return (
@@ -16,7 +16,7 @@ const AdminHome = (props) => {
       <Container>
         <Container
           className="py-4 rounded mb-3"
-          style={{ backgroundColor: "#EAE7E2" }}
+          style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row>
             <Col>
@@ -25,7 +25,8 @@ const AdminHome = (props) => {
                   <Row>
                     จำนวนห้องพักทั้งหมด
                     <img
-                      src={RoomInfo}
+                      src={Room}
+                      alt="All room"
                       id="roomimg"
                       className="justify-content-center"
                     />
