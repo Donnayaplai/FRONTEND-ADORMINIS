@@ -14,7 +14,7 @@ import AdminHome from './components/Home/AdminHome';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
-import Room from './components/RoomStatus/Room';
+// import Room from './components/RoomStatus/Room';
 import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
 import AddResident from './components/RoomStatus/AddResident';
 import SelectBuilding from './components/Utility/SelectBuilding';
@@ -24,13 +24,11 @@ import Invoice from './components/Invoice/Invoice';
 import InvoiceDetail from './components/Invoice/InvoiceDetail';
 import RentHistory from './components/History/RentHistory';
 import MainRoom from './components/RoomStatus/MainRoom';
-// import DynamicForm from './components/Setting/DynamicForm';
-// import Profile from './components/Profile/Profile';
 
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
-import ResidentProfile from './components/Resident/Profile';
-import DormProfile from './components/Profile/DormProfile';
+import ResidentProfile from './components/Resident/ResidentProfile';
+import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import BillingDetail from './components/Resident/BillingDetail';
 import Complain from './components/Resident/Complain';
@@ -104,16 +102,24 @@ const Routes = (props) => {
           <ResidentHome roleId={props.roleId} />
         </Route>
         <Route path="/resident/profile">
-          <ResidentProfile roleId={props.roleId} />
+          <ResidentProfile roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/resident/dorm-info">
-          <DormProfile roleId={props.roleId} />
+          <DormProfile roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/resident/bill-detail">
-          <BillingDetail roleId={props.roleId} />
+        <Route path="/resident/bill-detail/:invoiceid">
+          <BillingDetail
+            roleId={props.roleId}
+            dormId={props.dormId}
+            rentId={props.rentId}
+          />
         </Route>
         <Route path="/resident/all-bill">
-          <Bill roleId={props.roleId} />
+          <Bill
+            roleId={props.roleId}
+            rentId={props.rentId}
+            dormId={props.dormId}
+          />
         </Route>
         <Route path="/resident/complain-request">
           <Complain roleId={props.roleId} />
