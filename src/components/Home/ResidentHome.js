@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router";
-import { Row, Container, Col, Button } from "react-bootstrap";
-import "./ResidentHome.css";
-import dorm from "../../assets/images/dorm.png";
-import bill from "../../assets/images/bill.png";
-import complain from "../../assets/images/complain.png";
+import React from 'react';
+// import { useHistory } from 'react-router';
+import { Row, Container, Col, Button } from 'react-bootstrap';
+import './ResidentHome.css';
+import dorm from '../../assets/images/dorm.png';
+import bill from '../../assets/images/bill.png';
+import complain from '../../assets/images/complain.png';
+
 const ResidentHome = (props) => {
-  const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 0) {
-      history.push("/login");
-    }
-  }, []);
+  // const history = useHistory();
+  // useEffect(() => {
+  //   if (props.roleId !== 0) {
+  //     history.push('/login');
+  //   }
+  // }, []);
   return (
     <>
       <Container>
@@ -24,6 +25,7 @@ const ResidentHome = (props) => {
               <Row>
                 <img
                   src={dorm}
+                  alt="Dormitory Information"
                   id="dormimg"
                   className="justify-content-center"
                 />
@@ -40,6 +42,7 @@ const ResidentHome = (props) => {
                 <img
                   src={bill}
                   id="dormimg"
+                  alt="Billing"
                   className="justify-content-center"
                 />
               </Row>
@@ -55,6 +58,7 @@ const ResidentHome = (props) => {
                 <img
                   src={complain}
                   id="dormimg"
+                  alt="Complain"
                   className="justify-content-center"
                 />
               </Row>
