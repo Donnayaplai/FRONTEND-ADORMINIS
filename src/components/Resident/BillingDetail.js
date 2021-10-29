@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
 import env from '../../env';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
 
 const BillingDetail = (props) => {
   const [billDetail, setBilDetail] = useState([]);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    const getBillDetail = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `${env.url}invoice/${props.match.params.invoiceid}/${props.match.params.buildingid}`
+        );
+        setBilDetail(response);
+      } catch (error) {
+        console.error(error.message);
+      }
+      setLoading(false);
+    };
+
     getBillDetail();
   }, []);
-
-  async function getBillDetail() {
-    try {
-      let billData = await axios.get(`${env.url}invoice/:invoiceID/:dormID`);
-      setBilDetail(billData.data);
-      setLoading(true);
-      console.log(billData);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;

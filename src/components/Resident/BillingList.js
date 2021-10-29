@@ -1,36 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import BillInfo from '../../assets/images/billinfo.png';
-const BillingList = ({ loading, billList, ...props }) => {
+const BillingList = ({
+  loading,
+  billList,
+  filteredBill,
+  searchText,
+  ...props
+}) => {
+  const [selectInvoiceId, setSelectInvoiceId] = useState();
+  //Get all Bill
+  const getBillList = () => {
+    if (searchText === '') {
+      return billList;
+    } else {
+      return filteredBill;
+    }
+  };
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
   return (
-    <Container>
-      <div className="table-responsive ">
-        <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
-          <thead
-            style={{
-              backgroundColor: '#C7E5F0',
-              textAlign: 'center',
-              color: 'black',
-              fontWeight: 'bold',
-              fontSize: '18px',
-              height: '30px',
-              border: 'none',
-            }}
-          >
-            <tr>
-              <th scope="col">เดือน</th>
-              <th scope="col">ราคารวม</th>
-              <th scope="col">รายละเอียดใบแจ้งหนี้</th>
-            </tr>
-          </thead>
+    <>
+      {getBillList().length === 0 && (
+        <h3 className="text-danger fw-bold text-center mt-5">
+          ไม่พบข้อมูลที่ค้นหา
+        </h3>
+      )}
+      <Table
+        responsive
+        className="table table-hover table-borderless mt-3 mx-auto"
+      >
+        <thead
+          style={{
+            backgroundColor: '#C7E5F0',
+            textAlign: 'center',
+            color: 'black',
+            fontWeight: 'bold',
+            fontSize: '18px',
+            height: '30px',
+            border: 'none',
+          }}
+        >
+          <tr>
+            <th>รอบบิล</th>
+            <th>ราคารวม</th>
+            <th>รายละเอียด</th>
+          </tr>
+        </thead>
 
-          <tbody>
+        <tbody>
+          {getBillList().map((bill) => (
             <tr
+              key={bill.invoicID}
               style={{
                 backgroundColor: '#EAE7E2',
                 border: 'none',
@@ -38,23 +62,17 @@ const BillingList = ({ loading, billList, ...props }) => {
               }}
             >
               <td>
-                {billList.billingMonth}/{billList.billingYear}
+                {bill.billingMonth}/{bill.billingYear}
               </td>
-              <td>{billList.totalPrice}</td>
+              <td>{bill.totalPrice}</td>
               <td>
-                <Link
-                  to={{
-                    pathname: `/bill-detail/:invoiceID/:dormID`,
-                    // state: { buildingId: props.match.params.buildingid },
-                  }}
-                >
-                  <Button
+                <Link to={`/resident/bill-detail/${bill.invoiceID}`}>
+                  <button
                     type="button"
                     className="btn"
-                    style={{
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      boxShadow: 'none',
+                    onClick={() => {
+                      setSelectInvoiceId(bill.invoiceID);
+                      console.log(selectInvoiceId);
                     }}
                   >
                     <img
@@ -62,14 +80,14 @@ const BillingList = ({ loading, billList, ...props }) => {
                       alt="Bill information"
                       style={{ width: '1.5em' }}
                     />
-                  </Button>
+                  </button>
                 </Link>
               </td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-    </Container>
+          ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
 
