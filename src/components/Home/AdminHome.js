@@ -9,7 +9,7 @@ const AdminHome = (props) => {
     if (props.roleId !== 1) {
       history.push('/login');
     }
-  }, []);
+  });
   return (
     <>
       <h1>แดชบอร์ด</h1>
