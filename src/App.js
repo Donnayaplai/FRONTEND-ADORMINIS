@@ -13,7 +13,8 @@ import AdminNav from './components/Navbar/AdminNav';
 function App() {
   const [roleId, setRoleId] = useState();
   const [dormId, setDormId] = useState();
-  const [buildingId, setBuildingId] = useState();
+  const [rentId, setRentId] = useState();
+  const [userId, setUserId] = useState();
   //ทำงานก่อน render
   useEffect(() => {
     if (localStorage.getItem('authorization')) {
@@ -27,22 +28,24 @@ function App() {
           console.log(data.data);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
-          setBuildingId(data.data.BUILDINGID);
+          setRentId(data.data.RENTID);
+          setUserId(data.data.USERID);
         });
     }
   }, []);
 
   function RenderNav() {
     if (roleId === 0) {
-      return <ResidentNav setRoleId={setRoleId} />;
-    } else if (roleId === 1) {
       return (
-        <AdminNav
-          dormId={dormId}
-          buildingId={buildingId}
+        <ResidentNav
           setRoleId={setRoleId}
+          rentId={rentId}
+          dormId={dormId}
+          userId={userId}
         />
       );
+    } else if (roleId === 1) {
+      return <AdminNav dormId={dormId} setRoleId={setRoleId} userId={userId} />;
     } else {
       return <Navbar />;
     }
@@ -54,7 +57,13 @@ function App() {
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route>
-          <Routes setRoleId={setRoleId} roleId={roleId} dormId={dormId} />
+          <Routes
+            setRoleId={setRoleId}
+            roleId={roleId}
+            dormId={dormId}
+            rentId={rentId}
+            userId={userId}
+          />
         </Route>
       </Switch>
     </Router>
