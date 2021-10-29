@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Redirect } from 'react-router';
 import { Provinces } from '../../systemdata/Provinces';
 import { useForm } from 'react-hook-form';
 
 const DormitoryRegister = () => {
+  const [isRegisterComplete, setRegisterComplete] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,10 +18,26 @@ const DormitoryRegister = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const info = await axios.post(`${env.url}setting/`, data);
-    console.log(info);
+    await axios.post(`${env.url}setting/`, data);
+    setRegisterComplete(true);
 
     reset();
+    // eslint-disable-next-line no-lone-blocks
+    {
+      !isRegisterComplete ? AlertRegisterComplete() : AlertRegisterInComplete();
+    }
+  };
+
+  const AlertRegisterComplete = async () => {
+    window.alert('การลงทะเบียนหอพักเสร็จสิ้น');
+    setRegisterComplete(true);
+    <Redirect to={`/dorm-setting`} />;
+  };
+
+  const AlertRegisterInComplete = async () => {
+    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
+    setRegisterComplete(false);
+    <Redirect to={`/dorm-registration}`} />;
   };
 
   return (
