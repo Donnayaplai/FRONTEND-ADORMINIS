@@ -1,66 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import BillInfo from '../../assets/images/billinfo.png';
 
-const InvoiceList = ({ invoiceList, loading, ...props }) => {
-  if (loading) {
+const InvoiceList = ({
+  invoiceList,
+  loading,
+  filteredInvoice,
+  searchText,
+  getAllInvoice,
+  ...props
+}) => {
+  const [selectInvoiceId, setSelectInvoiceId] = useState();
+
+  const getInvoiceList = () => {
+    if (searchText === '') {
+      return invoiceList;
+    } else {
+      return filteredInvoice;
+    }
+  };
+  if (!loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
   return (
     <>
+      {getInvoiceList().length === 0 && (
+        <h3 className="text-danger fw-bold text-center mt-5">
+          ไม่พบข้อมูลที่ค้นหา
+        </h3>
+      )}
       <Container>
-        <Row>
-          <Col style={{ float: 'left' }}>
-            <h5>
-              รอบบิล: <span>{}</span>
-            </h5>
-          </Col>
-        </Row>
-        <div className="table-responsive ">
-          <table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
-            <thead
-              style={{
-                backgroundColor: '#C7E5F0',
-                textAlign: 'center',
-                color: 'black',
-                fontWeight: 'bold',
-                fontSize: '18px',
-                height: '30px',
-                border: 'none',
-              }}
-            >
-              <tr>
-                <th scope="col">เลขห้อง</th>
-                <th scope="col">ราคารวม</th>
-                <th scope="col">รายละเอียดใบแจ้งหนี้</th>
-              </tr>
-            </thead>
-            <tbody>
+        <Table
+          responsive
+          className="table table-hover table-borderless mt-3 mx-auto"
+        >
+          <thead
+            style={{
+              backgroundColor: '#C7E5F0',
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: '18px',
+              height: '30px',
+              border: 'none',
+            }}
+          >
+            <tr>
+              <th>รอบบิล</th>
+              <th>เลขห้อง</th>
+              <th>ชั้น</th>
+              <th>ราคารวม</th>
+              <th>รายละเอียด</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {getInvoiceList().map((invoice) => (
               <tr
+                key={invoice.invoiceID}
                 style={{
                   backgroundColor: '#EAE7E2',
                   border: 'none',
                   textAlign: 'center',
                 }}
               >
-                <td>{props.roomNo}</td>
-                <td>{props.roomPrice}</td>
+                <td>{invoice.billingCycle}</td>
+                <td>{invoice.roomNo}</td>
+                <td>{invoice.floor}</td>
+                <td>{invoice.totalPrice}</td>
                 <td>
-                  <Link
-                    to={{
-                      pathname: `/invoice-detail/`,
-                      state: { buildingId: props.match.params.buildingid },
-                    }}
-                  >
-                    <Button
+                  <Link to={`/invoice-detail/${selectInvoiceId}`}>
+                    <button
                       type="button"
                       className="btn"
-                      style={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        boxShadow: 'none',
+                      onClick={() => {
+                        setSelectInvoiceId(invoice.invoiceID);
+                        console.log(selectInvoiceId);
                       }}
                     >
                       <img
@@ -68,13 +85,13 @@ const InvoiceList = ({ invoiceList, loading, ...props }) => {
                         alt="Bill information"
                         style={{ width: '1.5em' }}
                       />
-                    </Button>
+                    </button>
                   </Link>
                 </td>
               </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </Table>
       </Container>
     </>
   );
