@@ -11,6 +11,7 @@ import NotFound from './components/Others/NotFound';
 
 //Admin
 import AdminHome from './components/Home/AdminHome';
+import AdminProfile from './components/Profile/AdminProfile';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
@@ -32,6 +33,7 @@ import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import BillingDetail from './components/Resident/BillingDetail';
 import Complain from './components/Resident/Complain';
+import DormitoryInfo from './components/Dorm/DormitoryInfo';
 
 const Routes = (props) => {
   return (
@@ -43,9 +45,6 @@ const Routes = (props) => {
         </Route>
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
-        <Route path="/admin/Invoice-detail" component={InvoiceDetail} />
-        <Route path="/resident/profile" component={ResidentProfile} />
-        <Route path="/admin/dormprofile" component={DormProfile} />
         <Route
           path="/resident/check-account"
           exact
@@ -61,8 +60,14 @@ const Routes = (props) => {
         <Route path="/admin/home">
           <AdminHome roleId={props.roleId} />
         </Route>
+        <Route path="/admin/profile">
+          <AdminProfile roleId={props.roleId} userId={props.userId} />
+        </Route>
         <Route path="/dorm-registration">
           <DormitoryRegister roleId={props.roleId} />
+        </Route>
+        <Route path="/dorm-info">
+          <DormitoryInfo roleId={props.roleId} />
         </Route>
         <Route path="/dorm-setting">
           <Setting dormId={props.dormId} />
@@ -83,7 +88,7 @@ const Routes = (props) => {
         <Route path="/addresident/:buildingid/:roomid">
           <AddResident dormId={props.dormId} roleId={props.roleId} />
         </Route>
-        <Route path="/all-invoice">
+        <Route path={`/all-invoice/${props.dormId}`}>
           <Invoice roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/invoice-detail">
