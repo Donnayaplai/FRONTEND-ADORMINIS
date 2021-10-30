@@ -29,7 +29,7 @@ nav ul li {
 nav ul li a {
   color: #f2f2f2;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 500;
   padding: 8px 15px;
   border-radius: 5px;
@@ -47,7 +47,7 @@ nav .menu-btn i {
   cursor: pointer;
   display: none;
 }
-input[type="checkbox"] {
+input[type='checkbox'] {
   display: none;
 }
 @media (max-width: 1000px) {
@@ -61,7 +61,7 @@ input[type="checkbox"] {
     z-index: 1000;
   }
   #click:checked ~ .menu-btn i:before {
-    content: "\f00d";
+    content: '\f00d';
   }
   nav ul {
     position: fixed;
