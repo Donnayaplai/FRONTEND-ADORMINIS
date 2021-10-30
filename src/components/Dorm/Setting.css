@@ -1,3 +1,30 @@
+#btn-cancel {
+  background-color: #dbd9d5;
+  border-color: black;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+#btn-cancel:hover {
+  background-color: #afacaa;
+  border-color: black;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
 #button-add {
   background-color: bisque;
   color: #000;

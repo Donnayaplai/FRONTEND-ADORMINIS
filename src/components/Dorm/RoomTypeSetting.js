@@ -16,12 +16,14 @@ const RoomTypeSetting = (props) => {
   });
 
   const onSubmit = async (data) => {
-    let roomTypeSetting = await axios.post(`${env.url}testja`, {
-      arrayRoomTypes: data,
-    });
-    console.log(roomTypeSetting);
+    props.setStep3(data);
+    props.handleSubmit(data);
+    // let roomTypeSetting = await axios.post(`${env.url}testja`, {
+    //   arrayRoomTypes: data,
+    // });
+    // console.log(roomTypeSetting);
 
-    reset();
+    // reset();
   };
   // const onSubmit = async (data) => {
   //   let roomTypeSetting = await axios.post(
@@ -126,10 +128,17 @@ const RoomTypeSetting = (props) => {
               </Col>
             </Row>
           </Container>
-          <Row className="mt-3 mb-5">
+          <Row className="mt-3">
             <Col>
+              <Button
+                id="btn-cancel"
+                onClick={() => props.setPage(2)}
+                style={{ float: 'left' }}
+              >
+                ย้อนกลับ
+              </Button>
               <Button id="btn-save" type="submit" style={{ float: 'right' }}>
-                บันทึก
+                ต่อไป
               </Button>
             </Col>
           </Row>

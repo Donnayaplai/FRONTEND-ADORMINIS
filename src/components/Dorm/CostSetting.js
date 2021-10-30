@@ -4,18 +4,20 @@ import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import Edit from '../../assets/images/edit.png';
+import './Setting.css';
 
 const CostSetting = (props) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-    const costSetting = await axios.post(
-      `${env.url}setting/setCost/${props.dormId}`,
-      data
-    );
-    console.log(costSetting);
-
-    reset();
+    props.setStep1(data);
+    props.setPage(2);
+    // const costSetting = await axios.post(
+    //   `${env.url}setting/setCost/${props.dormId}`,
+    //   data
+    // );
+    // console.log(costSetting);
+    // reset();
   };
 
   return (
@@ -261,8 +263,11 @@ const CostSetting = (props) => {
         </Container>
         <Row className="mt-3">
           <Col>
+            <Button id="btn-cancel" style={{ float: 'left' }}>
+              ยกเลิก
+            </Button>
             <Button id="btn-save" type="submit" style={{ float: 'right' }}>
-              บันทึก
+              ต่อไป
             </Button>
           </Col>
         </Row>

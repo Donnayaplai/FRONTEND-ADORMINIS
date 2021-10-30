@@ -16,10 +16,12 @@ const BuildingSetting = (props) => {
   });
 
   const onSubmit = async (data) => {
-    let buildingSetting = await axios.post(`${env.url}testja`, {
-      arrayBuilding: data,
-    });
-    console.log(buildingSetting);
+    props.setStep2(data);
+    props.setPage(3);
+    // let buildingSetting = await axios.post(`${env.url}testja`, {
+    //   arrayBuilding: data,
+    // });
+    // console.log(buildingSetting);
 
     reset();
   };
@@ -126,10 +128,17 @@ const BuildingSetting = (props) => {
               </Col>
             </Row>
           </Container>
-          <Row className="mt-3 mb-5">
+          <Row className="mt-3">
             <Col>
+              <Button
+                id="btn-cancel"
+                onClick={() => props.setPage(1)}
+                style={{ float: 'left' }}
+              >
+                ย้อนกลับ
+              </Button>
               <Button id="btn-save" type="submit" style={{ float: 'right' }}>
-                บันทึก
+                ต่อไป
               </Button>
             </Col>
           </Row>
