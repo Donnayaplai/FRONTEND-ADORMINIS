@@ -6,7 +6,6 @@ import env from '../../env';
 import {
   Modal,
   Button,
-  Card,
   Container,
   Row,
   Col,
@@ -44,21 +43,31 @@ const RoomData = ({
 
   //Data
   const [editUserID, seteditUserID] = useState(null);
-  const [editUserData, seteditUserData] = useState({
-    fName: '',
-    lName: '',
-    telNo: '',
-    gender: '',
-    idCardNo: '',
-    dateOfBirth: '',
-    address: '',
-  });
 
-  const [editCorData, seteditCorData] = useState({
-    startDate: '',
-    endDate: '',
-    checkInDate: '',
-  });
+  const [checked, setChecked] = useState([]);
+  const [costList] = useState([
+    {
+      id: 4,
+      costName: 'ส่วนกลาง',
+    },
+
+    {
+      id: 5,
+      costName: 'ที่จอดรถ',
+    },
+    {
+      id: 6,
+      costName: 'อินเทอร์เน็ต',
+    },
+    {
+      id: 7,
+      costName: 'รักษาความสะอาด',
+    },
+    {
+      id: 8,
+      costName: 'อื่น ๆ',
+    },
+  ]);
 
   //Get all room
   const getRoomList = () => {
@@ -80,31 +89,67 @@ const RoomData = ({
       console.log(err);
     }
   };
-
+  //edit resident info
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setEditUserData({
+  //     ...editUserData,
+  //     [name]: value,
+  //   });
+  // };
   //Edit CoR and rent info
-  const editCor = async (RENTID, CONTRACTOFRENTID) => {
-    try {
-      await axios.post(
-        `${env.url}api/room/edit/${RENTID}/${CONTRACTOFRENTID}`,
-        {
-          editCor: editCorData,
-        }
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const editCor = async (RENTID, CONTRACTOFRENTID) => {
+  //   try {
+  //     await axios.post(
+  //       `${env.url}api/room/edit/${RENTID}/${CONTRACTOFRENTID}`,
+  //       {
+  //         editCor: editCorData,
+  //       }
+  //     );
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  //Edit resident information
-  const ediResidentInfo = async (USERID) => {
+  // Edit resident information
+  const editResidentInfo = async (RENTID, i) => {
+    // console.log(residentInfo[i], 'resident[i]');
+    // console.log(i, 'i');
+    // console.log(residentInfo, 'resinfo');
+    // console.log(RENTID, 'RENTID');
+    residentInfo[i].fName = residentInfo[i].FNAME;
+    residentInfo[i].lName = residentInfo[i].LNAME;
+    residentInfo[i].gender = residentInfo[i].GENDER;
+    residentInfo[i].telNo = residentInfo[i].TELNO;
+    residentInfo[i].idCardNo = residentInfo[i].IDCARDNO;
+    residentInfo[i].dateOfBirth = residentInfo[i].DATEOFBIRTH;
+    residentInfo[i].startDate = residentInfo[i].STARTDATE;
+    residentInfo[i].endDate = residentInfo[i].ENDDATE;
+    residentInfo[i].checkInDate = residentInfo[i].CHECKINDATE;
+    console.log(residentInfo[i], 'resident[i]');
     try {
-      await axios.post(`${env.url}api/room/edit/${USERID}`, {
-        editUserData: editUserData,
+      await axios.post(`${env.url}api/room/edit/${RENTID}`, {
+        editUserData: residentInfo[i],
       });
     } catch (err) {
       console.log(err);
     }
   };
+
+  // Edit list of cost in specific room
+  //ถ้าเป็น edit mode ให้เอาฟอร์มแบบเดียวกับ Addresident มา render
+  // router.post('/cost/:roomID', editCost);
+
+  //Edit
+  // const editListOfCost = async (ROOMID) => {
+  //   try {
+  //     await axios.post(`${env.url}api/room/cost/${selectRoomID}`, {
+  //       listOfCost: listOfCost,
+  //     });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // const AlertEditComplete = async () => {
   //   window.alert('การแก้ไขข้อมูลเสร็จสิ้น');
@@ -175,6 +220,24 @@ const RoomData = ({
       console.log(err);
     }
   };
+  console.log(roomInfo);
+
+  console.log(residentInfo, '-------resinfo');
+
+  // let costList = [];
+  // const getRoomInfo = async (ROOMID) => {
+  //   try {
+  //     let roomData = await axios.get(
+  //       `${env.url}api/room/info/${props.dormId}/${ROOMID}`
+  //     );
+  //     setRoomInfo(roomData.data);
+  //     for (let i = 0; i < roomData.data.listOfCost.length; i++) {
+  //       costList.push(roomData.data.listOfCost[i]);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const Cancle = async () => {
     setSelectRoom('');
@@ -197,260 +260,277 @@ const RoomData = ({
           ไม่พบข้อมูลที่ค้นหา
         </h3>
       )}
-      <Table
-        responsive
-        className="table table-hover table-borderless mt-3 mx-auto"
-      >
-        <thead
-          style={{
-            backgroundColor: '#C7E5F0',
-            textAlign: 'center',
-            color: 'black',
-            fontWeight: 'bold',
-            fontSize: '18px',
-            height: '30px',
-            border: 'none',
-          }}
+      <form>
+        <Table
+          responsive
+          className="table table-hover table-borderless mt-3 mx-auto"
         >
-          <tr>
-            <th>ห้อง</th>
-            <th>สถานะ</th>
-            <th>ข้อมูลห้องพัก</th>
-            <th>ข้อมูลผู้เช่า</th>
-            <th>เพิ่มคน</th>
-          </tr>
-        </thead>
+          <thead
+            style={{
+              backgroundColor: '#C7E5F0',
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: '18px',
+              height: '30px',
+              border: 'none',
+            }}
+          >
+            <tr>
+              <th>ห้อง</th>
+              <th>สถานะ</th>
+              <th>ข้อมูลห้องพัก</th>
+              <th>ข้อมูลผู้เช่า</th>
+              <th>เพิ่มคน</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {getRoomList().map((room) => (
-            <tr
-              key={room.ROOMID}
-              style={{
-                backgroundColor: '#EAE7E2',
-                border: 'none',
-                textAlign: 'center',
-              }}
-            >
-              <td>{room.ROOMNO}</td>
-              <td>
-                {room.STATUS ? (
-                  <Button
-                    type="button"
-                    className="btn"
-                    style={{
-                      backgroundColor: '#32CD32',
-                      color: '#fff',
-                      maxWidth: '100px',
-                      width: '100%',
-                      height: '30px',
-                      fontSize: '16px',
-                      margin: '10px',
-                      padding: '3px',
-                    }}
-                    disabled
-                  >
-                    ว่าง
-                  </Button>
-                ) : (
-                  <Button
-                    type="button"
-                    className="btn"
-                    style={{
-                      backgroundColor: '#FF0000',
-                      color: '#fff',
-                      maxWidth: '100px',
-                      width: '100%',
-                      height: '30px',
-                      fontSize: '16px',
-                      margin: '10px',
-                      padding: '5px',
-                    }}
-                    disabled
-                  >
-                    ไม่ว่าง
-                  </Button>
-                )}
-              </td>
-              <td>
-                <Button
-                  className="btn"
-                  style={{
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    boxShadow: 'none',
-                  }}
-                  onClick={() => {
-                    getRoomInfo(room.ROOMID);
-                    setRoomModalOpen(true);
-                  }}
-                >
-                  <img
-                    src={RoomInfo}
-                    alt="Room Information"
-                    style={{ width: '2em' }}
-                  />
-                </Button>
-                <Modal
-                  show={roomModalOpen}
-                  aria-labelledby="contained-modal-title-vcenter"
-                  centered
-                  size="md"
-                  scrollable="true"
-                >
-                  <Modal.Header
-                    closeButton={Cancle}
-                    onClick={Cancle}
-                    style={{ backgroundColor: '#C7E5F0' }}
-                  >
-                    <Modal.Title>
-                      <h2 className="fw-bold">ข้อมูลห้องพัก</h2>
-                    </Modal.Title>
-                  </Modal.Header>
-
-                  <Modal.Body>
-                    <Row>
-                      <Col xl={10} md={8} xs={8}>
-                        <h4 className="fw-bold">ห้อง: {roomInfo.roomNo}</h4>
-                      </Col>
-                      <Col>
-                        <Button
-                          style={{
-                            backgroundColor: 'transparent',
-                            border: 'none',
-                            boxShadow: 'none',
-                          }}
-                        >
-                          <img
-                            src={Edit}
-                            alt="Edit room information"
-                            style={{ width: '1.5em', float: 'right' }}
-                          />
-                        </Button>
-                      </Col>
-                    </Row>
-                    <Container
-                      className="mt-3 py-4 rounded mb-3"
-                      style={{ backgroundColor: '#EAE7E2' }}
+          <tbody>
+            {getRoomList().map((room) => (
+              <tr
+                key={room.ROOMID}
+                style={{
+                  backgroundColor: '#EAE7E2',
+                  border: 'none',
+                  textAlign: 'center',
+                }}
+              >
+                <td>{room.ROOMNO}</td>
+                <td>
+                  {room.STATUS ? (
+                    <Button
+                      type="button"
+                      className="btn"
+                      style={{
+                        backgroundColor: '#32CD32',
+                        color: '#fff',
+                        maxWidth: '100px',
+                        width: '100%',
+                        height: '30px',
+                        fontSize: '16px',
+                        margin: '10px',
+                        padding: '3px',
+                      }}
+                      disabled
                     >
-                      <Row>
-                        <Col xl={10} md={8} xs={8}>
-                          <h5 className="fw-bold mb-3">ข้อมูลห้องพัก</h5>
-                        </Col>
-                      </Row>
-                      <Row className="ms-3">
-                        <Col>
-                          <p>ประเภทห้องพัก</p>
-                        </Col>
-                        <Col>
-                          <p>{roomInfo.roomName}</p>
-                        </Col>
-                      </Row>
-                      <Row className="ms-3">
-                        <Col>
-                          <p>ค่าเช่าห้อง (บาท)</p>
-                        </Col>
-                        <Col>
-                          <p>{roomInfo.roomPrice}</p>
-                        </Col>
-                      </Row>
-                      <hr />
-                      <Row>
-                        <Col xl={10} md={8} xs={8}>
-                          <h5 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h5>
-                        </Col>
-                        <Col>
-                          <p>{}</p>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </Modal.Body>
-                </Modal>
-              </td>
-
-              <td>
-                <Button
-                  type="button"
-                  className="btn"
-                  style={{
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    boxShadow: 'none',
-                  }}
-                  onClick={() => {
-                    getResidentInfo(room.ROOMID);
-                    if (room.STATUS === true) {
-                      setResInfoModalOpen(false);
-                    } else {
-                      setResInfoModalOpen(true);
-                    }
-                  }}
-                >
-                  <i
-                    className="fas fa-info-circle"
+                      ว่าง
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      className="btn"
+                      style={{
+                        backgroundColor: '#FF0000',
+                        color: '#fff',
+                        maxWidth: '100px',
+                        width: '100%',
+                        height: '30px',
+                        fontSize: '16px',
+                        margin: '10px',
+                        padding: '5px',
+                      }}
+                      disabled
+                    >
+                      ไม่ว่าง
+                    </Button>
+                  )}
+                </td>
+                <td>
+                  <Button
+                    className="btn"
                     style={{
-                      color: '#8D9293',
-                      fontSize: '2em',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
                     }}
-                  ></i>
-                </Button>
-              </td>
+                    onClick={() => {
+                      getRoomInfo(room.ROOMID);
+                      setRoomModalOpen(true);
+                    }}
+                  >
+                    <img
+                      src={RoomInfo}
+                      alt="Room Information"
+                      style={{ width: '2em' }}
+                    />
+                  </Button>
+                </td>
 
-              <td>
-                <Link
-                  to={{
-                    pathname: `/addresident/${props.match.params.buildingid}/${room.ROOMID}`,
-                    state: { buildingId: props.match.params.buildingid },
-                  }}
-                >
-                  <button
+                <td>
+                  <Button
                     type="button"
                     className="btn"
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }}
                     onClick={() => {
-                      setSelectRoom(room.ROOMID);
+                      getResidentInfo(room.ROOMID);
+                      if (room.STATUS === true) {
+                        setResInfoModalOpen(false);
+                      } else {
+                        setResInfoModalOpen(true);
+                      }
                     }}
                   >
                     <i
-                      className="fas fa-user-plus"
+                      className="fas fa-info-circle"
                       style={{
-                        color: '#000',
-                        fontSize: '1.5em',
+                        color: '#8D9293',
+                        fontSize: '2em',
                       }}
                     ></i>
-                  </button>
-                </Link>
-              </td>
-            </tr>
-          ))}
+                  </Button>
+                </td>
 
-          <Modal
-            show={resInfoModalOpen}
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            size="md"
-            scrollable="true"
-          >
-            <Modal.Header
-              closeButton={Cancle}
-              onClick={Cancle}
-              style={{ backgroundColor: '#C7E5F0' }}
+                <td>
+                  <Link
+                    to={{
+                      pathname: `/addresident/${props.match.params.buildingid}/${room.ROOMID}`,
+                      state: { buildingId: props.match.params.buildingid },
+                    }}
+                  >
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => {
+                        setSelectRoom(room.ROOMID);
+                      }}
+                    >
+                      <i
+                        className="fas fa-user-plus"
+                        style={{
+                          color: '#000',
+                          fontSize: '1.5em',
+                        }}
+                      ></i>
+                    </button>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+            <Modal
+              show={roomModalOpen}
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              size="md"
+              scrollable="true"
             >
-              <Modal.Title>
-                <h2 className="bold">
-                  ข้อมูลผู้เช่า <i className="fas fa-id-card"></i>
-                </h2>
-              </Modal.Title>
-            </Modal.Header>
+              <Modal.Header
+                closeButton={Cancle}
+                onClick={Cancle}
+                style={{ backgroundColor: '#C7E5F0' }}
+              >
+                <Modal.Title>
+                  <h2 className="fw-bold">ข้อมูลห้องพัก</h2>
+                </Modal.Title>
+              </Modal.Header>
 
-            <Modal.Body className="w-100">
-              <Form>
-                {residentInfo.map((info) => (
-                  <Container key={info.USERID}>
+              <Modal.Body>
+                <Row>
+                  <Col xl={10} md={8} xs={8}>
+                    <h4 className="fw-bold">ห้อง: {roomInfo.roomNo}</h4>
+                  </Col>
+                  <Col>
+                    <Button
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }}
+                    >
+                      <img
+                        src={Edit}
+                        alt="Edit room information"
+                        style={{ width: '1.5em', float: 'right' }}
+                      />
+                    </Button>
+                  </Col>
+                </Row>
+                <Container
+                  className="mt-3 py-4 rounded mb-3"
+                  style={{ backgroundColor: '#EAE7E2' }}
+                >
+                  <Row>
+                    <Col xl={10} md={8} xs={8}>
+                      <h5 className="fw-bold mb-3">ข้อมูลห้องพัก</h5>
+                    </Col>
+                  </Row>
+                  <Row className="ms-3">
+                    <Col>
+                      <p>ประเภทห้องพัก</p>
+                    </Col>
+                    <Col>
+                      <p>{roomInfo.roomName}</p>
+                    </Col>
+                  </Row>
+                  <Row className="ms-3">
+                    <Col>
+                      <p>ค่าเช่าห้อง (บาท)</p>
+                    </Col>
+                    <Col>
+                      <p>{roomInfo.roomPrice}</p>
+                    </Col>
+                  </Row>
+                  <hr />
+                  <Row>
+                    <Col xl={10} md={8} xs={8}>
+                      <h5 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h5>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      {roomInfo?.listOfCost?.map((c) => {
+                        return (
+                          <Row key={c.id}>
+                            <Col>
+                              <input
+                                type="checkbox"
+                                // onChange={handleToggle(c.id)}
+                                checked={true}
+                                id="checkbox"
+                              />
+                              <label>{c.costName}</label>
+                            </Col>
+                          </Row>
+                        );
+                      })}
+                      {/* <input type="checkbox" style={{ display: 'inline' }} />
+                      <label>{}</label> */}
+                    </Col>
+                  </Row>
+                </Container>
+              </Modal.Body>
+            </Modal>
+            <Modal
+              show={resInfoModalOpen}
+              // aria-labelledby="contained-modal-title-vcenter"
+              centered
+              size="md"
+              scrollable="true"
+            >
+              <Modal.Header
+                closeButton={Cancle}
+                onClick={Cancle}
+                style={{ backgroundColor: '#C7E5F0' }}
+              >
+                <Modal.Title>
+                  <h2 className="bold">
+                    ข้อมูลผู้เช่า <i className="fas fa-id-card"></i>
+                  </h2>
+                </Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                {residentInfo.map((info, i) => (
+                  <Container key={i}>
                     <Row className="mt-3">
                       <Col>
                         <h4 className="fw-bold">ห้อง: {info.ROOMNO}</h4>
                       </Col>
 
-                      <Col className="me-5">
+                      <Col>
                         <ButtonGroup style={{ float: 'right' }}>
                           <Button
                             style={{
@@ -465,8 +545,10 @@ const RoomData = ({
                               style={{ width: '1.5em' }}
                               onClick={() => {
                                 seteditUserID(info.USERID);
+                                setSelectRentID(info.RENTID);
                                 setEditMode(true);
-                                // console.log(info.RENTID);
+                                console.log(info.RENTID);
+                                console.log(info.USERID);
                                 // console.log(info.CONTRACTOFRENTID);
                               }}
                             />
@@ -495,130 +577,244 @@ const RoomData = ({
                       </Col>
                     </Row>
 
-                    <Card className="w-100">
-                      <Card.Body>
-                        <Container>
-                          <Row>
-                            <Col
-                              style={{
-                                fontSize: '1.1rem',
-                                fontWeight: 'bold',
+                    <Container
+                      className="p-3"
+                      style={{ border: '0.1px solid hsl(0, 0%, 73%)' }}
+                    >
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">ชื่อ</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.FNAME}
+                            disabled={info.USERID !== editUserID}
+                            name="fName"
+                            onChange={(e) => {
+                              // console.log(e.target.value);
+                              // console.log(residentInfo[i]);
+                              // console.log(residentInfo);
+                              setResidentInfo((prev) => {
+                                prev[i].FNAME = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">นามสกุล</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.LNAME}
+                            disabled={info.USERID !== editUserID}
+                            name="lName"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].LNAME = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">เพศ</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.GENDER}
+                            disabled={info.USERID !== editUserID}
+                            name="gender"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].GENDER = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">วันเกิด</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.DATEOFBIRTH}
+                            disabled={info.USERID !== editUserID}
+                            name="dateOfBirth"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].DATEOFBIRTH = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">เบอร์โทร</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.TELNO}
+                            disabled={info.USERID !== editUserID}
+                            name="telNo"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].TELNO = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">ที่อยู่</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            defaultValue={info.ADDRESS}
+                            disabled={info.USERID !== editUserID}
+                            name="address"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].ADDRESS = e.target.value;
+                                return prev;
+                              });
+                            }}
+                            as="textarea"
+                            rows={5}
+                          />
+                        </Col>
+                      </Row>
+
+                      <hr />
+
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">วันเริ่มสัญญา</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="date"
+                            defaultValue={info.STARTDATE}
+                            disabled={info.USERID !== editUserID}
+                            name="startDate"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].STARTDATE = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">วันสิ้นสุดสัญญา</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="date"
+                            defaultValue={info.ENDDATE}
+                            disabled={info.USERID !== editUserID}
+                            name="endDate"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].ENDDATE = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <Row className="mb-3">
+                        <Col>
+                          <p className="fw-bold">วันที่เริ่มเข้าพัก</p>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            type="date"
+                            defaultValue={info.CHECKINDATE}
+                            disabled={info.USERID !== editUserID}
+                            name="checkInDate"
+                            onChange={(e) => {
+                              setResidentInfo((prev) => {
+                                prev[i].CHECKINDATE = e.target.value;
+                                return prev;
+                              });
+                            }}
+                          />
+                        </Col>
+                      </Row>
+
+                      <Row></Row>
+                      {isEditMode && (
+                        <Row className="mt-3">
+                          <Col>
+                            <Button
+                              variant="secondary"
+                              xs={12}
+                              md={12}
+                              lg={12}
+                              type="submit"
+                              style={{ float: 'right' }}
+                              onClick={() => editResidentInfo(info.RENTID, i)}
+                            >
+                              บันทึก
+                            </Button>
+                            <Button
+                              variant="secondary"
+                              className=" me-3"
+                              xs={12}
+                              md={12}
+                              lg={12}
+                              type="submit"
+                              style={{ float: 'right' }}
+                              onClick={() => {
+                                setEditMode(false);
                               }}
                             >
-                              <p>ชื่อ-นามสกุล</p>
-                              <p>เพศ</p>
-                              <p>วันเกิด</p>
-                              <p>เบอร์โทร</p>
-
-                              <p>ที่อยู่</p>
-                            </Col>
-                            <Col>
-                              <p>
-                                {info.FNAME} {info.LNAME}
-                              </p>
-                              <p>{info.GENDER}</p>
-                              <p>{info.DATEOFBIRTH}</p>
-                              <p>{info.TELNO}</p>
-                              <p>{info.ADDRESS}</p>
-                            </Col>
-                          </Row>
-                        </Container>
-                        <hr />
-                        <Container>
-                          <Row>
-                            <Col
-                              style={{
-                                fontSize: '1.1rem',
-                                fontWeight: 'bold',
-                              }}
-                            >
-                              <p>วันเริ่มสัญญา</p>
-                              <p>วันสิ้นสุดสัญญา</p>
-                              <p>วันที่เริ่มเข้าพัก</p>
-                            </Col>
-
-                            <Col>
-                              <Form.Control
-                                type="date"
-                                value={info.STARTDATE}
-                                disabled={info.USERID !== editUserID}
-                                name="startDate"
-                              />
-                              <Form.Control
-                                type="date"
-                                value={info.ENDDATE}
-                                disabled={info.USERID !== editUserID}
-                                name="endDate"
-                              />
-                              <Form.Control
-                                type="date"
-                                value={info.CHECKINDATE}
-                                disabled={info.USERID !== editUserID}
-                                name="checkInDate"
-                              />
-                            </Col>
-                          </Row>
-                          <Row></Row>
-                          {isEditMode && (
-                            <Row className="mt-3">
-                              <Col>
-                                <Button
-                                  variant="secondary"
-                                  xs={12}
-                                  md={12}
-                                  lg={12}
-                                  type="submit"
-                                  style={{ float: 'right' }}
-                                  onClick={() =>
-                                    ediResidentInfo(
-                                      info.RENTID,
-                                      info.CONTRACTOFRENTID
-                                    )
-                                  }
-                                >
-                                  บันทึก
-                                </Button>
-                                <Button
-                                  variant="secondary"
-                                  className=" me-3"
-                                  xs={12}
-                                  md={12}
-                                  lg={12}
-                                  type="submit"
-                                  style={{ float: 'right' }}
-                                  onClick={() => {
-                                    setEditMode(false);
-                                  }}
-                                >
-                                  ยกเลิก
-                                </Button>
-                              </Col>
-                            </Row>
-                          )}
-                        </Container>
-                      </Card.Body>
-                    </Card>
+                              ยกเลิก
+                            </Button>
+                          </Col>
+                        </Row>
+                      )}
+                    </Container>
                   </Container>
                 ))}
-              </Form>
-            </Modal.Body>
-          </Modal>
-          <Modal show={showConfirmDeleteModal} onHide={Cancle}>
-            <Modal.Header closeButton onClick={Cancle}>
-              <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>คุณต้องการลบผู้เช่าใช่หรือไม่</Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={Cancle}>
-                ยกเลิก
-              </Button>
-              <Button variant="primary" onClick={() => removeResident()}>
-                ยืนยัน
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </tbody>
-      </Table>
+              </Modal.Body>
+            </Modal>
+            <Modal show={showConfirmDeleteModal} onHide={Cancle}>
+              <Modal.Header closeButton onClick={Cancle}>
+                <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>คุณต้องการลบผู้เช่าใช่หรือไม่</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={Cancle}>
+                  ยกเลิก
+                </Button>
+                <Button variant="primary" onClick={() => removeResident()}>
+                  ยืนยัน
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </tbody>
+        </Table>
+      </form>
     </>
   );
 };
