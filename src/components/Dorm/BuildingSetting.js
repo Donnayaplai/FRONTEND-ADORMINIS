@@ -1,18 +1,18 @@
-import React from 'react';
-import { useForm, useFieldArray, Controller } from 'react-hook-form';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
-import env from '../../env';
-import Edit from '../../assets/images/edit.png';
-import Delete from '../../assets/images/delete.png';
-import './Setting.css';
+import React from "react";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
+import env from "../../env";
+import Edit from "../../assets/images/edit.png";
+import Delete from "../../assets/images/delete.png";
+import "./Setting.css";
 
 const BuildingSetting = (props) => {
   const { control, handleSubmit, reset } = useForm({});
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'arrayBuilding',
+    name: "arrayBuilding",
   });
 
   const onSubmit = async (data) => {
@@ -49,14 +49,14 @@ const BuildingSetting = (props) => {
               <img
                 src={Edit}
                 alt="Edit roomtype setting"
-                style={{ maxWidth: '2rem', float: 'right' }}
+                style={{ maxWidth: "2rem", float: "right" }}
               />
             </Col>
           </Row>
 
           <Container
             className="py-4 rounded mb-3"
-            style={{ backgroundColor: '#EAE7E2' }}
+            style={{ backgroundColor: "#EAE7E2" }}
           >
             {fields.map((item, index) => {
               return (
@@ -98,16 +98,16 @@ const BuildingSetting = (props) => {
                     <Button
                       type="button"
                       style={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        boxShadow: 'none',
+                        backgroundColor: "transparent",
+                        border: "none",
+                        boxShadow: "none",
                       }}
                       onClick={() => remove(index)}
                     >
                       <img
                         src={Delete}
                         alt="Remove room type"
-                        style={{ maxWidth: '2rem', marginTop: '1.5em' }}
+                        style={{ maxWidth: "2rem", marginTop: "1.5em" }}
                       />
                     </Button>
                   </Col>
@@ -120,7 +120,7 @@ const BuildingSetting = (props) => {
                   type="button"
                   id="button-add"
                   onClick={() =>
-                    append({ BUILDINGID: '', BUILDINGNAME: '', NUMOFFLOOR: '' })
+                    append({ BUILDINGID: "", BUILDINGNAME: "", NUMOFFLOOR: "" })
                   }
                 >
                   เพิ่มตึก
@@ -133,11 +133,11 @@ const BuildingSetting = (props) => {
               <Button
                 id="btn-cancel"
                 onClick={() => props.setPage(1)}
-                style={{ float: 'left' }}
+                style={{ float: "left" }}
               >
                 ย้อนกลับ
               </Button>
-              <Button id="btn-save" type="submit" style={{ float: 'right' }}>
+              <Button id="btn-next" type="submit" style={{ float: "right" }}>
                 ต่อไป
               </Button>
             </Col>

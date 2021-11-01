@@ -40,3 +40,16 @@
   max-width: 10rem;
   width: 100%;
 }
+#btn-next {
+  background-color: #c7e5f0;
+  border-color: #0a58ca;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
