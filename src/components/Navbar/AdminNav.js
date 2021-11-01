@@ -1,18 +1,30 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Button, NavDropdown } from "react-bootstrap";
-import { useHistory } from "react-router";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
+import env from '../../env';
+import axios from 'axios';
 
-import "./Navbar.css";
-import logo from "../../assets/images/building-nav.png";
+import './Navbar.css';
+import logo from '../../assets/images/building-nav.png';
 
 const AdminNav = (props) => {
   const history = useHistory();
   const logout = () => {
-    localStorage.removeItem("authorization");
+    localStorage.removeItem('authorization');
     props.setRoleId(null);
-    history.push("/login");
+    history.push('/login');
   };
+
+  const createInvoiceBySendDormId = async () => {
+    try {
+      let dormID = await axios.post(`${env.url}invoice/create/${props.dormId}`);
+      console.log(props.dormId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // console.log(dormID);
   return (
     <nav>
       <div className="logo">
@@ -20,32 +32,38 @@ const AdminNav = (props) => {
           <Link
             to="/admin/home"
             style={{
-              textDecoration: "none",
-              color: "#fff",
-              fontSize: "1.5rem",
+              textDecoration: 'none',
+              color: '#fff',
+              fontSize: '1.5rem',
             }}
           >
             adorminis <img src={logo} alt="ADORMINIS-ICON" />
           </Link>
         </h2>
       </div>
-      <input type="checkbox" id="click" style={{ display: "none" }} />
+      <input type="checkbox" id="click" style={{ display: 'none' }} />
       <label htmlFor="click" className="menu-btn">
         <i className="fas fa-bars"></i>
       </label>
       <ul>
-        <NavDropdown title="หอพัก" id="navbarDropdown">
+        {/* <NavDropdown title="หอพัก" id="navbarDropdown">
           <NavDropdown.Item href="#action3">ข้อมูล</NavDropdown.Item>
           <NavDropdown.Item href="#action3">ตั้งค่า</NavDropdown.Item>
-        </NavDropdown>
+        </NavDropdown> */}
         <li>
           <Link to={`/all-building/${props.dormId}`}>ตึกและห้องพัก</Link>
         </li>
         <li>
-          <Link to="/select-building/meter-record">จดมิเตอร์</Link>
+          <Link
+            to={`/select-building/meter-record`}
+            onClick={createInvoiceBySendDormId}
+          >
+            จดมิเตอร์
+          </Link>
+          {/* ใส่ onClick ส่ง dormid ไป back เลย */}
         </li>
         <li>
-          <Link to={`/all-invoice/list/${props.dormId}`}>ใบแจ้งหนี้</Link>
+          <Link to={`/all-invoice/${props.dormId}`}>ใบแจ้งหนี้</Link>
         </li>
         <li>
           <Link to="/">เรื่องร้องเรียน</Link>
@@ -53,13 +71,51 @@ const AdminNav = (props) => {
         <li>
           <Link to="/rent/history">ประวัติการเช่าพัก</Link>
         </li>
+        <li>
+          <Link to="/admin/profile">ข้อมูลส่วนตัว</Link>
+        </li>
+        <li>
+          <Button onClick={logout}>ออกจากระบบ</Button>
+        </li>
+        {/* <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="true"
+          >
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="/">
+                Action
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Another action
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Something else here
+              </a>
+            </li>
+          </ul>
+        </li> */}
 
-        <NavDropdown title="วิชัย ใจดี" id="navbarDropdown">
+        {/* <NavDropdown title="วิชัย ใจดี" id="navbarDropdown">
           <NavDropdown.Item href="#action3">ข้อมูลส่วนตัว</NavDropdown.Item>
 
           <NavDropdown.Item onClick={logout}>ออกจากระบบ</NavDropdown.Item>
         </NavDropdown>
-        <i className="far fa-user-circle"></i>
+        <i className="far fa-user-circle"></i> */}
         {/* <li>
           <Button onClick={logout}>ออกจากระบบ</Button>
         </li> */}
