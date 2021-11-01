@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Tab, Tabs } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 
 import CostSetting from './CostSetting';
@@ -10,7 +10,6 @@ import axios from 'axios';
 import env from '../../env';
 
 const Setting = (props) => {
-  const [key, setKey] = useState('cost-setting');
   const [step1, setStep1] = useState();
   const [step2, setStep2] = useState();
   const [step3, setStep3] = useState();
