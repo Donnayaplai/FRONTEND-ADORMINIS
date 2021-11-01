@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { Row, Container, Col, Card } from 'react-bootstrap';
-import './AdminHome.css';
-import Room from '../../assets/images/roominfo.png';
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
+import { Row, Container, Col, Card } from "react-bootstrap";
+import "./AdminHome.css";
+import Room from "../../assets/images/roominfo.png";
 const AdminHome = (props) => {
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 1) {
-      history.push('/login');
+      history.push("/login");
     }
   });
   return (
@@ -16,21 +16,14 @@ const AdminHome = (props) => {
       <Container>
         <Container
           className="py-4 rounded mb-3"
-          style={{ backgroundColor: '#EAE7E2' }}
+          style={{ backgroundColor: "#EAE7E2" }}
         >
           <Row>
             <Col>
               <Card id="card">
                 <Card.Header id="cardheaderroom" as="h4">
-                  <Row>
-                    จำนวนห้องพักทั้งหมด
-                    <img
-                      src={Room}
-                      alt="All room"
-                      id="roomimg"
-                      className="justify-content-center"
-                    />
-                  </Row>
+                  จำนวนห้องพักทั้งหมด &nbsp;
+                  <i class="fas fa-door-open"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">
                   <Row>
@@ -44,7 +37,8 @@ const AdminHome = (props) => {
             <Col>
               <Card id="card">
                 <Card.Header id="cardheaderres" as="h4">
-                  จำนวนห้องว่างทั้งหมด
+                  จำนวนห้องว่างทั้งหมด &nbsp;
+                  <i class="fas fa-door-open"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">
                   <Card.Text id="cardtext">
@@ -56,7 +50,8 @@ const AdminHome = (props) => {
             <Col>
               <Card id="card">
                 <Card.Header id="cardheadernores" as="h4">
-                  จำนวนห้องไม่ว่างทั้งหมด
+                  จำนวนห้องไม่ว่างทั้งหมด &nbsp;
+                  <i class="fas fa-door-open"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">
                   <Card.Text id="cardtext">
@@ -70,7 +65,7 @@ const AdminHome = (props) => {
             <Col>
               <Card id="card">
                 <Card.Header id="cardheaderrescount" as="h4">
-                  จำนวนผู้เช่าทั้งหมด
+                  จำนวนผู้เช่าทั้งหมด &nbsp;<i class="fas fa-user"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">
                   <Card.Text id="cardtext">
@@ -82,7 +77,8 @@ const AdminHome = (props) => {
             <Col>
               <Card id="card">
                 <Card.Header id="cardheadercomplain" as="h4">
-                  จำนวนเรื่องร้องเรียน
+                  จำนวนเรื่องร้องเรียน &nbsp;
+                  <i class="fas fa-comment-dots"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">
                   <Card.Text id="cardtext">
