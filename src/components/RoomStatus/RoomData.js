@@ -89,27 +89,6 @@ const RoomData = ({
       console.log(err);
     }
   };
-  //edit resident info
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setEditUserData({
-  //     ...editUserData,
-  //     [name]: value,
-  //   });
-  // };
-  //Edit CoR and rent info
-  // const editCor = async (RENTID, CONTRACTOFRENTID) => {
-  //   try {
-  //     await axios.post(
-  //       `${env.url}api/room/edit/${RENTID}/${CONTRACTOFRENTID}`,
-  //       {
-  //         editCor: editCorData,
-  //       }
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   // Edit resident information
   const editResidentInfo = async (RENTID, i) => {
@@ -181,18 +160,7 @@ const RoomData = ({
       !removeComplete ? AlertRemoveComplete() : AlertRemoveInComplete();
     }
   };
-  // const removeResident = async () => {
-  //   try {
-  //     await axios
-  //       .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
-  //       .then(setRemoveComplete(true))
-  //       .then(setShowConfirmDeleteModal(false))
-  //       .then(setResInfoModalOpen(false))
-  //       .then(getAllRoom());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+
   const AlertRemoveComplete = async () => {
     window.alert('การลบผู้เช่าเสร็จสิ้น');
     setResInfoModalOpen(false);
@@ -208,6 +176,18 @@ const RoomData = ({
     <Redirect to={`/all-room/${props.buildingId}`} />;
     setRemoveComplete(false);
   };
+  // const removeResident = async () => {
+  //   try {
+  //     await axios
+  //       .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
+  //       .then(setRemoveComplete(true))
+  //       .then(setShowConfirmDeleteModal(false))
+  //       .then(setResInfoModalOpen(false))
+  //       .then(getAllRoom());
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   //Get room information
   const getRoomInfo = async (ROOMID) => {
@@ -223,21 +203,6 @@ const RoomData = ({
   console.log(roomInfo);
 
   console.log(residentInfo, '-------resinfo');
-
-  // let costList = [];
-  // const getRoomInfo = async (ROOMID) => {
-  //   try {
-  //     let roomData = await axios.get(
-  //       `${env.url}api/room/info/${props.dormId}/${ROOMID}`
-  //     );
-  //     setRoomInfo(roomData.data);
-  //     for (let i = 0; i < roomData.data.listOfCost.length; i++) {
-  //       costList.push(roomData.data.listOfCost[i]);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const Cancle = async () => {
     setSelectRoom('');
