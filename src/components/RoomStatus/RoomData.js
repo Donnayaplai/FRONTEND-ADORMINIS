@@ -200,9 +200,6 @@ const RoomData = ({
       console.log(err);
     }
   };
-  console.log(roomInfo);
-
-  console.log(residentInfo, '-------resinfo');
 
   const Cancle = async () => {
     setSelectRoom('');
@@ -236,8 +233,6 @@ const RoomData = ({
               textAlign: 'center',
               color: 'black',
               fontWeight: 'bold',
-              fontSize: '18px',
-              height: '30px',
               border: 'none',
             }}
           >
