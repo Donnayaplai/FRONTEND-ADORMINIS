@@ -66,7 +66,7 @@ const AdminNav = (props) => {
           <Link to={`/all-invoice/${props.dormId}`}>ใบแจ้งหนี้</Link>
         </li>
         <li>
-          <Link to="/">เรื่องร้องเรียน</Link>
+          <Link to={`/complain-list/${props.dormId}`}>เรื่องร้องเรียน</Link>
         </li>
         <li>
           <Link to="/rent/history">ประวัติการเช่าพัก</Link>
