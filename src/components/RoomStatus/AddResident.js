@@ -33,11 +33,11 @@ const AddResident = (props) => {
     data.listOfCost = checked;
     console.log(checked);
     console.log(data);
-    const info = await axios.post(
+    await axios.post(
       `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
       data
     );
-    console.log(info);
+    setAddComplete(true);
     reset();
 
     // eslint-disable-next-line no-lone-blocks
