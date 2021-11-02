@@ -29,7 +29,6 @@ const InvoiceList = ({
   };
 
   //Get invoice detail
-
   const getInvoiceDetail = async (invoiceid) => {
     try {
       let response = await axios.get(
@@ -63,8 +62,6 @@ const InvoiceList = ({
                 textAlign: 'center',
                 color: 'black',
                 fontWeight: 'bold',
-                fontSize: '18px',
-                height: '30px',
                 border: 'none',
               }}
             >
@@ -105,7 +102,7 @@ const InvoiceList = ({
                       <img
                         src={BillInfo}
                         alt="Bill information"
-                        style={{ width: '1.5em' }}
+                        style={{ maxWidth: '2em' }}
                       />
                     </button>
                     {/* </Link> */}
