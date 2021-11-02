@@ -18,13 +18,13 @@ const AdminNav = (props) => {
 
   const createInvoiceBySendDormId = async () => {
     try {
-      let dormID = await axios.post(`${env.url}invoice/create/${props.dormId}`);
+      await axios.post(`${env.url}invoice/create/${props.dormId}`);
       console.log(props.dormId);
     } catch (err) {
       console.log(err);
     }
   };
-  // console.log(dormID);
+
   return (
     <nav>
       <div className="logo">

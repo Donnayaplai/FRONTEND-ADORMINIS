@@ -1,14 +1,16 @@
 import React from 'react';
-import './Navbar.css';
 import logo from '../../assets/images/building-nav.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
+import './Navbar.css';
 
 const ResidentNav = (props) => {
+  const history = useHistory();
   const logout = () => {
     localStorage.removeItem('authorization');
-    <Redirect to="/login" />;
+    props.setRoleId(null);
+    history.push('/login');
   };
   return (
     <nav>
@@ -18,11 +20,11 @@ const ResidentNav = (props) => {
             to="/resident/home"
             style={{ textDecoration: 'none', color: '#fff' }}
           >
-            adorminis <img src={logo} alt="ADORMINIS-ICON" />{' '}
+            adorminis <img src={logo} alt="ADORMINIS-ICON" />
           </Link>
         </h2>
       </div>
-      <input type="checkbox" id="click" />
+      <input type="checkbox" id="click" style={{ display: 'none' }} />
       <label htmlFor="click" className="menu-btn">
         <i className="fas fa-bars"></i>
       </label>
@@ -37,7 +39,7 @@ const ResidentNav = (props) => {
           <Link to="/resident/complain">แจ้งปัญหา</Link>
         </li>
         <li>
-          <Link to="/resident/profile/:userid">ข้อมูลส่วนตัว</Link>
+          <Link to={`/resident/profile/${props.userId}`}>ข้อมูลส่วนตัว</Link>
         </li>
         <li>
           <Button onClick={logout}>ออกจากระบบ</Button>
