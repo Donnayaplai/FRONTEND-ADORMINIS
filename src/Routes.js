@@ -1,40 +1,40 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 //Public
-import adminRegister from "./components/RegisterLogin/adminRegister";
-import CheckExistAccount from "./components/RegisterLogin/CheckExistAccount";
-import residentRegister from "./components/RegisterLogin/residentRegister";
-import SelectRole from "./components/RegisterLogin/SelectRole";
-import Login from "./components/RegisterLogin/Login";
-import NotFound from "./components/Others/NotFound";
+import adminRegister from './components/RegisterLogin/adminRegister';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
+import residentRegister from './components/RegisterLogin/residentRegister';
+import SelectRole from './components/RegisterLogin/SelectRole';
+import Login from './components/RegisterLogin/Login';
+import NotFound from './components/Others/NotFound';
 
 //Admin
-import AdminHome from "./components/Home/AdminHome";
-import AdminProfile from "./components/Profile/AdminProfile";
-import DormitoryRegister from "./components/Dorm/DormitoryRegister";
-import Setting from "./components/Dorm/Setting";
-import BuildingList from "./components/RoomStatus/BuildingList";
+import AdminHome from './components/Home/AdminHome';
+import AdminProfile from './components/Profile/AdminProfile';
+import DormitoryRegister from './components/Dorm/DormitoryRegister';
+import Setting from './components/Dorm/Setting';
+import BuildingList from './components/RoomStatus/BuildingList';
 // import Room from './components/RoomStatus/Room';
-import UpdateResInfo from "./components/RoomStatus/UpdateResInfo";
-import AddResident from "./components/RoomStatus/AddResident";
-import SelectBuilding from "./components/Utility/SelectBuilding";
-import MeterRecord from "./components/Utility/SelectBuilding";
-import UtilitySummary from "./components/Utility/UtilitySummary";
-import Invoice from "./components/Invoice/Invoice";
-import InvoiceDetail from "./components/Invoice/InvoiceDetail";
-import RentHistory from "./components/History/RentHistory";
-import MainRoom from "./components/RoomStatus/MainRoom";
-import ComplainList from "./components/Complain/ComplainList";
-import ComplainDetail from "./components/Complain/ComplainDetail";
+import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
+import AddResident from './components/RoomStatus/AddResident';
+import SelectBuilding from './components/Utility/SelectBuilding';
+import MeterRecord from './components/Utility/MeterRecord';
+import UtilitySummary from './components/Utility/UtilitySummary';
+import Invoice from './components/Invoice/Invoice';
+import InvoiceDetail from './components/Invoice/InvoiceDetail';
+import RentHistory from './components/History/RentHistory';
+import MainRoom from './components/RoomStatus/MainRoom';
+import Complain from './components/Complain/Complain';
+import ComplainDetail from './components/Complain/ComplainDetail';
 //Resident
-import ResidentHome from "./components/Home/ResidentHome";
-import ResidentProfile from "./components/Resident/ResidentProfile";
-import DormProfile from "./components/Resident/DormProfile";
-import Bill from "./components/Resident/Bill";
-import BillingDetail from "./components/Resident/BillingDetail";
-import Complain from "./components/Resident/Complain";
-import DormitoryInfo from "./components/Dorm/DormitoryInfo";
+import ResidentHome from './components/Home/ResidentHome';
+import ResidentProfile from './components/Resident/ResidentProfile';
+import DormProfile from './components/Resident/DormProfile';
+import Bill from './components/Resident/Bill';
+import BillingDetail from './components/Resident/BillingDetail';
+import ResidentComplain from './components/Resident/Complain';
+import DormitoryInfo from './components/Dorm/DormitoryInfo';
 
 const Routes = (props) => {
   return (
@@ -100,11 +100,20 @@ const Routes = (props) => {
         <Route path="/select-building/meter-record">
           <SelectBuilding roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/select-building/meter-record" component={MeterRecord} />
+        <Route path="/meter-record">
+          <MeterRecord roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        {/* <Route path="/select-building/meter-record" component={MeterRecord} /> */}
         <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/rent/history" component={RentHistory} />
-        <Route path="/admin/complainlist" component={ComplainList} />
-        <Route path="/admin/complain-detail" component={ComplainDetail} />
+
+        <Route path="/complain-list">
+          <Complain roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route path="/complain-detail/:problemid">
+          <ComplainDetail roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+
         {/* Resident routes */}
         <Route path="/resident/home">
           <ResidentHome roleId={props.roleId} />
@@ -130,7 +139,7 @@ const Routes = (props) => {
           />
         </Route>
         <Route path="/resident/complain-request">
-          <Complain roleId={props.roleId} />
+          <ResidentComplain roleId={props.roleId} />
         </Route>
         <Route path="*" component={NotFound} />
       </Switch>
