@@ -74,10 +74,14 @@ const AdminHome = (props) => {
                 </Card.Body>
               </Card>
             </Col>
+
             <Col>
               <Card id="card">
                 <Card.Header id="cardheadercomplain" as="h4">
-                  จำนวนเรื่องร้องเรียน &nbsp;
+                  <Row>
+                    <Col>จำนวนเรื่องร้องเรียน</Col>
+                  </Row>
+                  ที่รอดำเนินการ &nbsp;
                   <i class="fas fa-comment-dots"></i>
                 </Card.Header>
                 <Card.Body id="cardbody">

@@ -44,7 +44,7 @@ const UtilitySummary = () => {
               <input
                 className="form-control form-control-lg form-control-borderless"
                 type="search"
-                placeholder="พิพม์เพื่อค้นหา"
+                placeholder="พิมพ์เพื่อค้นหา"
               ></input>
             </div>
           </form>
