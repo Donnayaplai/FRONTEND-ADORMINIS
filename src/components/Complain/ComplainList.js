@@ -66,7 +66,7 @@ const ComplainList = ({
                 <td>{list.ROOMNO}</td>
                 <td>{list.TITLE}</td>
                 <td>
-                  {list.STATUS ? (
+                  {list.STATUS === 1 ? (
                     <Button
                       type="button"
                       className="btn"

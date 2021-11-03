@@ -3,7 +3,7 @@ import axios from 'axios';
 import env from '../../env';
 import { Row, Container, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 
 const ComplainDetail = (props) => {
   const [complainDetail, setComplainDetail] = useState([]);
@@ -28,7 +28,12 @@ const ComplainDetail = (props) => {
   //Change complain status
   const changeComplainStatus = async () => {
     try {
-      let response = await axios.get(`${env.url}`);
+      await axios
+        .get(`${env.url}complaint/revise/${props.match.params.problemid}`)
+        .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'))
+        .then(
+          <Redirect to={`/complain-list/${props.location.state.dormId}`} />
+        );
     } catch (err) {
       console.log(err);
     }
@@ -50,10 +55,10 @@ const ComplainDetail = (props) => {
           <Col>
             <h5 className="fw-bold">
               สถานะ: &nbsp;
-              {complainDetail.STATUS ? (
-                <span className="fw-normal">ดำเนินการเสร็จสิ้น</span>
-              ) : (
+              {complainDetail.STATUS === true ? (
                 <span className="fw-normal">รอดำเนินการ</span>
+              ) : (
+                <span className="fw-normal">ดำเนินการเสร็จสิ้น</span>
               )}
             </h5>
           </Col>
