@@ -27,7 +27,7 @@ const DormProfile = (props) => {
     };
 
     getDormProfile();
-  });
+  }, []);
 
   console.log(dormData);
 
@@ -40,46 +40,79 @@ const DormProfile = (props) => {
         ข้อมูลหอพัก <i className="fas fa-info-circle"></i>
       </h1>
 
-      <Container className="w-75">
-        <h5 className="fw-bold">ข้อมูลและที่อยู่</h5>
+      <Container className="w-75  mb-3">
+        <h4 className="fw-bold">ข้อมูลและที่อยู่</h4>
         <Container
-          className="p-3 rounded w-100 mb-3"
+          className="p-3 rounded mb-3 mx-auto"
           style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row className="mb-3">
-            <Col xs={12} sm={12} md={6}>
-              <p>ชื่อหอพัก (ไทย)</p>
+            <Col xs={6} sm={3} md={2}>
+              <h6 className="fw-bold">ชื่อหอพัก (ไทย):</h6>
             </Col>
-            <Col xs={12} sm={12} md={6}>
-              <p>ชื่อหอพัก (อังกฤษ)</p>
+            <Col xs={6} sm={3} md={3}>
+              <p>{dormData.DORMNAMETH}</p>
+            </Col>
+            <Col xs={6} sm={3} md={3}>
+              <h6 className="fw-bold">ชื่อหอพัก (อังกฤษ):</h6>
+            </Col>
+            <Col xs={6} sm={3} md={3}>
+              <p>{dormData.DORMNAMEENG}</p>
             </Col>
           </Row>
           <Row className="mb-3">
-            <Col xs={12} sm={12} md={6}>
-              <p>เบอร์โทรศัพท์</p>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">เบอร์โทรศัพท์:</h6>
             </Col>
-            <Col xs={12} sm={12} md={6}>
-              <p>ที่อยู่</p>
+            <Col xs={6} sm={6} md={10}>
+              <p>{dormData.TELNO}</p>
             </Col>
           </Row>
 
           <Row className="mb-3">
-            <Col xs={12} sm={12} md={6}>
-              <p>ถนน</p>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ที่อยู่:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={10}>
+              <p>{dormData.ADDRESS}</p>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ถนน:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.STREET}</p>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">แขวง/ตำบล:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.SUBDISTRICT}</p>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">เขต/อำเภอ:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.DISTRICT}</p>
             </Col>
           </Row>
           <Row className="mb-3">
-            <Col xs={12} sm={12} md={6}>
-              <p>เขต/อำเภอ</p>
+            <Col xs={6} sm={3} md={2}>
+              <h6 className="fw-bold">รหัสไปรษณีย์:</h6>
             </Col>
-            <Col xs={12} sm={12} md={6}>
-              <p>รหัสไปรษณีย์</p>
+            <Col xs={6} sm={3} md={4}>
+              <p>{dormData.POSTCODE}</p>
+            </Col>
+            <Col xs={6} sm={3} md={2}>
+              <h6 className="fw-bold">จังหวัด:</h6>
+            </Col>
+            <Col xs={6} sm={3} md={4}>
+              <p>{dormData.PROVINCE}</p>
             </Col>
           </Row>
           <Row className="mb-3">
-            <Col xs={12} sm={12} md={6}>
-              <p>จังหวัด</p>
-            </Col>
             <Col></Col>
           </Row>
         </Container>
