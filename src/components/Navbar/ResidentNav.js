@@ -36,10 +36,12 @@ const ResidentNav = (props) => {
           <Link to="/resident/all-bill">ใบแจ้งหนี้</Link>
         </li>
         <li>
-          <Link to="/resident/complain">แจ้งปัญหา</Link>
+          <Link to={`/resident/complain-request/${props.rentId}`}>
+            แจ้งปัญหา
+          </Link>
         </li>
         <li>
-          <Link to={`/resident/profile/${props.userId}`}>ข้อมูลส่วนตัว</Link>
+          <Link to={`/resident/profile`}>ข้อมูลส่วนตัว</Link>
         </li>
         <li>
           <Button onClick={logout}>ออกจากระบบ</Button>

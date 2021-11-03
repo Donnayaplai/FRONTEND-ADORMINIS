@@ -10,12 +10,15 @@ import logo from '../../assets/images/building-nav.png';
 
 const AdminNav = (props) => {
   const history = useHistory();
+
+  //ออกจากระบบ
   const logout = () => {
     localStorage.removeItem('authorization');
     props.setRoleId(null);
     history.push('/login');
   };
 
+  //สร้างบิลตอนกดปุ่มจดมิเตอร
   const createInvoiceBySendDormId = async () => {
     try {
       await axios.post(`${env.url}invoice/create/${props.dormId}`);
