@@ -66,7 +66,7 @@ const Invoice = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75">
+      <Container>
         <InvoiceList
           invoiceList={currentInvoice}
           getAllInvoice={getAllInvoice}

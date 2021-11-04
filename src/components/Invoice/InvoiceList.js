@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Table, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Table, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
@@ -13,7 +13,6 @@ const InvoiceList = ({
   getAllInvoice,
   ...props
 }) => {
-  // const [selectInvoiceId, setSelectInvoiceId] = useState();
   const [invoiceDetail, setInvoiceDetail] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -89,10 +88,14 @@ const InvoiceList = ({
                   <td>{invoice.floor}</td>
                   <td>{invoice.totalPrice}</td>
                   <td>
-                    {/* <Link to={`/invoice-detail/${selectInvoiceId}`}> */}
-                    <button
+                    <Button
                       type="button"
                       className="btn"
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }}
                       onClick={() => {
                         getInvoiceDetail(invoice.invoiceID);
                         console.log(invoice.invoiceID);
@@ -104,8 +107,7 @@ const InvoiceList = ({
                         alt="Bill information"
                         style={{ maxWidth: '2em' }}
                       />
-                    </button>
-                    {/* </Link> */}
+                    </Button>
                   </td>
                 </tr>
               ))}
@@ -118,7 +120,7 @@ const InvoiceList = ({
                 <Modal.Header closeButton onClick={handleClose}>
                   <Modal.Title>
                     <h3 className="fw-bold">
-                      รายละเอียดใบแจ้งหนี้ &nbsp;{' '}
+                      รายละเอียดใบแจ้งหนี้ &nbsp;
                       <i className="fas fa-file-invoice"></i>
                     </h3>
                   </Modal.Title>
