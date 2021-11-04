@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-import { Redirect } from 'react-router';
+// import { Redirect } from 'react-router';
 // import { useHistory } from 'react-router';
 
 const ResidentProfile = (props) => {
@@ -13,7 +13,7 @@ const ResidentProfile = (props) => {
   //     <Redirect to="/login" />;
   //   }
   // }, []);
-  const [userProfile, setUserProfile] = useState([]);
+  const [profile, setProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const ResidentProfile = (props) => {
         const userData = await axios.get(
           `${env.url}api/user/info/${props.userId}`
         );
-        setUserProfile(userData.data);
+        setProfile(userData.data);
       } catch (error) {
         console.error(error);
       }
@@ -30,7 +30,7 @@ const ResidentProfile = (props) => {
     };
 
     getUserProfile();
-  });
+  }, []);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -52,14 +52,14 @@ const ResidentProfile = (props) => {
                 <p className="fw-bold">ชื่อ</p>
               </Col>
               <Col>
-                <p>{userProfile.FNAME}</p>
+                <p>{profile.FNAME}</p>
               </Col>
               <Col>
                 <p className="fw-bold">นามสกุล</p>
               </Col>
               <Col>
                 <Col>
-                  <p>{userProfile.LNAME}</p>
+                  <p>{profile.LNAME}</p>
                 </Col>
               </Col>
             </Row>
@@ -68,13 +68,13 @@ const ResidentProfile = (props) => {
                 <p className="fw-bold">วันเกิด</p>
               </Col>
               <Col>
-                <p>{userProfile.DATEOFBIRTH}</p>
+                <p>{profile.DATEOFBIRTH}</p>
               </Col>
               <Col>
                 <p className="fw-bold">เบอร์โทรศัพท์</p>
               </Col>
               <Col>
-                <p>{userProfile.TELNO}</p>
+                <p>{profile.TELNO}</p>
               </Col>
             </Row>
             <Row>
@@ -82,7 +82,7 @@ const ResidentProfile = (props) => {
                 <p className="fw-bold">ที่อยู่</p>
               </Col>
               <Col>
-                <p>{userProfile.ADDRESS}</p>
+                <p>{profile.ADDRESS}</p>
               </Col>
               <Col></Col>
               <Col></Col>
@@ -92,7 +92,7 @@ const ResidentProfile = (props) => {
                 <p className="fw-bold">อีเมล</p>
               </Col>
               <Col>
-                <p>{userProfile.EMAIL}</p>
+                <p>{profile.EMAIL}</p>
               </Col>
               <Col></Col>
               <Col></Col>

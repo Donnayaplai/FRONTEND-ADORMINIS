@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
+
 // import { Redirect } from 'react-router';
 // import { useHistory } from 'react-router';
 
@@ -31,7 +32,6 @@ const AdminProfile = (props) => {
 
     getUserProfile();
   }, [props.userId]);
-  console.log(userProfile);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -42,9 +42,13 @@ const AdminProfile = (props) => {
         ข้อมูลส่วนตัว <i className="fas fa-user-circle"></i>
       </h1>
       <Container>
-        <Container
-          className="w-75 p-3 mb-3 mt-3 rounded"
-          style={{ backgroundColor: '#EAE7E2' }}
+        <Card
+          className="w-100 p-3 mb-3 mt-3 rounded mx-auto"
+          style={{
+            backgroundColor: '#EAE7E2',
+            maxWidth: '50em',
+            border: 'none',
+          }}
         >
           <Container>
             <Row>
@@ -88,7 +92,7 @@ const AdminProfile = (props) => {
               <Col></Col>
             </Row>
           </Container>
-        </Container>
+        </Card>
       </Container>
     </>
   );
