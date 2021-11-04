@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
-import { Card, Form, Container, Button } from 'react-bootstrap';
+import { Card, Form, Container, Button, Row } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
 const CheckExistAccount = () => {
+  const [error, setError] = useState(null);
   const history = useHistory();
   const {
     register,
@@ -17,19 +18,21 @@ const CheckExistAccount = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await axios
-      .post(`${env.url}api/user/verifyUser`, data)
-      .then((data) =>
-        data.data.USERID
-          ? history.push(`/resident/register/${data.data.USERID}`)
-          : window.alert('มีบางอย่างผิดพลาด')
-      );
-
-    console.log(data);
-
-    reset();
+    try {
+      await axios
+        .post(`${env.url}api/user/verifyUser`, data)
+        .then((data) =>
+          data.data.USERID
+            ? history.push(`/resident/register/${data.data.USERID}`)
+            : window.alert('มีบางอย่างผิดพลาด')
+        );
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        reset();
+      }
+    }
   };
-  // eslint-disable-next-line no-lone-blocks
 
   return (
     <Container>
@@ -98,6 +101,13 @@ const CheckExistAccount = () => {
             </Button>
           </center>
         </Form>
+        <Row>
+          <center>
+            {error && (
+              <h6 className="text-danger mb-3 mt-3 mx-auto">{error}</h6>
+            )}
+          </center>
+        </Row>
       </Card>
     </Container>
   );

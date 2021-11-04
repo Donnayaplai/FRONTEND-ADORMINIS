@@ -1,13 +1,14 @@
-import React from 'react';
-import axios from 'axios';
-import env from '../../env';
-import { Card, Container, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card, Container, Form, Button, Row } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
-import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
+import axios from 'axios';
+import env from '../../env';
+import './RegisterLogin.css';
 
 const ResidentRegister = (props) => {
+  const [error, setError] = useState(null);
   const {
     register,
     handleSubmit,
@@ -18,12 +19,17 @@ const ResidentRegister = (props) => {
   const history = useHistory();
 
   const onSubmit = async (data) => {
-    await axios.post(
-      `${env.url}api/user/register/${props.match.params.userid}`,
-      data
-    );
-    history.push('/login');
-    reset();
+    try {
+      await axios
+        .post(`${env.url}api/user/register/${props.match.params.userid}`, data)
+        .then(window.alert('การลงทะเบียนเสร็จสิ้น'))
+        .then(history.push('/login'));
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        reset();
+      }
+    }
   };
   return (
     <Container>
@@ -93,6 +99,13 @@ const ResidentRegister = (props) => {
               เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
             </Button>
           </center>
+          <Row>
+            <center>
+              {error && (
+                <h6 className="text-danger mb-3 mt-3 mx-auto">{error}</h6>
+              )}
+            </center>
+          </Row>
           <Link to="/login" className="d-block text-center mt-3 small">
             มีบัญชีผู้ใช้แล้ว? เข้าสู่ระบบ
           </Link>

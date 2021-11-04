@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import env from '../../env';
-import { Card, Container, Form, Button } from 'react-bootstrap';
+import { Card, Container, Form, Button, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './RegisterLogin.css';
 import axios from 'axios';
@@ -9,28 +9,33 @@ import { useHistory } from 'react-router';
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [redirect, setRedirect] = useState(false);
+  const [error, setError] = useState(null);
   const history = useHistory();
 
   const submit = async (e) => {
-    e.preventDefault();
-
-    await axios
-      .post(`${env.url}api/user/login`, {
-        email,
-        password,
-      })
-      .then((res) => {
-        localStorage.setItem('authorization', res.data.TOKEN);
-        props.setRoleId(res.data.ROLEID);
-        if (res.data.ROLEID === 0) {
-          history.push(`/resident/home`); //resident
-        } else if (res.data.ROLEID === 1) {
-          history.push(`/admin/home`); //admin
-        } else {
-          window.alert('มีบางอย่างผิดพลาด');
-        }
-      });
+    try {
+      e.preventDefault();
+      await axios
+        .post(`${env.url}api/user/login`, {
+          email,
+          password,
+        })
+        .then((res) => {
+          localStorage.setItem('authorization', res.data.TOKEN);
+          props.setRoleId(res.data.ROLEID);
+          if (res.data.ROLEID === 0) {
+            history.push(`/resident/home`); //resident
+          } else if (res.data.ROLEID === 1) {
+            history.push(`/admin/home`); //admin
+          } else {
+            window.alert('มีบางอย่างผิดพลาด');
+          }
+        });
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      }
+    }
   };
 
   return (
@@ -81,7 +86,11 @@ const Login = (props) => {
             >
               เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
             </Button>
-
+            <Row>
+              <center>
+                {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+              </center>
+            </Row>
             <Link
               to="/role-selection"
               className="d-block text-center mt-3 small"

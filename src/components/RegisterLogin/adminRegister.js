@@ -3,12 +3,11 @@ import axios from 'axios';
 import env from '../../env';
 import { Link } from 'react-router-dom';
 import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
-import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router';
+import { Redirect } from 'react-router';
+import './RegisterLogin.css';
 
 const AdminRegister = () => {
-  const [success, setSuccess] = useState(false);
   const {
     register,
     handleSubmit,
@@ -16,23 +15,21 @@ const AdminRegister = () => {
     reset,
     trigger,
   } = useForm();
-  const history = useHistory();
+  const [error, setError] = useState(null);
+
   const onSubmit = async (data) => {
-    const info = await axios.post(`${env.url}api/user//adminRegister`, data);
-
-    console.log(info);
-
-    reset();
+    try {
+      await axios
+        .post(`${env.url}api/user/adminRegister`, data)
+        .then(window.alert('การลงทะเบียนเสร็จสิ้น กรุณาเข้าสู่ระบบอีกครั้ง '))
+        .then(<Redirect to="/login" />);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        reset();
+      }
+    }
   };
-  if (success === true) {
-    window.alert('การลงทะเบียนเสร็จสิ้น');
-    history.push('/login');
-  }
-
-  // const [showConfirmModal, setShowConfirmModal] = useState(false);
-
-  // const handleClose = () => setShowConfirmModal(false);
-  // const handleShow = () => setShowConfirmModal(true);
 
   return (
     <Container>
@@ -40,6 +37,12 @@ const AdminRegister = () => {
         <h1>
           ลงทะเบียนผู้จัดการหอพัก <i className="fas fa-user-plus"></i>
         </h1>
+
+        <Row>
+          <center>
+            {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+          </center>
+        </Row>
 
         <Card
           className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
@@ -268,43 +271,24 @@ const AdminRegister = () => {
             <Button
               id="btn-save"
               type="submit"
-              onClick={() => {
-                setSuccess(true);
-              }}
+              className="mt-3"
               style={{
                 marginLeft: '50%',
                 transform: 'translateX(-50%)',
-                marginTop: '3%',
               }}
             >
               ลงทะเบียน <i className="fas fa-sign-in-alt"></i>
             </Button>
+            <Row>
+              <center>
+                {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+              </center>
+            </Row>
             <Link to="/login" className="d-block text-center mt-2 small">
               มีบัญชีอยู่แล้วใช่ไหม? เข้าสู่ระบบ
             </Link>
           </Container>
         </Card>
-        {/* <Modal show={showConfirmModal} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              ยกเลิก
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                handleClose();
-                setSuccess(true);
-              }}
-              type="submit"
-            >
-              ยืนยัน
-            </Button>
-          </Modal.Footer>
-        </Modal> */}
       </Form>
     </Container>
   );
