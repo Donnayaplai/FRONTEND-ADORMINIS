@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { Row, Container, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-
+import dashboard from '../../assets/images/dashboard.png';
 const AdminHome = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -36,15 +36,18 @@ const AdminHome = (props) => {
 
   return (
     <>
-      <h1>แดชบอร์ด</h1>
+      <h1>
+        แดชบอร์ด &nbsp;
+        <img src={dashboard} alt="Dashboard" style={{ maxWidth: '1.5em' }} />
+      </h1>
 
       <Container
-        className="py-3 rounded mb-5"
+        className="py-3 rounded mb-5 mt-3"
         style={{ backgroundColor: '#EAE7E2' }}
       >
         <Row>
           <Col md={4} sm={12} className="mb-5">
-            <Card style={{ maxWidth: '20em' }} className="mx-auto">
+            <Card style={{ maxWidth: '25em' }} className="mx-auto">
               <Card.Header
                 className="p-3 text-center"
                 style={{ backgroundColor: '#ABDEE6' }}
@@ -66,7 +69,7 @@ const AdminHome = (props) => {
             </Card>
           </Col>
           <Col md={4} sm={12} className="mb-5">
-            <Card style={{ maxWidth: '20em' }} className="mx-auto">
+            <Card style={{ maxWidth: '25em' }} className="mx-auto">
               <Card.Header
                 className="p-3 text-center"
                 style={{ backgroundColor: '#CBAACB' }}
@@ -130,14 +133,14 @@ const AdminHome = (props) => {
             </Card>
           </Col>
 
-          <Col md={6} sm={12} className="mb-5">
+          <Col md={4} sm={12} className="mb-5">
             <Card style={{ maxWidth: '25rem' }} className="mx-auto">
               <Card.Header
                 className="p-3 text-center"
                 style={{ backgroundColor: '#F3B0C3' }}
               >
                 <h4>
-                  จำนวนเรื่องร้องเรียนที่รอดำเนินการ &nbsp;
+                  เรื่องร้องเรียนที่รอดำเนินการ &nbsp;
                   <i className="fas fa-comment-dots"></i>
                 </h4>
               </Card.Header>
