@@ -22,7 +22,6 @@ import SelectBuilding from './components/Utility/SelectBuilding';
 import MeterRecord from './components/Utility/MeterRecord';
 import UtilitySummary from './components/Utility/UtilitySummary';
 import Invoice from './components/Invoice/Invoice';
-import InvoiceDetail from './components/Invoice/InvoiceDetail';
 import RentHistory from './components/History/RentHistory';
 import MainRoom from './components/RoomStatus/MainRoom';
 import Complain from './components/Complain/Complain';
@@ -34,6 +33,7 @@ import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import BillingDetail from './components/Resident/BillingDetail';
 import ResidentComplain from './components/Resident/Complain';
+import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
 import DormitoryInfo from './components/Dorm/DormitoryInfo';
 
 const Routes = (props) => {
@@ -60,13 +60,13 @@ const Routes = (props) => {
 
         {/* Admin routes */}
         <Route path="/admin/home">
-          <AdminHome roleId={props.roleId} />
+          <AdminHome roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/admin/profile">
           <AdminProfile roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/dorm-registration">
-          <DormitoryRegister roleId={props.roleId} />
+          <DormitoryRegister roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/dorm-info">
           <DormitoryInfo roleId={props.roleId} />
@@ -93,9 +93,9 @@ const Routes = (props) => {
         <Route path={`/all-invoice/${props.dormId}`}>
           <Invoice roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/invoice-detail">
+        {/* <Route path="/invoice-detail">
           <InvoiceDetail roleId={props.roleId} dormId={props.dormId} />
-        </Route>
+        </Route> */}
         <Route path="/resinfo/edit" component={UpdateResInfo} />
         <Route path="/select-building/meter-record">
           <SelectBuilding roleId={props.roleId} dormId={props.dormId} />
@@ -138,8 +138,20 @@ const Routes = (props) => {
             dormId={props.dormId}
           />
         </Route>
-        <Route path="/resident/complain-request">
-          <ResidentComplain roleId={props.roleId} />
+
+        <Route path={`/resident/complain-request/${props.rentId}`}>
+          <ResidentComplain
+            roleId={props.roleId}
+            rentId={props.rentId}
+            dormId={props.dormId}
+          />
+        </Route>
+        <Route path={`/resident/complain-detail/:problemid`}>
+          <ResidentComplainDetail
+            roleId={props.roleId}
+            rentId={props.rentId}
+            dormId={props.dormId}
+          />
         </Route>
         <Route path="*" component={NotFound} />
       </Switch>
