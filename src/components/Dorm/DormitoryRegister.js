@@ -6,9 +6,7 @@ import { Redirect } from 'react-router';
 import { Provinces } from '../../systemdata/Provinces';
 import { useForm } from 'react-hook-form';
 
-const DormitoryRegister = () => {
-  const [isRegisterComplete, setRegisterComplete] = useState(false);
-
+const DormitoryRegister = (props) => {
   const {
     register,
     handleSubmit,
@@ -17,37 +15,35 @@ const DormitoryRegister = () => {
     trigger,
   } = useForm();
 
+  const [error, setError] = useState(null);
+
   const onSubmit = async (data) => {
-    await axios.post(`${env.url}setting/`, data);
-    setRegisterComplete(true);
-
-    reset();
-    // eslint-disable-next-line no-lone-blocks
-    {
-      !isRegisterComplete ? AlertRegisterComplete() : AlertRegisterInComplete();
+    try {
+      await axios
+        .post(`${env.url}dorm/${props.userId}`, data)
+        .then(window.alert('การลงทะเบียนหอพักเสร็จสิ้น'))
+        .then(<Redirect to={`/dorm-setting`} />);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        reset();
+      }
     }
-  };
-
-  const AlertRegisterComplete = async () => {
-    window.alert('การลงทะเบียนหอพักเสร็จสิ้น');
-    setRegisterComplete(true);
-    <Redirect to={`/dorm-setting`} />;
-  };
-
-  const AlertRegisterInComplete = async () => {
-    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
-    setRegisterComplete(false);
-    <Redirect to={`/dorm-registration}`} />;
   };
 
   return (
     <>
       <h1>ลงทะเบียนหอพัก</h1>
+      <Row>
+        <center>
+          {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+        </center>
+      </Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Container className="w-50">
-          <h5 className="fw-bold">ข้อมูลและที่อยู่</h5>
+        <Container className="w-75">
+          {/* <h5 className="fw-bold">ข้อมูลและที่อยู่</h5> */}
           <Container
-            className="p-3 rounded w-100 mb-3"
+            className="p-3 rounded mb-3"
             style={{ backgroundColor: '#EAE7E2' }}
           >
             <Row className="mb-3">
@@ -270,7 +266,6 @@ const DormitoryRegister = () => {
           </Container>
           <Button
             className="mb-5"
-            variant="primary"
             type="submit"
             style={{ float: 'right' }}
             id="btn-save"
