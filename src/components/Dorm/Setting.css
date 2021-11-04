@@ -26,7 +26,7 @@
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 #button-add {
-  background-color: bisque;
+  background-color: #ccd6a9;
   color: #000;
   border: none;
   max-width: 10rem;
@@ -34,7 +34,7 @@
 }
 
 #button-add:hover {
-  background-color: fuchsia;
+  background-color: #afacaa;
   color: #000;
   border: none;
   max-width: 10rem;
@@ -42,6 +42,20 @@
 }
 #btn-next {
   background-color: #c7e5f0;
+  border-color: #0a58ca;
+  border: none;
+  max-width: 10rem;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+  color: black;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+#btn-next:hover {
+  background-color: #97d9fb;
   border-color: #0a58ca;
   border: none;
   max-width: 10rem;
