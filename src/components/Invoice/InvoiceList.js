@@ -14,10 +14,7 @@ const InvoiceList = ({
   ...props
 }) => {
   const [invoiceDetail, setInvoiceDetail] = useState([]);
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [invoiceInfoModalOpen, setInvoiceInfoModalOpen] = useState(false);
 
   const getInvoiceList = () => {
     if (searchText === '') {
@@ -38,7 +35,10 @@ const InvoiceList = ({
       console.log(err);
     }
   };
-  console.log(invoiceDetail);
+
+  const Cancle = () => {
+    setInvoiceInfoModalOpen(false);
+  };
 
   if (!loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -50,7 +50,7 @@ const InvoiceList = ({
           ไม่พบข้อมูลที่ค้นหา
         </h3>
       ) : (
-        <Container>
+        <Container className="w-75">
           <Table
             responsive
             className="table table-hover table-borderless mt-3 mx-auto"
@@ -99,7 +99,7 @@ const InvoiceList = ({
                       onClick={() => {
                         getInvoiceDetail(invoice.invoiceID);
                         console.log(invoice.invoiceID);
-                        setShow(true);
+                        setInvoiceInfoModalOpen(true);
                       }}
                     >
                       <img
@@ -112,12 +112,12 @@ const InvoiceList = ({
                 </tr>
               ))}
               <Modal
-                show={show}
-                onHide={handleClose}
+                show={invoiceInfoModalOpen}
+                onHide={Cancle}
                 animation={false}
                 size="lg"
               >
-                <Modal.Header closeButton onClick={handleClose}>
+                <Modal.Header closeButton onClick={Cancle}>
                   <Modal.Title>
                     <h3 className="fw-bold">
                       รายละเอียดใบแจ้งหนี้ &nbsp;
@@ -163,9 +163,9 @@ const InvoiceList = ({
                             }}
                           >
                             <th>รายการ</th>
-                            <th>จำนวนหน่วย</th>
-                            <th>ราคา/หน่วย</th>
-                            <th>จำนวนเงิน</th>
+                            <th>จำนวนหน่วย (หน่วย)</th>
+                            <th>ราคา/หน่วย (บาท)</th>
+                            <th>จำนวนเงิน (บาท)</th>
                           </tr>
                         </thead>
                         <tbody>

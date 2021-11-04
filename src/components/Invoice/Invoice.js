@@ -6,6 +6,7 @@ import InvoiceList from './InvoiceList';
 import Pagination from './InvoicePagination';
 import Search from '../Search/Search';
 import { withRouter } from 'react-router';
+import invoices from '../../assets/images/invoice.png';
 
 const Invoice = (props) => {
   const [invoiceList, setInvoiceList] = useState([]);
@@ -57,8 +58,11 @@ const Invoice = (props) => {
 
   return (
     <Container>
-      <h1>ใบแจ้งหนี้ทั้งหมด</h1>
-      <Row className="mt-5">
+      <h1>
+        ใบแจ้งหนี้ทั้งหมด &nbsp;
+        <img src={invoices} alt="All invoices" style={{ maxWidth: '1.5em' }} />
+      </h1>
+      <Row className="mt-3">
         <Col xs={8} sm={8} md={6} className="mx-auto">
           <Search
             handleSearchInput={handleSearchInput}

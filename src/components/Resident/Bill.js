@@ -18,15 +18,15 @@ const Bill = (props) => {
     let getBill = async () => {
       try {
         const response = await axios.get(
-          `${env.url}invoice/history/${props.rentId}`
+          `${env.url}invoice/history/${props.rentId}/{props.dormId}`
         );
         setBillList(response.data);
       } catch (error) {
         console.error(error);
       }
-      setLoading(true);
+      setLoading(false);
     };
-
+    console.log(billList);
     getBill();
   }, [props.rentId]);
 
