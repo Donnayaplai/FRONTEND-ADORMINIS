@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router';
 import { Provinces } from '../../systemdata/Provinces';
 import { useForm } from 'react-hook-form';
-
+import { useHistory } from 'react-router';
 const DormitoryRegister = (props) => {
   const {
     register,
@@ -16,13 +16,13 @@ const DormitoryRegister = (props) => {
   } = useForm();
 
   const [error, setError] = useState(null);
-
+  const history = useHistory();
   const onSubmit = async (data) => {
     try {
       await axios
         .post(`${env.url}dorm/${props.userId}`, data)
         .then(window.alert('การลงทะเบียนหอพักเสร็จสิ้น'))
-        .then(<Redirect to={`/dorm-setting`} />);
+        .then(history.push(`/dorm-setting`));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -251,7 +251,11 @@ const DormitoryRegister = (props) => {
                     }}
                   >
                     {Provinces.map((item) => {
-                      return <option value={item.id}>{item.label}</option>;
+                      return (
+                        <option key={item.id} value={item.id}>
+                          {item.label}
+                        </option>
+                      );
                     })}
                   </Form.Select>
                   {errors.lName && (
