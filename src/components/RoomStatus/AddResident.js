@@ -6,9 +6,12 @@ import { Link } from 'react-router-dom';
 import { Redirect, withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 const AddResident = (props) => {
   const [isAddComplete, setAddComplete] = useState(false);
+  const [error, setError] = useState(null);
+  const history = useHistory();
   const {
     register,
     handleSubmit,
@@ -30,19 +33,22 @@ const AddResident = (props) => {
   };
 
   const onSubmit = async (data) => {
-    data.listOfCost = checked;
-    console.log(checked);
-    console.log(data);
-    await axios.post(
-      `${env.url}api/room/${props.match.params.buildingid}/${props.match.params.roomid}`,
-      data
-    );
-    setAddComplete(true);
-    reset();
-
-    // eslint-disable-next-line no-lone-blocks
-    {
-      !isAddComplete ? AlertComplete() : AlertInComplete();
+    try {
+      data.listOfCost = checked;
+      // console.log(checked);
+      // console.log(data);
+      await axios
+        .post(
+          `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
+          data
+        )
+        .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
+        .then(history.push(`/all-room/${props.location.state.buildingId}`));
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        window.alert(error);
+      }
     }
   };
 
