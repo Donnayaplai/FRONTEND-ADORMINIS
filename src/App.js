@@ -16,9 +16,9 @@ function App() {
   const [rentId, setRentId] = useState();
   const [userId, setUserId] = useState();
   //ทำงานก่อน render
-  useEffect(() => {
+  useEffect(async () => {
     if (localStorage.getItem('authorization')) {
-      axios
+      await axios
         .get(`${env.url}api/user/detail`, {
           headers: {
             authorization: localStorage.getItem('authorization'),
@@ -26,13 +26,16 @@ function App() {
         })
         .then((data) => {
           console.log(data.data);
+          // console.log(data.data.RENTID);
+          setUserId(data.data.USERID);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
           setRentId(data.data.RENTID);
-          setUserId(data.data.USERID);
         });
     }
   }, []);
+
+  console.log(rentId);
 
   function RenderNav() {
     if (roleId === 0) {
@@ -45,7 +48,14 @@ function App() {
         />
       );
     } else if (roleId === 1) {
-      return <AdminNav dormId={dormId} setRoleId={setRoleId} userId={userId} />;
+      return (
+        <AdminNav
+          dormId={dormId}
+          setRoleId={setRoleId}
+          userId={userId}
+          setDormId={setDormId}
+        />
+      );
     } else {
       return <Navbar />;
     }
@@ -59,6 +69,9 @@ function App() {
         <Route>
           <Routes
             setRoleId={setRoleId}
+            setDormId={setDormId}
+            setRentId={setRentId}
+            setUserId={setUserId}
             roleId={roleId}
             dormId={dormId}
             rentId={rentId}
