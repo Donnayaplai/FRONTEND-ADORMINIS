@@ -22,17 +22,16 @@ import SelectBuilding from './components/Utility/SelectBuilding';
 import MeterRecord from './components/Utility/MeterRecord';
 import UtilitySummary from './components/Utility/UtilitySummary';
 import Invoice from './components/Invoice/Invoice';
-import RentHistory from './components/History/RentHistory';
 import MainRoom from './components/RoomStatus/MainRoom';
 import Complain from './components/Complain/Complain';
 import ComplainDetail from './components/Complain/ComplainDetail';
 import SearchHistory from './components/RentHistory/SearchHistory';
+
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
 import ResidentProfile from './components/Resident/ResidentProfile';
 import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
-
 import ResidentComplain from './components/Resident/Complain';
 import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
 import DormitoryInfo from './components/Dorm/DormitoryInfo';
@@ -43,7 +42,12 @@ const Routes = (props) => {
       <Switch>
         {/* Public routes */}
         <Route path="/login">
-          <Login setRoleId={props.setRoleId} />
+          <Login
+            setRoleId={props.setRoleId}
+            setDormId={props.setDormId}
+            setRentId={props.setRentId}
+            setUserId={props.setUserId}
+          />
         </Route>
         <Route path="/role-selection" component={SelectRole} />
         <Route path="/admin/register" exact component={adminRegister} />
@@ -99,15 +103,15 @@ const Routes = (props) => {
         </Route>
 
         <Route path="/utilsummary" component={UtilitySummary} />
-        <Route path="/rent/history" component={RentHistory} />
-
         <Route path="/complain-list">
           <Complain roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/complain-detail/:problemid">
           <ComplainDetail roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/history" component={SearchHistory} />
+        <Route path="/history">
+          <SearchHistory roleId={props.roleId} dormId={props.dormId} />
+        </Route>
         {/* Resident routes */}
         <Route path="/resident/home">
           <ResidentHome roleId={props.roleId} />
