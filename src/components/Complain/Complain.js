@@ -5,6 +5,7 @@ import env from '../../env';
 import ComplainList from './ComplainList';
 import Search from '../Search/Search';
 import Pagination from './ComplainPagination';
+import problem from '../../assets/images/problem.png';
 
 const Complain = (props) => {
   const [complainList, setComplainList] = useState([]);
@@ -58,7 +59,10 @@ const Complain = (props) => {
 
   return (
     <>
-      <h1 className="fw-bold">เรื่องร้องเรียน</h1>
+      <h1>
+        เรื่องร้องเรียน &nbsp;
+        <img src={problem} alt="All problem" style={{ maxWidth: '1.5em' }} />
+      </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={6} className="mx-auto">
           <Search
