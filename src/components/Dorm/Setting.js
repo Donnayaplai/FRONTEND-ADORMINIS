@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import env from '../../env';
+import { useHistory } from 'react-router';
 import CostSetting from './CostSetting';
 import BuildingSetting from './BuildingSetting';
 import RoomType from './RoomTypeSetting';
@@ -13,6 +14,7 @@ const Setting = (props) => {
   const [step3, setStep3] = useState();
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
+  const history = useHistory();
   <Switch>
     <Route path="/cost-setting" component={CostSetting} />
     <Route path="/building-setting" component={BuildingSetting} />
@@ -21,49 +23,49 @@ const Setting = (props) => {
 
   const handleSubmit = async (step3) => {
     try {
-      console.log(step1);
-      console.log(step2);
-      console.log(step3);
-
+      // console.log(step1);
+      // console.log(step2);
+      // console.log(step3);
       //ส่งแยก 3 path
       let costSetting = await axios.post(
         `${env.url}setting/setCost/${props.dormId}`,
         step1
       );
+      console.log(costSetting);
       let buildingSetting = await axios.post(
         `${env.url}setting/setBuildings/${props.dormId}`,
         {
-          arrayBuilding: step2,
+          arrayBuilding: step2.arrayBuilding,
         }
       );
+      console.log(buildingSetting);
+      // let buildingSetting = await fetch(
+      //   `${env.url}setting/setBuildings/${props.dormId}`,
+      //   {
+      //     method: 'POST',
+      //     body: JSON.stringify({
+      //       arrayBuilding: step2,
+      //     }),
+      //   }
+      // );
+      // console.log(buildingSetting);
       let roomTypeSetting = await axios.post(
         `${env.url}setting/setRoomTypes/${props.dormId}`,
         {
-          arrayRoomTypes: step3,
+          arrayRoomTypes: step3.arrayRoomTypes,
         }
       );
+      console.log(roomTypeSetting);
+      console.log('testttt');
+      history.push(`/create-room`);
     } catch (err) {
+      console.log(err);
       if (err.response && err.response.data) {
         setError(err.response.data.message);
       }
     }
   };
 
-  // const renderPage = () => {
-  //   if (page === 1) {
-  //     return <CostSetting setStep1={setStep1} setPage={setPage} />;
-  //   } else if (page === 2) {
-  //     return <BuildingSetting setStep2={setStep2} setPage={setPage} />;
-  //   } else if (page === 3) {
-  //     return (
-  //       <RoomType
-  //         setStep3={setStep3}
-  //         handleSubmit={handleSubmit}
-  //         setPage={setPage}
-  //       />
-  //     );
-  //   }
-  // };
   return (
     <>
       <h1>ตั้งค่าหอพัก</h1>
@@ -81,22 +83,6 @@ const Setting = (props) => {
             setPage={setPage}
           />
         </div>
-        {/* {renderPage()} */}
-        {/* <Tabs activeKey={key} onSelect={(k) => setKey(k)} className="mb-5">
-          <Tab eventKey="cost-setting" title="ค่าใช้จ่าย">
-            <CostSetting setStep1={setStep1} setPage={setPage} />
-          </Tab>
-          <Tab eventKey="builiding-setting" title="ตึก">
-            <BuildingSetting setStep2={setStep2} setPage={setPage} />
-          </Tab>
-          <Tab eventKey="roomtype-setting" title="ประเภทห้องพัก">
-            <RoomType
-              setStep3={setStep3}
-              handleSubmit={handleSubmit}
-              setPage={setPage}
-            />
-          </Tab>
-        </Tabs> */}
       </Container>
     </>
   );
