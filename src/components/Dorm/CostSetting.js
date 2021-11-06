@@ -1,10 +1,7 @@
-import React from "react";
-import axios from "axios";
-import env from "../../env";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import Edit from "../../assets/images/edit.png";
-import "./Setting.css";
+import React from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import './Setting.css';
 
 const CostSetting = (props) => {
   const { register, handleSubmit, reset } = useForm();
@@ -12,12 +9,6 @@ const CostSetting = (props) => {
   const onSubmit = async (data) => {
     props.setStep1(data);
     props.setPage(2);
-    // const costSetting = await axios.post(
-    //   `${env.url}setting/setCost/${props.dormId}`,
-    //   data
-    // );
-    // console.log(costSetting);
-    // reset();
   };
 
   return (
@@ -26,18 +17,18 @@ const CostSetting = (props) => {
         <Col>
           <h3>ค่าใช้จ่าย</h3>
         </Col>
-        <Col>
+        {/* <Col>
           <img
             src={Edit}
             alt="Edit cost setting"
             style={{ maxWidth: "2rem", float: "right" }}
           />
-        </Col>
+        </Col> */}
       </Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Container
           className="p-5 rounded"
-          style={{ backgroundColor: "#EAE7E2" }}
+          style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row className="mb-3">
             <Col>
@@ -57,7 +48,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("waterPrice")}
+                  {...register('waterPrice')}
                 />
               </Form.Group>
             </Col>
@@ -74,7 +65,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("minWaterUnit")}
+                  {...register('minWaterUnit')}
                 />
               </Form.Group>
             </Col>
@@ -91,7 +82,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("minWaterPrice")}
+                  {...register('minWaterPrice')}
                 />
               </Form.Group>
             </Col>
@@ -114,7 +105,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("electricityPrice")}
+                  {...register('electricityPrice')}
                 />
               </Form.Group>
             </Col>
@@ -138,14 +129,14 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("guaranteeFee")}
+                  {...register('guaranteeFee')}
                 />
               </Form.Group>
             </Col>
             <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>ค่าเช่าล่วงหน้า (เดือน)</Form.Label>
-                <Form.Select name="multPrePaid" {...register("multPrePaid")}>
+                <Form.Select name="multPrePaid" {...register('multPrePaid')}>
                   <option defaultValue>เลือกจำนวนเดือน...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -176,7 +167,7 @@ const CostSetting = (props) => {
             <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>วันที่ออกใบแจ้งหนี้ให้ผู้เช่า </Form.Label>
-                <Form.Select name="invoiceDate" {...register("invoiceDate")}>
+                <Form.Select name="invoiceDate" {...register('invoiceDate')}>
                   <option defaultValue>เลือกวันที่...</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -233,7 +224,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("maintenanceFee")}
+                  {...register('maintenanceFee')}
                 />
               </Form.Group>
             </Col>
@@ -249,7 +240,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("parkingFee")}
+                  {...register('parkingFee')}
                 />
               </Form.Group>
             </Col>
@@ -265,7 +256,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("internetFee")}
+                  {...register('internetFee')}
                 />
               </Form.Group>
             </Col>
@@ -283,7 +274,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("cleaningFee")}
+                  {...register('cleaningFee')}
                 />
               </Form.Group>
             </Col>
@@ -299,7 +290,7 @@ const CostSetting = (props) => {
                   defaultValue="0"
                   max="99999"
                   min="0"
-                  {...register("other")}
+                  {...register('other')}
                 />
               </Form.Group>
             </Col>
@@ -307,10 +298,10 @@ const CostSetting = (props) => {
         </Container>
         <Row className="mt-3">
           <Col>
-            <Button id="btn-cancel" style={{ float: "left" }}>
+            <Button id="btn-cancel" style={{ float: 'left' }}>
               ยกเลิก
             </Button>
-            <Button id="btn-next" type="submit" style={{ float: "right" }}>
+            <Button id="btn-next" type="submit" style={{ float: 'right' }}>
               ต่อไป
             </Button>
           </Col>

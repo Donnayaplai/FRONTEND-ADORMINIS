@@ -1,41 +1,22 @@
-import React from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import axios from "axios";
-import env from "../../env";
-import Edit from "../../assets/images/edit.png";
-import Delete from "../../assets/images/delete.png";
-import "./Setting.css";
+import React from 'react';
+import { useForm, useFieldArray, Controller } from 'react-hook-form';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import Edit from '../../assets/images/edit.png';
+import Delete from '../../assets/images/delete.png';
+import './Setting.css';
 
 const RoomTypeSetting = (props) => {
-  const { control, handleSubmit, reset } = useForm({});
+  const { control, handleSubmit } = useForm({});
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "arrayRoomTypes",
+    name: 'arrayRoomTypes',
   });
 
   const onSubmit = async (data) => {
     props.setStep3(data);
     props.handleSubmit(data);
-    // let roomTypeSetting = await axios.post(`${env.url}testja`, {
-    //   arrayRoomTypes: data,
-    // });
-    // console.log(roomTypeSetting);
-
-    // reset();
   };
-  // const onSubmit = async (data) => {
-  //   let roomTypeSetting = await axios.post(
-  //     `${env.url}setting/getRoomTypes/${props.dormId}`,
-  //     {
-  //       arrayRoomTypes: data,
-  //     }
-  //   );
-  //   console.log(roomTypeSetting);
-
-  //   reset();
-  // };
 
   return (
     <>
@@ -49,14 +30,14 @@ const RoomTypeSetting = (props) => {
               <img
                 src={Edit}
                 alt="Edit roomtype setting"
-                style={{ maxWidth: "2rem", float: "right" }}
+                style={{ maxWidth: '2rem', float: 'right' }}
               />
             </Col>
           </Row>
 
           <Container
             className="py-4 rounded mb-3"
-            style={{ backgroundColor: "#EAE7E2" }}
+            style={{ backgroundColor: '#EAE7E2' }}
           >
             {fields.map((item, index) => {
               return (
@@ -98,16 +79,16 @@ const RoomTypeSetting = (props) => {
                     <Button
                       type="button"
                       style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        boxShadow: "none",
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
                       }}
                       onClick={() => remove(index)}
                     >
                       <img
                         src={Delete}
                         alt="Remove room type"
-                        style={{ maxWidth: "2rem", marginTop: "1.5em" }}
+                        style={{ maxWidth: '2rem', marginTop: '1.5em' }}
                       />
                     </Button>
                   </Col>
@@ -120,7 +101,7 @@ const RoomTypeSetting = (props) => {
                   type="button"
                   id="button-add"
                   onClick={() =>
-                    append({ ROOMTYPEID: "", ROOMNAME: "", PRICE: "" })
+                    append({ ROOMTYPEID: '', ROOMNAME: '', PRICE: '' })
                   }
                 >
                   เพิ่มประเภทห้องพัก
@@ -133,11 +114,11 @@ const RoomTypeSetting = (props) => {
               <Button
                 id="btn-cancel"
                 onClick={() => props.setPage(2)}
-                style={{ float: "left" }}
+                style={{ float: 'left' }}
               >
                 ย้อนกลับ
               </Button>
-              <Button id="btn-next" type="submit" style={{ float: "right" }}>
+              <Button id="btn-next" type="submit" style={{ float: 'right' }}>
                 ต่อไป
               </Button>
             </Col>
