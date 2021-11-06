@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router';
+import { Container, Col, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router';
+import axios from 'axios';
 import env from '../../env';
 import RoomData from './RoomData';
 import Pagination from './Pagination';
 import Search from '../Search/Search';
-import { Container, Col, Row } from 'react-bootstrap';
 
 const MainRoom = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
+
   const [roomData, setRoomData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filteredRoom, setFilteredRoom] = useState([]);
@@ -21,6 +29,7 @@ const MainRoom = (props) => {
     getAllRoom();
   }, []);
 
+  //All room
   let getAllRoom = async () => {
     setLoading(true);
     let response = await axios.get(`${env.url}api/room/all/${buildingid}`);
@@ -28,6 +37,7 @@ const MainRoom = (props) => {
     setLoading(false);
   };
 
+  //Search
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
@@ -58,7 +68,7 @@ const MainRoom = (props) => {
           />
         </Col>
       </Row>
-      <Container>
+      <Container className="w-75">
         <RoomData
           roomData={currentRooms}
           getAllRoom={getAllRoom}
