@@ -15,6 +15,7 @@ const AdminNav = (props) => {
   const logout = () => {
     localStorage.removeItem('authorization');
     props.setRoleId(null);
+    props.setDormId(null);
     history.push('/login');
   };
 
@@ -32,14 +33,7 @@ const AdminNav = (props) => {
     <nav>
       <div className="logo">
         <h2 className="title">
-          <Link
-            to="/admin/home"
-            style={{
-              textDecoration: 'none',
-              color: '#fff',
-              fontSize: '1.5rem',
-            }}
-          >
+          <Link to="/admin/home">
             adorminis <img src={logo} alt="ADORMINIS-ICON" />
           </Link>
         </h2>
@@ -53,6 +47,12 @@ const AdminNav = (props) => {
           <NavDropdown.Item href="#action3">ข้อมูล</NavDropdown.Item>
           <NavDropdown.Item href="#action3">ตั้งค่า</NavDropdown.Item>
         </NavDropdown> */}
+        <li>
+          <Link to={`/dorm-registration`}>ลงทะเบียนหอ</Link>
+        </li>
+        <li>
+          <Link to={`/dorm-setting`}>ตั้งค่าหอ</Link>
+        </li>
         <li>
           <Link to={`/all-building/${props.dormId}`}>ตึกและห้องพัก</Link>
         </li>
@@ -72,7 +72,7 @@ const AdminNav = (props) => {
           <Link to={`/complain-list/${props.dormId}`}>เรื่องร้องเรียน</Link>
         </li>
         <li>
-          <Link to="/rent/history">ประวัติการเช่าพัก</Link>
+          <Link to="/history">ประวัติการเช่าพัก</Link>
         </li>
         <li>
           <Link to="/admin/profile">ข้อมูลส่วนตัว</Link>
