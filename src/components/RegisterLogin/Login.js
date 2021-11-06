@@ -20,16 +20,29 @@ const Login = (props) => {
           email,
           password,
         })
-        .then((res) => {
+        .then(async (res) => {
           localStorage.setItem('authorization', res.data.TOKEN);
-          props.setRoleId(res.data.ROLEID);
-          if (res.data.ROLEID === 0) {
-            history.push(`/resident/home`); //resident
-          } else if (res.data.ROLEID === 1) {
-            history.push(`/admin/home`); //admin
-          } else {
-            window.alert('มีบางอย่างผิดพลาด');
-          }
+          await axios
+            .get(`${env.url}api/user/detail`, {
+              headers: {
+                authorization: localStorage.getItem('authorization'),
+              },
+            })
+            .then((data) => {
+              console.log(data.data);
+              // console.log(data.data.RENTID);
+              props.setUserId(data.data.USERID);
+              props.setRoleId(data.data.ROLEID);
+              props.setDormId(data.data.DORMID);
+              props.setRentId(data.data.RENTID);
+              if (res.data.ROLEID === 0) {
+                history.push(`/resident/home`); //resident
+              } else if (res.data.ROLEID === 1) {
+                history.push(`/admin/home`); //admin
+              } else {
+                window.alert('มีบางอย่างผิดพลาด');
+              }
+            });
         });
     } catch (err) {
       if (err.response && err.response.data) {
