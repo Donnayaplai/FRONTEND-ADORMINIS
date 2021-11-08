@@ -10,6 +10,8 @@ const ResidentNav = (props) => {
   const logout = () => {
     localStorage.removeItem('authorization');
     props.setRoleId(null);
+    props.setDormId(null);
+    props.setRentId(null);
     history.push('/login');
   };
   return (
@@ -30,18 +32,16 @@ const ResidentNav = (props) => {
       </label>
       <ul>
         <li>
-          <Link to={`/resident/dorm-info/${props.dormId}`}>ข้อมูลหอพัก </Link>
+          <Link to={`/resident/dorm-info`}>ข้อมูลหอพัก </Link>
         </li>
         <li>
           <Link to="/resident/all-bill">ใบแจ้งหนี้</Link>
         </li>
         <li>
-          <Link to={`/resident/complain-request/${props.rentId}`}>
-            แจ้งปัญหา
-          </Link>
+          <Link to={`/resident/complain-request`}>แจ้งปัญหา</Link>
         </li>
         <li>
-          <Link to={`/resident/profile`}>ข้อมูลส่วนตัว</Link>
+          <Link to="/resident/profile">ข้อมูลส่วนตัว</Link>
         </li>
         <li>
           <Button onClick={logout}>ออกจากระบบ</Button>
