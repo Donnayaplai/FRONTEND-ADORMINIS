@@ -46,6 +46,7 @@ function App() {
           setRoleId={setRoleId}
           setRentId={setRentId}
           setUserId={setUserId}
+          setDormId={setDormId}
         />
       );
     } else if (roleId === 1) {
