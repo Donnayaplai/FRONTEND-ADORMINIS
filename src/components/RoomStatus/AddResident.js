@@ -3,34 +3,20 @@ import env from '../../env';
 import './AddResident.css';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Redirect, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 
 const AddResident = (props) => {
-  const [isAddComplete, setAddComplete] = useState(false);
   const [error, setError] = useState(null);
   const history = useHistory();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     trigger,
   } = useForm();
-
-  const AlertComplete = () => {
-    window.alert('การเพิ่มผู้เช่าเสร็จสิ้น');
-    <Redirect to={`/all-room/${props.buildingId}`} />;
-    setAddComplete(false);
-  };
-
-  const AlertInComplete = () => {
-    window.alert('มีบางอย่างผิดพลาด กรุณาลองอีกครั้ง');
-    <Redirect to={`/all-room/${props.buildingId}`} />;
-    setAddComplete(false);
-  };
 
   const onSubmit = async (data) => {
     try {
