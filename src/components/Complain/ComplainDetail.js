@@ -12,6 +12,7 @@ const ComplainDetail = (props) => {
 
   useEffect(() => {
     getComplainDetail();
+    //eslint-disable-next-line
   }, []);
 
   let getComplainDetail = async () => {
@@ -25,7 +26,7 @@ const ComplainDetail = (props) => {
       console.error(error);
     }
   };
-  console.log(complainDetail);
+  // console.log(complainDetail);
 
   //แก้ไขสถานะเรื่องร้องเรียน
   const changeComplainStatus = async () => {

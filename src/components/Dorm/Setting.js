@@ -56,7 +56,7 @@ const Setting = (props) => {
         }
       );
       console.log(roomTypeSetting);
-      console.log('testttt');
+
       history.push(`/create-room`);
     } catch (err) {
       console.log(err);
@@ -66,7 +66,7 @@ const Setting = (props) => {
       }
     }
   };
-
+  console.log(step3);
   return (
     <>
       <h1>ตั้งค่าหอพัก</h1>

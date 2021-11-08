@@ -27,9 +27,9 @@ const DormProfile = (props) => {
     };
 
     getDormProfile();
-  }, [props.dormId]);
+  }, [props.dormId, dormData]);
 
-  console.log(dormData);
+  // console.log(dormData);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;

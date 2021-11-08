@@ -33,9 +33,9 @@ const Bill = (props) => {
       }
       setLoading(false);
     };
-    console.log(billList);
+    // console.log(billList);
     getBill();
-  }, [props.rentId]);
+  }, [props.rentId, billList]);
 
   const handleSearchInput = (e) => {
     const text = e.target.value;

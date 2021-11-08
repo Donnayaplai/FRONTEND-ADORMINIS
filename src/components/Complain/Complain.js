@@ -37,6 +37,7 @@ const Complain = (props) => {
 
   useEffect(() => {
     getAllComplain();
+    //eslint-disable-next-line
   }, []);
 
   //Get all problems

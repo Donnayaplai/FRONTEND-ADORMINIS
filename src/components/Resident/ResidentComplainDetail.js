@@ -17,6 +17,7 @@ const ResidentComplainDetail = (props) => {
 
   useEffect(() => {
     getComplainDetail();
+    //eslint-disable-next-line
   }, []);
 
   let getComplainDetail = async () => {

@@ -39,9 +39,10 @@ const Invoice = (props) => {
 
   useEffect(() => {
     getAllInvoice();
+    //eslint-disable-next-line
   }, []);
 
-  let getAllInvoice = async () => {
+  const getAllInvoice = async () => {
     try {
       let response = await axios.get(`${env.url}invoice/list/${props.dormId}`);
       setInvoiceList(response.data);

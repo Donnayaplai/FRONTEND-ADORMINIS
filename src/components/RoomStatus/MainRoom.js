@@ -25,11 +25,13 @@ const MainRoom = (props) => {
 
   const { buildingid } = useParams();
 
+  //All room
+
   useEffect(() => {
     getAllRoom();
-  }, []);
+    //eslint-disable-next-line
+  }, [buildingid]);
 
-  //All room
   let getAllRoom = async () => {
     setLoading(true);
     let response = await axios.get(`${env.url}api/room/all/${buildingid}`);

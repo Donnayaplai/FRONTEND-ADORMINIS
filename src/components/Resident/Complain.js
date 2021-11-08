@@ -43,6 +43,7 @@ const ResidentComplain = (props) => {
 
   useEffect(() => {
     getAllResidentProblems();
+    //eslint-disable-next-line
   }, []);
 
   //Get all problems
@@ -57,7 +58,7 @@ const ResidentComplain = (props) => {
       console.error(error);
     }
   };
-  console.log(complainList);
+  // console.log(complainList);
 
   // Get current page
   const indexOfLastComplain = currentPage * problemsPerPage;
@@ -90,8 +91,8 @@ const ResidentComplain = (props) => {
       console.error(error);
     }
   };
-  console.log(props.rentId, 'rentID');
-  console.log(props.dormId, 'dormID');
+  // console.log(props.rentId, 'rentID');
+  // console.log(props.dormId, 'dormID');
 
   const Cancle = async () => {
     setComplainModalOpen(false);
