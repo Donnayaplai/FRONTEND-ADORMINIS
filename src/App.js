@@ -26,7 +26,6 @@ function App() {
         })
         .then((data) => {
           console.log(data.data);
-          // console.log(data.data.RENTID);
           setUserId(data.data.USERID);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
@@ -41,19 +40,22 @@ function App() {
     if (roleId === 0) {
       return (
         <ResidentNav
-          setRoleId={setRoleId}
           rentId={rentId}
           dormId={dormId}
           userId={userId}
+          setRoleId={setRoleId}
+          setRentId={setRentId}
+          setUserId={setUserId}
         />
       );
     } else if (roleId === 1) {
       return (
         <AdminNav
           dormId={dormId}
-          setRoleId={setRoleId}
           userId={userId}
+          setRoleId={setRoleId}
           setDormId={setDormId}
+          setUserId={setUserId}
         />
       );
     } else {
