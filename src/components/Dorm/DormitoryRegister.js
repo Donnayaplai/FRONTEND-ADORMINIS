@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { Redirect } from 'react-router';
 import { Provinces } from '../../systemdata/Provinces';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
