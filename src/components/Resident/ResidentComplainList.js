@@ -25,7 +25,7 @@ const ResidentComplainList = ({
     }
   };
 
-  if (!loading) {
+  if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
 
@@ -52,9 +52,7 @@ const ResidentComplainList = ({
   return (
     <>
       {getResidentComplainList().length === 0 ? (
-        <h3 className="text-danger fw-bold text-center mt-5">
-          ไม่พบข้อมูลที่ค้นหา
-        </h3>
+        <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <>
           <Table
