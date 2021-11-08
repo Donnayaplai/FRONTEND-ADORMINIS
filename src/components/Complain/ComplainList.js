@@ -104,7 +104,6 @@ const ComplainList = ({
                 </td>
                 <td>
                   <Link
-                    // to={`/complain-detail/${list.PROBLEMID}`}
                     to={{
                       pathname: `/complain-detail/${list.PROBLEMID}`,
                       state: { dormId: props.match.params.dormId },
