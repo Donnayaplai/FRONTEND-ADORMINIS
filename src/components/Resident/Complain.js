@@ -6,8 +6,15 @@ import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Complain/ComplainPagination';
 import './Complain.css';
+import { useHistory } from 'react-router';
 
 const ResidentComplain = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    }
+  });
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

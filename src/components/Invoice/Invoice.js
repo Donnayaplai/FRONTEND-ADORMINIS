@@ -5,10 +5,16 @@ import { Container, Row, Col } from 'react-bootstrap';
 import InvoiceList from './InvoiceList';
 import Pagination from './InvoicePagination';
 import Search from '../Search/Search';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 import invoices from '../../assets/images/invoice.png';
 
 const Invoice = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
   const [invoiceList, setInvoiceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

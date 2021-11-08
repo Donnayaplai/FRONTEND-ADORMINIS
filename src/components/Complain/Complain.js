@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
+import { useHistory } from 'react-router';
 import ComplainList from './ComplainList';
 import Search from '../Search/Search';
 import Pagination from './ComplainPagination';
 import problem from '../../assets/images/problem.png';
 
 const Complain = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,25 +1,22 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Card, Row, Col } from 'react-bootstrap';
-import building from '../../assets/images/building.jpg';
+import { useHistory } from 'react-router';
 import env from '../../env';
+import axios from 'axios';
+import building from '../../assets/images/building.jpg';
+import buildings from '../../assets/images/dormitory.png';
 import './BuildingList.css';
+
 const BuildingList = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
   const [buildingList, setBuildingList] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${env.url}api/building/all/${props.dormId}`)
-  //     .then((res) => {
-  //       setDormList(res.data);
-  //       setLoading(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
 
   useEffect(() => {
     const getBuildingList = async () => {
@@ -37,30 +34,22 @@ const BuildingList = (props) => {
     getBuildingList();
   }, [props.dormId]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${env.url}api/building/all/${dormid}`) //ส่ง dormid ที่ได้จาก userdetail /App มา
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setDormList(res.data);
-  //       setLoading(true);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   return (
     <>
       <Container>
         <h1>
-          อาคารทั้งหมด <i className="fas fa-building"></i>
+          อาคารทั้งหมด &nbsp;
+          <img
+            src={buildings}
+            alt="All building"
+            style={{ maxWidth: '1.5em' }}
+          />
         </h1>
-        <Row>
+        <Row className="mt-3">
           {loading &&
             buildingList.map((list) => (
               <Col key={list.BUILDINGNAME}>
-                <Card className="card-building" xs={10} sm={10} md={10}>
+                <Card className="card-building" xs={12} sm={10} md={10}>
                   <Card.Img
                     src={building}
                     className="card-img"
@@ -75,7 +64,12 @@ const BuildingList = (props) => {
                     </Card.Title>
                     <Card.Text>
                       <Link to={`/all-room/${list.BUILDINGID}`}>
-                        <Button id="building-info">ข้อมูลห้องทั้งหมด</Button>
+                        <Button
+                          id="building-info"
+                          style={{ textDecoration: 'none' }}
+                        >
+                          ข้อมูลห้องทั้งหมด
+                        </Button>
                       </Link>
                     </Card.Text>
                   </Card.Body>

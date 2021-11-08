@@ -3,16 +3,15 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 
 const AdminProfile = (props) => {
-  // const history = useHistory();
-  //   useEffect(() => {
-  //     if (props.roleId !== 0) {
-  //       window.alert('คุณไม่มีสิทธิ์ในการเข้าถึง โปรดเข้าสู่ระบบ');
-  //       <Redirect to="/login" />;
-  //     }
-  //   }, []);
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
   const [userProfile, setUserProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 

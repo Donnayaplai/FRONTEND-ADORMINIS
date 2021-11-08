@@ -3,9 +3,15 @@ import axios from 'axios';
 import env from '../../env';
 import { Row, Container, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 
 const ResidentComplainDetail = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    }
+  });
   const [complainDetail, setComplainDetail] = useState([]);
   const [loading, setLoading] = useState(false);
 

@@ -8,6 +8,12 @@ import env from '../../env';
 import { useHistory } from 'react-router';
 
 const EditAdminProfile = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
   const {
     register,
     handleSubmit,

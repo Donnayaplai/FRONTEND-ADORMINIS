@@ -2,11 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import BillingList from './BillingList';
 import BillPagination from './BillPagination';
 import Search from '../Search/Search';
 
 const Bill = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    }
+  });
   const [billList, setBillList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
