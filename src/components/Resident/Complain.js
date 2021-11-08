@@ -52,7 +52,7 @@ const ResidentComplain = (props) => {
         `${env.url}complaint/history/${props.rentId}`
       );
       setComplainList(response.data);
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -102,92 +102,94 @@ const ResidentComplain = (props) => {
   return (
     <Container>
       <h1>เรื่องร้องเรียน</h1>
-      <Row className="mt-3">
-        <Col xs={8} sm={8} md={6} className="mx-auto">
-          <Search
-            handleSearchInput={handleSearchInput}
-            searchText={searchText}
-          />
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <h3>ประวัติและสถานะ</h3>
-        </Col>
-        <Col>
-          <h3>
-            <Button
-              variant="secondary"
-              size="lg"
-              onClick={handleShow}
-              style={{ float: 'right' }}
-            >
-              แจ้งปัญหา
-            </Button>
-          </h3>
-        </Col>
-      </Row>
-      <Form>
-        <Modal
-          show={complainModalOpen}
-          onHide={handleClose}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header closeButton onClick={Cancle}>
-            <Modal.Title>
-              <h2>แจ้งปัญหา</h2>
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Container
-              className="px-3 py-3 rounded mb-3"
-              style={{ backgroundColor: '#EAE7E2' }}
-            >
-              <Form.Group className="mb-3">
-                <Form.Label>ชื่อเรื่อง</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="โปรดระบุปัญหาที่ต้องการแจ้ง"
-                  name="title"
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>รายละเอียด</Form.Label>
-                <Form.Control
-                  type="text"
-                  rows={3}
-                  name="detail"
-                  onChange={(e) => setDetail(e.target.value)}
-                />
-              </Form.Group>
-            </Container>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={Cancle}>
-              ยกเลิก
-            </Button>
-            <Button variant="primary" type="submit" onClick={submitValue}>
-              ตกลง
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Form>
+      <Container className="w-75">
+        <Row className="mt-3">
+          <Col xs={8} sm={8} md={6} className="mx-auto">
+            <Search
+              handleSearchInput={handleSearchInput}
+              searchText={searchText}
+            />
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col>
+            <h3>ประวัติและสถานะ</h3>
+          </Col>
+          <Col>
+            <h3>
+              <Button
+                variant="secondary"
+                size="lg"
+                onClick={handleShow}
+                style={{ float: 'right' }}
+              >
+                แจ้งปัญหา
+              </Button>
+            </h3>
+          </Col>
+        </Row>
+        <Form>
+          <Modal
+            show={complainModalOpen}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton onClick={Cancle}>
+              <Modal.Title>
+                <h2>แจ้งปัญหา</h2>
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Container
+                className="px-3 py-3 rounded mb-3"
+                style={{ backgroundColor: '#EAE7E2' }}
+              >
+                <Form.Group className="mb-3">
+                  <Form.Label>ชื่อเรื่อง</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="โปรดระบุปัญหาที่ต้องการแจ้ง"
+                    name="title"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>รายละเอียด</Form.Label>
+                  <Form.Control
+                    type="text"
+                    rows={3}
+                    name="detail"
+                    onChange={(e) => setDetail(e.target.value)}
+                  />
+                </Form.Group>
+              </Container>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={Cancle}>
+                ยกเลิก
+              </Button>
+              <Button variant="primary" type="submit" onClick={submitValue}>
+                ตกลง
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Form>
 
-      <ResidentComplainList
-        complainList={currentProblems}
-        getAllResidentProblems={getAllResidentProblems}
-        loading={loading}
-        filteredComplain={filteredComplain}
-        searchText={searchText}
-        rentId={props.rentId}
-      />
-      <Pagination
-        problemsPerPage={problemsPerPage}
-        totalProblems={complainList.length}
-        paginate={paginate}
-      />
+        <ResidentComplainList
+          complainList={currentProblems}
+          getAllResidentProblems={getAllResidentProblems}
+          loading={loading}
+          filteredComplain={filteredComplain}
+          searchText={searchText}
+          rentId={props.rentId}
+        />
+        <Pagination
+          problemsPerPage={problemsPerPage}
+          totalProblems={complainList.length}
+          paginate={paginate}
+        />
+      </Container>
     </Container>
   );
 };
