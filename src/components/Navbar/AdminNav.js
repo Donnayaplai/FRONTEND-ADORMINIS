@@ -47,12 +47,12 @@ const AdminNav = (props) => {
           <NavDropdown.Item href="#action3">ข้อมูล</NavDropdown.Item>
           <NavDropdown.Item href="#action3">ตั้งค่า</NavDropdown.Item>
         </NavDropdown> */}
-        <li>
+        {/* <li>
           <Link to={`/dorm-registration`}>ลงทะเบียนหอ</Link>
         </li>
         <li>
           <Link to={`/dorm-setting`}>ตั้งค่าหอ</Link>
-        </li>
+        </li> */}
         <li>
           <Link to={`/all-building`}>ตึกและห้องพัก</Link>
         </li>
