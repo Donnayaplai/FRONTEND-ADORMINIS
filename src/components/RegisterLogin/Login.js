@@ -30,7 +30,6 @@ const Login = (props) => {
             })
             .then((data) => {
               console.log(data.data);
-              // console.log(data.data.RENTID);
               props.setUserId(data.data.USERID);
               props.setRoleId(data.data.ROLEID);
               props.setDormId(data.data.DORMID);
