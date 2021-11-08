@@ -36,7 +36,6 @@ import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import ResidentComplain from './components/Resident/Complain';
 import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
-import DormitoryInfo from './components/Dorm/DormitoryInfo';
 
 const Routes = (props) => {
   return (
