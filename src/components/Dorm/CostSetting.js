@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import './Setting.css';
 
 const CostSetting = (props) => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     props.setStep1(data);
