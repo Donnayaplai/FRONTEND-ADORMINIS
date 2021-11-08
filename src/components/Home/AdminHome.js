@@ -4,6 +4,7 @@ import { Row, Container, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
 import dashboard from '../../assets/images/dashboard.png';
+
 const AdminHome = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const AdminHome = (props) => {
     };
 
     getAllCount();
-  }, []);
+  }, [props.dormId]);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
