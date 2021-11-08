@@ -44,7 +44,6 @@ const Complain = (props) => {
       console.error(error);
     }
   };
-  console.log(complainList);
 
   // Get current page
   const indexOfLastComplain = currentPage * problemsPerPage;

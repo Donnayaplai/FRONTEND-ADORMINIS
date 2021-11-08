@@ -55,7 +55,7 @@ const ComplainList = ({
           <tbody>
             {getComplainList().map((list, i) => (
               <tr
-                key={list.i}
+                key={i}
                 style={{
                   backgroundColor: '#EAE7E2',
                   border: 'none',
