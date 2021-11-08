@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import env from './env';
+import { useCallback } from 'react';
 
 import Routes from './Routes';
 import LandingPage from './components/LandingPage/LandingPage';
@@ -19,7 +20,8 @@ function App() {
   const [userLname, setUserLname] = useState();
   const [dormName, setDormName] = useState();
   //ทำงานก่อน render
-  useEffect(async () => {
+
+  const fetchMyAPI = useCallback(async () => {
     if (localStorage.getItem('authorization')) {
       await axios
         .get(`${env.url}api/user/detail`, {
@@ -39,8 +41,32 @@ function App() {
         });
     }
   }, []);
+  // useEffect(async () => {
+  //   if (localStorage.getItem('authorization')) {
+  //     await axios
+  //       .get(`${env.url}api/user/detail`, {
+  //         headers: {
+  //           authorization: localStorage.getItem('authorization'),
+  //         },
+  //       })
+  //       .then((data) => {
+  //         console.log(data.data);
+  //         setUserId(data.data.USERID);
+  //         setRoleId(data.data.ROLEID);
+  //         setDormId(data.data.DORMID);
+  //         setRentId(data.data.RENTID);
+  //         setUserFname(data.data.FNAME);
+  //         setUserLname(data.data.LNAME);
+  //         setDormName(data.data.DORMNAMETH);
+  //       });
+  //   }
+  // }, []);
 
-  console.log(rentId);
+  useEffect(() => {
+    fetchMyAPI();
+  }, [fetchMyAPI]);
+
+  // console.log(rentId);
 
   function RenderNav() {
     if (roleId === 0) {
