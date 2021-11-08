@@ -19,11 +19,11 @@ const AdminNav = (props) => {
     history.push('/login');
   };
 
-  //สร้างบิลตอนกดปุ่มจดมิเตอร
+  //สร้างบิลตอนกดปุ่มจดมิเตอร์
   const createInvoiceBySendDormId = async () => {
     try {
       await axios.post(`${env.url}invoice/create/${props.dormId}`);
-      console.log(props.dormId);
+      // console.log(props.dormId);
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +54,7 @@ const AdminNav = (props) => {
           <Link to={`/dorm-setting`}>ตั้งค่าหอ</Link>
         </li>
         <li>
-          <Link to={`/all-building/${props.dormId}`}>ตึกและห้องพัก</Link>
+          <Link to={`/all-building`}>ตึกและห้องพัก</Link>
         </li>
         <li>
           <Link
@@ -63,13 +63,12 @@ const AdminNav = (props) => {
           >
             จดมิเตอร์
           </Link>
-          {/* ใส่ onClick ส่ง dormid ไป back เลย */}
         </li>
         <li>
-          <Link to={`/all-invoice/${props.dormId}`}>ใบแจ้งหนี้</Link>
+          <Link to={`/all-invoice`}>ใบแจ้งหนี้</Link>
         </li>
         <li>
-          <Link to={`/complain-list/${props.dormId}`}>เรื่องร้องเรียน</Link>
+          <Link to={`/complain-list`}>เรื่องร้องเรียน</Link>
         </li>
         <li>
           <Link to="/history">ประวัติการเช่าพัก</Link>
