@@ -38,7 +38,6 @@ const EditAdminProfile = (props) => {
 
     getUserProfile();
   }, [props.userId]);
-  const history = useHistory();
 
   const onSubmit = async (data) => {
     try {
