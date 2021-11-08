@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-// import { Redirect } from 'react-router';
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 
 const ResidentProfile = (props) => {
-  // const history = useHistory();
-  // useEffect(() => {
-  //   if (props.roleId !== 0) {
-  //     window.alert('คุณไม่มีสิทธิ์ในการเข้าถึง โปรดเข้าสู่ระบบ');
-  //     <Redirect to="/login" />;
-  //   }
-  // }, []);
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    }
+  });
   const [profile, setProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +28,7 @@ const ResidentProfile = (props) => {
     };
 
     getUserProfile();
-  }, []);
+  }, [props.userId]);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -41,9 +39,9 @@ const ResidentProfile = (props) => {
       <h1>
         ข้อมูลส่วนตัว <i className="fas fa-user-circle"></i>
       </h1>
-      <Container>
+      <Container className="w-75 mt-3">
         <Container
-          className="w-75 p-3 mb-3 mt-3 rounded"
+          className="mx-auto rounded p-5 mt-3 border-0"
           style={{ backgroundColor: '#EAE7E2' }}
         >
           <Container>
