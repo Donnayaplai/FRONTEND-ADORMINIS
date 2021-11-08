@@ -7,7 +7,7 @@ const DynamicSelect = (props) => {
       <Form.Select onChange={props.handleSelectChange}>
         {props.option.map((data, i) => {
           return (
-            <option value={data} key={data}>
+            <option value={data} key={i}>
               {data}
             </option>
           );
