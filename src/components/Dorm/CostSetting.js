@@ -12,18 +12,11 @@ const CostSetting = (props) => {
   };
 
   return (
-    <Container className="w-75 mb-5">
+    <Container className="w-75">
       <Row>
         <Col>
           <h3>ค่าใช้จ่าย</h3>
         </Col>
-        {/* <Col>
-          <img
-            src={Edit}
-            alt="Edit cost setting"
-            style={{ maxWidth: "2rem", float: "right" }}
-          />
-        </Col> */}
       </Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Container
