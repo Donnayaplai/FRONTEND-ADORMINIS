@@ -43,7 +43,7 @@ const ResidentHome = (props) => {
                       src={DormInfo}
                       alt="Dormitory Information"
                       style={{
-                        maxWidth: '12rem',
+                        maxWidth: '10rem',
                         display: 'inline',
                         marginLeft: '50%',
                         transform: 'translateX(-50%)',
@@ -77,7 +77,7 @@ const ResidentHome = (props) => {
                     src={Billing}
                     alt="Invoice Information"
                     style={{
-                      maxWidth: '12rem',
+                      maxWidth: '10rem',
                       display: 'inline',
                       marginLeft: '50%',
                       transform: 'translateX(-50%)',
@@ -113,7 +113,7 @@ const ResidentHome = (props) => {
                     src={Complain}
                     alt="Complain"
                     style={{
-                      maxWidth: '12rem',
+                      maxWidth: '10rem',
                       display: 'inline',
                       marginLeft: '50%',
                       transform: 'translateX(-50%)',
