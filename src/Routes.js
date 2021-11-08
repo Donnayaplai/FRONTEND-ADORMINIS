@@ -17,7 +17,6 @@ import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
 import CreateRoom from './components/Dorm/CreateRoom';
-import UpdateResInfo from './components/RoomStatus/UpdateResInfo';
 import AddResident from './components/RoomStatus/AddResident';
 import SelectBuilding from './components/Utility/SelectBuilding';
 import MeterRecord from './components/Utility/MeterRecord';
@@ -98,7 +97,6 @@ const Routes = (props) => {
         <Route path={`/all-invoice`}>
           <Invoice roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/resinfo/edit" component={UpdateResInfo} />
         <Route path="/select-building/meter-record">
           <SelectBuilding roleId={props.roleId} dormId={props.dormId} />
         </Route>
