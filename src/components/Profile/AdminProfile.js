@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-
-// import { Redirect } from 'react-router';
-// import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 const AdminProfile = (props) => {
   // const history = useHistory();
@@ -41,61 +40,74 @@ const AdminProfile = (props) => {
       <h1>
         ข้อมูลส่วนตัว <i className="fas fa-user-circle"></i>
       </h1>
-      <Container>
-        <Card
-          className="w-100 p-3 mb-3 mt-3 rounded mx-auto"
-          style={{
-            backgroundColor: '#EAE7E2',
-            maxWidth: '50em',
-            border: 'none',
-          }}
+      <Container className="w-75 mt-3">
+        <Row>
+          <Col>
+            <Link
+              to={{
+                pathname: `/profile/edit/${props.userId}`,
+                state: { userId: props.match.params.userid },
+              }}
+            >
+              <Button
+                type="button"
+                variant="secondary"
+                style={{ float: 'right' }}
+              >
+                <i className="fas fa-user-edit"></i>
+                &nbsp;แก้ไขข้อมูล
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+        <Container
+          className="mx-auto rounded p-5 mt-3 border-0"
+          style={{ backgroundColor: '#EAE7E2' }}
         >
-          <Container>
-            <Row>
-              <Col>
-                <p className="fw-bold">ชื่อ</p>
+          <Row>
+            <Col md={2} sm={6} xs={6}>
+              <p className="fw-bold">ชื่อ</p>
+            </Col>
+            <Col md={4} sm={6} xs={6}>
+              <p>{userProfile.FNAME}</p>
+            </Col>
+            <Col md={2} sm={6} xs={6}>
+              <p className="fw-bold">นามสกุล</p>
+            </Col>
+            <Col>
+              <Col md={4} sm={6} xs={6}>
+                <p>{userProfile.LNAME}</p>
               </Col>
-              <Col>
-                <p>{userProfile.FNAME}</p>
-              </Col>
-              <Col>
-                <p className="fw-bold">นามสกุล</p>
-              </Col>
-              <Col>
-                <Col>
-                  <p>{userProfile.LNAME}</p>
-                </Col>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p className="fw-bold">วันเกิด</p>
-              </Col>
-              <Col>
-                <p>{userProfile.DATEOFBIRTH}</p>
-              </Col>
-              <Col>
-                <p className="fw-bold">เบอร์โทรศัพท์</p>
-              </Col>
-              <Col>
-                <p>{userProfile.TELNO}</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p className="fw-bold">อีเมล</p>
-              </Col>
-              <Col>
-                <p>{userProfile.EMAIL}</p>
-              </Col>
-              <Col></Col>
-              <Col></Col>
-            </Row>
-          </Container>
-        </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2} sm={6} xs={6}>
+              <p className="fw-bold">วันเกิด</p>
+            </Col>
+            <Col md={4} sm={6} xs={6}>
+              <p>{userProfile.DATEOFBIRTH}</p>
+            </Col>
+            <Col md={3} sm={6} xs={6}>
+              <p className="fw-bold">เบอร์โทรศัพท์</p>
+            </Col>
+            <Col md={3} sm={6} xs={6}>
+              <p>{userProfile.TELNO}</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={2} sm={6} xs={3}>
+              <p className="fw-bold">อีเมล</p>
+            </Col>
+            <Col md={3} sm={6} xs={12}>
+              <p>{userProfile.EMAIL}</p>
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+        </Container>
       </Container>
     </>
   );
 };
 
-export default AdminProfile;
+export default withRouter(AdminProfile);
