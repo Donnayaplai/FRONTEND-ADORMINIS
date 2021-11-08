@@ -14,6 +14,8 @@ import AdminHome from './components/Home/AdminHome';
 import AdminProfile from './components/Profile/AdminProfile';
 import EditAdminProfile from './components/Profile/EditAdminProfile';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
+import DormitoryInfo from './components/Dorm/DormitoryInfo';
+import EditDormInfo from './components/Dorm/EditDormInfo';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
 import CreateRoom from './components/Dorm/CreateRoom';
@@ -77,7 +79,10 @@ const Routes = (props) => {
           <DormitoryRegister roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/dorm-info">
-          <DormitoryInfo roleId={props.roleId} />
+          <DormitoryInfo roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route path="/dorm-info/edit/:dormid">
+          <EditDormInfo roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/dorm-setting">
           <Setting dormId={props.dormId} />
