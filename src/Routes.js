@@ -12,6 +12,7 @@ import NotFound from './components/Others/NotFound';
 //Admin
 import AdminHome from './components/Home/AdminHome';
 import AdminProfile from './components/Profile/AdminProfile';
+import EditAdminProfile from './components/Profile/EditAdminProfile';
 import DormitoryRegister from './components/Dorm/DormitoryRegister';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
@@ -70,6 +71,9 @@ const Routes = (props) => {
         <Route path="/admin/profile">
           <AdminProfile roleId={props.roleId} userId={props.userId} />
         </Route>
+        <Route path="/profile/edit/:userid">
+          <EditAdminProfile roleId={props.roleId} userId={props.userId} />
+        </Route>
         <Route path="/dorm-registration">
           <DormitoryRegister roleId={props.roleId} userId={props.userId} />
         </Route>
@@ -91,7 +95,7 @@ const Routes = (props) => {
         <Route path="/addresident/:buildingid/:roomid">
           <AddResident dormId={props.dormId} roleId={props.roleId} />
         </Route>
-        <Route path={`/all-invoice/${props.dormId}`}>
+        <Route path={`/all-invoice`}>
           <Invoice roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/resinfo/edit" component={UpdateResInfo} />
@@ -130,7 +134,7 @@ const Routes = (props) => {
           />
         </Route>
 
-        <Route path={`/resident/complain-request/${props.rentId}`}>
+        <Route path={`/resident/complain-request`}>
           <ResidentComplain
             roleId={props.roleId}
             rentId={props.rentId}
