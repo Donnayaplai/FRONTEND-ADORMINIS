@@ -62,6 +62,7 @@ const Setting = (props) => {
       console.log(err);
       if (err.response && err.response.data) {
         setError(err.response.data.message);
+        window.alert(error);
       }
     }
   };
