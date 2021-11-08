@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Container, Button, Card, Row, Col, Form } from 'react-bootstrap';
+import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import edit from '../../assets/images/edit.png';
 
 const DormitoryInfo = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
+
   const [dormInfo, setDormInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -20,66 +27,107 @@ const DormitoryInfo = (props) => {
     };
 
     getDormitoryInfo();
-  }, []);
+  }, [props.dormId]);
 
-  //   if (loading) {
-  //     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  //   }
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
 
   return (
     <>
-      <h1>ข้อมูลหอพัก</h1>
-      <Container className="w-75 mt-5">
-        <h5 className="fw-bold">ข้อมูลและที่อยู่</h5>
+      <h1>
+        ข้อมูลหอพัก <i className="fas fa-info-circle"></i>
+      </h1>
+
+      <Container className="w-75  mb-3">
+        <Row>
+          <Col>
+            <Link
+            // to={{
+            //   pathname: `/dorm-info/edit/${props.userId}`,
+            //   state: { dormId: props.match.params.dormid },
+            // }}
+            >
+              <Button
+                type="button"
+                variant="secondary"
+                style={{ float: 'right' }}
+              >
+                <i className="far fa-edit"></i>
+                &nbsp;แก้ไขข้อมูล
+              </Button>
+            </Link>
+          </Col>
+        </Row>
         <Container
-          className="p-3 rounded w-100 mb-3"
+          className="p-3 rounded mb-3 mx-auto"
           style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row className="mb-3">
-            <Col>
-              <h5>ชื่อหอพัก (ไทย):</h5>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ชื่อหอพัก (ไทย):</h6>
             </Col>
-            <Col>{/* <p>{dorm.DORMNAMETH}</p> */}</Col>
-            <Col>
-              <h5>ชื่อหอพัก (อังกฤษ):</h5>
+            <Col xs={6} sm={6} md={3}>
+              <p>{dormInfo.DORMNAMETH}</p>
             </Col>
-            <Col>{/* <p>{dorm.DORMNAMEENG}</p> */}</Col>
+            <Col xs={6} sm={6} md={3}>
+              <h6 className="fw-bold">ชื่อหอพัก (อังกฤษ):</h6>
+            </Col>
+            <Col xs={6} sm={6} md={3}>
+              <p>{dormInfo.DORMNAMEENG}</p>
+            </Col>
           </Row>
           <Row className="mb-3">
-            <Col>
-              <h5>ที่อยู่:</h5>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">เบอร์โทรศัพท์:</h6>
             </Col>
-            <Col>{/* <p>{dorm.ADDRESS}</p> */}</Col>
+            <Col xs={6} sm={6} md={10}>
+              <p>{dormInfo.TELNO}</p>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ที่อยู่:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={10}>
+              <p>{dormInfo.ADDRESS}</p>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ถนน:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormInfo.STREET}</p>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">แขวง/ตำบล:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormInfo.SUBDISTRICT}</p>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">เขต/อำเภอ:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormInfo.DISTRICT}</p>
+            </Col>
           </Row>
           <Row className="mb-3">
-            <Col>
-              <h5>ถนน:</h5>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">รหัสไปรษณีย์:</h6>
             </Col>
-            <Col>{/* <p>{dorm.STREET}</p> */}</Col>
-            <Col>
-              <h5>แขวง/ตำบล:</h5>
+            <Col xs={6} sm={6} md={4}>
+              <p>{dormInfo.POSTCODE}</p>
             </Col>
-            <Col>{/* <p>{dorm.SUBDISTRICT}</p> */}</Col>
-            <Col>
-              <h5>เขต/อำเภอ:</h5>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">จังหวัด:</h6>
             </Col>
-            <Col>{/* <p>{dorm.DISTRICT}</p> */}</Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <h5>รหัสไปรษณีย์:</h5>
+            <Col xs={6} sm={6} md={4}>
+              <p>{dormInfo.PROVINCE}</p>
             </Col>
-            <Col>{/* <p>{dorm.STREET}</p> */}</Col>
-            <Col>
-              <h5>จังหวัด:</h5>
-            </Col>
-            <Col>{/* <p>{dorm.SUBDISTRICT}</p> */}</Col>
-          </Row>
-          <Row>
-            <Col>
-              <h5>เบอร์โทรศัพท์</h5>
-            </Col>
-            <Col>{/* <p>{dorm.TELNO}</p> */}</Col>
           </Row>
         </Container>
       </Container>
@@ -87,4 +135,4 @@ const DormitoryInfo = (props) => {
   );
 };
 
-export default DormitoryInfo;
+export default withRouter(DormitoryInfo);
