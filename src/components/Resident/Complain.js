@@ -102,15 +102,16 @@ const ResidentComplain = (props) => {
   return (
     <Container>
       <h1>เรื่องร้องเรียน</h1>
+
+      <Row className="mt-3">
+        <Col xs={8} sm={8} md={6} className="mx-auto">
+          <Search
+            handleSearchInput={handleSearchInput}
+            searchText={searchText}
+          />
+        </Col>
+      </Row>
       <Container className="w-75">
-        <Row className="mt-3">
-          <Col xs={8} sm={8} md={6} className="mx-auto">
-            <Search
-              handleSearchInput={handleSearchInput}
-              searchText={searchText}
-            />
-          </Col>
-        </Row>
         <Row className="mt-3">
           <Col>
             <h3>ประวัติและสถานะ</h3>
