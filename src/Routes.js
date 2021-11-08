@@ -120,7 +120,12 @@ const Routes = (props) => {
         </Route>
         {/* Resident routes */}
         <Route path="/resident/home">
-          <ResidentHome roleId={props.roleId} />
+          <ResidentHome
+            roleId={props.roleId}
+            userFname={props.userFname}
+            userLname={props.userLname}
+            dormName={props.dormName}
+          />
         </Route>
         <Route path="/resident/profile">
           <ResidentProfile roleId={props.roleId} userId={props.userId} />

@@ -15,6 +15,9 @@ function App() {
   const [dormId, setDormId] = useState();
   const [rentId, setRentId] = useState();
   const [userId, setUserId] = useState();
+  const [userFname, setUserFname] = useState();
+  const [userLname, setUserLname] = useState();
+  const [dormName, setDormName] = useState();
   //ทำงานก่อน render
   useEffect(async () => {
     if (localStorage.getItem('authorization')) {
@@ -30,6 +33,9 @@ function App() {
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
           setRentId(data.data.RENTID);
+          setUserFname(data.data.FNAME);
+          setUserLname(data.data.LNAME);
+          setDormName(data.data.DORMNAMETH);
         });
     }
   }, []);
@@ -79,6 +85,9 @@ function App() {
             dormId={dormId}
             rentId={rentId}
             userId={userId}
+            userFname={userFname}
+            userLname={userLname}
+            dormName={dormName}
           />
         </Route>
       </Switch>
