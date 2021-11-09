@@ -46,9 +46,7 @@ const InvoiceList = ({
   return (
     <>
       {getInvoiceList().length === 0 ? (
-        <h3 className="text-danger fw-bold text-center mt-5">
-          ไม่พบข้อมูลที่ค้นหา
-        </h3>
+        <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Container className="w-75">
           <Table
