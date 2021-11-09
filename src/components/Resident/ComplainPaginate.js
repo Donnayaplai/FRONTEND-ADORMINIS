@@ -9,14 +9,13 @@ const ComplainPagination = ({ invoicePerPage, totalInvoices, paginate }) => {
   }
 
   return (
-    <div>
-      <ul
-        className="pagination"
-        style={{
-          marginLeft: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
+    <div
+      style={{
+        marginLeft: '50%',
+        transform: 'translateX(-50%)',
+      }}
+    >
+      <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
             <Link to="" onClick={() => paginate(number)} className="page-link">
