@@ -113,7 +113,8 @@ const RoomData = ({
       await axios
         .post(`${env.url}api/room/edit/${RENTID}`, residentInfo[i])
         .then(window.alert('การแก้ไขข้อมูลเสร็จสิ้น'))
-        .then(window.location.reload());
+        .then(resInfoModalOpen(false))
+        .then(getRoomList());
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -144,7 +145,7 @@ const RoomData = ({
         .then(window.alert('การลบผู้เช่าเสร็จสิ้น'))
         .then(setShowConfirmDeleteModal(false))
         .then(setResInfoModalOpen(false))
-        .then(window.location.reload());
+        .then(getRoomList());
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -190,15 +191,13 @@ const RoomData = ({
   if (error) return window.alert({ error });
 
   if (loading) {
-    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+    return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
   }
 
   return (
     <>
       {getRoomList().length === 0 ? (
-        <h3 className="text-danger fw-bold text-center mt-5">
-          ไม่พบข้อมูลที่ค้นหา
-        </h3>
+        <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <form>
           <Table
