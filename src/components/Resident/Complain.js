@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
-import Pagination from '../Complain/ComplainPagination';
+import Pagination from './ComplainPaginate';
 import complain from '../../assets/images/complain.png';
 
 const ResidentComplain = (props) => {
@@ -100,7 +100,7 @@ const ResidentComplain = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <h1>
         เรื่องร้องเรียน &nbsp;
         <img src={complain} alt="All problems" style={{ maxWidth: '1.5em' }} />
@@ -113,12 +113,12 @@ const ResidentComplain = (props) => {
           />
         </Col>
       </Row>
-      <Container>
-        <Row className="mt-3">
-          <Col xs={12} sm={7} md={6}>
+      <Container className="w-75 mt-3 mb-3">
+        <Row>
+          <Col xs={8} sm={7} md={6}>
             <h3>ประวัติและสถานะ</h3>
           </Col>
-          <Col sm={5} md={6}>
+          <Col xs={4} sm={5} md={6}>
             <h3>
               <Button
                 variant="secondary"
@@ -137,6 +137,7 @@ const ResidentComplain = (props) => {
           searchText={searchText}
           rentId={props.rentId}
         />
+
         <Pagination
           problemsPerPage={problemsPerPage}
           totalProblems={complainList.length}
@@ -190,7 +191,7 @@ const ResidentComplain = (props) => {
           </Modal.Footer>
         </Modal>
       </Form>
-    </Container>
+    </>
   );
 };
 

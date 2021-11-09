@@ -1,21 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ComplainPagination = ({ invoicePerPage, totalInvoices, paginate }) => {
+const ComplainPagination = ({ problemsPerPage, totalProblems, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalInvoices / invoicePerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalProblems / problemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
   return (
-    <div
-      style={{
-        marginLeft: '50%',
-        transform: 'translateX(-50%)',
-      }}
-    >
-      <ul className="pagination">
+    <div>
+      <ul
+        className="pagination"
+        style={{ marginLeft: '50%', marginRight: '50%' }}
+      >
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
             <Link to="" onClick={() => paginate(number)} className="page-link">
