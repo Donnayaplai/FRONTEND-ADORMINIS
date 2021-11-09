@@ -74,6 +74,8 @@ function App() {
           rentId={rentId}
           dormId={dormId}
           userId={userId}
+          userFname={userFname}
+          userLname={userLname}
           setRoleId={setRoleId}
           setRentId={setRentId}
           setUserId={setUserId}
