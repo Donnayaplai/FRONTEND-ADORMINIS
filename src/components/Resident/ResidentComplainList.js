@@ -52,10 +52,7 @@ const ResidentComplainList = ({
       {getResidentComplainList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
-        <Table
-          responsive
-          className="table table-hover table-borderless mt-3 mx-auto"
-        >
+        <Table responsive className="table table-hover table-borderlessmx-auto">
           <thead
             style={{
               backgroundColor: '#C7E5F0',
