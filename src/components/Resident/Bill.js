@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 import BillingList from './BillingList';
 import BillPagination from './BillPagination';
 import Search from '../Search/Search';
+import bill from '../../assets/images/bill.png';
 
 const Bill = (props) => {
   const history = useHistory();
@@ -25,7 +26,7 @@ const Bill = (props) => {
     let getBill = async () => {
       try {
         const response = await axios.get(
-          `${env.url}invoice/history/${props.rentId}/{props.dormId}`
+          `${env.url}invoice/history/${props.rentId}`
         );
         setBillList(response.data);
       } catch (error) {
@@ -33,9 +34,9 @@ const Bill = (props) => {
       }
       setLoading(false);
     };
-    // console.log(billList);
     getBill();
-  }, [props.rentId, billList]);
+    //eslint-disable-next-line
+  }, [props.rentId]);
 
   const handleSearchInput = (e) => {
     const text = e.target.value;
@@ -58,7 +59,10 @@ const Bill = (props) => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <Container>
-      <h1>ใบแจ้งหนี้ทั้งหมด</h1>
+      <h1>
+        ใบแจ้งหนี้ทั้งหมด &nbsp;
+        <img src={bill} alt="All invoices" style={{ maxWidth: '1.5em' }} />
+      </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={8} className="mx-auto">
           <Search
@@ -67,12 +71,13 @@ const Bill = (props) => {
           />
         </Col>
       </Row>
-      <Container>
+      <Container className="w-75">
         <BillingList
           billList={currentBill}
           loading={loading}
           filteredBill={filteredBill}
           searchText={searchText}
+          dormId={props.dormId}
         />
         <BillPagination
           billPerPage={billPerPage}

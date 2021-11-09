@@ -9,7 +9,6 @@ const BillingList = ({
   billList,
   filteredBill,
   searchText,
-  getBill,
   ...props
 }) => {
   const [billDetail, setBillDetail] = useState([]);
@@ -38,7 +37,6 @@ const BillingList = ({
       console.log(err);
     }
   };
-  console.log(billDetail);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -47,9 +45,7 @@ const BillingList = ({
   return (
     <>
       {getBillList().length === 0 ? (
-        <h3 className="text-danger fw-bold text-center mt-5">
-          ไม่พบข้อมูลที่ค้นหา
-        </h3>
+        <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Table
           responsive
@@ -61,8 +57,6 @@ const BillingList = ({
               textAlign: 'center',
               color: 'black',
               fontWeight: 'bold',
-              fontSize: '18px',
-              height: '30px',
               border: 'none',
             }}
           >
@@ -95,6 +89,11 @@ const BillingList = ({
                       getBillDetail(bill.invoiceID);
                       setBillInfoModalOpen(true);
                     }}
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }}
                   >
                     <img
                       src={BillInfo}
@@ -126,7 +125,7 @@ const BillingList = ({
                           </span>
                         </h6>
                       </Col>
-                      <Col>
+                      <Col md={6}>
                         <h6 className="fw-bold">
                           วันที่/Date:
                           <span className="fs-6 ms-3 fw-normal">

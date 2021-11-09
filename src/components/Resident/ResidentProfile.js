@@ -37,7 +37,7 @@ const ResidentProfile = (props) => {
   return (
     <>
       <h1>
-        ข้อมูลส่วนตัว <i className="fas fa-user-circle"></i>
+        ข้อมูลส่วนตัว &nbsp;<i className="fas fa-user-circle"></i>
       </h1>
       <Container className="w-75 mt-3">
         <Container

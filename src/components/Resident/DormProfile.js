@@ -27,9 +27,8 @@ const DormProfile = (props) => {
     };
 
     getDormProfile();
-  }, [props.dormId, dormData]);
-
-  // console.log(dormData);
+    //eslint-disable-next-line
+  }, [props.dormId]);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -37,7 +36,7 @@ const DormProfile = (props) => {
   return (
     <>
       <h1>
-        ข้อมูลหอพัก <i className="fas fa-info-circle"></i>
+        ข้อมูลหอพัก &nbsp;<i className="fas fa-info-circle"></i>
       </h1>
 
       <Container className="w-75 mb-5">
@@ -46,33 +45,33 @@ const DormProfile = (props) => {
           style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row className="mb-3">
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={4}>
               <h6 className="fw-bold">ชื่อหอพัก (ไทย):</h6>
             </Col>
-            <Col xs={6} sm={6} md={3}>
+            <Col xs={6} sm={6} md={6}>
               <p>{dormData.DORMNAMETH}</p>
             </Col>
-            <Col xs={6} sm={6} md={3}>
+            <Col xs={6} sm={6} md={4}>
               <h6 className="fw-bold">ชื่อหอพัก (อังกฤษ):</h6>
             </Col>
-            <Col xs={6} sm={6} md={3}>
+            <Col xs={6} sm={6} md={6}>
               <p>{dormData.DORMNAMEENG}</p>
             </Col>
           </Row>
           <Row className="mb-3">
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={4}>
               <h6 className="fw-bold">เบอร์โทรศัพท์:</h6>
             </Col>
-            <Col xs={6} sm={6} md={10}>
+            <Col xs={6} sm={6} md={6}>
               <p>{dormData.TELNO}</p>
             </Col>
           </Row>
 
           <Row className="mb-3">
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={4}>
               <h6 className="fw-bold">ที่อยู่:</h6>
             </Col>
-            <Col xs={6} sm={6} md={10}>
+            <Col xs={6} sm={6} md={8}>
               <p>{dormData.ADDRESS}</p>
             </Col>
           </Row>

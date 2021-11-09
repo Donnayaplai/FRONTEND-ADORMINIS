@@ -32,14 +32,15 @@ const ResidentComplainDetail = (props) => {
     }
   };
 
-  console.log(props.match.params.rentId);
-
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
   return (
     <>
-      <h1 className="fw-bold">รายละเอียดเรื่องร้องเรียน</h1>
+      <h1>
+        รายละเอียดเรื่องร้องเรียน &nbsp;
+        <i className="fas fa-info" style={{ maxWidth: '1.5em' }}></i>
+      </h1>
       <Container className="w-75">
         <Row key={complainDetail.problemID} className="mt-5">
           <Col style={{ float: 'left' }} md={4}>
