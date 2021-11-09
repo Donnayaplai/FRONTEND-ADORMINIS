@@ -30,7 +30,6 @@ function App() {
           },
         })
         .then((data) => {
-          console.log(data.data);
           setUserId(data.data.USERID);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
