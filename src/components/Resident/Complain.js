@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Complain/ComplainPagination';
-import './Complain.css';
-import { useHistory } from 'react-router';
+import complain from '../../assets/images/complain.png';
 
 const ResidentComplain = (props) => {
   const history = useHistory();
@@ -36,7 +36,7 @@ const ResidentComplain = (props) => {
     setFilteredComplain(
       copyComplainList.filter(
         (complain) =>
-          complain.ROOMNO.includes(text) || complain.TITLE.includes(text)
+          complain.INFORMEDDATE.includes(text) || complain.TITLE.includes(text)
       )
     );
   };
@@ -58,7 +58,6 @@ const ResidentComplain = (props) => {
       console.error(error);
     }
   };
-  // console.log(complainList);
 
   // Get current page
   const indexOfLastComplain = currentPage * problemsPerPage;
@@ -83,7 +82,9 @@ const ResidentComplain = (props) => {
           inputs
         )
         .then(window.alert('การแจ้งปัญหาเสร็จสิ้น'))
-        .then(window.location.reload())
+        .then(setComplainModalOpen(false))
+        .then(setTitle(''))
+        .then(setDetail(''))
         .then(() => {
           getAllResidentProblems();
         });
@@ -91,8 +92,6 @@ const ResidentComplain = (props) => {
       console.error(error);
     }
   };
-  // console.log(props.rentId, 'rentID');
-  // console.log(props.dormId, 'dormID');
 
   const Cancle = async () => {
     setComplainModalOpen(false);
@@ -102,26 +101,27 @@ const ResidentComplain = (props) => {
 
   return (
     <Container>
-      <h1>เรื่องร้องเรียน</h1>
-
+      <h1>
+        เรื่องร้องเรียน &nbsp;
+        <img src={complain} alt="All problems" style={{ maxWidth: '1.5em' }} />
+      </h1>
       <Row className="mt-3">
-        <Col xs={8} sm={8} md={6} className="mx-auto">
+        <Col xs={8} sm={8} md={8} className="mx-auto">
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
           />
         </Col>
       </Row>
-      <Container className="w-75">
+      <Container>
         <Row className="mt-3">
-          <Col>
+          <Col xs={12} sm={7} md={6}>
             <h3>ประวัติและสถานะ</h3>
           </Col>
-          <Col>
+          <Col sm={5} md={6}>
             <h3>
               <Button
                 variant="secondary"
-                size="lg"
                 onClick={handleShow}
                 style={{ float: 'right' }}
               >
@@ -130,57 +130,8 @@ const ResidentComplain = (props) => {
             </h3>
           </Col>
         </Row>
-        <Form>
-          <Modal
-            show={complainModalOpen}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeButton onClick={Cancle}>
-              <Modal.Title>
-                <h2>แจ้งปัญหา</h2>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Container
-                className="px-3 py-3 rounded mb-3"
-                style={{ backgroundColor: '#EAE7E2' }}
-              >
-                <Form.Group className="mb-3">
-                  <Form.Label>ชื่อเรื่อง</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="โปรดระบุปัญหาที่ต้องการแจ้ง"
-                    name="title"
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>รายละเอียด</Form.Label>
-                  <Form.Control
-                    type="text"
-                    rows={3}
-                    name="detail"
-                    onChange={(e) => setDetail(e.target.value)}
-                  />
-                </Form.Group>
-              </Container>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={Cancle}>
-                ยกเลิก
-              </Button>
-              <Button variant="primary" type="submit" onClick={submitValue}>
-                ตกลง
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Form>
-
         <ResidentComplainList
           complainList={currentProblems}
-          getAllResidentProblems={getAllResidentProblems}
           loading={loading}
           filteredComplain={filteredComplain}
           searchText={searchText}
@@ -192,6 +143,53 @@ const ResidentComplain = (props) => {
           paginate={paginate}
         />
       </Container>
+      <Form>
+        <Modal
+          show={complainModalOpen}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton onClick={Cancle}>
+            <Modal.Title>
+              <h2>แจ้งปัญหา</h2>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Container
+              className="px-3 py-3 rounded mb-3"
+              style={{ backgroundColor: '#EAE7E2' }}
+            >
+              <Form.Group className="mb-3">
+                <Form.Label>ชื่อเรื่อง</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="โปรดระบุปัญหาที่ต้องการแจ้ง"
+                  name="title"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>รายละเอียด</Form.Label>
+                <Form.Control
+                  type="text"
+                  rows={3}
+                  name="detail"
+                  onChange={(e) => setDetail(e.target.value)}
+                />
+              </Form.Group>
+            </Container>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={Cancle}>
+              ยกเลิก
+            </Button>
+            <Button id="btn-add" type="submit" onClick={submitValue}>
+              ตกลง
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Form>
     </Container>
   );
 };
