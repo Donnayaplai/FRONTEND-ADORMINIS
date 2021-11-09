@@ -12,10 +12,7 @@ const Pagination = ({ invoicePerPage, totalInvoices, paginate }) => {
     <div>
       <ul
         className="pagination"
-        style={{
-          marginLeft: '50%',
-          transform: 'translateX(-50%)',
-        }}
+        style={{ marginLeft: '50%', marginRight: '50%' }}
       >
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
