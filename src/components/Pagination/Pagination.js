@@ -22,7 +22,7 @@ const Pagination = ({
       <ul className="pagination">
         <li className="page-item">
           <Link className="page-link" to="#" onClick={() => prevPage()}>
-            Previous
+            ก่อนหน้า
           </Link>
         </li>
         {pageNumbers.map((num) => (
@@ -34,7 +34,7 @@ const Pagination = ({
         ))}
         <li className="page-item">
           <Link className="page-link" to="#" onClick={() => nextPage()}>
-            Next
+            ต่อไป
           </Link>
         </li>
       </ul>
