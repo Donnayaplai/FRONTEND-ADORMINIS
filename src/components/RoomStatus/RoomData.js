@@ -11,6 +11,7 @@ import {
   Form,
   Table,
 } from 'react-bootstrap';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import RemoveUser from '../../assets/images/delete.png';
@@ -42,6 +43,7 @@ const RoomData = ({
 
   //Data
   const [editUserID, seteditUserID] = useState(null);
+  const history = useHistory();
 
   // const [checked, setChecked] = useState([]);
   // const [costList] = useState([
@@ -113,8 +115,10 @@ const RoomData = ({
       await axios
         .post(`${env.url}api/room/edit/${RENTID}`, residentInfo[i])
         .then(window.alert('การแก้ไขข้อมูลเสร็จสิ้น'))
-        .then(resInfoModalOpen(false))
-        .then(getRoomList());
+        .then(getAllRoom())
+        .then(history.go(1))
+        .then(setEditMode(false))
+        .then(setResInfoModalOpen(false));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -143,9 +147,10 @@ const RoomData = ({
       await axios
         .post(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
         .then(window.alert('การลบผู้เช่าเสร็จสิ้น'))
+        .then(getAllRoom())
         .then(setShowConfirmDeleteModal(false))
         .then(setResInfoModalOpen(false))
-        .then(getRoomList());
+        .then(history.go(1));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -179,7 +184,6 @@ const RoomData = ({
   };
 
   const Cancle = async () => {
-    // setSelectRoom('');
     setSelectRoomID('');
     setSelectRentID('');
     setResInfoModalOpen(false);
@@ -436,7 +440,7 @@ const RoomData = ({
                           );
                         })}
                         {/* render cost ทั้งหมด => เอาแต่ละค่าไป check กับ cost ที่มีอยู่แล้ว */}
-                        [1,2,3][1,2]
+                        {/* [1,2,3][1,2] */}
                         {/* .indexOf */}
                       </Col>
                     </Row>
