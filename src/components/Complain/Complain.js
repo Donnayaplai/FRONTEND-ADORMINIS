@@ -6,7 +6,6 @@ import { useHistory } from 'react-router';
 import ComplainList from './ComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
-import problem from '../../assets/images/problem.png';
 
 const Complain = (props) => {
   const history = useHistory();
@@ -68,7 +67,7 @@ const Complain = (props) => {
     <>
       <h1>
         เรื่องร้องเรียน &nbsp;
-        <img src={problem} alt="All problem" style={{ maxWidth: '1.5em' }} />
+        <i className="fas fa-exclamation-triangle"></i>
       </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={6} className="mx-auto">

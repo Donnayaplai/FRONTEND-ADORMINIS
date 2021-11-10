@@ -3,7 +3,6 @@ import { Container, Row, Col, Table, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import BillInfo from '../../assets/images/billinfo.png';
 
 const InvoiceList = ({
   invoiceList,
@@ -100,11 +99,7 @@ const InvoiceList = ({
                         setInvoiceInfoModalOpen(true);
                       }}
                     >
-                      <img
-                        src={BillInfo}
-                        alt="Bill information"
-                        style={{ maxWidth: '2em' }}
-                      />
+                      <i className="fas fa-info-circle text-dark fs-3"></i>
                     </Button>
                   </td>
                 </tr>
@@ -117,7 +112,7 @@ const InvoiceList = ({
               >
                 <Modal.Header closeButton onClick={Cancle}>
                   <Modal.Title>
-                    <h3 className="fw-bold">
+                    <h3>
                       รายละเอียดใบแจ้งหนี้ &nbsp;
                       <i className="fas fa-file-invoice"></i>
                     </h3>

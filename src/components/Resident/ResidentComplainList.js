@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Table, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import Info from '../../assets/images/billinfo.png';
 import Delete from '../../assets/images/delete.png';
 import axios from 'axios';
 import env from '../../env';
@@ -141,11 +140,7 @@ const ResidentComplainList = ({
                         boxShadow: 'none',
                       }}
                     >
-                      <img
-                        src={Info}
-                        alt="Complain Detail"
-                        style={{ maxWidth: '2em' }}
-                      />
+                      <i className="fas fa-info-circle text-dark fs-3"></i>
                     </Button>
                   </Link>
                 </td>

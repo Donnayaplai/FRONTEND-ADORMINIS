@@ -3,7 +3,7 @@ import { Table, Modal, Button, Container, Col, Row } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import BillInfo from '../../assets/images/billinfo.png';
+
 const BillingList = ({
   loading,
   billList,
@@ -95,11 +95,7 @@ const BillingList = ({
                       boxShadow: 'none',
                     }}
                   >
-                    <img
-                      src={BillInfo}
-                      alt="Bill information"
-                      style={{ width: '1.5em' }}
-                    />
+                    <i className="fas fa-info-circle text-dark fs-3"></i>
                   </Button>
                 </td>
               </tr>

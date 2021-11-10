@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import env from '../../env';
 import axios from 'axios';
 import building from '../../assets/images/building.jpg';
-import buildings from '../../assets/images/dormitory.png';
+
 import './BuildingList.css';
 
 const BuildingList = (props) => {
@@ -38,12 +38,7 @@ const BuildingList = (props) => {
     <>
       <Container>
         <h1>
-          อาคารทั้งหมด &nbsp;
-          <img
-            src={buildings}
-            alt="All building"
-            style={{ maxWidth: '1.5em' }}
-          />
+          อาคารทั้งหมด &nbsp;<i className="fas fa-building"></i>
         </h1>
         <Row className="mt-3">
           {loading &&

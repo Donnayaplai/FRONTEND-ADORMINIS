@@ -318,7 +318,7 @@ const RoomData = ({
                       <i
                         className="fas fa-info-circle"
                         style={{
-                          color: '#8D9293',
+                          color: '#000',
                           fontSize: '2em',
                         }}
                       ></i>
@@ -365,7 +365,10 @@ const RoomData = ({
                   style={{ backgroundColor: '#C7E5F0' }}
                 >
                   <Modal.Title>
-                    <h2 className="fw-bold">ข้อมูลห้องพัก</h2>
+                    <h2>
+                      ข้อมูลห้องพัก &nbsp;
+                      <i className="fas fa-info-circle text-dark fs-3"></i>
+                    </h2>
                   </Modal.Title>
                 </Modal.Header>
 

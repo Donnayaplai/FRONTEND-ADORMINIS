@@ -2,7 +2,6 @@ import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import Info from '../../assets/images/billinfo.png';
 
 const ComplainList = ({
   complainList,
@@ -116,11 +115,7 @@ const ComplainList = ({
                         boxShadow: 'none',
                       }}
                     >
-                      <img
-                        src={Info}
-                        alt="Complain Detail"
-                        style={{ maxWidth: '2em' }}
-                      />
+                      <i className="fas fa-info-circle text-dark fs-3"></i>
                     </Button>
                   </Link>
                 </td>

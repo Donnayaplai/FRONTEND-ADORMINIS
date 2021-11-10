@@ -4,7 +4,6 @@ import env from '../../env';
 import { Row, Container, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Redirect, withRouter } from 'react-router';
-import detail from '../../assets/images/detail.png';
 
 const ComplainDetail = (props) => {
   const [complainDetail, setComplainDetail] = useState([]);
@@ -48,8 +47,8 @@ const ComplainDetail = (props) => {
   return (
     <>
       <h1>
-        รายละเอียดเรื่องร้องเรียน&nbsp;
-        <img src={detail} alt="All problem" style={{ maxWidth: '1.5em' }} />
+        รายละเอียดเรื่องร้องเรียน &nbsp;
+        <i className="fas fa-file"></i>
       </h1>
       <Container className="w-75">
         <Row key={complainDetail.problemID} className="mt-5">

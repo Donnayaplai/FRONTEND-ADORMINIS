@@ -6,7 +6,6 @@ import { useHistory } from 'react-router';
 import BillingList from './BillingList';
 import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
-import bill from '../../assets/images/bill.png';
 
 const Bill = (props) => {
   const history = useHistory();
@@ -67,7 +66,7 @@ const Bill = (props) => {
     <Container>
       <h1>
         ใบแจ้งหนี้ทั้งหมด &nbsp;
-        <img src={bill} alt="All invoices" style={{ maxWidth: '1.5em' }} />
+        <i className="fas fa-file-invoice-dollar"></i>
       </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={8} className="mx-auto">
