@@ -4,7 +4,8 @@ import env from '../../env';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import BillingList from './BillingList';
-import BillPagination from './BillPagination';
+// import BillPagination from './BillPagination';
+import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 import bill from '../../assets/images/bill.png';
 
@@ -18,25 +19,27 @@ const Bill = (props) => {
   const [billList, setBillList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [billPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
   const [filteredBill, setFilteredBill] = useState([]);
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    let getBill = async () => {
-      try {
-        const response = await axios.get(
-          `${env.url}invoice/history/${props.rentId}`
-        );
-        setBillList(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
-    };
     getBill();
     //eslint-disable-next-line
   }, [props.rentId]);
+
+  let getBill = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${env.url}invoice/history/${props.rentId}`
+      );
+      setBillList(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSearchInput = (e) => {
     const text = e.target.value;
@@ -50,13 +53,17 @@ const Bill = (props) => {
     );
   };
 
-  // Get current page
-  const indexOfLastBill = currentPage * billPerPage;
-  const indexOfFirstBill = indexOfLastBill - billPerPage;
-  const currentBill = billList.slice(indexOfFirstBill, indexOfLastBill);
-
   // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = billList.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(currentData + 1);
+
+  const prevPage = () => setCurrentPage(currentData - 1);
+
   return (
     <Container>
       <h1>
@@ -71,18 +78,21 @@ const Bill = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75">
+      <Container>
         <BillingList
-          billList={currentBill}
+          billList={currentData}
           loading={loading}
           filteredBill={filteredBill}
           searchText={searchText}
           dormId={props.dormId}
         />
-        <BillPagination
-          billPerPage={billPerPage}
-          totalBill={billList.length}
+
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          totalData={billList.length}
           paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
         />
       </Container>
     </Container>

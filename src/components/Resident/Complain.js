@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
-import Pagination from './ComplainPaginate';
+import Pagination from '../Pagination/Pagination';
 import complain from '../../assets/images/complain.png';
 
 const ResidentComplain = (props) => {
@@ -18,7 +18,7 @@ const ResidentComplain = (props) => {
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [problemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
   const [filteredComplain, setFilteredComplain] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [complainModalOpen, setComplainModalOpen] = useState(false);
@@ -59,16 +59,16 @@ const ResidentComplain = (props) => {
     }
   };
 
-  // Get current page
-  const indexOfLastComplain = currentPage * problemsPerPage;
-  const indexOfFirstComplain = indexOfLastComplain - problemsPerPage;
-  const currentProblems = complainList.slice(
-    indexOfFirstComplain,
-    indexOfLastComplain
-  );
-
   // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = complainList.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(currentData + 1);
+
+  const prevPage = () => setCurrentPage(currentData - 1);
 
   let submitValue = async () => {
     try {
@@ -131,7 +131,7 @@ const ResidentComplain = (props) => {
           </Col>
         </Row>
         <ResidentComplainList
-          complainList={currentProblems}
+          complainList={currentData}
           loading={loading}
           filteredComplain={filteredComplain}
           searchText={searchText}
@@ -139,9 +139,11 @@ const ResidentComplain = (props) => {
         />
 
         <Pagination
-          problemsPerPage={problemsPerPage}
-          totalProblems={complainList.length}
+          itemsPerPage={itemsPerPage}
+          totalData={complainList.length}
           paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
         />
       </Container>
       <Form>
