@@ -3,7 +3,6 @@ import { Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Info from '../../assets/images/billinfo.png';
-import './Complain.css';
 
 const ComplainList = ({
   complainList,

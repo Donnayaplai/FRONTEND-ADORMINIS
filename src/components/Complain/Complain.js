@@ -5,7 +5,7 @@ import env from '../../env';
 import { useHistory } from 'react-router';
 import ComplainList from './ComplainList';
 import Search from '../Search/Search';
-import Pagination from './ComplainPagination';
+import Pagination from '../Pagination/Pagination';
 import problem from '../../assets/images/problem.png';
 
 const Complain = (props) => {
@@ -18,7 +18,7 @@ const Complain = (props) => {
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [problemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
   const [filteredComplain, setFilteredComplain] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -53,16 +53,16 @@ const Complain = (props) => {
     }
   };
 
-  // Get current page
-  const indexOfLastComplain = currentPage * problemsPerPage;
-  const indexOfFirstComplain = indexOfLastComplain - problemsPerPage;
-  const currentProblems = complainList.slice(
-    indexOfFirstComplain,
-    indexOfLastComplain
-  );
-
   // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = complainList.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(currentData + 1);
+
+  const prevPage = () => setCurrentPage(currentData - 1);
 
   return (
     <>
@@ -80,7 +80,7 @@ const Complain = (props) => {
       </Row>
       <Container>
         <ComplainList
-          complainList={currentProblems}
+          complainList={currentData}
           getAllComplain={getAllComplain}
           loading={loading}
           filteredComplain={filteredComplain}
@@ -88,9 +88,11 @@ const Complain = (props) => {
           dormId={props.dormId}
         />
         <Pagination
-          problemsPerPage={problemsPerPage}
-          totalProblems={complainList.length}
+          itemsPerPage={itemsPerPage}
+          totalData={complainList.length}
           paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
         />
       </Container>
     </>
