@@ -86,7 +86,7 @@ const AdminProfile = (props) => {
             <Col md={4} sm={6} xs={6}>
               <p>{userProfile.DATEOFBIRTH}</p>
             </Col>
-            <Col md={3} sm={6} xs={6}>
+            <Col md={2} sm={6} xs={6}>
               <p className="fw-bold">เบอร์โทรศัพท์</p>
             </Col>
             <Col md={3} sm={6} xs={6}>
