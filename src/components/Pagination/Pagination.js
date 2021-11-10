@@ -21,19 +21,19 @@ const Pagination = ({
     >
       <ul className="pagination">
         <li className="page-item">
-          <Link className="page-link" href="#" onClick={() => prevPage()}>
+          <Link className="page-link" to="#" onClick={() => prevPage()}>
             Previous
           </Link>
         </li>
         {pageNumbers.map((num) => (
           <li className="page-item" key={num}>
-            <Link onClick={() => paginate(num)} href="#" className="page-link">
+            <Link onClick={() => paginate(num)} to="#" className="page-link">
               {num}
             </Link>
           </li>
         ))}
         <li className="page-item">
-          <Link className="page-link" href="#" onClick={() => nextPage()}>
+          <Link className="page-link" to="#" onClick={() => nextPage()}>
             Next
           </Link>
         </li>
