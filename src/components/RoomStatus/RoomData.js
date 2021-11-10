@@ -718,7 +718,7 @@ const RoomData = ({
                                 บันทึก
                               </Button>
                               <Button
-                                variant="secondary"
+                                variant="primary"
                                 className=" me-3"
                                 xs={12}
                                 md={12}
@@ -749,7 +749,7 @@ const RoomData = ({
                     ยกเลิก
                   </Button>
                   <Button variant="primary" onClick={() => removeResident()}>
-                    ยืนยัน
+                    ตกลง
                   </Button>
                 </Modal.Footer>
               </Modal>
