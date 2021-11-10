@@ -4,7 +4,6 @@ import env from '../../env';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import BillingList from './BillingList';
-// import BillPagination from './BillPagination';
 import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 import bill from '../../assets/images/bill.png';

@@ -703,7 +703,7 @@ const RoomData = ({
                           <Row className="mt-3">
                             <Col>
                               <Button
-                                variant="secondary"
+                                variant="success"
                                 xs={12}
                                 md={12}
                                 lg={12}

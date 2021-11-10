@@ -3,7 +3,7 @@ import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col } from 'react-bootstrap';
 import InvoiceList from './InvoiceList';
-import Pagination from './InvoicePagination';
+import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 import { withRouter, useHistory } from 'react-router';
 import invoices from '../../assets/images/invoice.png';
@@ -18,7 +18,7 @@ const Invoice = (props) => {
   const [invoiceList, setInvoiceList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [invoicePerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
   const [filteredInvoice, setFilteredInvoice] = useState([]);
   const [searchText, setSearchText] = useState('');
 
@@ -52,17 +52,16 @@ const Invoice = (props) => {
     }
   };
 
-  // Get current page
-  const indexOfLastInvoice = currentPage * invoicePerPage;
-  const indexOfFirstInvoice = indexOfLastInvoice - invoicePerPage;
-  const currentInvoice = invoiceList.slice(
-    indexOfFirstInvoice,
-    indexOfLastInvoice
-  );
-
   // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = invoiceList.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const nextPage = () => setCurrentPage(currentData + 1);
+
+  const prevPage = () => setCurrentPage(currentData - 1);
   return (
     <Container>
       <h1>
@@ -79,7 +78,7 @@ const Invoice = (props) => {
       </Row>
       <Container>
         <InvoiceList
-          invoiceList={currentInvoice}
+          invoiceList={currentData}
           getAllInvoice={getAllInvoice}
           loading={loading}
           filteredInvoice={filteredInvoice}
@@ -87,9 +86,11 @@ const Invoice = (props) => {
           dormId={props.dormId}
         />
         <Pagination
-          invoicePerPage={invoicePerPage}
-          totalInvoices={invoiceList.length}
+          itemsPerPage={itemsPerPage}
+          totalData={invoiceList.length}
           paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
         />
       </Container>
     </Container>

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import RoomData from './RoomData';
-import Pagination from './Pagination';
+import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 
 const MainRoom = (props) => {
@@ -21,7 +21,7 @@ const MainRoom = (props) => {
   const [filteredRoom, setFilteredRoom] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [roomsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
 
   const { buildingid } = useParams();
 
@@ -48,13 +48,16 @@ const MainRoom = (props) => {
     setFilteredRoom(copyRoom.filter((room) => room.ROOMNO.includes(text)));
   };
 
-  // Get current page
-  const indexOfLastRoom = currentPage * roomsPerPage;
-  const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
-  const currentRooms = roomData.slice(indexOfFirstRoom, indexOfLastRoom);
-
   // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentData = roomData.slice(indexOfFirstItem, indexOfLastItem);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(currentData + 1);
+
+  const prevPage = () => setCurrentPage(currentData - 1);
 
   return (
     <Container>
@@ -72,7 +75,7 @@ const MainRoom = (props) => {
       </Row>
       <Container className="w-75">
         <RoomData
-          roomData={currentRooms}
+          roomData={currentData}
           getAllRoom={getAllRoom}
           loading={loading}
           filteredRoom={filteredRoom}
@@ -80,9 +83,11 @@ const MainRoom = (props) => {
           dormId={props.dormId}
         />
         <Pagination
-          roomsPerPage={roomsPerPage}
-          totalRooms={roomData.length}
+          itemsPerPage={itemsPerPage}
+          totalData={roomData.length}
           paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
         />
       </Container>
     </Container>
