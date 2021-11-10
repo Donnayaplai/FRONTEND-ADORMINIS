@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import env from '../../env';
-import { Link } from 'react-router-dom';
-import { Card, Form, Col, Row, Container, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
-import { Redirect } from 'react-router';
-import './RegisterLogin.css';
+import React, { useState } from "react";
+import axios from "axios";
+import env from "../../env";
+import { Link } from "react-router-dom";
+import { Card, Form, Col, Row, Container, Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { Redirect } from "react-router";
+import "./RegisterLogin.css";
 
 const AdminRegister = () => {
   const {
@@ -21,7 +21,7 @@ const AdminRegister = () => {
     try {
       await axios
         .post(`${env.url}api/user/adminRegister`, data)
-        .then(window.alert('การลงทะเบียนเสร็จสิ้น กรุณาเข้าสู่ระบบอีกครั้ง '))
+        .then(window.alert("การลงทะเบียนเสร็จสิ้น กรุณาเข้าสู่ระบบอีกครั้ง "))
         .then(<Redirect to="/login" />);
     } catch (err) {
       if (err.response && err.response.data) {
@@ -47,14 +47,15 @@ const AdminRegister = () => {
         <Card
           className="mx-auto p-3 mb-5 border-0 rounded shadow-sm mx-auto"
           style={{
-            backgroundColor: '#EAE7E2',
-            maxWidth: '800px',
-            width: '100%',
+            backgroundColor: "#EAE7E2",
+            maxWidth: "800px",
+            width: "100%",
           }}
         >
           <Row>
             <Col>
               <button
+                style={{ float: "right" }}
                 type="button"
                 onClick={() => reset()}
                 className="btn btn-secondary"
@@ -70,9 +71,9 @@ const AdminRegister = () => {
                 type="text"
                 placeholder="ชื่อ"
                 name="fname"
-                {...register('fName', { required: 'โปรดกรอกชื่อจริง' })}
+                {...register("fName", { required: "โปรดกรอกชื่อจริง" })}
                 onKeyUp={() => {
-                  trigger('fName');
+                  trigger("fName");
                 }}
               />
               {errors.fName && (
@@ -85,9 +86,9 @@ const AdminRegister = () => {
               <Form.Control
                 type="text"
                 placeholder="นามสกุล"
-                {...register('lName', { required: 'โปรดกรอกนามสกุล' })}
+                {...register("lName", { required: "โปรดกรอกนามสกุล" })}
                 onKeyUp={() => {
-                  trigger('lName');
+                  trigger("lName");
                 }}
               />
               {errors.lName && (
@@ -95,19 +96,19 @@ const AdminRegister = () => {
               )}
             </Form.Group>
             <Form.Group as={Col}>
-              <Form.Label sm={'auto'} xs={'auto'}>
+              <Form.Label sm={"auto"} xs={"auto"}>
                 วันเกิด
               </Form.Label>
               <Form.Control
-                sm={'auto'}
-                xs={'auto'}
+                sm={"auto"}
+                xs={"auto"}
                 type="date"
                 name="dateOfBirth"
-                {...register('dateOfBirth', {
-                  required: 'โปรดกรอกวัน/เดือน/ปี เกิด',
+                {...register("dateOfBirth", {
+                  required: "โปรดกรอกวัน/เดือน/ปี เกิด",
                 })}
                 onKeyUp={() => {
-                  trigger('dateOfBirth');
+                  trigger("dateOfBirth");
                 }}
               />
               {errors.dateOfBirth && (
@@ -120,29 +121,29 @@ const AdminRegister = () => {
 
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label sm={'auto'} xs={'auto'}>
+              <Form.Label sm={"auto"} xs={"auto"}>
                 รหัสบัตรประชาชน
               </Form.Label>
               <Form.Control
-                sm={'auto'}
-                xs={'auto'}
+                sm={"auto"}
+                xs={"auto"}
                 type="text"
                 placeholder="รหัสบัตรประชาชน"
                 name="idCardNo"
-                className={`form-control ${errors.idCardNo && 'invalid'}`}
-                {...register('idCardNo', {
-                  required: 'โปรดกรอกรหัสบัตรประชาชน',
+                className={`form-control ${errors.idCardNo && "invalid"}`}
+                {...register("idCardNo", {
+                  required: "โปรดกรอกรหัสบัตรประชาชน",
                   minLength: {
                     value: 13,
-                    message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                    message: "รหัสบัตรประชาชนควรมี 13 หลัก",
                   },
                   maxLength: {
                     value: 13,
-                    message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
+                    message: "รหัสบัตรประชาชนควรมี 13 หลัก",
                   },
                 })}
                 onKeyUp={() => {
-                  trigger('idCardNo');
+                  trigger("idCardNo");
                 }}
               />
               {errors.idCardNo && (
@@ -154,11 +155,11 @@ const AdminRegister = () => {
               <Form.Select
                 defaultValue="เลือกเพศ..."
                 name="gender"
-                {...register('gender', {
-                  required: 'โปรดกรอกเพศ',
+                {...register("gender", {
+                  required: "โปรดกรอกเพศ",
                 })}
                 onKeyUp={() => {
-                  trigger('gender');
+                  trigger("gender");
                 }}
               >
                 <option>เลือกเพศ...</option>
@@ -174,19 +175,19 @@ const AdminRegister = () => {
               <Form.Label>เบอร์โทรศัพท์</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="0xx-xxx-xxxx"
+                placeholder="0xxxxxxxxx"
                 name="telno"
-                className={`form-control ${errors.telNo && 'invalid'}`}
-                {...register('telNo', {
-                  required: 'โปรดกรอกเบอร์โทรศัพท์',
+                className={`form-control ${errors.telNo && "invalid"}`}
+                {...register("telNo", {
+                  required: "โปรดกรอกเบอร์โทรศัพท์",
                   pattern: {
                     value:
                       /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                    message: 'เบอร์โทรศัพท์',
+                    message: "เบอร์โทรศัพท์",
                   },
                 })}
                 onKeyUp={() => {
-                  trigger('telNo');
+                  trigger("telNo");
                 }}
               />
               {errors.telNo && (
@@ -221,16 +222,16 @@ const AdminRegister = () => {
                 type="email"
                 placeholder="อีเมล"
                 name="email"
-                className={`form-control ${errors.email && 'invalid'}`}
-                {...register('email', {
-                  required: 'โปรดกรอกอีเมล',
+                className={`form-control ${errors.email && "invalid"}`}
+                {...register("email", {
+                  required: "โปรดกรอกอีเมล",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: 'โปรดกรอกอีเมลให้ถูกต้อง',
+                    message: "โปรดกรอกอีเมลให้ถูกต้อง",
                   },
                 })}
                 onKeyUp={() => {
-                  trigger('email');
+                  trigger("email");
                 }}
               />
               {errors.email && (
@@ -244,20 +245,20 @@ const AdminRegister = () => {
                 type="password"
                 placeholder="รหัสผ่าน"
                 name="password"
-                className={`form-control ${errors.password && 'invalid'}`}
-                {...register('password', {
-                  required: 'โปรดกรอกรหัสผ่าน',
+                className={`form-control ${errors.password && "invalid"}`}
+                {...register("password", {
+                  required: "โปรดกรอกรหัสผ่าน",
                   minLength: {
                     value: 6,
-                    message: 'รหัสผ่านควรมีอย่างน้อย 6 ตัว',
+                    message: "รหัสผ่านควรมีอย่างน้อย 6 ตัว",
                   },
                   maxLength: {
                     value: 20,
-                    message: 'รหัสผ่านควรสามารถมีได้มากสุด 20 ตัว',
+                    message: "รหัสผ่านควรสามารถมีได้มากสุด 20 ตัว",
                   },
                 })}
                 onKeyUp={() => {
-                  trigger('password');
+                  trigger("password");
                 }}
               />
               {errors.password && (
@@ -273,8 +274,8 @@ const AdminRegister = () => {
               type="submit"
               className="mt-3"
               style={{
-                marginLeft: '50%',
-                transform: 'translateX(-50%)',
+                marginLeft: "50%",
+                transform: "translateX(-50%)",
               }}
             >
               ลงทะเบียน <i className="fas fa-sign-in-alt"></i>

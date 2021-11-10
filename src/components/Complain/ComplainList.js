@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, Table } from 'react-bootstrap';
-import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Button, Table } from "react-bootstrap";
+import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 const ComplainList = ({
   complainList,
@@ -12,7 +12,7 @@ const ComplainList = ({
   ...props
 }) => {
   const getComplainList = () => {
-    if (searchText === '') {
+    if (searchText === "") {
       return complainList;
     } else {
       return filteredComplain;
@@ -32,11 +32,11 @@ const ComplainList = ({
         >
           <thead
             style={{
-              backgroundColor: '#C7E5F0',
-              textAlign: 'center',
-              color: 'black',
-              fontWeight: 'bold',
-              border: 'none',
+              backgroundColor: "#C7E5F0",
+              textAlign: "center",
+              color: "black",
+              fontWeight: "bold",
+              border: "none",
             }}
           >
             <tr>
@@ -53,9 +53,9 @@ const ComplainList = ({
               <tr
                 key={i}
                 style={{
-                  backgroundColor: '#EAE7E2',
-                  border: 'none',
-                  textAlign: 'center',
+                  backgroundColor: "#EAE7E2",
+                  border: "none",
+                  textAlign: "center",
                 }}
               >
                 <td>{list.INFORMEDDATE}</td>
@@ -67,13 +67,13 @@ const ComplainList = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: '#32CD32',
-                        color: '#fff',
-                        maxWidth: 'max-content',
-                        width: '100%',
-                        height: '30px',
-                        margin: '10px',
-                        padding: '3px',
+                        backgroundColor: "#32CD32",
+                        color: "#fff",
+                        maxWidth: "max-content",
+                        width: "100%",
+                        height: "30px",
+                        margin: "10px",
+                        padding: "3px",
                       }}
                       disabled
                     >
@@ -84,13 +84,13 @@ const ComplainList = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: '#FF0000',
-                        color: '#fff',
-                        maxWidth: 'max-content',
-                        width: '100%',
-                        height: '30px',
-                        margin: '10px',
-                        padding: '5px',
+                        backgroundColor: "#FF0000",
+                        color: "#fff",
+                        maxWidth: "max-content",
+                        width: "100%",
+                        height: "30px",
+                        margin: "10px",
+                        padding: "5px",
                       }}
                       disabled
                     >
@@ -110,9 +110,9 @@ const ComplainList = ({
                       className="btn"
                       onClick={() => {}}
                       style={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        boxShadow: 'none',
+                        backgroundColor: "transparent",
+                        border: "none",
+                        boxShadow: "none",
                       }}
                     >
                       <i className="fas fa-info-circle text-dark fs-3"></i>
