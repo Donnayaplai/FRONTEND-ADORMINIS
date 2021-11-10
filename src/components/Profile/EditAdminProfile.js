@@ -14,13 +14,7 @@ const EditAdminProfile = (props) => {
       history.push('/login');
     }
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    trigger,
-  } = useForm();
+  const { register, handleSubmit, reset, trigger } = useForm();
   const [error, setError] = useState(null);
   const [userProfile, setUserProfile] = useState([]);
 
@@ -41,6 +35,7 @@ const EditAdminProfile = (props) => {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data);
       await axios
         .post(`${env.url}api/user/edit/${props.match.params.userid}`, data)
         .then(window.alert('การแก้ไขข้อมูลเสร็จสิ้น'))
@@ -78,32 +73,27 @@ const EditAdminProfile = (props) => {
                 <Form.Control
                   type="text"
                   placeholder="ชื่อ"
-                  name="fname"
+                  name="fName"
                   defaultValue={userProfile.FNAME}
-                  {...register('fName', { required: 'โปรดกรอกชื่อจริง' })}
+                  {...register('fName')}
                   onKeyUp={() => {
                     trigger('fName');
                   }}
                 />
-                {errors.fName && (
-                  <small className="text-danger">{errors.fName.message}</small>
-                )}
               </Form.Group>
 
               <Form.Group as={Col}>
                 <Form.Label>นามสกุล</Form.Label>
                 <Form.Control
                   type="text"
+                  name="lName"
                   placeholder="นามสกุล"
                   defaultValue={userProfile.LNAME}
-                  {...register('lName', { required: 'โปรดกรอกนามสกุล' })}
+                  {...register('lName')}
                   onKeyUp={() => {
                     trigger('lName');
                   }}
                 />
-                {errors.lName && (
-                  <small className="text-danger">{errors.lName.message}</small>
-                )}
               </Form.Group>
             </Row>
 
@@ -118,42 +108,24 @@ const EditAdminProfile = (props) => {
                   type="date"
                   name="dateOfBirth"
                   defaultValue={userProfile.DATEOFBIRTH}
-                  {...register('dateOfBirth', {
-                    required: 'โปรดกรอกวัน/เดือน/ปี เกิด',
-                  })}
+                  {...register('dateOfBirth')}
                   onKeyUp={() => {
                     trigger('dateOfBirth');
                   }}
                 />
-                {errors.dateOfBirth && (
-                  <small className="text-danger">
-                    {errors.dateOfBirth.message}
-                  </small>
-                )}
               </Form.Group>
               <Form.Group as={Col}>
                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="0xx-xxx-xxxx"
-                  name="telno"
+                  name="telNo"
                   defaultValue={userProfile.TELNO}
-                  className={`form-control ${errors.telNo && 'invalid'}`}
-                  {...register('telNo', {
-                    required: 'โปรดกรอกเบอร์โทรศัพท์',
-                    pattern: {
-                      value:
-                        /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                      message: 'โปรดกรอกเบอร์โทรศัพท์ให้ครบถ้วน',
-                    },
-                  })}
+                  {...register('telNo')}
                   onKeyUp={() => {
                     trigger('telNo');
                   }}
                 />
-                {errors.telNo && (
-                  <small className="text-danger">{errors.telNo.message}</small>
-                )}
               </Form.Group>
             </Row>
             <Row className="mb-3">
@@ -164,21 +136,11 @@ const EditAdminProfile = (props) => {
                   placeholder="อีเมล"
                   name="email"
                   defaultValue={userProfile.EMAIL}
-                  className={`form-control ${errors.email && 'invalid'}`}
-                  {...register('email', {
-                    required: 'โปรดกรอกอีเมล',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'โปรดกรอกอีเมลให้ถูกต้อง',
-                    },
-                  })}
+                  {...register('email')}
                   onKeyUp={() => {
                     trigger('email');
                   }}
                 />
-                {errors.email && (
-                  <small className="text-danger">{errors.email.message}</small>
-                )}
               </Form.Group>
             </Row>
           </Container>
