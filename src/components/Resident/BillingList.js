@@ -62,7 +62,7 @@ const BillingList = ({
           >
             <tr>
               <th>รอบบิล</th>
-              <th>ราคารวม</th>
+              <th>ราคาค่าเช่า/เดือน</th>
               <th>รายละเอียด</th>
             </tr>
           </thead>
@@ -113,7 +113,7 @@ const BillingList = ({
                     style={{ backgroundColor: '#C7E5F0' }}
                   >
                     <Row>
-                      <Col>
+                      <Col md={6} sm={4} xs={6}>
                         <h6 className="fw-bold">
                           ห้อง/Room:
                           <span className="fs-6 ms-3 fw-normal">
@@ -121,7 +121,7 @@ const BillingList = ({
                           </span>
                         </h6>
                       </Col>
-                      <Col md={6}>
+                      <Col md={6} sm={6} xs={6}>
                         <h6 className="fw-bold">
                           วันที่/Date:
                           <span className="fs-6 ms-3 fw-normal">
@@ -129,7 +129,6 @@ const BillingList = ({
                           </span>
                         </h6>
                       </Col>
-                      <Col></Col>
                     </Row>
                     <Col>
                       <Table
