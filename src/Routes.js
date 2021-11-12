@@ -152,7 +152,7 @@ const Routes = (props) => {
             dormId={props.dormId}
           />
         </Route>
-        <Route path={`/resident/complain-detail/:problemid`}>
+        <Route path={`/resident/complain-detail/:problemID`}>
           <ResidentComplainDetail
             roleId={props.roleId}
             rentId={props.rentId}
