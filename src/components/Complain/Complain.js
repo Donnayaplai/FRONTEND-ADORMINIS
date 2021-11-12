@@ -67,7 +67,7 @@ const Complain = (props) => {
     <>
       <h1>
         เรื่องร้องเรียน &nbsp;
-        <i className="fas fa-exclamation-triangle"></i>
+        <i className="fas fa-comment-dots"></i>
       </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={6} className="mx-auto">

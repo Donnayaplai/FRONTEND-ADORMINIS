@@ -3,11 +3,13 @@ import axios from 'axios';
 import env from '../../env';
 import { Row, Container, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Redirect, withRouter } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
 
 const ComplainDetail = (props) => {
   const [complainDetail, setComplainDetail] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     getComplainDetail();
@@ -25,17 +27,15 @@ const ComplainDetail = (props) => {
       console.error(error);
     }
   };
-  // console.log(complainDetail);
+  console.log(complainDetail);
 
   //แก้ไขสถานะเรื่องร้องเรียน
   const changeComplainStatus = async () => {
     try {
       await axios
-        .get(`${env.url}complaint/revise/${props.match.params.problemid}`)
+        .post(`${env.url}complaint/revise/${props.match.params.problemID}`)
         .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'))
-        .then(
-          <Redirect to={`/complain-list/${props.location.state.dormId}`} />
-        );
+        .then(history.push(`/complain-list/${props.location.state.dormId}`));
     } catch (err) {
       console.log(err);
     }
@@ -60,10 +60,10 @@ const ComplainDetail = (props) => {
           <Col>
             <h5 className="fw-bold">
               สถานะ: &nbsp;
-              {complainDetail.STATUS === true ? (
-                <span className="fw-normal">รอดำเนินการ</span>
-              ) : (
+              {complainDetail.status === true ? (
                 <span className="fw-normal">ดำเนินการเสร็จสิ้น</span>
+              ) : (
+                <span className="fw-normal">รอดำเนินการ</span>
               )}
             </h5>
           </Col>
