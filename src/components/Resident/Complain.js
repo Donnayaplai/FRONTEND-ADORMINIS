@@ -6,7 +6,6 @@ import { useHistory } from 'react-router';
 import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
-import complain from '../../assets/images/complain.png';
 
 const ResidentComplain = (props) => {
   const history = useHistory();
@@ -49,6 +48,7 @@ const ResidentComplain = (props) => {
   //Get all problems
   let getAllResidentProblems = async () => {
     try {
+      setLoading(true);
       let response = await axios.get(
         `${env.url}complaint/history/${props.rentId}`
       );
@@ -103,7 +103,7 @@ const ResidentComplain = (props) => {
     <>
       <h1>
         เรื่องร้องเรียน &nbsp;
-        <img src={complain} alt="All problems" style={{ maxWidth: '1.5em' }} />
+        <i className="fas fa-comment-dots"></i>
       </h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={8} className="mx-auto">

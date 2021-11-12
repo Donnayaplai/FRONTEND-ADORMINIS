@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Button, Table, Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import Delete from "../../assets/images/delete.png";
-import axios from "axios";
-import env from "../../env";
+import React, { useState } from 'react';
+import { Button, Table, Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import Delete from '../../assets/images/delete.png';
+import axios from 'axios';
+import env from '../../env';
 const ResidentComplainList = ({
   complainList,
   loading,
@@ -14,9 +14,10 @@ const ResidentComplainList = ({
 }) => {
   const [problemID, setSelectProblemId] = useState();
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [error, setError] = useState(null);
 
   const getResidentComplainList = () => {
-    if (searchText === "") {
+    if (searchText === '') {
       return complainList;
     } else {
       return filteredComplain;
@@ -31,23 +32,27 @@ const ResidentComplainList = ({
     try {
       axios
         .delete(`${env.url}complaint/remove/${problemID}`)
-        .then(window.alert("ปัญหาที่ร้องเรียนถูกลบแล้ว"))
+        .then(window.alert('ปัญหาที่ร้องเรียนถูกลบแล้ว'))
         .then(setShowConfirmDeleteModal(false))
         .then(() => {
           getResidentComplainList();
         });
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.data) {
+        setError(error.response.data.message);
+      }
     }
   };
 
   const Cancle = async () => {
     setShowConfirmDeleteModal(false);
-    setSelectProblemId("");
+    setSelectProblemId('');
   };
 
   return (
     <>
+      {error && window.alert(error)}
+
       {getResidentComplainList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
@@ -57,11 +62,11 @@ const ResidentComplainList = ({
         >
           <thead
             style={{
-              backgroundColor: "#C7E5F0",
-              textAlign: "center",
-              color: "black",
-              fontWeight: "bold",
-              border: "none",
+              backgroundColor: '#C7E5F0',
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              border: 'none',
             }}
           >
             <tr>
@@ -79,9 +84,9 @@ const ResidentComplainList = ({
               <tr
                 key={i}
                 style={{
-                  backgroundColor: "#EAE7E2",
-                  border: "none",
-                  textAlign: "center",
+                  backgroundColor: '#EAE7E2',
+                  border: 'none',
+                  textAlign: 'center',
                 }}
               >
                 <td>{list.INFORMEDDATE}</td>
@@ -92,13 +97,14 @@ const ResidentComplainList = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: "#32CD32",
-                        color: "#fff",
-                        maxWidth: "max-content",
-                        width: "100%",
-                        height: "30px",
-                        margin: "10px",
-                        padding: "3px",
+                        backgroundColor: '#32CD32',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        maxWidth: '10em',
+                        width: '100%',
+                        height: 'auto',
+                        margin: '0.5em',
+                        padding: '5px',
                       }}
                       disabled
                     >
@@ -109,13 +115,14 @@ const ResidentComplainList = ({
                       type="button"
                       className="btn"
                       style={{
-                        backgroundColor: "#FF0000",
-                        color: "#fff",
-                        maxWidth: "max-content",
-                        width: "100%",
-                        height: "30px",
-                        margin: "10px",
-                        padding: "5px",
+                        backgroundColor: '#FF0000',
+                        color: '#fff',
+                        fontSize: '1rem',
+                        maxWidth: '10em',
+                        width: '100%',
+                        height: 'auto',
+                        margin: '0.5em',
+                        padding: 'auto',
                       }}
                       disabled
                     >
@@ -135,9 +142,9 @@ const ResidentComplainList = ({
                       className="btn"
                       onClick={() => {}}
                       style={{
-                        backgroundColor: "transparent",
-                        border: "none",
-                        boxShadow: "none",
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
                       }}
                     >
                       <i className="fas fa-info-circle text-dark fs-3"></i>
@@ -154,15 +161,15 @@ const ResidentComplainList = ({
                       setSelectProblemId(list.PROBLEMID);
                     }}
                     style={{
-                      backgroundColor: "transparent",
-                      border: "none",
-                      boxShadow: "none",
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
                     }}
                   >
                     <img
                       src={Delete}
                       alt="Delete Detail"
-                      style={{ maxWidth: "2em" }}
+                      style={{ maxWidth: '2em' }}
                     />
                   </Button>
                 </td>
