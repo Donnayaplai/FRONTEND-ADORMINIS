@@ -1,12 +1,12 @@
-import axios from "axios";
-import env from "../../env";
-import "./AddResident.css";
-import { Row, Container, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import axios from 'axios';
+import env from '../../env';
+import './AddResident.css';
+import { Row, Container, Col, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 
 const AddResident = (props) => {
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const AddResident = (props) => {
           `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
           data
         )
-        .then(window.alert("เพิ่มผู้เช่าเสร็จสิ้น"))
+        .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
         .then(history.push(`/all-room/${props.location.state.buildingId}`));
     } catch (err) {
       if (err.response && err.response.data) {
@@ -43,24 +43,24 @@ const AddResident = (props) => {
   const [costList] = useState([
     {
       id: 4,
-      costName: "ส่วนกลาง",
+      costName: 'ส่วนกลาง',
     },
 
     {
       id: 5,
-      costName: "ที่จอดรถ",
+      costName: 'ที่จอดรถ',
     },
     {
       id: 6,
-      costName: "อินเทอร์เน็ต",
+      costName: 'อินเทอร์เน็ต',
     },
     {
       id: 7,
-      costName: "รักษาความสะอาด",
+      costName: 'รักษาความสะอาด',
     },
     {
       id: 8,
-      costName: "อื่น ๆ",
+      costName: 'อื่น ๆ',
     },
   ]);
 
@@ -79,7 +79,7 @@ const AddResident = (props) => {
     }
     console.log(all);
     setChecked(all);
-    formData.set("costList", all);
+    formData.set('costList', all);
   };
 
   return (
@@ -87,13 +87,13 @@ const AddResident = (props) => {
       <h1>
         เพิ่มผู้เช่า <i className="fas fa-user-plus"></i>
       </h1>
-      <Container style={{ marginBottom: "5%" }}>
+      <Container className="mb-5">
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Container style={{ maxWidth: "800px" }}>
-            <h3>ข้อมูลส่วนตัว</h3>
+          <Container style={{ maxWidth: '800px' }}>
+            <h4 className="fw-bold">ข้อมูลส่วนตัว</h4>
             <Container
               className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
+              style={{ backgroundColor: '#EAE7E2' }}
             >
               <Row>
                 <Col>
@@ -103,9 +103,9 @@ const AddResident = (props) => {
                       name="fName"
                       type="text"
                       placeholder="สมศรี"
-                      {...register("fName", { required: "โปรดกรอกชื่อจริง" })}
+                      {...register('fName', { required: 'โปรดกรอกชื่อจริง' })}
                       onKeyUp={() => {
-                        trigger("fName");
+                        trigger('fName');
                       }}
                     />
                     {errors.fName && (
@@ -122,9 +122,9 @@ const AddResident = (props) => {
                       name="lName"
                       type="text"
                       placeholder="โชคดี"
-                      {...register("lName", { required: "โปรดกรอกนามสกุล" })}
+                      {...register('lName', { required: 'โปรดกรอกนามสกุล' })}
                       onKeyUp={() => {
-                        trigger("lName");
+                        trigger('lName');
                       }}
                     />
                     {errors.lName && (
@@ -140,11 +140,11 @@ const AddResident = (props) => {
                     <Form.Control
                       name="dateOfBirth"
                       type="date"
-                      {...register("dateOfBirth", {
-                        required: "โปรดกรอกวัน/เดือน/ปี เกิด",
+                      {...register('dateOfBirth', {
+                        required: 'โปรดกรอกวัน/เดือน/ปี เกิด',
                       })}
                       onKeyUp={() => {
-                        trigger("dateOfBirth");
+                        trigger('dateOfBirth');
                       }}
                     />
                     {errors.dateOfBirth && (
@@ -163,20 +163,20 @@ const AddResident = (props) => {
                       name="idCardNo"
                       type="text"
                       placeholder="รหัสบัตรประชาชน 13 หลัก"
-                      className={`form-control ${errors.idCardNo && "invalid"}`}
-                      {...register("idCardNo", {
-                        required: "โปรดกรอกรหัสบัตรประชาชน",
+                      className={`form-control ${errors.idCardNo && 'invalid'}`}
+                      {...register('idCardNo', {
+                        required: 'โปรดกรอกรหัสบัตรประชาชน',
                         minLength: {
                           value: 13,
-                          message: "รหัสบัตรประชาชนควรมี 13 หลัก",
+                          message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
                         },
                         maxLength: {
                           value: 13,
-                          message: "รหัสบัตรประชาชนควรมี 13 หลัก",
+                          message: 'รหัสบัตรประชาชนควรมี 13 หลัก',
                         },
                       })}
                       onKeyUp={() => {
-                        trigger("idCardNo");
+                        trigger('idCardNo');
                       }}
                     />
                     {errors.idCardNo && (
@@ -193,17 +193,17 @@ const AddResident = (props) => {
                       name="telNo"
                       type="text"
                       placeholder="0xxxxxxxxx"
-                      className={`form-control ${errors.telNo && "invalid"}`}
-                      {...register("telNo", {
-                        required: "โปรดกรอกเบอร์โทรศัพท์",
+                      className={`form-control ${errors.telNo && 'invalid'}`}
+                      {...register('telNo', {
+                        required: 'โปรดกรอกเบอร์โทรศัพท์',
                         pattern: {
                           value:
                             /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
-                          message: "โปรดกรอกเบอร์โทรศัพท์ให้ถูกต้อง",
+                          message: 'โปรดกรอกเบอร์โทรศัพท์ให้ถูกต้อง',
                         },
                       })}
                       onKeyUp={() => {
-                        trigger("telNo");
+                        trigger('telNo');
                       }}
                     />
                     {errors.telNo && (
@@ -218,11 +218,11 @@ const AddResident = (props) => {
                     <Form.Label>เพศ</Form.Label>
                     <Form.Select
                       name="gender"
-                      {...register("gender", {
-                        required: "โปรดกรอกเพศ",
+                      {...register('gender', {
+                        required: 'โปรดกรอกเพศ',
                       })}
                       onKeyUp={() => {
-                        trigger("gender");
+                        trigger('gender');
                       }}
                     >
                       <option defaultValue>เลือกเพศ...</option>
@@ -237,15 +237,15 @@ const AddResident = (props) => {
                   <Form.Group className="mb-3">
                     <Form.Label>ที่อยู่</Form.Label>
                     <Form.Control
-                      style={{ maxWidth: "800px", padding: "30px" }}
+                      style={{ maxWidth: '800px', padding: '30px' }}
                       name="address"
                       type="text"
                       placeholder="126/54 ซอยบางบอน 5 ซอย 7 ถนนบางบอน 3 แขวงบางบอน​ เขต​บางบอน​ กรุงเทพ​มหานคร​ 10150"
-                      {...register("address", {
-                        required: "โปรดกรอกที่อยู่ปัจจุบัน",
+                      {...register('address', {
+                        required: 'โปรดกรอกที่อยู่ปัจจุบัน',
                       })}
                       onKeyUp={() => {
-                        trigger("address");
+                        trigger('address');
                       }}
                     />
                     {errors.address && (
@@ -259,12 +259,12 @@ const AddResident = (props) => {
             </Container>
           </Container>
 
-          <Container style={{ maxWidth: "800px", marginTop: "3%" }}>
-            <h3>ข้อมูลการเช่าพัก</h3>
+          <Container style={{ maxWidth: '800px' }} className="mt-3">
+            <h4 className="fw-bold">ข้อมูลการเช่าพัก</h4>
 
             <Container
               className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
+              style={{ backgroundColor: '#EAE7E2' }}
             >
               <Row>
                 <Col>
@@ -273,11 +273,11 @@ const AddResident = (props) => {
                     <Form.Control
                       name="startDate"
                       type="date"
-                      {...register("startDate", {
-                        required: "โปรดกรอกวันเริ่มสัญญา",
+                      {...register('startDate', {
+                        required: 'โปรดกรอกวันเริ่มสัญญา',
                       })}
                       onKeyUp={() => {
-                        trigger("startDate");
+                        trigger('startDate');
                       }}
                     />
                     {errors.startDate && (
@@ -293,11 +293,11 @@ const AddResident = (props) => {
                     <Form.Control
                       name="endDate"
                       type="date"
-                      {...register("endDate", {
-                        required: "โปรดกรอกวันสิ้นสุดสัญญา",
+                      {...register('endDate', {
+                        required: 'โปรดกรอกวันสิ้นสุดสัญญา',
                       })}
                       onKeyUp={() => {
-                        trigger("endDate");
+                        trigger('endDate');
                       }}
                     />
                     {errors.endDate && (
@@ -313,11 +313,11 @@ const AddResident = (props) => {
                     <Form.Control
                       name="checkInDate"
                       type="date"
-                      {...register("checkInDate", {
-                        required: "โปรดกรอกวันที่เริ่มเข้าพัก",
+                      {...register('checkInDate', {
+                        required: 'โปรดกรอกวันที่เริ่มเข้าพัก',
                       })}
                       onKeyUp={() => {
-                        trigger("checkInDate");
+                        trigger('checkInDate');
                       }}
                     />
                     {errors.checkInDate && (
@@ -331,12 +331,12 @@ const AddResident = (props) => {
             </Container>
           </Container>
 
-          <Container style={{ maxWidth: "800px", marginTop: "3%" }}>
-            <h3>ค่าใช้จ่ายเพิ่มเติม</h3>
+          <Container style={{ maxWidth: '800px' }} className="mt-3">
+            <h4 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h4>
 
             <Container
               className="py-4 rounded mb-3"
-              style={{ backgroundColor: "#EAE7E2" }}
+              style={{ backgroundColor: '#EAE7E2' }}
             >
               {costList.map((c) => {
                 return (
