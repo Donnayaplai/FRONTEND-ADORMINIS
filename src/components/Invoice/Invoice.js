@@ -43,9 +43,10 @@ const Invoice = (props) => {
 
   const getAllInvoice = async () => {
     try {
+      setLoading(true);
       let response = await axios.get(`${env.url}invoice/list/${props.dormId}`);
       setInvoiceList(response.data);
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +63,7 @@ const Invoice = (props) => {
 
   const prevPage = () => setCurrentPage(currentData - 1);
   return (
-    <Container>
+    <>
       <h1>
         ใบแจ้งหนี้ทั้งหมด &nbsp;
         <i className="fas fa-file-invoice-dollar"></i>
@@ -75,7 +76,7 @@ const Invoice = (props) => {
           />
         </Col>
       </Row>
-      <Container>
+      <Container className="w-75">
         <InvoiceList
           invoiceList={currentData}
           getAllInvoice={getAllInvoice}
@@ -92,7 +93,7 @@ const Invoice = (props) => {
           prevPage={prevPage}
         />
       </Container>
-    </Container>
+    </>
   );
 };
 

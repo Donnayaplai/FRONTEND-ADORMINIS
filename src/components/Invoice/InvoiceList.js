@@ -39,7 +39,7 @@ const InvoiceList = ({
     setInvoiceInfoModalOpen(false);
   };
 
-  if (!loading) {
+  if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
   return (
@@ -47,7 +47,7 @@ const InvoiceList = ({
       {getInvoiceList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
-        <Container className="w-75">
+        <Container className="w-100">
           <Table
             responsive
             className="table table-hover table-borderless mt-3 mx-auto"
@@ -65,7 +65,7 @@ const InvoiceList = ({
                 <th>รอบบิล</th>
                 <th>เลขห้อง</th>
                 <th>ชั้น</th>
-                <th>ราคารวม</th>
+                <th>ราคาค่าเช่า/เดือน</th>
                 <th>รายละเอียด</th>
               </tr>
             </thead>
@@ -133,6 +133,8 @@ const InvoiceList = ({
                           </span>
                         </h6>
                       </Col>
+                    </Row>
+                    <Row>
                       <Col>
                         <h6 className="fw-bold">
                           วันที่/Date:
@@ -141,7 +143,6 @@ const InvoiceList = ({
                           </span>
                         </h6>
                       </Col>
-                      <Col></Col>
                     </Row>
                     <Col>
                       <Table
