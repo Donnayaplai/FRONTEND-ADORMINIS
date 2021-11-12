@@ -131,7 +131,11 @@ const Routes = (props) => {
           <ResidentProfile roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/resident/dorm-info">
-          <DormProfile roleId={props.roleId} dormId={props.dormId} />
+          <DormProfile
+            roleId={props.roleId}
+            dormId={props.dormId}
+            rentId={props.rentId}
+          />
         </Route>
         <Route path="/resident/all-bill">
           <Bill
