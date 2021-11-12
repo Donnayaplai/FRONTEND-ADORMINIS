@@ -17,7 +17,9 @@ const DormProfile = (props) => {
   useEffect(() => {
     const getDormProfile = async () => {
       try {
-        const response = await axios.get(`${env.url}dorm/info/${props.dormId}`);
+        const response = await axios.get(
+          `${env.url}api/user/rent/${props.rentId}`
+        );
         setDormData(response.data);
         console.log(dormData);
       } catch (error) {
@@ -28,7 +30,7 @@ const DormProfile = (props) => {
 
     getDormProfile();
     //eslint-disable-next-line
-  }, [props.dormId]);
+  }, [props.rentId]);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -36,10 +38,11 @@ const DormProfile = (props) => {
   return (
     <>
       <h1>
-        ข้อมูลหอพัก &nbsp;<i className="fas fa-info-circle"></i>
+        ข้อมูลหอพักและห้องพัก &nbsp;<i className="fas fa-info-circle"></i>
       </h1>
 
       <Container className="w-75 mb-5">
+        <h4 className="fw-bold">ข้อมูลหอพัก</h4>
         <Container
           className="px-5 py-3 rounded mb-3 mx-auto mt-3"
           style={{ backgroundColor: '#EAE7E2' }}
@@ -108,6 +111,57 @@ const DormProfile = (props) => {
             </Col>
             <Col xs={6} sm={6} md={4}>
               <p>{dormData.PROVINCE}</p>
+            </Col>
+          </Row>
+        </Container>
+        <h4 className="fw-bold">ข้อมูลห้องพัก</h4>
+        <Container
+          className="px-5 py-3 rounded mb-3 mx-auto mt-3"
+          style={{ backgroundColor: '#EAE7E2' }}
+        >
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ห้อง:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.roomNo}</p>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <h6 className="fw-bold">ชั้น:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.floor}</p>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={3}>
+              <h6 className="fw-bold">วันเริ่มสัญญา:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={3}>
+              <p>{dormData.startDate}</p>
+            </Col>
+            <Col xs={6} sm={6} md={3}>
+              <h6 className="fw-bold">วันสิ้นสุดสัญญา:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={3}>
+              <p>{dormData.endDate}</p>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={6} sm={6} md={3}>
+              <h6 className="fw-bold">ระยะเวลาสัญญา:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={4}>
+              <p>
+                {dormData.rentDurationYear}&nbsp;ปี&nbsp;
+                {dormData.rentDurationMonth}&nbsp;เดือน
+              </p>
+            </Col>
+            <Col xs={6} sm={6} md={3}>
+              <h6 className="fw-bold">วันที่เข้าพัก:</h6>
+            </Col>
+            <Col xs={6} sm={6} md={2}>
+              <p>{dormData.checkInDate}</p>
             </Col>
           </Row>
         </Container>
