@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Table, Modal } from 'react-bootstrap';
+import { Button, Table, Modal, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Delete from '../../assets/images/delete.png';
@@ -50,12 +50,13 @@ const ResidentComplainList = ({
     setSelectProblemId('');
   };
 
-  {
-    error && window.alert(error);
-  }
-
   return (
     <>
+      <Row>
+        <center>
+          {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+        </center>
+      </Row>
       {getResidentComplainList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
