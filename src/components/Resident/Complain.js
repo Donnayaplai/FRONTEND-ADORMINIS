@@ -105,7 +105,7 @@ const ResidentComplain = (props) => {
         เรื่องร้องเรียน &nbsp;
         <i className="fas fa-comment-dots"></i>
       </h1>
-      <Row className="mt-3">
+      <Row className="mt-3 mb-3">
         <Col xs={8} sm={8} md={8} className="mx-auto">
           <Search
             handleSearchInput={handleSearchInput}
@@ -113,7 +113,7 @@ const ResidentComplain = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75 mt-3">
+      <Container className="w-75">
         <Row>
           <Col xs={8} sm={7} md={6}>
             <h3>ประวัติและสถานะ</h3>
