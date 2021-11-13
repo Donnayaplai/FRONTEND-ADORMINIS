@@ -103,13 +103,13 @@ const DormProfile = (props) => {
             <Col xs={6} sm={6} md={2}>
               <h6 className="fw-bold">รหัสไปรษณีย์:</h6>
             </Col>
-            <Col xs={6} sm={6} md={4}>
+            <Col xs={6} sm={6} md={2}>
               <p>{dormData.postcode}</p>
             </Col>
             <Col xs={6} sm={6} md={2}>
               <h6 className="fw-bold">จังหวัด:</h6>
             </Col>
-            <Col xs={6} sm={6} md={4}>
+            <Col xs={6} sm={6} md={2}>
               <p>{dormData.province}</p>
             </Col>
           </Row>
@@ -120,16 +120,16 @@ const DormProfile = (props) => {
           style={{ backgroundColor: '#EAE7E2' }}
         >
           <Row className="mb-3">
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={3}>
               <h6 className="fw-bold">ห้อง:</h6>
             </Col>
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={3}>
               <p>{dormData.roomNo}</p>
             </Col>
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={3}>
               <h6 className="fw-bold">ชั้น:</h6>
             </Col>
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={3}>
               <p>{dormData.floor}</p>
             </Col>
           </Row>
@@ -151,7 +151,7 @@ const DormProfile = (props) => {
             <Col xs={6} sm={6} md={3}>
               <h6 className="fw-bold">ระยะเวลาสัญญา:</h6>
             </Col>
-            <Col xs={6} sm={6} md={4}>
+            <Col xs={6} sm={6} md={3}>
               <p>
                 {dormData.rentDurationYear}&nbsp;ปี&nbsp;
                 {dormData.rentDurationMonth}&nbsp;เดือน
@@ -160,7 +160,7 @@ const DormProfile = (props) => {
             <Col xs={6} sm={6} md={3}>
               <h6 className="fw-bold">วันที่เข้าพัก:</h6>
             </Col>
-            <Col xs={6} sm={6} md={2}>
+            <Col xs={6} sm={6} md={3}>
               <p>{dormData.checkInDate}</p>
             </Col>
           </Row>
