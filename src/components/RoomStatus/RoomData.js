@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import {
@@ -39,36 +39,69 @@ const RoomData = ({
 
   //Action status
   const [isEditMode, setEditMode] = useState(false);
-  // const [editCostMode, setEditCostMode] = useState(false);
+  const [isEditCostMode, setEditCostMode] = useState(false);
 
   //Data
   const [editUserID, seteditUserID] = useState(null);
   const history = useHistory();
 
-  // const [checked, setChecked] = useState([]);
-  // const [costList] = useState([
-  //   {
-  //     id: 4,
-  //     costName: 'ส่วนกลาง',
-  //   },
+  const [formData, setFormData] = useState([]);
+  const [checked, setChecked] = useState([]);
+  const [costList] = useState([
+    {
+      id: 4,
+      costName: 'ส่วนกลาง',
+    },
 
-  //   {
-  //     id: 5,
-  //     costName: 'ที่จอดรถ',
-  //   },
-  //   {
-  //     id: 6,
-  //     costName: 'อินเทอร์เน็ต',
-  //   },
-  //   {
-  //     id: 7,
-  //     costName: 'รักษาความสะอาด',
-  //   },
-  //   {
-  //     id: 8,
-  //     costName: 'อื่น ๆ',
-  //   },
-  // ]);
+    {
+      id: 5,
+      costName: 'ที่จอดรถ',
+    },
+    {
+      id: 6,
+      costName: 'อินเทอร์เน็ต',
+    },
+    {
+      id: 7,
+      costName: 'รักษาความสะอาด',
+    },
+    {
+      id: 8,
+      costName: 'อื่น ๆ',
+    },
+  ]);
+  useEffect(() => {
+    setFormData(new FormData());
+  }, []);
+
+  const handleToggle = (c) => () => {
+    const clickedCostList = checked.indexOf(c);
+    const all = [...checked];
+
+    if (clickedCostList === -1) {
+      all.push(c);
+    } else {
+      all.splice(clickedCostList, 1);
+    }
+    console.log(all);
+    setChecked(all);
+    formData.set('costList', all);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      data.listOfCost = checked;
+      await axios.post(
+        `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
+        data
+      );
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        window.alert(error);
+      }
+    }
+  };
 
   //Error message
   const [error, setError] = useState(null);
@@ -118,28 +151,14 @@ const RoomData = ({
         .then(getAllRoom())
         .then(history.go(1))
         .then(setEditMode(false))
-        .then(setResInfoModalOpen(false));
+        .then(setResInfoModalOpen(false))
+        .then(seteditUserID(null));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
       }
     }
   };
-
-  // Edit list of cost in specific room
-  //ถ้าเป็น edit mode ให้เอาฟอร์มแบบเดียวกับ Addresident มา render
-  // router.post('/cost/:roomID', editCost);
-
-  //แก้ไขค่าใช้จ่ายเพิ่มเติม
-  // const editListOfCost = async (ROOMID) => {
-  //   try {
-  //     await axios.post(`${env.url}api/room/cost/${selectRoomID}`, {
-  //       listOfCost: listOfCost,
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   //ลบผู้เช่าออกจากห้องพัก
   const removeResident = async () => {
@@ -203,7 +222,7 @@ const RoomData = ({
       {getRoomList().length === 0 ? (
         <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
-        <form>
+        <Form onSubmit={onSubmit}>
           <Table
             responsive
             className="table table-hover table-borderless mt-3 mx-auto"
@@ -245,12 +264,13 @@ const RoomData = ({
                         style={{
                           backgroundColor: '#32CD32',
                           color: '#fff',
-                          maxWidth: '100px',
+                          maxWidth: '5em',
                           width: '100%',
                           height: '30px',
-                          fontSize: '16px',
-                          margin: '10px',
+                          fontSize: '1rem',
+                          margin: '0.5em',
                           padding: '3px',
+                          border: 'none',
                         }}
                         disabled
                       >
@@ -263,12 +283,13 @@ const RoomData = ({
                         style={{
                           backgroundColor: '#FF0000',
                           color: '#fff',
-                          maxWidth: '100px',
+                          maxWidth: '5em',
                           width: '100%',
                           height: '30px',
                           fontSize: '16px',
                           margin: '10px',
                           padding: '5px',
+                          border: 'none',
                         }}
                         disabled
                       >
@@ -384,7 +405,7 @@ const RoomData = ({
                           border: 'none',
                           boxShadow: 'none',
                         }}
-                        // onClick={() => setEditCostMode(true)}
+                        onClick={() => setEditCostMode(true)}
                       >
                         <img
                           src={Edit}
@@ -433,7 +454,6 @@ const RoomData = ({
                               <Col>
                                 <input
                                   type="checkbox"
-                                  // onChange={handleToggle(c.id)}
                                   checked={true}
                                   id="checkbox"
                                 />
@@ -442,11 +462,31 @@ const RoomData = ({
                             </Row>
                           );
                         })}
+
                         {/* render cost ทั้งหมด => เอาแต่ละค่าไป check กับ cost ที่มีอยู่แล้ว */}
                         {/* [1,2,3][1,2] */}
                         {/* .indexOf */}
                       </Col>
                     </Row>
+                    {isEditCostMode && (
+                      <>
+                        {costList.map((s) => {
+                          return (
+                            <Row key={s.id}>
+                              <Col>
+                                <input
+                                  type="checkbox"
+                                  onChange={handleToggle(s.id)}
+                                  id="checkbox"
+                                />
+                                <label>{s.costName}</label>
+                              </Col>
+                            </Row>
+                          );
+                        })}
+                      </>
+                    )}
+                    {isEditCostMode && <Button type="submit">ยืนยัน</Button>}
                   </Container>
                 </Modal.Body>
               </Modal>
@@ -710,7 +750,7 @@ const RoomData = ({
                           <Row className="mt-3">
                             <Col>
                               <Button
-                                variant="success"
+                                variant="primary"
                                 xs={12}
                                 md={12}
                                 lg={12}
@@ -721,7 +761,7 @@ const RoomData = ({
                                 บันทึก
                               </Button>
                               <Button
-                                variant="primary"
+                                variant="secondary"
                                 className=" me-3"
                                 xs={12}
                                 md={12}
@@ -758,7 +798,7 @@ const RoomData = ({
               </Modal>
             </tbody>
           </Table>
-        </form>
+        </Form>
       )}
     </>
   );
