@@ -46,32 +46,32 @@ const ResidentProfile = (props) => {
         >
           <Container>
             <Row>
-              <Col>
+              <Col md={3} sm={3} xs={6}>
                 <p className="fw-bold">ชื่อ</p>
               </Col>
-              <Col>
+              <Col md={3} sm={3} xs={6}>
                 <p>{profile.FNAME}</p>
               </Col>
-              <Col>
+              <Col md={3} sm={3} xs={6}>
                 <p className="fw-bold">นามสกุล</p>
               </Col>
-              <Col>
+              <Col md={3} sm={3} xs={6}>
                 <Col>
                   <p>{profile.LNAME}</p>
                 </Col>
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col md={3} sm={4} xs={6}>
                 <p className="fw-bold">วันเกิด</p>
               </Col>
-              <Col>
+              <Col md={3} sm={6} xs={6}>
                 <p>{profile.DATEOFBIRTH}</p>
               </Col>
-              <Col>
+              <Col md={3} sm={4} xs={6}>
                 <p className="fw-bold">เบอร์โทรศัพท์</p>
               </Col>
-              <Col>
+              <Col md={3} sm={6} xs={6}>
                 <p>{profile.TELNO}</p>
               </Col>
             </Row>
@@ -86,10 +86,10 @@ const ResidentProfile = (props) => {
               <Col></Col>
             </Row>
             <Row>
-              <Col>
+              <Col md={3} sm={4} xs={6}>
                 <p className="fw-bold">อีเมล</p>
               </Col>
-              <Col>
+              <Col md={3} sm={6} xs={6}>
                 <p>{profile.EMAIL}</p>
               </Col>
               <Col></Col>
