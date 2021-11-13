@@ -107,8 +107,10 @@ const Routes = (props) => {
         <Route path={`/meter-record/:buildingId`}>
           <MeterRecord roleId={props.roleId} dormId={props.dormId} />
         </Route>
+        <Route path="/utilsummary">
+          <UtilitySummary roleId={props.roleId} dormId={props.dormId} />
+        </Route>
 
-        <Route path="/utilsummary" component={UtilitySummary} />
         <Route path="/complain-list">
           <Complain roleId={props.roleId} dormId={props.dormId} />
         </Route>
