@@ -34,8 +34,7 @@ const ComplainDetail = (props) => {
     try {
       await axios
         .post(`${env.url}complaint/revise/${props.match.params.problemID}`)
-        .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'))
-        .then(history.push(`/complain-list/${props.location.state.dormId}`));
+        .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'));
     } catch (err) {
       console.log(err);
     }

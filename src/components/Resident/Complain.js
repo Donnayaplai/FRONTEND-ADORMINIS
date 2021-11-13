@@ -113,7 +113,7 @@ const ResidentComplain = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75 mt-3 mb-3">
+      <Container className="w-75 mt-3">
         <Row>
           <Col xs={8} sm={7} md={6}>
             <h3>ประวัติและสถานะ</h3>
