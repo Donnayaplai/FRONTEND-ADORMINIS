@@ -12,16 +12,6 @@ const Login = (props) => {
   const [error, setError] = useState(null);
   const history = useHistory();
 
-  //เช็คว่า login ครั้งแรกไหม
-  // const isFirstLogin = async () => {
-  //   try {
-  //     await axios.get(`${env.url}api/user/check/{props.userId}`);
-  //     // /check/:userID
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const submit = async (e) => {
     try {
       e.preventDefault();
@@ -38,12 +28,18 @@ const Login = (props) => {
                 authorization: localStorage.getItem('authorization'),
               },
             })
-            .then((data) => {
+            .then(async (data) => {
               console.log(data.data);
               props.setUserId(data.data.USERID);
               props.setRoleId(data.data.ROLEID);
               props.setDormId(data.data.DORMID);
               props.setRentId(data.data.RENTID);
+              let checkFirstLogin = await axios.get(
+                `${env.url}api/user/check/{props.userId}`
+              );
+              if (!checkFirstLogin) {
+                history.push(`/dorm-registration`);
+              }
               if (res.data.ROLEID === 0) {
                 history.push(`/resident/home`); //resident
               } else if (res.data.ROLEID === 1) {
