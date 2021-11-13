@@ -24,7 +24,7 @@ const ResidentComplainDetail = (props) => {
     try {
       setLoading(true);
       let response = await axios.get(
-        `${env.url}complaint/${props.match.params.problemid}`
+        `${env.url}complaint/${props.match.params.problemID}`
       );
       setComplainDetail(response.data);
       setLoading(false);

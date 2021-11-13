@@ -104,7 +104,7 @@ const Routes = (props) => {
         <Route path="/select-building/meter-record">
           <SelectBuilding roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/meter-record">
+        <Route path={`/meter-record/:buildingId`}>
           <MeterRecord roleId={props.roleId} dormId={props.dormId} />
         </Route>
 
@@ -112,7 +112,7 @@ const Routes = (props) => {
         <Route path="/complain-list">
           <Complain roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/complain-detail/:problemid">
+        <Route path="/complain-detail/:problemID">
           <ComplainDetail roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/history">
