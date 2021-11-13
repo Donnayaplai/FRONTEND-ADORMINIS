@@ -57,11 +57,11 @@ const Invoice = (props) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentData = invoiceList.slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNum) => setCurrentPage(pageNum);
 
-  const nextPage = () => setCurrentPage(currentData + 1);
+  const nextPage = () => setCurrentPage(currentPage + 1);
 
-  const prevPage = () => setCurrentPage(currentData - 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
   return (
     <>
       <h1>
@@ -76,7 +76,7 @@ const Invoice = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75">
+      <Container>
         <InvoiceList
           invoiceList={currentData}
           getAllInvoice={getAllInvoice}

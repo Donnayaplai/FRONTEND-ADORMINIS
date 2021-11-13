@@ -58,9 +58,9 @@ const Bill = (props) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const nextPage = () => setCurrentPage(currentData + 1);
+  const nextPage = () => setCurrentPage(currentPage + 1);
 
-  const prevPage = () => setCurrentPage(currentData - 1);
+  const prevPage = () => setCurrentPage(currentPage - 1);
 
   return (
     <Container>

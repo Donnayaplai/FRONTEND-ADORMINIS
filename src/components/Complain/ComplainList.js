@@ -75,6 +75,7 @@ const ComplainList = ({
                         height: 'auto',
                         margin: '0.5em',
                         padding: '5px',
+                        border: 'none',
                       }}
                       disabled
                     >
@@ -93,6 +94,7 @@ const ComplainList = ({
                         height: 'auto',
                         margin: '0.5em',
                         padding: 'auto',
+                        border: 'none',
                       }}
                       disabled
                     >

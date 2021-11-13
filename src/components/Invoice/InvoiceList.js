@@ -37,6 +37,7 @@ const InvoiceList = ({
 
   const Cancle = () => {
     setInvoiceInfoModalOpen(false);
+    setInvoiceDetail([]);
   };
 
   if (loading) {
