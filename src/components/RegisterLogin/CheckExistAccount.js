@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Card, Form, Container, Button, Row } from 'react-bootstrap';
-import './RegisterLogin.css';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 
@@ -36,7 +35,9 @@ const CheckExistAccount = () => {
 
   return (
     <Container>
-      <h1>ลงทะเบียนผู้ใช้งาน</h1>
+      <h1>
+        ลงทะเบียนผู้ใช้งาน &nbsp;<i className="fas fa-user-plus"></i>
+      </h1>
 
       <Card
         className="mx-auto p-5 border-0"
@@ -94,7 +95,7 @@ const CheckExistAccount = () => {
             <Button
               type="submit"
               id="btn-save"
-              style={{ marginTop: '5%' }}
+              className="mt-3"
               value="Send message"
             >
               ต่อไป <i className="fas fa-sign-in-alt"></i>

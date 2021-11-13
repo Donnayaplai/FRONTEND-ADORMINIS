@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import './RegisterLogin.css';
 
 const ResidentRegister = (props) => {
   const [error, setError] = useState(null);
