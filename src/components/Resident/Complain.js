@@ -115,10 +115,10 @@ const ResidentComplain = (props) => {
       </Row>
       <Container className="w-75">
         <Row>
-          <Col xs={8} sm={7} md={6}>
+          <Col xs={8} sm={7} md={6} className="pt-0 pb-0">
             <h3>ประวัติและสถานะ</h3>
           </Col>
-          <Col xs={4} sm={5} md={6}>
+          <Col xs={4} sm={5} md={6} className="pt-0 pb-0">
             <h3>
               <Button
                 variant="secondary"
