@@ -58,7 +58,7 @@ const ResidentComplainList = ({
       ) : (
         <Table
           responsive
-          className="table table-hover table-borderless mx-auto mt-3"
+          className="table table-hover table-borderless mx-auto"
         >
           <thead
             style={{
@@ -105,6 +105,7 @@ const ResidentComplainList = ({
                         height: 'auto',
                         margin: '0.5em',
                         padding: '5px',
+                        border: 'none',
                       }}
                       disabled
                     >
@@ -123,6 +124,7 @@ const ResidentComplainList = ({
                         height: 'auto',
                         margin: '0.5em',
                         padding: 'auto',
+                        border: 'none',
                       }}
                       disabled
                     >
@@ -169,7 +171,7 @@ const ResidentComplainList = ({
                     <img
                       src={Delete}
                       alt="Delete Detail"
-                      style={{ maxWidth: '2em' }}
+                      style={{ maxWidth: '1.5em' }}
                     />
                   </Button>
                 </td>
