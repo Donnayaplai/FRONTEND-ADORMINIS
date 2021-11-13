@@ -52,13 +52,13 @@ const DormProfile = (props) => {
               <h6 className="fw-bold">ชื่อหอพัก (ไทย):</h6>
             </Col>
             <Col xs={6} sm={6} md={6}>
-              <p>{dormData.DORMNAMETH}</p>
+              <p>{dormData.dormNameTH}</p>
             </Col>
             <Col xs={6} sm={6} md={4}>
               <h6 className="fw-bold">ชื่อหอพัก (อังกฤษ):</h6>
             </Col>
             <Col xs={6} sm={6} md={6}>
-              <p>{dormData.DORMNAMEENG}</p>
+              <p>{dormData.dormNameENG}</p>
             </Col>
           </Row>
           <Row className="mb-3">
@@ -66,7 +66,7 @@ const DormProfile = (props) => {
               <h6 className="fw-bold">เบอร์โทรศัพท์:</h6>
             </Col>
             <Col xs={6} sm={6} md={6}>
-              <p>{dormData.TELNO}</p>
+              <p>{dormData.telNo}</p>
             </Col>
           </Row>
 
@@ -75,7 +75,7 @@ const DormProfile = (props) => {
               <h6 className="fw-bold">ที่อยู่:</h6>
             </Col>
             <Col xs={6} sm={6} md={8}>
-              <p>{dormData.ADDRESS}</p>
+              <p>{dormData.address}</p>
             </Col>
           </Row>
 
@@ -84,19 +84,19 @@ const DormProfile = (props) => {
               <h6 className="fw-bold">ถนน:</h6>
             </Col>
             <Col xs={6} sm={6} md={2}>
-              <p>{dormData.STREET}</p>
+              <p>{dormData.street}</p>
             </Col>
             <Col xs={6} sm={6} md={2}>
               <h6 className="fw-bold">แขวง/ตำบล:</h6>
             </Col>
             <Col xs={6} sm={6} md={2}>
-              <p>{dormData.SUBDISTRICT}</p>
+              <p>{dormData.subdistrict}</p>
             </Col>
             <Col xs={6} sm={6} md={2}>
               <h6 className="fw-bold">เขต/อำเภอ:</h6>
             </Col>
             <Col xs={6} sm={6} md={2}>
-              <p>{dormData.DISTRICT}</p>
+              <p>{dormData.district}</p>
             </Col>
           </Row>
           <Row className="mb-3">
@@ -104,13 +104,13 @@ const DormProfile = (props) => {
               <h6 className="fw-bold">รหัสไปรษณีย์:</h6>
             </Col>
             <Col xs={6} sm={6} md={4}>
-              <p>{dormData.POSTCODE}</p>
+              <p>{dormData.postcode}</p>
             </Col>
             <Col xs={6} sm={6} md={2}>
               <h6 className="fw-bold">จังหวัด:</h6>
             </Col>
             <Col xs={6} sm={6} md={4}>
-              <p>{dormData.PROVINCE}</p>
+              <p>{dormData.province}</p>
             </Col>
           </Row>
         </Container>
