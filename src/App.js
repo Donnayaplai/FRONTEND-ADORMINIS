@@ -96,30 +96,33 @@ function App() {
       return <Navbar />;
     }
   }
-
-  return (
-    <Router history={History}>
-      {RenderNav()}
-      <Switch>
-        <Route exact path="/" component={LandingPage} />
-        <Route>
-          <Routes
-            setRoleId={setRoleId}
-            setDormId={setDormId}
-            setRentId={setRentId}
-            setUserId={setUserId}
-            roleId={roleId}
-            dormId={dormId}
-            rentId={rentId}
-            userId={userId}
-            userFname={userFname}
-            userLname={userLname}
-            dormName={dormName}
-          />
-        </Route>
-      </Switch>
-    </Router>
-  );
+  if (roleId && dormId) {
+    return (
+      <Router history={History}>
+        {RenderNav()}
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route>
+            <Routes
+              setRoleId={setRoleId}
+              setDormId={setDormId}
+              setRentId={setRentId}
+              setUserId={setUserId}
+              roleId={roleId}
+              dormId={dormId}
+              rentId={rentId}
+              userId={userId}
+              userFname={userFname}
+              userLname={userLname}
+              dormName={dormName}
+            />
+          </Route>
+        </Switch>
+      </Router>
+    );
+  } else {
+    return <h1>Loading...</h1>;
+  }
 }
 
 export default App;
