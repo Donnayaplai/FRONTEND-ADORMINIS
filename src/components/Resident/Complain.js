@@ -136,6 +136,7 @@ const ResidentComplain = (props) => {
           filteredComplain={filteredComplain}
           searchText={searchText}
           rentId={props.rentId}
+          getAllResidentProblems={getAllResidentProblems}
         />
 
         <Pagination
@@ -158,11 +159,8 @@ const ResidentComplain = (props) => {
               <h2>แจ้งปัญหา</h2>
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <Container
-              className="px-3 py-3 rounded mb-3"
-              style={{ backgroundColor: '#EAE7E2' }}
-            >
+          <Modal.Body style={{ backgroundColor: '#EAE7E2' }}>
+            <Container className="px-3 py-3 rounded mb-3">
               <Form.Group className="mb-3">
                 <Form.Label>ชื่อเรื่อง</Form.Label>
                 <Form.Control
@@ -187,7 +185,7 @@ const ResidentComplain = (props) => {
             <Button variant="secondary" onClick={Cancle}>
               ยกเลิก
             </Button>
-            <Button id="btn-add" type="submit" onClick={submitValue}>
+            <Button variant="primary" type="submit" onClick={submitValue}>
               ตกลง
             </Button>
           </Modal.Footer>

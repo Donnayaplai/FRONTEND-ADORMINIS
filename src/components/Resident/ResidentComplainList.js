@@ -10,6 +10,7 @@ const ResidentComplainList = ({
   loading,
   filteredComplain,
   searchText,
+  getAllResidentProblems,
   ...props
 }) => {
   const [problemID, setSelectProblemId] = useState();
@@ -35,7 +36,7 @@ const ResidentComplainList = ({
         .then(window.alert('ปัญหาที่ร้องเรียนถูกลบแล้ว'))
         .then(setShowConfirmDeleteModal(false))
         .then(() => {
-          getResidentComplainList();
+          getAllResidentProblems();
         });
     } catch (error) {
       if (error.response && error.response.data) {
@@ -49,10 +50,12 @@ const ResidentComplainList = ({
     setSelectProblemId('');
   };
 
+  {
+    error && window.alert(error);
+  }
+
   return (
     <>
-      {error && window.alert(error)}
-
       {getResidentComplainList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
