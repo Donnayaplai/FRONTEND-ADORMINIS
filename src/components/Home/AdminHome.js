@@ -3,7 +3,6 @@ import { useHistory } from 'react-router';
 import { Row, Container, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-import dashboard from '../../assets/images/dashboard.png';
 
 const AdminHome = (props) => {
   const [data, setData] = useState([]);
@@ -39,7 +38,7 @@ const AdminHome = (props) => {
     <>
       <h1>
         แดชบอร์ด &nbsp;
-        <img src={dashboard} alt="Dashboard" style={{ maxWidth: '1.5em' }} />
+        <i className="fas fa-clipboard"></i>
       </h1>
 
       <Container
