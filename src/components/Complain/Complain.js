@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-import { useHistory } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
 import ComplainList from './ComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
@@ -12,8 +12,11 @@ const Complain = (props) => {
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getAllComplain();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history, props.roleId]);
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,11 +36,6 @@ const Complain = (props) => {
       )
     );
   };
-
-  useEffect(() => {
-    getAllComplain();
-    //eslint-disable-next-line
-  }, []);
 
   //Get all problems
   let getAllComplain = async () => {
@@ -98,4 +96,4 @@ const Complain = (props) => {
   );
 };
 
-export default Complain;
+export default withRouter(Complain);

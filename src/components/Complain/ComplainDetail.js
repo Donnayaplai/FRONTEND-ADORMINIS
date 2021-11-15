@@ -19,7 +19,7 @@ const ComplainDetail = (props) => {
   let getComplainDetail = async () => {
     try {
       let response = await axios.get(
-        `${env.url}complaint/${props.match.params.problemid}`
+        `${env.url}complaint/${props.match.params.problemID}`
       );
       setComplainDetail(response.data);
       setLoading(false);
@@ -27,15 +27,14 @@ const ComplainDetail = (props) => {
       console.error(error);
     }
   };
-  console.log(complainDetail);
 
   //แก้ไขสถานะเรื่องร้องเรียน
   const changeComplainStatus = async () => {
     try {
       await axios
         .post(`${env.url}complaint/revise/${props.match.params.problemID}`)
-        .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'))
-        .then(history.push(`/complain-list/${props.location.state.dormId}`));
+        .then(window.alert('สถานะดำเนินการเปลี่ยนแปลงเสร็จสิ้น'));
+      history.push(`/complain-list/${props.location.state.dormId}`);
     } catch (err) {
       console.log(err);
     }
