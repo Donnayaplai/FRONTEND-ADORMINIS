@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Card, Form, Container, Button } from 'react-bootstrap';
 import './RegisterLogin.css';
 import { useHistory } from 'react-router';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Link } from 'react-router-dom';
 import { withRouter, useHistory } from 'react-router';
 

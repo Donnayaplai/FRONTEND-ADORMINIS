@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import BillingList from './BillingList';
-import Pagination from '../Pagination/Pagination';
-import Search from '../Search/Search';
+import BillingList from './BillingList.js';
+import Pagination from '../Pagination/Pagination.js';
+import Search from '../Search/Search.js';
 
 const Bill = (props) => {
   const history = useHistory();

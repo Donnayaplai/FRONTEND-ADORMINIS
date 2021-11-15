@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Delete from '../../assets/images/delete.png';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 const ResidentComplainList = ({
   complainList,
   loading,

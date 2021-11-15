@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Table, Modal, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 
 const InvoiceList = ({
   invoiceList,

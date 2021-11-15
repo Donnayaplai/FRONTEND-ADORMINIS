@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { useHistory } from 'react-router';
-import ComplainList from './ComplainList';
-import Search from '../Search/Search';
-import Pagination from '../Pagination/Pagination';
+import ComplainList from './ComplainList.js';
+import Search from '../Search/Search.js';
+import Pagination from '../Pagination/Pagination.js';
 
 const Complain = (props) => {
   const history = useHistory();

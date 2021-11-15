@@ -2,40 +2,40 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 //Public
-import adminRegister from './components/RegisterLogin/adminRegister';
-import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
-import residentRegister from './components/RegisterLogin/residentRegister';
-import SelectRole from './components/RegisterLogin/SelectRole';
-import Login from './components/RegisterLogin/Login';
-import NotFound from './components/Others/NotFound';
+import adminRegister from './components/RegisterLogin/adminRegister.js';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount.js';
+import residentRegister from './components/RegisterLogin/residentRegister.js';
+import SelectRole from './components/RegisterLogin/SelectRole.js';
+import Login from './components/RegisterLogin/Login.js';
+import NotFound from './components/Others/NotFound.js';
 
 //Admin
-import AdminHome from './components/Home/AdminHome';
-import AdminProfile from './components/Profile/AdminProfile';
-import EditAdminProfile from './components/Profile/EditAdminProfile';
-import DormitoryRegister from './components/Dorm/DormitoryRegister';
-import DormitoryInfo from './components/Dorm/DormitoryInfo';
-import EditDormInfo from './components/Dorm/EditDormInfo';
+import AdminHome from './components/Home/AdminHome.js';
+import AdminProfile from './components/Profile/AdminProfile.js';
+import EditAdminProfile from './components/Profile/EditAdminProfile.js';
+import DormitoryRegister from './components/Dorm/DormitoryRegister.js';
+import DormitoryInfo from './components/Dorm/DormitoryInfo.js';
+import EditDormInfo from './components/Dorm/EditDormInfo.js';
 import Setting from './components/Dorm/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
-import CreateRoom from './components/Dorm/CreateRoom';
+import CreateRoom from './components/Dorm/CreateRoom.js';
 import AddResident from './components/RoomStatus/AddResident';
-import SelectBuilding from './components/Utility/SelectBuilding';
-import MeterRecord from './components/Utility/MeterRecord';
-import UtilitySummary from './components/Utility/UtilitySummary';
-import Invoice from './components/Invoice/Invoice';
-import MainRoom from './components/RoomStatus/MainRoom';
-import Complain from './components/Complain/Complain';
-import ComplainDetail from './components/Complain/ComplainDetail';
+import SelectBuilding from './components/Utility/SelectBuilding.js';
+import MeterRecord from './components/Utility/MeterRecord.js';
+import UtilitySummary from './components/Utility/UtilitySummary.js';
+import Invoice from './components/Invoice/Invoice.js';
+import MainRoom from './components/RoomStatus/MainRoom.js';
+import Complain from './components/Complain/Complain.js';
+import ComplainDetail from './components/Complain/ComplainDetail.js';
 import SearchHistory from './components/RentHistory/SearchHistory';
 
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
-import ResidentProfile from './components/Resident/ResidentProfile';
-import DormProfile from './components/Resident/DormProfile';
-import Bill from './components/Resident/Bill';
-import ResidentComplain from './components/Resident/Complain';
-import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
+import ResidentProfile from './components/Resident/ResidentProfile.js';
+import DormProfile from './components/Resident/DormProfile.js';
+import Bill from './components/Resident/Bill.js';
+import ResidentComplain from './components/Resident/Complain.js';
+import ResidentComplainDetail from './components/Resident/ResidentComplainDetail.js';
 
 const Routes = (props) => {
   return (

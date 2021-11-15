@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-import env from './env';
+import env from './env.js';
 import { useCallback } from 'react';
 
-import Routes from './Routes';
+import Routes from './Routes.js';
 import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
-import History from './components/Others/History';
-import ResidentNav from './components/Navbar/ResidentNav';
-import AdminNav from './components/Navbar/AdminNav';
+import History from './components/Others/History.js';
+import ResidentNav from './components/Navbar/ResidentNav.js';
+import AdminNav from './components/Navbar/AdminNav.js';
 function App() {
   const [roleId, setRoleId] = useState();
   const [dormId, setDormId] = useState();

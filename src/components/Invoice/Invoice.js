@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Container, Row, Col } from 'react-bootstrap';
-import InvoiceList from './InvoiceList';
-import Pagination from '../Pagination/Pagination';
-import Search from '../Search/Search';
+import InvoiceList from './InvoiceList.js';
+import Pagination from '../Pagination/Pagination.js';
+import Search from '../Search/Search.js';
 import { withRouter, useHistory } from 'react-router';
-import DynamicSelect from '../DynamicSelect/DynamicSelect';
+import DynamicSelect from '../DynamicSelect/DynamicSelect.js';
 import Button from '@restart/ui/esm/Button';
 
 const Invoice = (props) => {

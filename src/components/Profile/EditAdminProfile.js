@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { useHistory } from 'react-router';
 
 const EditAdminProfile = (props) => {

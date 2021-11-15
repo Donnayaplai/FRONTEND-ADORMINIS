@@ -3,10 +3,10 @@ import { useParams } from 'react-router';
 import { Container, Col, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
-import RoomData from './RoomData';
-import Pagination from '../Pagination/Pagination';
-import Search from '../Search/Search';
+import env from '../../env.js';
+import RoomData from './RoomData.js';
+import Pagination from '../Pagination/Pagination.js';
+import Search from '../Search/Search.js';
 
 const MainRoom = (props) => {
   const history = useHistory();

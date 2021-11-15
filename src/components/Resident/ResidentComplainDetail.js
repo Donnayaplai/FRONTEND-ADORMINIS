@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Row, Container, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter, useHistory } from 'react-router';

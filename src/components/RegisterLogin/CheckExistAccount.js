@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Card, Form, Container, Button, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
