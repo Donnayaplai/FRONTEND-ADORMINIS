@@ -11,6 +11,14 @@ import Navbar from './components/Navbar/Navbar';
 import History from './components/Others/History';
 import ResidentNav from './components/Navbar/ResidentNav';
 import AdminNav from './components/Navbar/AdminNav';
+//Public
+import adminRegister from './components/RegisterLogin/adminRegister';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
+import residentRegister from './components/RegisterLogin/residentRegister';
+import SelectRole from './components/RegisterLogin/SelectRole';
+import Login from './components/RegisterLogin/Login';
+import NotFound from './components/Others/NotFound';
+
 function App() {
   const [roleId, setRoleId] = useState();
   const [dormId, setDormId] = useState();
@@ -19,7 +27,6 @@ function App() {
   const [userFname, setUserFname] = useState();
   const [userLname, setUserLname] = useState();
   const [dormName, setDormName] = useState();
-  //ทำงานก่อน render
 
   const fetchMyAPI = useCallback(async () => {
     if (localStorage.getItem('authorization')) {
@@ -65,8 +72,6 @@ function App() {
     fetchMyAPI();
   }, [fetchMyAPI]);
 
-  // console.log(rentId);
-
   function RenderNav() {
     if (roleId === 0) {
       return (
@@ -96,7 +101,7 @@ function App() {
       return <Navbar />;
     }
   }
-  if (roleId && dormId) {
+  if ((roleId && dormId) || rentId) {
     return (
       <Router history={History}>
         {RenderNav()}
@@ -121,7 +126,36 @@ function App() {
       </Router>
     );
   } else {
-    return <h1>Loading...</h1>;
+    return (
+      <Router history={History}>
+        {RenderNav()}
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/login">
+            <Login
+              setRoleId={setRoleId}
+              setDormId={setDormId}
+              setRentId={setRentId}
+              setUserId={setUserId}
+            />
+          </Route>
+          <Route path="/role-selection" component={SelectRole} />
+          <Route path="/admin/register" exact component={adminRegister} />
+
+          <Route
+            path="/resident/check-account"
+            exact
+            component={CheckExistAccount}
+          />
+          <Route
+            path="/resident/register/:userid"
+            exact
+            component={residentRegister}
+          />
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </Router>
+    );
   }
 }
 
