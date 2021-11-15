@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import env from '../../env';
+import env from '../../env.js';
 import axios from 'axios';
 
 import './Navbar.css';

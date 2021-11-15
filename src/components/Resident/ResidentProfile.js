@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { useHistory } from 'react-router';
 
 const ResidentProfile = (props) => {

@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 
 const ResidentRegister = (props) => {
   const [error, setError] = useState(null);

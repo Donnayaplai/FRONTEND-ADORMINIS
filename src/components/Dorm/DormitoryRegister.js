@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { Provinces } from '../../systemdata/Provinces';
+import { Provinces } from '../../systemdata/Provinces.js';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 const DormitoryRegister = (props) => {

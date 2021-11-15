@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Row, Container, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 
 const AdminHome = (props) => {
   const [data, setData] = useState([]);

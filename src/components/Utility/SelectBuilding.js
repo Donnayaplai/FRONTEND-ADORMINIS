@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Table } from 'react-bootstrap';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { withRouter } from 'react-router';
 import Button from '@restart/ui/esm/Button';
 

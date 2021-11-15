@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Button, Card, Row, Col } from 'react-bootstrap';
 import { useHistory } from 'react-router';
-import env from '../../env';
+import env from '../../env.js';
 import axios from 'axios';
 import building from '../../assets/images/building.jpg';
 import './BuildingList.css';

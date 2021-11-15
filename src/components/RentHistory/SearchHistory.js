@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
-import Search from '../Search/Search';
-import Data from './Data';
+import env from '../../env.js';
+import Search from '../Search/Search.js';
+import Data from './Data.js';
 import './SearchHistory.css';
 const SearchHistory = (props) => {
   const [data, setData] = useState([]);

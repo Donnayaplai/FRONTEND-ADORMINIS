@@ -3,7 +3,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 
 const DormitoryInfo = (props) => {
   const history = useHistory();

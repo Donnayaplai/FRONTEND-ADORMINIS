@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import env from '../../env';
+import env from '../../env.js';
 import { Card, Container, Form, Button, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './RegisterLogin.css';

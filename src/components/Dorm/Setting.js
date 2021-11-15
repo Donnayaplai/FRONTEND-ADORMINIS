@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import { useHistory } from 'react-router';
-import CostSetting from './CostSetting';
-import BuildingSetting from './BuildingSetting';
-import RoomType from './RoomTypeSetting';
+import CostSetting from './CostSetting.js';
+import BuildingSetting from './BuildingSetting.js';
+import RoomType from './RoomTypeSetting.js';
 
 const Setting = (props) => {
   const [step1, setStep1] = useState();

@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import axios from 'axios';
-import env from '../../env';
+import env from '../../env.js';
 import RemoveUser from '../../assets/images/delete.png';
 import Edit from '../../assets/images/edit.png';
 import RoomInfo from '../../assets/images/roominfo.png';
