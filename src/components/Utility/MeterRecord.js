@@ -1,98 +1,106 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-function Utility() {
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { withRouter } from 'react-router';
+import { useHistory } from 'react-router';
+import axios from 'axios';
+import env from '../../env';
+import Search from '../Search/Search';
+import Pagination from '../Pagination/Pagination';
+import UtilCal from './UtilCal';
+
+const MeterRecord = (props) => {
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    }
+  });
+  const [oldMeter, setOldMeter] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [meter, setMeter] = useState();
+
+  const getOldMeter = async () => {
+    try {
+      setLoading(false);
+      const response = await axios.get(
+        `${env.url}calculate/meter/${props.match.params.buildingId}`
+      );
+      setOldMeter(response.data);
+      // ลูปเพื่อเอา oldElectricMeterNo ,oldWaterMeterNo ใน arrayRoomWithMeter
+
+      // let options = [];
+      // for (let i = 0; i < oldMeter.length; i++) {
+      //   options.push(oldMeter.arrayRoomWithMeter);
+      // }
+      // setMeter(options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log(oldMeter);
+
+  useEffect(() => {
+    getOldMeter();
+    //eslint-disable-next-line
+  }, []);
+
+  //Search
+  const handleSearchInput = (e) => {
+    const text = e.target.value;
+    setSearchText(text);
+    let copyData = [...oldMeter];
+    setFilteredData(
+      copyData.filter(
+        (meter) => meter.roomNo.includes(text) || meter.floor.includes(text)
+      )
+    );
+  };
+
+  // Pagination
+  // const indexOfLastItem = currentPage * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentData = oldMeter.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const nextPage = () => setCurrentPage(currentPage + 1);
+
+  const prevPage = () => setCurrentPage(currentPage - 1);
+
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
   return (
-    <div className="container">
-      <h1 className="text-center">คำนวณค่าน้ำ/ ค่าไฟ</h1>
-      <div className="row justify-content-center mt-3">
-        <div className="col-12 col-md-10 col-lg-8">
-          <form className="card-body row no-gutters align-items-center">
-            <div className="col">
-              <input
-                className="form-control form-control-lg form-control-borderless"
-                type="search"
-                placeholder="พิมพ์เพื่อค้นหา"
-              ></input>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div className="container">
-        <div className="mb-3">
-          <Link to="/utilsummary" style={{ float: 'right', fontSize: '20px' }}>
-            สรุปรวมทั้งหมด
-          </Link>
-          <h5 className="fw-bold mb-3" style={{ float: 'left' }}>
-            ห้อง 101
-          </h5>
-          <br />
-        </div>
-
-        <div
-          className="container mb-3 pt-2 pb-3"
-          style={{ backgroundColor: '#EAE7E2', width: '100%' }}
-        >
-          <br />
-          <h5 className="fw-bold mb-2 text-center">ค่าน้ำ</h5>
-          <div className="row g-3">
-            <div className="col">
-              <label for="text" className="form-label col-md-6">
-                เลขมิเตอร์ก่อนหน้า
-              </label>
-
-              <input
-                id="text"
-                name="text"
-                type="text"
-                className="form-control"
-                disabled
-              />
-            </div>
-            <div className="col">
-              <label for="text" className="form-label col-md-6">
-                เลขมิเตอร์ปัจจุบัน
-              </label>
-
-              <input
-                id="text"
-                name="text"
-                type="text"
-                className="form-control"
-              />
-            </div>
-          </div>
-          <hr className="my-2 mt-3 mb-3" />
-          <h5 className="fw-bold mb-2 text-center">ค่าไฟ</h5>
-          <div className="row g-3">
-            <div className="col">
-              <label for="text" className="form-label col-md-6">
-                เลขมิเตอร์ก่อนหน้า
-              </label>
-
-              <input
-                id="text"
-                name="text"
-                type="text"
-                className="form-control"
-                disabled
-              />
-            </div>
-            <div className="col">
-              <label for="text" className="form-label col-md-6">
-                เลขมิเตอร์ปัจจุบัน
-              </label>
-
-              <input
-                id="text"
-                name="text"
-                type="text"
-                className="form-control"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Container>
+      <h1>คำนวณค่าน้ำ/ ค่าไฟ</h1>
+      <Row className="mt-3">
+        <Col xs={8} sm={8} md={8} className="mx-auto">
+          <Search
+            handleSearchInput={handleSearchInput}
+            searchText={searchText}
+          />
+        </Col>
+      </Row>
+      <UtilCal
+        meter={meter}
+        oldMeter={oldMeter}
+        getOldMeter={getOldMeter}
+        loading={loading}
+        filteredData={filteredData}
+        searchText={searchText}
+      />
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalData={oldMeter.length}
+        paginate={paginate}
+        nextPage={nextPage}
+        prevPage={prevPage}
+      />
+    </Container>
   );
-}
-export default Utility;
+};
+export default withRouter(MeterRecord);
