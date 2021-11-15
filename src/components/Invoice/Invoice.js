@@ -12,12 +12,12 @@ import Button from '@restart/ui/esm/Button';
 const Invoice = (props) => {
   const history = useHistory();
   useEffect(() => {
-    // console.log(props.roleId);
     if (props.roleId !== 1) {
       history.push('/login');
     } else {
       getAllInvoice();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [invoiceList, setInvoiceList] = useState([]);
   const [billMonth, setMonth] = useState([]);
@@ -56,7 +56,6 @@ const Invoice = (props) => {
       const response = await axios.get(
         `${env.url}invoice/list/${props.dormId}`
       );
-      // console.log(response);
       setMainList(response.data);
       setInvoiceList(response.data);
       let options = [];
@@ -119,7 +118,7 @@ const Invoice = (props) => {
   };
   const onFilter = () => {
     let filtered = [...invoiceList];
-    if (searchText != '') {
+    if (searchText !== '') {
       filtered = filtered.filter(
         (invoice) =>
           invoice.billingMonth.includes(searchText) ||
@@ -150,13 +149,14 @@ const Invoice = (props) => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentData = filteredInvoice.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentData = filteredInvoice.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNum) => setCurrentPage(pageNum);
 
   const nextPage = () => setCurrentPage(currentPage + 1);
 
   const prevPage = () => setCurrentPage(currentPage - 1);
+
   return (
     <Container className="mx-auto w-75">
       <h1>
@@ -165,33 +165,39 @@ const Invoice = (props) => {
       </h1>
 
       <Row className="mt-5">
-        <Col xs={5} sm={5} md={5}>
+        <Col xs={12} sm={8} md={4}>
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
           />
         </Col>
-        <Col xs={3} sm={3} md={2}>
+        <Col xs={12} sm={4} md={2} className="mb-3">
           <DynamicSelect
             option={billYear}
             handleSelectChange={handleSelectYearChange}
           />
         </Col>
-        <Col xs={3} sm={3} md={2}>
+        <Col xs={12} sm={4} md={2} className="mb-3">
           <DynamicSelect
             option={billMonth}
             handleSelectChange={handleSelectMonthChange}
           />
         </Col>
-        <Button onClick={onFilter}>filter</Button>
-        <Button onClick={clearFilter}>Clear</Button>
+        <Col>
+          <Button className="btn btn-primary" onClick={onFilter}>
+            ค้นหา
+          </Button>
+          <Button className="btn btn-secondary ms-2" onClick={clearFilter}>
+            ล้างการค้นหา
+          </Button>
+        </Col>
       </Row>
       {invoiceList.length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <>
           <InvoiceList
-            invoiceList={mainList}
+            invoiceList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
             getAllInvoice={getAllInvoice}
             loading={loading}
             filteredInvoice={filteredInvoice}
