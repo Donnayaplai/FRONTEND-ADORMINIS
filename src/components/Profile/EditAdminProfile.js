@@ -14,7 +14,7 @@ const EditAdminProfile = (props) => {
       history.push('/login');
     }
   });
-  const { register, handleSubmit, reset, trigger } = useForm();
+  const { register, handleSubmit, trigger } = useForm();
   const [error, setError] = useState(null);
   const [userProfile, setUserProfile] = useState([]);
 
@@ -35,7 +35,6 @@ const EditAdminProfile = (props) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
       await axios
         .post(`${env.url}api/user/edit/${props.match.params.userid}`, data)
         .then(window.alert('การแก้ไขข้อมูลเสร็จสิ้น'))
@@ -43,7 +42,6 @@ const EditAdminProfile = (props) => {
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
-        reset();
       }
     }
   };
@@ -118,7 +116,7 @@ const EditAdminProfile = (props) => {
                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="0xx-xxx-xxxx"
+                  placeholder="0xxxxxxxxx"
                   name="telNo"
                   defaultValue={userProfile.TELNO}
                   {...register('telNo')}
