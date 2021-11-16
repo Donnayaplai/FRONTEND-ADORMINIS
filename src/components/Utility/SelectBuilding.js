@@ -61,8 +61,9 @@ const SelectBuilding = (props) => {
                 border: 'none',
                 textAlign: 'center',
               }}
+              key={list.BUILDINGID}
             >
-              <tr key={list.BUILDINGID}>
+              <tr>
                 <td>{list.BUILDINGNAME}</td>
                 <td>{list.NUMOFFLOOR}</td>
                 <td>
