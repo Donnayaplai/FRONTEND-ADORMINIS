@@ -21,32 +21,27 @@ const MeterRecord = (props) => {
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [meter, setMeter] = useState();
 
   const getOldMeter = async () => {
     try {
-      setLoading(false);
+      setLoading(true);
       const response = await axios.get(
         `${env.url}calculate/meter/${props.match.params.buildingId}`
       );
       setOldMeter(response.data);
-      // ลูปเพื่อเอา oldElectricMeterNo ,oldWaterMeterNo ใน arrayRoomWithMeter
-
-      // let options = [];
-      // for (let i = 0; i < oldMeter.length; i++) {
-      //   options.push(oldMeter.arrayRoomWithMeter);
-      // }
-      // setMeter(options);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
-  console.log(oldMeter);
 
   useEffect(() => {
     getOldMeter();
     //eslint-disable-next-line
   }, []);
+
+  const arrayMeter = oldMeter.arrayRoomWithMeter;
+  console.log(arrayMeter);
 
   //Search
   const handleSearchInput = (e) => {
@@ -86,8 +81,7 @@ const MeterRecord = (props) => {
         </Col>
       </Row>
       <UtilCal
-        meter={meter}
-        oldMeter={oldMeter}
+        arrayMeter={arrayMeter}
         getOldMeter={getOldMeter}
         loading={loading}
         filteredData={filteredData}
