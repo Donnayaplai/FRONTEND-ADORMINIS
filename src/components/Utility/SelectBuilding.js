@@ -51,7 +51,7 @@ const SelectBuilding = (props) => {
             <tr key={buildingList.BUILDINGNO}>
               <th>ชื่อตึก</th>
               <th>จำนวนชั้น</th>
-              <th>จำนวนชั้น</th>
+              <th>เลือกตึก</th>
             </tr>
           </thead>
           {buildingList.map((list) => (
@@ -74,7 +74,7 @@ const SelectBuilding = (props) => {
                     }}
                   >
                     <Button className="btn btn-light" id="btn-select">
-                      เลือก&nbsp;<i className="far fa-check-circle"></i>
+                      <i className="far fa-check-circle"></i>
                     </Button>
                   </Link>
                 </td>
