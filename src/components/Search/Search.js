@@ -7,7 +7,7 @@ function Search(props) {
         <Form.Group className="mb-3 ">
           <Form.Control
             type="text"
-            placeholder="พิมพ์เพื่อค้นหา..."
+            placeholder={props.placeholder}
             value={props.searchText}
             onChange={props.handleSearchInput}
             name="search"
