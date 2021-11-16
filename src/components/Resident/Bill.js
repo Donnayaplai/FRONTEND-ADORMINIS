@@ -73,6 +73,7 @@ const Bill = (props) => {
   const clearFilter = () => {
     setMainList(billList);
     setSearchText('');
+    setSelectBillCycle();
   };
   const onFilter = () => {
     let filtered = [...billList];
@@ -113,29 +114,33 @@ const Bill = (props) => {
       </h1>
 
       <Container className="w-75 mx-auto">
-        <Row className="mt-3">
-          <Col xs={12} sm={8} md={5}>
-            <Search
-              handleSearchInput={handleSearchInput}
-              searchText={searchText}
-              placeholder={'โปรดระบุรอบบิล, เดือน,ปี เพื่อค้นหา...'}
-            />
-          </Col>
-          <Col xs={12} sm={4} md={3} className="mb-3">
-            <DynamicSelect
-              option={billCycle}
-              handleSelectChange={handleSelectBillCycleChange}
-            />
-          </Col>
-          <Col s={12} sm={12} md={4}>
-            <Button className="btn btn-primary" onClick={onFilter}>
-              ค้นหา
-            </Button>
-            <Button className="btn btn-secondary ms-2" onClick={clearFilter}>
-              ล้างการค้นหา
-            </Button>
-          </Col>
-        </Row>
+        <Container className="border mt-3 mb-3 p-3">
+          {' '}
+          <Row className="mt-3">
+            <Col xs={12} sm={8} md={5}>
+              <Search
+                handleSearchInput={handleSearchInput}
+                searchText={searchText}
+                placeholder={'โปรดระบุรอบบิล, เดือน,ปี เพื่อค้นหา...'}
+              />
+            </Col>
+            <Col xs={12} sm={4} md={3} className="mb-3">
+              <DynamicSelect
+                option={billCycle}
+                handleSelectChange={handleSelectBillCycleChange}
+              />
+            </Col>
+            <Col s={12} sm={12} md={4}>
+              <Button className="btn btn-primary" onClick={onFilter}>
+                ค้นหา
+              </Button>
+              <Button className="btn btn-secondary ms-2" onClick={clearFilter}>
+                ล้างการค้นหา
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+
         <BillingList
           billList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
           // billList={currentData}
