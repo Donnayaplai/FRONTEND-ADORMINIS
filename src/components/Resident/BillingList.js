@@ -15,13 +15,13 @@ const BillingList = ({
   const [billInfoModalOpen, setBillInfoModalOpen] = useState(false);
 
   //Get all Bill
-  const getBillList = () => {
-    if (searchText === '') {
-      return billList;
-    } else {
-      return filteredBill;
-    }
-  };
+  // const getBillList = () => {
+  //   if (searchText === '') {
+  //     return billList;
+  //   } else {
+  //     return filteredBill;
+  //   }
+  // };
   const Cancle = () => {
     setBillInfoModalOpen(false);
   };
@@ -44,7 +44,7 @@ const BillingList = ({
 
   return (
     <>
-      {getBillList().length === 0 ? (
+      {billList.length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Table
@@ -68,7 +68,7 @@ const BillingList = ({
           </thead>
 
           <tbody>
-            {getBillList().map((bill) => (
+            {billList.map((bill) => (
               <tr
                 key={bill.invoiceID}
                 style={{
