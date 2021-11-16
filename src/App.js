@@ -37,6 +37,7 @@ function App() {
           },
         })
         .then((data) => {
+          console.log(data.data);
           setUserId(data.data.USERID);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
@@ -101,7 +102,7 @@ function App() {
       return <Navbar />;
     }
   }
-  if ((roleId && dormId) || rentId) {
+  if (roleId || dormId || rentId) {
     return (
       <Router history={History}>
         {RenderNav()}
