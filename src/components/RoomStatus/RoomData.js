@@ -88,17 +88,22 @@ const RoomData = ({
     formData.set('costList', all);
   };
 
-  const onSubmit = async (data) => {
+  //แก้ไขค่าใช้จ่ายเพิ่มเติม
+  const onSubmit = async (listOfCost) => {
     try {
-      data.listOfCost = checked;
-      await axios.post(
-        `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
-        data
-      );
+      listOfCost = checked;
+      await axios
+        .post(`${env.url}api/room/cost/${selectRoomID}`, {
+          listOfCost: listOfCost,
+        })
+        .then(setEditCostMode(false))
+        .then(window.alert('การแก้ไขค่าใช้จ่ายเพิ่มเติมเสร็จสิ้น'))
+        .then(window.location.reload());
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
-        window.alert(error);
+        setEditCostMode(false);
+        setRoomInfo(false);
       }
     }
   };
@@ -209,9 +214,10 @@ const RoomData = ({
     setRoomModalOpen(false);
     setShowConfirmDeleteModal(false);
     setEditMode(false);
+    setEditCostMode(false);
   };
 
-  if (error) return window.alert({ error });
+  if (error) return window.alert({ error }) && window.location.reload();
 
   if (loading) {
     return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
@@ -307,6 +313,7 @@ const RoomData = ({
                       }}
                       onClick={() => {
                         getRoomInfo(room.ROOMID);
+                        setSelectRoomID(room.ROOMID);
                         setRoomModalOpen(true);
                       }}
                     >
@@ -358,7 +365,6 @@ const RoomData = ({
                         className="btn"
                         onClick={() => {
                           setSelectRoomID(room.ROOMID);
-                          console.log(selectRoomID);
                         }}
                       >
                         <i
@@ -404,13 +410,16 @@ const RoomData = ({
                           backgroundColor: 'transparent',
                           border: 'none',
                           boxShadow: 'none',
+                          float: 'right',
                         }}
-                        onClick={() => setEditCostMode(true)}
+                        onClick={() => {
+                          setEditCostMode(true);
+                        }}
                       >
                         <img
                           src={Edit}
                           alt="Edit room information"
-                          style={{ width: '1.5em', float: 'right' }}
+                          style={{ width: '1.5em' }}
                         />
                       </Button>
                     </Col>
@@ -441,35 +450,40 @@ const RoomData = ({
                       </Col>
                     </Row>
                     <hr />
-                    <Row>
-                      <Col xl={10} md={8} xs={8}>
-                        <h5 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h5>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        {roomInfo?.listOfCost?.map((c) => {
-                          return (
-                            <Row key={c.id}>
-                              <Col>
-                                <input
-                                  type="checkbox"
-                                  checked={true}
-                                  id="checkbox"
-                                />
-                                <label>{c.costName}</label>
-                              </Col>
-                            </Row>
-                          );
-                        })}
 
-                        {/* render cost ทั้งหมด => เอาแต่ละค่าไป check กับ cost ที่มีอยู่แล้ว */}
-                        {/* [1,2,3][1,2] */}
-                        {/* .indexOf */}
-                      </Col>
-                    </Row>
-                    {isEditCostMode && (
+                    {!isEditCostMode ? (
+                      <Row>
+                        <Row>
+                          <Col xl={10} md={8} xs={8}>
+                            <h5 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h5>
+                          </Col>
+                        </Row>
+                        <Col>
+                          {roomInfo?.listOfCost?.map((c) => {
+                            return (
+                              <Row key={c.id}>
+                                <Col>
+                                  <input
+                                    type="checkbox"
+                                    checked={true}
+                                    id="checkbox"
+                                  />
+                                  <label>{c.costName}</label>
+                                </Col>
+                              </Row>
+                            );
+                          })}
+                        </Col>
+                      </Row>
+                    ) : (
                       <>
+                        <Row>
+                          <Col xl={10} md={8} xs={8}>
+                            <h5 className="fw-bold">
+                              โปรดเลือกค่าใช้จ่ายเพิ่มเติมที่ต้องการแก้ไข
+                            </h5>
+                          </Col>
+                        </Row>
                         {costList.map((s) => {
                           return (
                             <Row key={s.id}>
@@ -484,9 +498,28 @@ const RoomData = ({
                             </Row>
                           );
                         })}
+
+                        <Row className="mt-3">
+                          <Col>
+                            <Button
+                              className="btn btn-primary ms-2"
+                              onClick={onSubmit}
+                              type="submit"
+                              style={{ float: 'right' }}
+                            >
+                              ยืนยัน
+                            </Button>
+                            <Button
+                              className="btn btn-secondary"
+                              onClick={Cancle}
+                              style={{ float: 'right' }}
+                            >
+                              ยกเลิก
+                            </Button>
+                          </Col>
+                        </Row>
                       </>
                     )}
-                    {isEditCostMode && <Button type="submit">ยืนยัน</Button>}
                   </Container>
                 </Modal.Body>
               </Modal>

@@ -13,8 +13,11 @@ const MainRoom = (props) => {
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getAllRoom();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [roomData, setRoomData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,18 +28,20 @@ const MainRoom = (props) => {
 
   const { buildingid } = useParams();
 
-  //All room
-
-  useEffect(() => {
-    getAllRoom();
-    //eslint-disable-next-line
-  }, [buildingid]);
+  // useEffect(() => {
+  //   getAllRoom();
+  //eslint-disable-next-line
+  // }, [buildingid]);
 
   let getAllRoom = async () => {
-    setLoading(true);
-    let response = await axios.get(`${env.url}api/room/all/${buildingid}`);
-    setRoomData(response.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      let response = await axios.get(`${env.url}api/room/all/${buildingid}`);
+      setRoomData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   //Search
@@ -70,6 +75,7 @@ const MainRoom = (props) => {
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
+            placeholder={'โปรดระบุเลขห้องเพื่อค้นหา...'}
           />
         </Col>
       </Row>
