@@ -4,8 +4,7 @@ import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
 import env from '../../env';
 import axios from 'axios';
-
-import './Navbar.css';
+import './AdminNav.css';
 import logo from '../../assets/images/building-nav.png';
 
 const AdminNav = (props) => {
