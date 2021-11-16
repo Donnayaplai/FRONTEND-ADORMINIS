@@ -72,6 +72,7 @@ const Complain = (props) => {
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
+            placeholder={'โปรดระบุเลขห้อง,ชื่อเรื่อง เพื่อค้นหา...'}
           />
         </Col>
       </Row>
