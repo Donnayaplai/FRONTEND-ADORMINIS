@@ -115,6 +115,7 @@ const Invoice = (props) => {
   };
   const clearFilter = () => {
     setMainList(invoiceList);
+    setSearchText('');
   };
   const onFilter = () => {
     let filtered = [...invoiceList];
