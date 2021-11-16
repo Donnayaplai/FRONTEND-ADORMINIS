@@ -158,61 +158,64 @@ const Invoice = (props) => {
   const prevPage = () => setCurrentPage(currentPage - 1);
 
   return (
-    <Container className="mx-auto w-75">
+    <Container>
       <h1>
         ใบแจ้งหนี้ทั้งหมด &nbsp;
         <i className="fas fa-file-invoice-dollar"></i>
       </h1>
+      <Container className="border mt-3 mb-3 p-3">
+        <Row className="mt-3">
+          <Col xs={12} sm={8} md={6}>
+            <Search
+              handleSearchInput={handleSearchInput}
+              searchText={searchText}
+              placeholder={'โปรดระบุเลขห้อง,รอบบิล เพื่อค้นหา...'}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={4} md={3} className="mb-3">
+            <span className="fw-normal">ปี</span>
+            <DynamicSelect
+              option={billYear}
+              handleSelectChange={handleSelectYearChange}
+            />
+          </Col>
+          <Col xs={12} sm={4} md={3} className="mb-3">
+            เดือน
+            <DynamicSelect
+              option={billMonth}
+              handleSelectChange={handleSelectMonthChange}
+            />
+          </Col>
+          <Col xs={12} sm={12} md={4}>
+            <Button className="btn btn-primary" onClick={onFilter}>
+              ค้นหา
+            </Button>
+            <Button className="btn btn-secondary ms-2" onClick={clearFilter}>
+              ล้างการค้นหา
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+      <>
+        <InvoiceList
+          invoiceList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
+          getAllInvoice={getAllInvoice}
+          loading={loading}
+          filteredInvoice={filteredInvoice}
+          searchText={searchText}
+          dormId={props.dormId}
+        />
 
-      <Row className="mt-5">
-        <Col xs={12} sm={8} md={4}>
-          <Search
-            handleSearchInput={handleSearchInput}
-            searchText={searchText}
-          />
-        </Col>
-        <Col xs={12} sm={4} md={2} className="mb-3">
-          <DynamicSelect
-            option={billYear}
-            handleSelectChange={handleSelectYearChange}
-          />
-        </Col>
-        <Col xs={12} sm={4} md={2} className="mb-3">
-          <DynamicSelect
-            option={billMonth}
-            handleSelectChange={handleSelectMonthChange}
-          />
-        </Col>
-        <Col>
-          <Button className="btn btn-primary" onClick={onFilter}>
-            ค้นหา
-          </Button>
-          <Button className="btn btn-secondary ms-2" onClick={clearFilter}>
-            ล้างการค้นหา
-          </Button>
-        </Col>
-      </Row>
-      {invoiceList.length === 0 ? (
-        <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
-      ) : (
-        <>
-          <InvoiceList
-            invoiceList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
-            getAllInvoice={getAllInvoice}
-            loading={loading}
-            filteredInvoice={filteredInvoice}
-            searchText={searchText}
-            dormId={props.dormId}
-          />
-          <Pagination
-            itemsPerPage={itemsPerPage}
-            totalData={invoiceList.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
-          />
-        </>
-      )}
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          totalData={invoiceList.length}
+          paginate={paginate}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
+      </>
     </Container>
   );
 };
