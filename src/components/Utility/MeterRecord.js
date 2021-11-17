@@ -13,8 +13,12 @@ const MeterRecord = (props) => {
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getOldMeter();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.roleId, history]);
+
   const [oldMeter, setOldMeter] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
@@ -22,10 +26,10 @@ const MeterRecord = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  const getOldMeter = async () => {
+  let getOldMeter = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
+      let response = await axios.get(
         `${env.url}calculate/meter/${props.match.params.buildingId}`
       );
       setOldMeter(response.data);
@@ -33,17 +37,10 @@ const MeterRecord = (props) => {
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
-  useEffect(() => {
-    getOldMeter();
-    //eslint-disable-next-line
-  }, []);
-
-  const arrayMeter = oldMeter.arrayRoomWithMeter;
-  console.log(arrayMeter);
-
-  //Search
+  // Search
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
@@ -58,7 +55,10 @@ const MeterRecord = (props) => {
   // Pagination
   // const indexOfLastItem = currentPage * itemsPerPage;
   // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentData = oldMeter.slice(indexOfFirstItem, indexOfLastItem);
+  // const currentData = oldMeter.arrayRoomWithMeter.slice(
+  //   indexOfFirstItem,
+  //   indexOfLastItem
+  // );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -66,9 +66,6 @@ const MeterRecord = (props) => {
 
   const prevPage = () => setCurrentPage(currentPage - 1);
 
-  if (loading) {
-    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  }
   return (
     <Container>
       <h1>คำนวณค่าน้ำ/ ค่าไฟ</h1>
@@ -77,11 +74,12 @@ const MeterRecord = (props) => {
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
+            placeholder={'พิมพ์เพื่อค้นหา...'}
           />
         </Col>
       </Row>
       <UtilCal
-        arrayMeter={arrayMeter}
+        oldMeter={oldMeter}
         getOldMeter={getOldMeter}
         loading={loading}
         filteredData={filteredData}

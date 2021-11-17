@@ -4,8 +4,9 @@ import { Container, Button, Row, Col, Form } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
 import { useForm } from 'react-hook-form';
+import { withRouter } from 'react-router';
 
-const UtilCal = (oldMeter, loading, filteredData, searchText, ...props) => {
+const UtilCal = ({ filteredData, searchText, oldMeter, loading, ...props }) => {
   const getOldMeterList = () => {
     if (searchText === '') {
       return oldMeter;
@@ -14,6 +15,8 @@ const UtilCal = (oldMeter, loading, filteredData, searchText, ...props) => {
     }
   };
   const [error, setError] = useState();
+
+  console.log(oldMeter);
 
   // POST คำนวนค่าไฟ-น้ำ สรุปผล และบันทึกลง db
   // Path: http://localhost:3001/calculate/:dormID
@@ -43,25 +46,30 @@ const UtilCal = (oldMeter, loading, filteredData, searchText, ...props) => {
   if (loading) {
     return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
   }
+
   return (
     <>
-      {getOldMeterList().length === 0 ? (
+      {oldMeter.length === 0 ? (
         <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Container className="w-75">
-            {getOldMeterList().map((metre) => (
+            {oldMeter?.arrayRoomWithMeter?.map((meter) => (
               <Container
                 className="px-3 py-3 rounded mb-3 mt-3"
                 style={{ backgroundColor: '#EAE7E2' }}
+                key={meter.roomNo}
               >
-                <h5 className="fw-bold mb-3">{metre.thisBillingCycle}</h5>
                 <h6>ค่าน้ำ</h6>
                 <Row className="mb-3">
                   <Col>
                     <Form.Group>
                       <Form.Label>เลขมิเตอร์ก่อนหน้า</Form.Label>
-                      <Form.Control type="text" disabled />
+                      <Form.Control
+                        type="text"
+                        disabled
+                        value={meter.oldWaterMeterNo}
+                      />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -80,7 +88,11 @@ const UtilCal = (oldMeter, loading, filteredData, searchText, ...props) => {
                   <Col>
                     <Form.Group>
                       <Form.Label>เลขมิเตอร์ก่อนหน้า</Form.Label>
-                      <Form.Control type="text" disabled />
+                      <Form.Control
+                        type="text"
+                        disabled
+                        value={meter.oldElectricMeterNo}
+                      />
                     </Form.Group>
                   </Col>
                   <Col>
@@ -117,4 +129,4 @@ const UtilCal = (oldMeter, loading, filteredData, searchText, ...props) => {
   );
 };
 
-export default UtilCal;
+export default withRouter(UtilCal);
