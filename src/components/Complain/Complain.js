@@ -40,14 +40,16 @@ const Complain = (props) => {
   //Get all problems
   let getAllComplain = async () => {
     try {
+      setLoading(true);
       let response = await axios.get(
         `${env.url}complaint/list/${props.dormId}`
       );
       setComplainList(response.data);
-      setLoading(true);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   // Pagination

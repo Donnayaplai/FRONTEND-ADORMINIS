@@ -18,7 +18,7 @@ const ComplainList = ({
       return filteredComplain;
     }
   };
-  if (!loading) {
+  if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
   return (
