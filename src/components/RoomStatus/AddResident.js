@@ -40,6 +40,7 @@ const AddResident = (props) => {
 
   const [formData, setFormData] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [isRoomAvailable, setRoomAvailable] = useState([]);
   const [costList] = useState([
     {
       id: 4,
@@ -64,8 +65,19 @@ const AddResident = (props) => {
     },
   ]);
 
+  // useEffect(() => {
+  //   setFormData(new FormData());
+  //   CheckRoomStatus();
+  // }, []);
+
   useEffect(() => {
-    setFormData(new FormData());
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      CheckRoomStatus();
+      setFormData(new FormData());
+    }
+    //eslint-disable-next-line
   }, []);
 
   const handleToggle = (c) => () => {
@@ -77,11 +89,26 @@ const AddResident = (props) => {
     } else {
       all.splice(clickedCostList, 1);
     }
-    console.log(all);
+    // console.log(all);
     setChecked(all);
     formData.set('costList', all);
   };
 
+  //เช็คสถานะห้องพักก่อนเพิ่มผู้เช่าเข้าห้อง
+  const CheckRoomStatus = async () => {
+    try {
+      const response = await axios.get(
+        `${env.url}api/room/status/${props.match.params.roomid}`
+      );
+      setRoomAvailable(response.data);
+      // console.log(response.data);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      }
+    }
+  };
+  // console.log(isRoomAvailable);
   return (
     <>
       <h1>
@@ -333,26 +360,48 @@ const AddResident = (props) => {
 
           <Container style={{ maxWidth: '800px' }} className="mt-3">
             <h4 className="fw-bold">ค่าใช้จ่ายเพิ่มเติม</h4>
-
-            <Container
-              className="py-4 rounded mb-3"
-              style={{ backgroundColor: '#EAE7E2' }}
-            >
-              {costList.map((c) => {
-                return (
-                  <Row key={c.id}>
-                    <Col>
-                      <input
-                        type="checkbox"
-                        onChange={handleToggle(c.id)}
-                        id="checkbox"
-                      />
-                      <label>{c.costName}</label>
-                    </Col>
-                  </Row>
-                );
-              })}
-            </Container>
+            {isRoomAvailable.status === false ? (
+              <Container
+                className="py-4 rounded mb-3"
+                style={{ backgroundColor: '#EAE7E2' }}
+              >
+                {costList.map((c) => {
+                  return (
+                    <Row key={c.id}>
+                      <Col>
+                        <input
+                          type="checkbox"
+                          onChange={handleToggle(c.id)}
+                          id="checkbox"
+                          disabled
+                        />
+                        <label>{c.costName}</label>
+                      </Col>
+                    </Row>
+                  );
+                })}
+              </Container>
+            ) : (
+              <Container
+                className="py-4 rounded mb-3"
+                style={{ backgroundColor: '#EAE7E2' }}
+              >
+                {costList.map((c) => {
+                  return (
+                    <Row key={c.id}>
+                      <Col>
+                        <input
+                          type="checkbox"
+                          onChange={handleToggle(c.id)}
+                          id="checkbox"
+                        />
+                        <label>{c.costName}</label>
+                      </Col>
+                    </Row>
+                  );
+                })}
+              </Container>
+            )}
 
             <Row className="mt-3">
               <Col>
