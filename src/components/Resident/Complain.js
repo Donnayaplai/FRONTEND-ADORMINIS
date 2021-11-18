@@ -12,8 +12,11 @@ const ResidentComplain = (props) => {
   useEffect(() => {
     if (props.roleId !== 0) {
       history.push('/login');
+    } else {
+      getAllResidentProblems();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,10 +43,9 @@ const ResidentComplain = (props) => {
     );
   };
 
-  useEffect(() => {
-    getAllResidentProblems();
-    //eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getAllResidentProblems();
+  // }, []);
 
   //Get all problems
   let getAllResidentProblems = async () => {
@@ -110,6 +112,7 @@ const ResidentComplain = (props) => {
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
+            placeholder={'โปรดระบุวันที่แจ้งเรื่อง,ชื่อเรื่อง เพื่อค้นหา...'}
           />
         </Col>
       </Row>

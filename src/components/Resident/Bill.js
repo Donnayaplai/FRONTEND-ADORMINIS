@@ -16,6 +16,7 @@ const Bill = (props) => {
     } else {
       getBill();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [billList, setBillList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -115,22 +116,24 @@ const Bill = (props) => {
 
       <Container className="w-75 mx-auto">
         <Container className="border mt-3 mb-3 p-3">
-          {' '}
           <Row className="mt-3">
-            <Col xs={12} sm={8} md={5}>
+            <Col xs={12} sm={12} md={7}>
               <Search
                 handleSearchInput={handleSearchInput}
                 searchText={searchText}
                 placeholder={'โปรดระบุรอบบิล, เดือน,ปี เพื่อค้นหา...'}
               />
             </Col>
-            <Col xs={12} sm={4} md={3} className="mb-3">
+          </Row>
+          <Row>
+            <Col xs={12} sm={4} md={4} className="mb-3">
+              <span className="fw-normal">รอบบิล</span>
               <DynamicSelect
                 option={billCycle}
                 handleSelectChange={handleSelectBillCycleChange}
               />
             </Col>
-            <Col s={12} sm={12} md={4}>
+            <Col s={12} sm={8} md={6} className="mt-3">
               <Button className="btn btn-primary" onClick={onFilter}>
                 ค้นหา
               </Button>
