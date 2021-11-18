@@ -7,7 +7,7 @@ const Data = ({ loading, data }) => {
   }
   return (
     <>
-      {data.length == '' ? (
+      {data === '' ? (
         ''
       ) : (
         <>
