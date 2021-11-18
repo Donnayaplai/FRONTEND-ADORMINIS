@@ -78,9 +78,15 @@ const SearchHistory = (props) => {
             </Col>
           </Row>
         </form>
-        <Container className="mt-5">
-          <Data loading={loading} data={data} />
-        </Container>
+        {data === '' ? (
+          <Container className="mt-5" style={{ display: 'none' }}>
+            <Data loading={loading} data={data} />
+          </Container>
+        ) : (
+          <Container className="mt-5">
+            <Data loading={loading} data={data} />
+          </Container>
+        )}
       </Container>
     </>
   );
