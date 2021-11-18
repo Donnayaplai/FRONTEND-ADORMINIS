@@ -4,56 +4,85 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import { useHistory } from 'react-router';
-import Search from '../Search/Search';
 import Data from './Data';
 import './SearchHistory.css';
 const SearchHistory = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [input, setInput] = useState();
 
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
-    } else {
       //eslint-disable-next-line
-      searchHistory();
     }
-    //eslint-disable-next-line
-  }, [props.roleId]);
+  });
 
-  const searchHistory = async () => {
+  let searchHistory = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${env.url}history/${props.dormId}`);
-      console.log(data);
+      const response = await axios.get(
+        `${env.url}history/${props.dormId}/${input}`
+      );
       setData(response.data);
       setLoading(false);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
-  // if (loading) {
-  //   return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  // }
+  let clearFilter = () => {
+    setData('');
+    setInput('');
+  };
+
   return (
-    <Container>
+    <>
       <h1>ประวัติการเช่าพัก</h1>
-      <Container>
-        <Row className="mt-3">
-          <Col xs={8} sm={8} md={8}>
-            <Search />
-          </Col>
-          <Col xs={4} sm={4} md={4}>
-            <Button className="btn" onClick={searchHistory}>
-              ค้นหา
-            </Button>
-          </Col>
-        </Row>
-        <Data loading={loading} data={data} />
+      <Container className="w-75">
+        <form onSubmit={searchHistory}>
+          <Row className="mt-3">
+            <Col xs={12} sm={5} md={8}>
+              <input
+                type="text"
+                name="input"
+                placeholder="พิมพ์เพื่อค้นหา..."
+                value={input}
+                className="form-control"
+                onChange={(e) => setInput(e.target.value)}
+              />
+            </Col>
+            <Col xs={12} sm={7} md={4}>
+              <Button
+                style={{ justifyContent: 'space-between' }}
+                xs={3}
+                sm={3}
+                md={2}
+                className="btn btn-primary"
+                onClick={() => searchHistory()}
+              >
+                ค้นหา
+              </Button>
+              <Button
+                xs={3}
+                sm={3}
+                md={2}
+                className="btn btn-secondary ms-2"
+                onClick={() => clearFilter()}
+              >
+                ล้างการค้นหา
+              </Button>
+            </Col>
+          </Row>
+        </form>
+        <Container className="mt-5">
+          <Data loading={loading} data={data} />
+        </Container>
       </Container>
-    </Container>
+    </>
   );
 };
 
