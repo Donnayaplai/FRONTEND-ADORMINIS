@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 const Pagination = ({
   itemsPerPage,
@@ -13,10 +14,11 @@ const Pagination = ({
     pageNumbers.push(i);
   }
   return (
-    <nav
+    <Container
       style={{
-        backgroundColor: '#fff',
-        justifyContent: 'center',
+        padding: '0',
+        maxWidth: 'fit-content',
+        alignItems: 'center',
       }}
     >
       <ul className="pagination">
@@ -38,7 +40,7 @@ const Pagination = ({
           </Link>
         </li>
       </ul>
-    </nav>
+    </Container>
   );
 };
 
