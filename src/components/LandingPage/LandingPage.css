@@ -1,78 +1,96 @@
-header {
-  background: rgb(161, 216, 249);
-  background: linear-gradient(
-    90deg,
-    rgba(161, 216, 249, 1) 0%,
-    rgba(137, 228, 236, 0.43881302521008403) 35%,
-    rgba(139, 224, 241, 1) 100%
-  );
-  padding-bottom: 5%;
-  height: fit-content;
-  padding-top: 2%;
+:root {
+  --blue: #97d9fb;
+  --light-blue: #c7e5f0;
+  --gradient: linear-gradient(90deg, var(--blue), var(--light-blue));
 }
 
-.btn-header {
-  background-color: #fff;
-  color: #000;
-  border: none;
-  max-width: 600px;
-  width: 100%;
-  max-height: 50px;
-  height: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   text-decoration: none;
-  padding: 2%;
-  text-align: center;
-  border-radius: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
-}
-.btn-header:hover {
-  background-color: #8be0f1;
-  color: #000;
+  outline: none;
   border: none;
-  max-width: 600px;
-  width: 100%;
-  max-height: 50px;
-  height: 100%;
-  text-decoration: none;
-  padding: 2%;
-  text-align: center;
-  border-radius: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
 }
-button.fas.fa-sign-in-alt {
-  width: 10px;
+
+*::selection {
+  background: var(--light-blue);
+  color: #fff;
 }
-/* Features */
-.second-sec {
-  padding-top: 3%;
-  height: fit-content;
-  background-color: azure;
-  padding-bottom: 5%;
+
+body {
+  background: #f9f9f9;
 }
-.feature-img {
+
+section {
+  min-height: 90vh;
+  padding: 2rem 1rem 0rem 2rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#btn {
+  display: inline-block;
   max-width: 200px;
-  width: 200px;
-  margin-left: 30%;
-  margin-right: 50%;
+  height: 50px;
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--gradient);
+  font-size: 1.2rem;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transition: all 0.3s linear;
 }
 
-/* FAQ */
-.third-sec {
-  padding-top: 3%;
-  padding-bottom: 10%;
-  background: rgb(161, 216, 249);
-  background: linear-gradient(
-    90deg,
-    rgba(161, 216, 249, 1) 0%,
-    rgba(137, 228, 236, 0.43881302521008403) 35%,
-    rgba(139, 224, 241, 1) 100%
-  );
+#btn:hover {
+  transform: scale(1.1);
 }
-.accordion {
-  padding-left: 5%;
-  padding-right: 5%;
+
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(./home-bg-img.png) no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding-top: 0;
+}
+
+.home .image img {
+  width: 35vw;
+  animation: float 3s linear infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0rem);
+  }
+  50% {
+    transform: translateY(-3.5rem);
+  }
+}
+
+.home .content h3 {
+  font-size: 5.5rem;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.home .content span {
+  color: #000;
+  text-transform: uppercase;
+}
+.home .content span:hover {
+  color: #05aba9;
+  text-transform: uppercase;
+}
+
+.home .content p {
+  font-size: 1.5em;
+  color: #1b1b1b;
+  padding: 1rem 0;
 }
