@@ -85,7 +85,7 @@ section {
   text-transform: uppercase;
 }
 .home .content span:hover {
-  color: #05aba9;
+  color: var(--blue);
   text-transform: uppercase;
 }
 
