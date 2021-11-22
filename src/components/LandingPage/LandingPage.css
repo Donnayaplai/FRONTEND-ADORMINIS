@@ -18,9 +18,9 @@
   color: #fff;
 }
 
-body {
+/* body {
   background: #f9f9f9;
-}
+} */
 
 section {
   min-height: 90vh;
@@ -37,7 +37,7 @@ section {
   margin-top: 0.7rem;
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
-  background: var(--gradient);
+  background: var(--light-blue);
   font-size: 1.2rem;
   color: #000;
   cursor: pointer;
@@ -47,6 +47,7 @@ section {
 
 #btn:hover {
   transform: scale(1.1);
+  background: var(--blue);
 }
 
 .home {
