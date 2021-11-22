@@ -28,7 +28,7 @@ import MainRoom from './components/RoomStatus/MainRoom';
 import Complain from './components/Complain/Complain';
 import ComplainDetail from './components/Complain/ComplainDetail';
 import SearchHistory from './components/RentHistory/SearchHistory';
-
+import DisplayCostSetting from './components/Setting/DisplayCostSetting';
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
 import ResidentProfile from './components/Resident/ResidentProfile';
@@ -66,7 +66,12 @@ const Routes = (props) => {
 
         {/* Admin routes */}
         <Route path="/admin/home">
-          <AdminHome roleId={props.roleId} dormId={props.dormId} />
+          <AdminHome
+            roleId={props.roleId}
+            dormId={props.dormId}
+            userFname={props.userFname}
+            userLname={props.userLname}
+          />
         </Route>
         <Route path="/admin/profile">
           <AdminProfile roleId={props.roleId} userId={props.userId} />
@@ -80,7 +85,7 @@ const Routes = (props) => {
         <Route path="/dorm-info">
           <DormitoryInfo roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/dorm-info/edit/:dormid">
+        <Route path="/edit/dorm-info/:dormid">
           <EditDormInfo roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/dorm-setting">
@@ -119,6 +124,9 @@ const Routes = (props) => {
         </Route>
         <Route path="/history">
           <SearchHistory roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route path="/setting/cost">
+          <DisplayCostSetting roleId={props.roleId} dormId={props.dormId} />
         </Route>
         {/* Resident routes */}
         <Route path="/resident/home">
