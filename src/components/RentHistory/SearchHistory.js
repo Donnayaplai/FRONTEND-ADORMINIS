@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import { useHistory } from 'react-router';
+import { MdHistory } from 'react-icons/md';
+
 import Data from './Data';
 import './SearchHistory.css';
 const SearchHistory = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState();
+  const [click, setClick] = useState(false);
 
   const history = useHistory();
   useEffect(() => {
@@ -41,12 +44,14 @@ const SearchHistory = (props) => {
 
   return (
     <>
-      <h1>ประวัติการเช่าพัก</h1>
+      <h1>
+        ประวัติการเช่าพัก <MdHistory />
+      </h1>
       <Container className="w-75">
         <form onSubmit={searchHistory}>
           <Row className="mt-3">
             <Col xs={12} sm={5} md={8}>
-              <input
+              <Form.Control
                 type="text"
                 name="input"
                 placeholder="พิมพ์เพื่อค้นหา..."
@@ -62,7 +67,10 @@ const SearchHistory = (props) => {
                 sm={3}
                 md={2}
                 className="btn btn-primary"
-                onClick={() => searchHistory()}
+                onClick={() => {
+                  searchHistory();
+                  setClick(true);
+                }}
               >
                 ค้นหา
               </Button>
@@ -71,16 +79,23 @@ const SearchHistory = (props) => {
                 sm={3}
                 md={2}
                 className="btn btn-secondary ms-2"
-                onClick={() => clearFilter()}
+                onClick={() => {
+                  clearFilter();
+                  setClick(false);
+                }}
               >
                 ล้างการค้นหา
               </Button>
             </Col>
           </Row>
         </form>
-        {data === '' ? (
-          <Container className="mt-5" style={{ display: 'none' }}>
-            <Data loading={loading} data={data} />
+        {input === '' && data.length === 0 && click === false ? (
+          <Container className="mt-5">
+            <></>
+          </Container>
+        ) : input != '' && click === false ? (
+          <Container className="mt-5">
+            <></>
           </Container>
         ) : (
           <Container className="mt-5">
