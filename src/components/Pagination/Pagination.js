@@ -7,11 +7,16 @@ const Pagination = ({
   paginate,
   nextPage,
   prevPage,
+  loading,
 }) => {
   const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalData / itemsPerPage); i++) {
     pageNumbers.push(i);
+  }
+
+  if (loading) {
+    return <></>;
   }
   return (
     <Container
@@ -19,6 +24,8 @@ const Pagination = ({
         padding: '0',
         maxWidth: 'fit-content',
         alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <ul className="pagination">
