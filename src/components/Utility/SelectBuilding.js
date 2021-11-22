@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Table } from 'react-bootstrap';
+import { Container, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
 import { withRouter } from 'react-router';
-import Button from '@restart/ui/esm/Button';
 import { GrSelect } from 'react-icons/gr';
 
 const SelectBuilding = (props) => {
@@ -33,60 +32,58 @@ const SelectBuilding = (props) => {
   }
 
   return (
-    <>
-      <Container>
-        <h1>
-          โปรดเลือกตึกเพื่อจดมิเตอร์ &nbsp;<i className="fas fa-building"></i>
-        </h1>
+    <Container>
+      <h1>
+        โปรดเลือกตึกเพื่อจดมิเตอร์ &nbsp;<i className="fas fa-building"></i>
+      </h1>
 
-        <Table
-          responsive
-          className="table table-hover table-borderless mt-3 mx-auto text-center w-75"
+      <Table
+        responsive
+        className="table table-hover table-borderless mt-3 mx-auto text-center w-75"
+      >
+        <thead
+          style={{
+            backgroundColor: '#C7E5F0',
+            fontWeight: 'bold',
+            border: 'none',
+          }}
         >
-          <thead
+          <tr key={buildingList.BUILDINGNO}>
+            <th>ชื่อตึก</th>
+            <th>จำนวนชั้น</th>
+            <th>เลือกตึก</th>
+          </tr>
+        </thead>
+        {buildingList.map((list) => (
+          <tbody
             style={{
-              backgroundColor: '#C7E5F0',
-              fontWeight: 'bold',
+              backgroundColor: '#EAE7E2',
               border: 'none',
+              textAlign: 'center',
             }}
+            key={list.BUILDINGID}
           >
-            <tr key={buildingList.BUILDINGNO}>
-              <th>ชื่อตึก</th>
-              <th>จำนวนชั้น</th>
-              <th>เลือกตึก</th>
+            <tr>
+              <td>{list.BUILDINGNAME}</td>
+              <td>{list.NUMOFFLOOR}</td>
+              <td>
+                <Link
+                  to={{
+                    pathname: `/meter-record/${list.BUILDINGID}`,
+                    state: { buildingId: props.match.params.buildingId },
+                  }}
+                >
+                  <Button className="btn btn-light" id="btn-select">
+                    <GrSelect />
+                    {/* <i className="far fa-check-circle"></i> */}
+                  </Button>
+                </Link>
+              </td>
             </tr>
-          </thead>
-          {buildingList.map((list) => (
-            <tbody
-              style={{
-                backgroundColor: '#EAE7E2',
-                border: 'none',
-                textAlign: 'center',
-              }}
-              key={list.BUILDINGID}
-            >
-              <tr>
-                <td>{list.BUILDINGNAME}</td>
-                <td>{list.NUMOFFLOOR}</td>
-                <td>
-                  <Link
-                    to={{
-                      pathname: `/meter-record/${list.BUILDINGID}`,
-                      state: { buildingId: props.match.params.buildingId },
-                    }}
-                  >
-                    <Button className="btn btn-light" id="btn-select">
-                      <GrSelect />
-                      {/* <i className="far fa-check-circle"></i> */}
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-            </tbody>
-          ))}
-        </Table>
-      </Container>
-    </>
+          </tbody>
+        ))}
+      </Table>
+    </Container>
   );
 };
 
