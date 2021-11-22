@@ -5,6 +5,7 @@ import axios from 'axios';
 import env from '../../env';
 import { withRouter } from 'react-router';
 import Button from '@restart/ui/esm/Button';
+import { GrSelect } from 'react-icons/gr';
 
 const SelectBuilding = (props) => {
   const [buildingList, setBuildingList] = useState([]);
@@ -15,6 +16,7 @@ const SelectBuilding = (props) => {
   }, [props.dormId]);
   const getBuildingList = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `${env.url}api/building/all/${props.dormId}`
       );
@@ -24,7 +26,7 @@ const SelectBuilding = (props) => {
       console.error(error);
     }
   };
-  console.log(buildingList);
+  // console.log(buildingList);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -74,7 +76,8 @@ const SelectBuilding = (props) => {
                     }}
                   >
                     <Button className="btn btn-light" id="btn-select">
-                      <i className="far fa-check-circle"></i>
+                      <GrSelect />
+                      {/* <i className="far fa-check-circle"></i> */}
                     </Button>
                   </Link>
                 </td>
