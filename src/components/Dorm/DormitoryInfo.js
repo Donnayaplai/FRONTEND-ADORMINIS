@@ -18,12 +18,13 @@ const DormitoryInfo = (props) => {
   useEffect(() => {
     const getDormitoryInfo = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${env.url}dorm/info/${props.dormId}`);
         setDormInfo(response.data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
-      setLoading(true);
     };
 
     getDormitoryInfo();
@@ -40,13 +41,13 @@ const DormitoryInfo = (props) => {
       </h1>
 
       <Container className="w-75  mb-3">
-        <Row>
+        <Row className="mb-3">
           <Col>
             <Link
-            // to={{
-            //   pathname: `/dorm-info/edit/${props.userId}`,
-            //   state: { dormId: props.match.params.dormid },
-            // }}
+              to={{
+                pathname: `/edit/dorm-info/${props.dormId}`,
+                state: { dormId: props.match.params.dormid },
+              }}
             >
               <Button
                 type="button"
