@@ -28,7 +28,7 @@ const ComplainList = ({
       ) : (
         <Table
           responsive
-          className="table table-hover table-borderless mt-3 mx-auto w-75"
+          className="table table-hover table-borderless mt-3 mx-auto"
         >
           <thead
             style={{

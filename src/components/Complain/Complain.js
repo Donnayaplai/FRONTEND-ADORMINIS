@@ -78,7 +78,7 @@ const Complain = (props) => {
           />
         </Col>
       </Row>
-      <Container>
+      <Container className="w-75">
         <ComplainList
           complainList={currentData}
           getAllComplain={getAllComplain}
@@ -88,6 +88,7 @@ const Complain = (props) => {
           dormId={props.dormId}
         />
         <Pagination
+          loading={loading}
           itemsPerPage={itemsPerPage}
           totalData={complainList.length}
           paginate={paginate}

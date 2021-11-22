@@ -108,7 +108,7 @@ const Bill = (props) => {
   const prevPage = () => setCurrentPage(currentPage - 1);
 
   return (
-    <Container>
+    <>
       <h1>
         ใบแจ้งหนี้ทั้งหมด &nbsp;
         <i className="fas fa-file-invoice-dollar"></i>
@@ -161,7 +161,7 @@ const Bill = (props) => {
           prevPage={prevPage}
         />
       </Container>
-    </Container>
+    </>
   );
 };
 

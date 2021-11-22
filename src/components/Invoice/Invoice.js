@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import InvoiceList from './InvoiceList';
 import Pagination from '../Pagination/Pagination';
 import Search from '../Search/Search';
 import { withRouter, useHistory } from 'react-router';
 import DynamicSelect from '../DynamicSelect/DynamicSelect';
-import Button from '@restart/ui/esm/Button';
 
 const Invoice = (props) => {
   const history = useHistory();
@@ -159,7 +158,7 @@ const Invoice = (props) => {
   const prevPage = () => setCurrentPage(currentPage - 1);
 
   return (
-    <Container>
+    <Container className="w-75">
       <h1>
         ใบแจ้งหนี้ทั้งหมด &nbsp;
         <i className="fas fa-file-invoice-dollar"></i>
@@ -215,6 +214,7 @@ const Invoice = (props) => {
           paginate={paginate}
           nextPage={nextPage}
           prevPage={prevPage}
+          loading={loading}
         />
       </>
     </Container>
