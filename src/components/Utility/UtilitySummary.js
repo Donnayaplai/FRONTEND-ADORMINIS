@@ -1,68 +1,76 @@
 import React from 'react';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import { Row, Col, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-// import axios from 'axios';
-// import env from '../../env';
 
-const UtilitySummary = (props) => {
+const UtilitySummary = ({ summaryData, loading, ...props }) => {
+  if (loading) {
+    return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
+  }
   return (
-    <Container>
-      <Table
-        responsive
-        className="table table-hover table-borderless mt-3 mx-auto"
-      >
-        <thead
-          style={{
-            backgroundColor: '#C7E5F0',
-            textAlign: 'center',
-            color: 'black',
-            fontWeight: 'bold',
-            border: 'none',
-          }}
+    <>
+      {summaryData.length === 0 ? (
+        <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
+      ) : (
+        <Table
+          responsive
+          className="table table-hover table-borderless mt-3 mx-auto"
         >
-          <tr>
-            <th>เลขห้่อง</th>
-            <th>น้ำ</th>
-            <th>ราคา</th>
-            <th>ไฟ</th>
-            <th>ราคา</th>
-            <th>ราคารวม</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr
+          <thead
             style={{
-              backgroundColor: '#EAE7E2',
-              border: 'none',
+              backgroundColor: '#C7E5F0',
               textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              border: 'none',
             }}
           >
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </Table>
+            <tr>
+              <th>เลขห้อง</th>
+              <th>น้ำ(หน่วย)</th>
+              <th>ราคา(บาท)</th>
+              <th>ไฟ(หน่วย)</th>
+              <th>ราคา(บาท)</th>
+              <th>ราคารวม(บาท)</th>
+            </tr>
+          </thead>
 
+          <tbody>
+            {summaryData?.summary?.map((data) => (
+              <tr
+                style={{
+                  backgroundColor: '#EAE7E2',
+                  border: 'none',
+                  textAlign: 'center',
+                }}
+                key={data.roomNo}
+              >
+                <td>{data.roomNo}</td>
+                <td>{data.waterUnit}</td>
+                <td>{data.waterPrice}</td>
+                <td>{data.electricUnit}</td>
+                <td>{data.electricPrice}</td>
+                <td>{data.totalPrice}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
       <Row className="mt-3">
         <Col>
           <Link to={`/meter-record/${props.location.state.buildingId}`}>
-            <Button id="btn-back">ย้อนกลับ</Button>
+            <Button id="btn-cancel">ย้อนกลับ</Button>
           </Link>
         </Col>
         <Col>
-          <Button id="btn-add" type="submit">
-            {/* กลับไปหน้า home */}
-            ยืนยัน
-          </Button>
+          <Link to={`/admin/home`}>
+            <Button id="btn-next" style={{ float: 'right' }}>
+              กลับไปหน้าหลัก
+            </Button>
+          </Link>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 
