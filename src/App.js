@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import Routes from './Routes';
 import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
+// import Nav from './components/Navbar/Nav';
 import History from './components/Others/History';
 import ResidentNav from './components/Navbar/ResidentNav';
 import AdminNav from './components/Navbar/AdminNav';
@@ -37,7 +38,6 @@ function App() {
           },
         })
         .then((data) => {
-          console.log(data.data);
           setUserId(data.data.USERID);
           setRoleId(data.data.ROLEID);
           setDormId(data.data.DORMID);
@@ -93,6 +93,7 @@ function App() {
         <AdminNav
           dormId={dormId}
           userId={userId}
+          roleId={roleId}
           setRoleId={setRoleId}
           setDormId={setDormId}
           setUserId={setUserId}
@@ -138,11 +139,11 @@ function App() {
               setDormId={setDormId}
               setRentId={setRentId}
               setUserId={setUserId}
+              userId={userId}
             />
           </Route>
           <Route path="/role-selection" component={SelectRole} />
           <Route path="/admin/register" exact component={adminRegister} />
-
           <Route
             path="/resident/check-account"
             exact
