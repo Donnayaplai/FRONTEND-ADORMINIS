@@ -82,6 +82,8 @@ function App() {
           userId={userId}
           userFname={userFname}
           userLname={userLname}
+          setUserFname={setUserFname}
+          setUserLname={setUserLname}
           setRoleId={setRoleId}
           setRentId={setRentId}
           setUserId={setUserId}
@@ -94,6 +96,10 @@ function App() {
           dormId={dormId}
           userId={userId}
           roleId={roleId}
+          userFname={userFname}
+          userLname={userLname}
+          setUserFname={setUserFname}
+          setUserLname={setUserLname}
           setRoleId={setRoleId}
           setDormId={setDormId}
           setUserId={setUserId}
@@ -121,6 +127,8 @@ function App() {
               userId={userId}
               userFname={userFname}
               userLname={userLname}
+              setUserFname={setUserFname}
+              setUserLname={setUserLname}
               dormName={dormName}
             />
           </Route>
