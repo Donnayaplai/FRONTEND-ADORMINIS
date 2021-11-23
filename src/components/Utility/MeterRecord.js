@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { withRouter } from 'react-router';
-import { useHistory } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import Search from '../Search/Search';
-import Pagination from '../Pagination/Pagination';
 import UtilCal from './UtilCal';
 
 const MeterRecord = (props) => {
@@ -23,8 +21,6 @@ const MeterRecord = (props) => {
   const [loading, setLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
 
   let getOldMeter = async () => {
     try {
@@ -34,6 +30,7 @@ const MeterRecord = (props) => {
       );
       setOldMeter(response.data);
       setLoading(false);
+      console.log(oldMeter);
     } catch (error) {
       console.error(error);
     }
@@ -52,22 +49,8 @@ const MeterRecord = (props) => {
     );
   };
 
-  // Pagination
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentData = oldMeter.arrayRoomWithMeter.slice(
-  //   indexOfFirstItem,
-  //   indexOfLastItem
-  // );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const nextPage = () => setCurrentPage(currentPage + 1);
-
-  const prevPage = () => setCurrentPage(currentPage - 1);
-
   return (
-    <Container>
+    <Container className="mb-5">
       <h1>คำนวณค่าน้ำ/ ค่าไฟ</h1>
       <Row className="mt-3">
         <Col xs={8} sm={8} md={8} className="mx-auto">
@@ -78,20 +61,22 @@ const MeterRecord = (props) => {
           />
         </Col>
       </Row>
-      <UtilCal
-        oldMeter={oldMeter}
-        getOldMeter={getOldMeter}
-        loading={loading}
-        filteredData={filteredData}
-        searchText={searchText}
-      />
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalData={oldMeter.length}
-        paginate={paginate}
-        nextPage={nextPage}
-        prevPage={prevPage}
-      />
+      <Container className="mt-3">
+        <Col lg={9} sm={10} xs={10} className="mx-auto">
+          <p className="text-muted text-center">
+            * หลังจากบันทึกเลขมิเตอร์ปัจจุบันเสร็จสิ้น สามารถดูสรุปผลในหน้าถัดไป
+            *
+          </p>
+          <UtilCal
+            oldMeter={oldMeter}
+            getOldMeter={getOldMeter}
+            loading={loading}
+            filteredData={filteredData}
+            searchText={searchText}
+            dormId={props.dormId}
+          />
+        </Col>
+      </Container>
     </Container>
   );
 };
