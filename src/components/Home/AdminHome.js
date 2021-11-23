@@ -39,7 +39,7 @@ const AdminHome = (props) => {
       <h1>
         ยินดีต้อนรับ
         <span className="fs-3 ms-3 fw-normal">
-          "{props.userFname} {props.userLname}"
+          {props.userFname} {props.userLname}
         </span>
       </h1>
 
