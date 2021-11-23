@@ -23,7 +23,7 @@ import CreateRoom from './components/Dorm/CreateRoom';
 import AddResident from './components/RoomStatus/AddResident';
 import SelectBuilding from './components/Utility/SelectBuilding';
 import MeterRecord from './components/Utility/MeterRecord';
-import UtilitySummary from './components/Utility/UtilitySummary';
+import UtilityCalculate from './components/Utility/UtilityCalculate';
 import Invoice from './components/Invoice/Invoice';
 import MainRoom from './components/RoomStatus/MainRoom';
 import Complain from './components/Complain/Complain';
@@ -37,7 +37,6 @@ import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import ResidentComplain from './components/Resident/Complain';
 import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
-import Cost from './components/DormitoryData/Cost';
 
 const Routes = (props) => {
   return (
@@ -117,8 +116,8 @@ const Routes = (props) => {
         <Route path={`/meter-record/:buildingId`}>
           <MeterRecord roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/utilsummary">
-          <UtilitySummary roleId={props.roleId} dormId={props.dormId} />
+        <Route path={`/utility-summary/:buildingId`}>
+          <UtilityCalculate roleId={props.roleId} dormId={props.dormId} />
         </Route>
 
         <Route path="/complain-list">
