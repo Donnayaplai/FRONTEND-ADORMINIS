@@ -42,7 +42,7 @@
 }
 #btn-next {
   background-color: #c7e5f0;
-  border-color: #0a58ca;
+  border-color: none;
   border: none;
   max-width: 10rem;
   width: 100%;
@@ -56,7 +56,7 @@
 
 #btn-next:hover {
   background-color: #97d9fb;
-  border-color: #0a58ca;
+  border-color: none;
   border: none;
   max-width: 10rem;
   width: 100%;
