@@ -93,7 +93,7 @@ const SearchHistory = (props) => {
           <Container className="mt-5">
             <></>
           </Container>
-        ) : input != '' && click === false ? (
+        ) : input !== '' && click === false ? (
           <Container className="mt-5">
             <></>
           </Container>
