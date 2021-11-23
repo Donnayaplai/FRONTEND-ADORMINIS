@@ -21,7 +21,14 @@ const Login = (props) => {
           password,
         })
         .then(async (res) => {
-          localStorage.setItem('authorization', res.data.TOKEN);
+          console.log(res.data);
+          localStorage.setItem(
+            'authorization',
+            res.data.TOKEN,
+            res.data.USERID
+          );
+          // setROLEID(res.data.ROLEID);
+          // setUSERID(res.data.USERID);
           await axios
             .get(`${env.url}api/user/detail`, {
               headers: {
@@ -35,14 +42,22 @@ const Login = (props) => {
               props.setDormId(data.data.DORMID);
               props.setRentId(data.data.RENTID);
               let checkFirstLogin = await axios.get(
-                `${env.url}api/user/check/{props.userId}`
+                `${env.url}api/user/check/${data.data.USERID}`
               );
-              if (!checkFirstLogin) {
-                history.push(`/dorm-registration`);
-              }
-              if (res.data.ROLEID === 0) {
+              if (
+                checkFirstLogin.data === false &&
+                data.data.ROLEID === 1 &&
+                data.data.DORMID === ''
+              ) {
+                console.log(checkFirstLogin);
+                history.push('/dorm-registration');
+                console.log('No manage!!');
+              } else if (res.data.ROLEID === 0) {
                 history.push(`/resident/home`); //resident
-              } else if (res.data.ROLEID === 1) {
+              } else if (
+                res.data.ROLEID === 1 &&
+                checkFirstLogin.data === true
+              ) {
                 history.push(`/admin/home`); //admin
               } else {
                 window.alert('มีบางอย่างผิดพลาด');
@@ -55,10 +70,13 @@ const Login = (props) => {
       }
     }
   };
-
+  // console.log(ROLEID, 'ROLEID');
+  // console.log(userID, 'USERID');
   return (
     <Container>
-      <h1>เข้าสู่ระบบ</h1>
+      <h1>
+        เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
+      </h1>
 
       <Card
         className="mx-auto p-5 border-0"
