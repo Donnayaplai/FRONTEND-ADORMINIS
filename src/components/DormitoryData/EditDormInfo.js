@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-// import { Provinces } from '../../systemdata/Provinces';
+
 import { useForm } from 'react-hook-form';
 import { useHistory, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RiFileInfoFill } from 'react-icons/ri';
-
+// import { Provinces } from '../../systemdata/Provinces';
 const EditDormInfo = (props) => {
   const history = useHistory();
   useEffect(() => {
@@ -29,7 +29,7 @@ const EditDormInfo = (props) => {
         const response = await axios.get(`${env.url}dorm/info/${props.dormId}`);
         setDormInfo(response.data);
         setLoading(false);
-        console.log(dormInfo);
+        // console.log(dormInfo);
       } catch (error) {
         console.error(error);
       }
@@ -40,7 +40,6 @@ const EditDormInfo = (props) => {
 
   const EditDormInfo = async (data) => {
     try {
-      console.log(data);
       await axios
         .post(`${env.url}dorm/update/${props.match.params.dormid}`, data)
         .then(window.alert('การแก้ไขข้อมูลหอพักเสร็จสิ้น'))
@@ -65,8 +64,9 @@ const EditDormInfo = (props) => {
           {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
         </center>
       </Row>
-      <Form onSubmit={handleSubmit(EditDormInfo)}>
-        <Container className="w-75 mb-5 mt-3">
+
+      <Container className="w-75 mb-5 mt-3">
+        <Form onSubmit={handleSubmit(EditDormInfo)}>
           <Container
             className="p-3 rounded mb-3"
             style={{ backgroundColor: '#EAE7E2' }}
@@ -197,17 +197,19 @@ const EditDormInfo = (props) => {
           <Row>
             <Col>
               <Link to={`/dorm-info/${props.location.state.dormId}`}>
-                <Button id="btn-back">ย้อนกลับ</Button>
+                <Button type="button" id="btn-cancel">
+                  ย้อนกลับ
+                </Button>
               </Link>
             </Col>
             <Col>
-              <Button type="submit" style={{ float: 'right' }} id="btn-save">
+              <Button type="submit" style={{ float: 'right' }} id="btn-next">
                 ตกลง
               </Button>
             </Col>
           </Row>
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </Container>
   );
 };
