@@ -10,11 +10,27 @@ const EditCost = (props) => {
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getDormitoryInfo();
     }
-  });
-  const { register, handleSubmit } = useForm();
+  }, [props.dormId]);
 
-  const [error, setError] = useState();
+  const [cost, setCost] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const getDormitoryInfo = async () => {
+    try {
+      setLoading(true);
+      const data = await axios.get(`${env.url}setting/getCost/${props.dormId}`);
+      setCost(data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+  const { register, handleSubmit, trigger } = useForm();
 
   const EditCostSetting = async (data) => {
     try {
@@ -28,6 +44,10 @@ const EditCost = (props) => {
       }
     }
   };
+
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
   return (
     <Container className="mb-5 w-75">
       <h1>
@@ -57,11 +77,13 @@ const EditCost = (props) => {
                 </Form.Label>
                 <Form.Control
                   name="waterPrice"
-                  type="number"
-                  defaultValue="0"
+                  defaultValue={cost.WATERPRICE}
                   max="99999"
                   min="0"
                   {...register('waterPrice')}
+                  onKeyUp={() => {
+                    trigger('waterPrice');
+                  }}
                 />
               </Form.Group>
             </Col>
@@ -75,7 +97,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="minWaterUnit"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.MINWATERUNIT}
                   max="99999"
                   min="0"
                   {...register('minWaterUnit')}
@@ -92,7 +114,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="minWaterPrice"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.MINWATERPRICE}
                   max="99999"
                   min="0"
                   {...register('minWaterPrice')}
@@ -115,7 +137,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="electricityPrice"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.ELECTRICITYPRICE}
                   max="99999"
                   min="0"
                   {...register('electricityPrice')}
@@ -139,7 +161,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="guaranteeFee"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.GUARANTEEFEE}
                   max="99999"
                   min="0"
                   {...register('guaranteeFee')}
@@ -150,7 +172,7 @@ const EditCost = (props) => {
               <Form.Group className="mb-3">
                 <Form.Label>ค่าเช่าล่วงหน้า (เดือน)</Form.Label>
                 <Form.Select name="multPrePaid" {...register('multPrePaid')}>
-                  <option defaultValue>เลือกจำนวนเดือน...</option>
+                  <option defaultValue>{cost.MULTPREPAID}</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -181,7 +203,7 @@ const EditCost = (props) => {
               <Form.Group className="mb-3">
                 <Form.Label>วันที่ออกใบแจ้งหนี้ให้ผู้เช่า </Form.Label>
                 <Form.Select name="invoiceDate" {...register('invoiceDate')}>
-                  <option defaultValue>เลือกวันที่...</option>
+                  <option defaultValue>{cost.INVOICEDATE}</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -234,7 +256,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="maintenanceFee"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.MAINTENANCEFEE}
                   max="99999"
                   min="0"
                   {...register('maintenanceFee')}
@@ -250,7 +272,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="parkingFee"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.PARKINGFEE}
                   max="99999"
                   min="0"
                   {...register('parkingFee')}
@@ -266,7 +288,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="internetFee"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.INTERNETFEE}
                   max="99999"
                   min="0"
                   {...register('internetFee')}
@@ -284,7 +306,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="cleaningFee"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.CLEANINGFEE}
                   max="99999"
                   min="0"
                   {...register('cleaningFee')}
@@ -300,7 +322,7 @@ const EditCost = (props) => {
                 <Form.Control
                   name="other"
                   type="number"
-                  defaultValue="0"
+                  defaultValue={cost.OTHER}
                   max="99999"
                   min="0"
                   {...register('other')}

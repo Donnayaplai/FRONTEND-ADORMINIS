@@ -41,7 +41,7 @@ const Info = ({ dormInfo, loading, ...props }) => {
           <Col xs={6} sm={6} md={3}>
             <p>{dormInfo.DORMNAMETH}</p>
           </Col>
-          <Col xs={6} sm={6} md={3}>
+          <Col xs={6} sm={6} md={2}>
             <h6 className="fw-bold">ชื่อหอพัก (อังกฤษ):</h6>
           </Col>
           <Col xs={6} sm={6} md={3}>

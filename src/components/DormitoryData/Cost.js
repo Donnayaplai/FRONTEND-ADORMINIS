@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -77,12 +77,6 @@ const Cost = ({ costInfo, loading, ...props }) => {
             <Col md={2} sm={6} xs={6}>
               <p>{costInfo.ELECTRICITYPRICE}</p>
             </Col>
-            <Col md={4} sm={6} xs={6}>
-              <h6 className="fw-bold">จำนวนหลักของมิเตอร์:</h6>
-            </Col>
-            <Col md={2} sm={6} xs={6}>
-              <p></p>
-            </Col>
           </Row>
         </Container>
         <hr />
@@ -140,7 +134,7 @@ const Cost = ({ costInfo, loading, ...props }) => {
             <Col md={2} sm={6} xs={6}>
               <h6 className="fw-bold">ค่าประกัน:</h6>
             </Col>
-            <Col md={2} sm={6} xs={6}>
+            <Col md={1} sm={6} xs={6}>
               <p>{costInfo.MAINTENANCEFEE}</p>
             </Col>
             <Col md={2} sm={6} xs={6}>
@@ -149,11 +143,11 @@ const Cost = ({ costInfo, loading, ...props }) => {
             <Col md={2} sm={6} xs={6}>
               <p>{costInfo.PARKINGFEE}</p>
             </Col>
-            <Col md={2} sm={6} xs={8}>
+            <Col md={3} sm={6} xs={8}>
               <h6 className="fw-bold">วันที่ออกใบแจ้งหนี้ให้ผู้เช่า:</h6>
             </Col>
             <Col md={2} sm={6} xs={4}>
-              <p>{costInfo.INTERNETFEE}</p>
+              <p>{costInfo.INVOICEDATE} ของทุกเดือน</p>
             </Col>
           </Row>
         </Container>
