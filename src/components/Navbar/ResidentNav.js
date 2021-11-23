@@ -3,6 +3,7 @@ import logo from '../../assets/images/building-nav.png';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { FiUser } from 'react-icons/fi';
 import './Navbar.css';
 
 const ResidentNav = (props) => {
@@ -12,6 +13,10 @@ const ResidentNav = (props) => {
     props.setRoleId(null);
     props.setDormId(null);
     props.setRentId(null);
+    props.setUserId(null);
+    props.setUserFname();
+    props.setUserLname();
+
     history.push('/login');
   };
   return (
@@ -42,6 +47,11 @@ const ResidentNav = (props) => {
         </li>
         <li>
           <Link to="/resident/profile">ข้อมูลส่วนตัว</Link>
+        </li>
+        <li>
+          <p style={{ color: '#fff' }}>
+            {props.userFname}&nbsp;{props.userLname} <FiUser />
+          </p>
         </li>
         <li>
           <Button onClick={logout}>ออกจากระบบ</Button>
