@@ -37,12 +37,14 @@ const AdminHome = (props) => {
   return (
     <>
       <h1>
-        แดชบอร์ด &nbsp;
-        <i className="fas fa-clipboard"></i>
+        ยินดีต้อนรับ
+        <span className="fs-3 ms-3 fw-normal">
+          "{props.userFname} {props.userLname}"
+        </span>
       </h1>
 
       <Container
-        className="py-3 rounded mb-5 mt-3"
+        className="py-3 rounded mb-5 mt-3 w-75"
         style={{ backgroundColor: '#EAE7E2' }}
       >
         <Row>
