@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 
 const Info = ({ dormInfo, loading, ...props }) => {
-  //   if (loading) {
-  //     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  //   }
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
   return (
     <>
       <Row className="mb-3">
