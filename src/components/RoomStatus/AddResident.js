@@ -10,34 +10,6 @@ import { useHistory } from 'react-router';
 
 const AddResident = (props) => {
   const [error, setError] = useState(null);
-  const history = useHistory();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    trigger,
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    try {
-      data.listOfCost = checked;
-      // console.log(checked);
-      // console.log(data);
-      await axios
-        .post(
-          `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
-          data
-        )
-        .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
-        .then(history.push(`/all-room/${props.location.state.buildingId}`));
-    } catch (err) {
-      if (err.response && err.response.data) {
-        setError(err.response.data.message);
-        window.alert(error);
-      }
-    }
-  };
-
   const [formData, setFormData] = useState([]);
   const [checked, setChecked] = useState([]);
   const [isRoomAvailable, setRoomAvailable] = useState([]);
@@ -65,10 +37,13 @@ const AddResident = (props) => {
     },
   ]);
 
-  // useEffect(() => {
-  //   setFormData(new FormData());
-  //   CheckRoomStatus();
-  // }, []);
+  const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm();
 
   useEffect(() => {
     if (props.roleId !== 1) {
@@ -79,6 +54,24 @@ const AddResident = (props) => {
     }
     //eslint-disable-next-line
   }, []);
+
+  const onSubmit = async (data) => {
+    try {
+      data.listOfCost = checked;
+      await axios
+        .post(
+          `${env.url}api/room/add/${props.match.params.buildingid}/${props.match.params.roomid}`,
+          data
+        )
+        .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
+        .then(history.push(`/all-room/${props.location.state.buildingId}`));
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+        window.alert(error);
+      }
+    }
+  };
 
   const handleToggle = (c) => () => {
     const clickedCostList = checked.indexOf(c);
@@ -101,14 +94,13 @@ const AddResident = (props) => {
         `${env.url}api/room/status/${props.match.params.roomid}`
       );
       setRoomAvailable(response.data);
-      // console.log(response.data);
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
       }
     }
   };
-  // console.log(isRoomAvailable);
+
   return (
     <>
       <h1>

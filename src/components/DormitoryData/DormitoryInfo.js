@@ -7,6 +7,10 @@ import Cost from './Cost';
 import Info from './Info';
 import { RiBuildingFill } from 'react-icons/ri';
 const DormitoryInfo = (props) => {
+  const [dormInfo, setDormInfo] = useState([]);
+  const [costInfo, setCostInfo] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 1) {
@@ -16,10 +20,6 @@ const DormitoryInfo = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const [dormInfo, setDormInfo] = useState([]);
-  const [costInfo, setCostInfo] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const getDormitoryInfo = async () => {
     try {

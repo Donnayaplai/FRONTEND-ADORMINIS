@@ -9,6 +9,12 @@ import Pagination from '../Pagination/Pagination';
 
 const Complain = (props) => {
   const history = useHistory();
+  const [complainList, setComplainList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [filteredComplain, setFilteredComplain] = useState([]);
+  const [searchText, setSearchText] = useState('');
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
@@ -17,12 +23,6 @@ const Complain = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, props.roleId]);
-  const [complainList, setComplainList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-  const [filteredComplain, setFilteredComplain] = useState([]);
-  const [searchText, setSearchText] = useState('');
 
   //Search filter
   const handleSearchInput = (e) => {

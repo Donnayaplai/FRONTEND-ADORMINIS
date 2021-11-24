@@ -70,6 +70,10 @@ const RoomData = ({
       costName: 'อื่น ๆ',
     },
   ]);
+
+  //Error message
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     setFormData(new FormData());
   }, []);
@@ -107,9 +111,6 @@ const RoomData = ({
       }
     }
   };
-
-  //Error message
-  const [error, setError] = useState(null);
 
   //ห้องพักทั้งหมด
   const getRoomList = () => {
@@ -181,19 +182,6 @@ const RoomData = ({
       }
     }
   };
-
-  // const removeResident = async () => {
-  //   try {
-  //     await axios
-  //       .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
-  //       .then(setRemoveComplete(true))
-  //       .then(setShowConfirmDeleteModal(false))
-  //       .then(setResInfoModalOpen(false))
-  //       .then(getAllRoom());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   //ข้อมูลห้อง
   const getRoomInfo = async (ROOMID) => {

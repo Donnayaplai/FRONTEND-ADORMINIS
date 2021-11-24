@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Container, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import env from '../../env';
-import { useHistory } from 'react-router';
 
 const EditAdminProfile = (props) => {
+  const [error, setError] = useState(null);
+  const [userProfile, setUserProfile] = useState([]);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const { register, handleSubmit, trigger } = useForm();
+
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getUserProfile();
     }
-  });
-  const { register, handleSubmit, trigger } = useForm();
-  const [error, setError] = useState(null);
-  const [userProfile, setUserProfile] = useState([]);
-
-  useEffect(() => {
-    const getUserProfile = async () => {
-      try {
-        const userData = await axios.get(
-          `${env.url}api/user/info/${props.userId}`
-        );
-        setUserProfile(userData.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getUserProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userId]);
+
+  const getUserProfile = async () => {
+    try {
+      setLoading(true);
+      const userData = await axios.get(
+        `${env.url}api/user/info/${props.userId}`
+      );
+      setUserProfile(userData.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
 
   const onSubmit = async (data) => {
     try {

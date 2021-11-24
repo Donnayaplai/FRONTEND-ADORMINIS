@@ -10,14 +10,6 @@ import DynamicSelect from '../DynamicSelect/DynamicSelect';
 
 const Invoice = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 1) {
-      history.push('/login');
-    } else {
-      getAllInvoice();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const [invoiceList, setInvoiceList] = useState([]);
   const [billMonth, setMonth] = useState([]);
   const [billYear, setYear] = useState([]);
@@ -30,25 +22,19 @@ const Invoice = (props) => {
   const [selectedYear, setSelectedYear] = useState('');
   const [mainList, setMainList] = useState([]);
 
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getAllInvoice();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
-    // let copyInvoice = [...invoiceList];
-    // setFilteredInvoice(
-    //   copyInvoice.filter(
-    //     (invoice) =>
-    //       invoice.billingMonth.includes(text) ||
-    //       invoice.billingYear.includes(text) ||
-    //       invoice.roomNo.includes(text) ||
-    //       invoice.billingCycle.includes(text)
-    //   )
-    // );
   };
-
-  // useEffect(() => {
-  //   getAllInvoice();
-  //eslint-disable-next-line
-  // }, []);
 
   const getAllInvoice = async () => {
     try {

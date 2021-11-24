@@ -10,15 +10,6 @@ import Search from '../Search/Search';
 
 const MainRoom = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 1) {
-      history.push('/login');
-    } else {
-      getAllRoom();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const [roomData, setRoomData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filteredRoom, setFilteredRoom] = useState([]);
@@ -28,10 +19,14 @@ const MainRoom = (props) => {
 
   const { buildingid } = useParams();
 
-  // useEffect(() => {
-  //   getAllRoom();
-  //eslint-disable-next-line
-  // }, [buildingid]);
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getAllRoom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let getAllRoom = async () => {
     try {

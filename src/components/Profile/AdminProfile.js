@@ -7,29 +7,30 @@ import { withRouter, useHistory } from 'react-router';
 
 const AdminProfile = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 1) {
-      history.push('/login');
-    }
-  });
   const [userProfile, setUserProfile] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getUserProfile = async () => {
-      try {
-        const userData = await axios.get(
-          `${env.url}api/user/info/${props.userId}`
-        );
-        setUserProfile(userData.data);
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
-    };
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getUserProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    getUserProfile();
-  }, [props.userId]);
+  const getUserProfile = async () => {
+    try {
+      setLoading(true);
+      const userData = await axios.get(
+        `${env.url}api/user/info/${props.userId}`
+      );
+      setUserProfile(userData.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
