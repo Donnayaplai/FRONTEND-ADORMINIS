@@ -46,7 +46,7 @@ const AdminProfile = (props) => {
             <Link
               to={{
                 pathname: `/profile/edit/${props.userId}`,
-                state: { userId: props.match.params.userid },
+                state: { userId: props.match.params.userId },
               }}
             >
               <Button

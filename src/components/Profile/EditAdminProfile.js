@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Col, Row, Container, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
 import { withRouter, useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import env from '../../env';
+import { Link } from 'react-router-dom';
 
 const EditAdminProfile = (props) => {
   const [error, setError] = useState(null);
-  const [userProfile, setUserProfile] = useState([]);
+  const [fName, setFname] = useState('');
+  const [lName, setLname] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [telNo, setTelno] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+
   const history = useHistory();
-  const { register, handleSubmit, trigger } = useForm();
 
   useEffect(() => {
     if (props.roleId !== 1) {
@@ -25,13 +28,21 @@ const EditAdminProfile = (props) => {
   const getUserProfile = async () => {
     try {
       setLoading(true);
-      const userData = await axios.get(
-        `${env.url}api/user/info/${props.userId}`
-      );
-      setUserProfile(userData.data);
+      await axios
+        .get(`${env.url}api/user/info/${props.userId}`)
+        .then((data) => {
+          setFname(data.data.FNAME);
+          setLname(data.data.LNAME);
+          setEmail(data.data.EMAIL);
+          setTelno(data.data.TELNO);
+          setDateOfBirth(data.data.DATEOFBIRTH);
+        });
       setLoading(false);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      }
     }
   };
 
@@ -39,10 +50,17 @@ const EditAdminProfile = (props) => {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
 
-  const onSubmit = async (data) => {
+  const EditProfile = () => {
     try {
-      await axios
-        .post(`${env.url}api/user/edit/${props.match.params.userid}`, data)
+      // console.log('แก้ไขข้อมูล');
+      axios
+        .post(`${env.url}api/user/edit/${props.match.params.userid}`, {
+          fName: fName,
+          lName: lName,
+          telNo: telNo,
+          email: email,
+          dateOfBirth: dateOfBirth,
+        })
         .then(window.alert('การแก้ไขข้อมูลเสร็จสิ้น'))
         .then(history.push(`/admin/profile`));
     } catch (err) {
@@ -63,7 +81,7 @@ const EditAdminProfile = (props) => {
         </center>
       </Row>
       <Container className="w-75">
-        <Form className="w-100 p-3" onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-100 p-3" onSubmit={EditProfile}>
           <Container
             className="mx-auto p-5 mb-3 border-0 rounded shadow-sm"
             style={{
@@ -76,12 +94,9 @@ const EditAdminProfile = (props) => {
                 <Form.Label>ชื่อ</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="ชื่อ"
-                  name="fName"
-                  defaultValue={userProfile.FNAME}
-                  {...register('fName')}
-                  onKeyUp={() => {
-                    trigger('fName');
+                  defaultValue={fName}
+                  onChange={(e) => {
+                    setFname(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -90,12 +105,9 @@ const EditAdminProfile = (props) => {
                 <Form.Label>นามสกุล</Form.Label>
                 <Form.Control
                   type="text"
-                  name="lName"
-                  placeholder="นามสกุล"
-                  defaultValue={userProfile.LNAME}
-                  {...register('lName')}
-                  onKeyUp={() => {
-                    trigger('lName');
+                  value={lName}
+                  onChange={(e) => {
+                    setLname(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -110,11 +122,9 @@ const EditAdminProfile = (props) => {
                   sm={'auto'}
                   xs={'auto'}
                   type="date"
-                  name="dateOfBirth"
-                  defaultValue={userProfile.DATEOFBIRTH}
-                  {...register('dateOfBirth')}
-                  onKeyUp={() => {
-                    trigger('dateOfBirth');
+                  value={dateOfBirth}
+                  onChange={(e) => {
+                    setDateOfBirth(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -122,12 +132,9 @@ const EditAdminProfile = (props) => {
                 <Form.Label>เบอร์โทรศัพท์</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="0xxxxxxxxx"
-                  name="telNo"
-                  defaultValue={userProfile.TELNO}
-                  {...register('telNo')}
-                  onKeyUp={() => {
-                    trigger('telNo');
+                  value={telNo}
+                  onChange={(e) => {
+                    setTelno(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -137,12 +144,9 @@ const EditAdminProfile = (props) => {
                 <Form.Label>อีเมล</Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="อีเมล"
-                  name="email"
-                  defaultValue={userProfile.EMAIL}
-                  {...register('email')}
-                  onKeyUp={() => {
-                    trigger('email');
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -155,12 +159,12 @@ const EditAdminProfile = (props) => {
               </Link>
             </Col>
             <Col>
-              <Button id="btn-add" type="submit">
+              <Button id="btn-add" type="submit" onClick={EditProfile}>
                 ตกลง
               </Button>
             </Col>
           </Row>
-        </Form>
+        </form>
       </Container>
     </Container>
   );
