@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import residentIcon from '../../assets/images/resident.png';
-import adminIcon from '../../assets/images/admin.png';
+import residentIcon from '../../assets/resident.png';
+import adminIcon from '../../assets/admin.png';
 import { Link } from 'react-router-dom';
 import '../../App.css';
 
