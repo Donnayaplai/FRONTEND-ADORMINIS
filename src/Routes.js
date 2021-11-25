@@ -50,6 +50,8 @@ const Routes = (props) => {
             setDormId={props.setDormId}
             setRentId={props.setRentId}
             setUserId={props.setUserId}
+            setUserFname={props.setUserFname}
+            setUserLname={props.setUserLname}
           />
         </Route>
         <Route path="/role-selection" component={SelectRole} />

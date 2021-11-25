@@ -8,17 +8,17 @@ const LandingPage = () => {
     <>
       <section className="home" id="home">
         <div className="content">
-          <span style={{ fontSize: '3em' }}> ADORMINIS</span>
+          <span style={{ fontSize: "3em" }}> ADORMINIS</span>
 
           <p id="detail">Web Application for Dormitory Management</p>
           <Row>
             <Col md={6} sm={12}>
-              <Link to={'/role-selection'}>
+              <Link to={"/role-selection"}>
                 <Button id="btn">สร้างบัญชีใหม่</Button>
               </Link>
             </Col>
             <Col md={6} sm={12}>
-              <Link to={'/login'}>
+              <Link to={"/login"}>
                 <Button id="btn">เข้าสู่ระบบ</Button>
               </Link>
             </Col>

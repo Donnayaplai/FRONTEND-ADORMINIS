@@ -1,55 +1,186 @@
-nav {
-  display: flex;
-  height: 80px;
-  width: 100%;
+/* nav {
   background: #1b1b1b;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 50px 0 80px;
-  flex-wrap: wrap;
+  box-sizing: border-box;
 }
-div.logo a {
-  color: #fff;
-  font-size: 1em;
-  text-decoration: none;
+nav::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+body {
+  color: #1b1b1b;
+}
+nav .logo :link {
+  font-size: 30px;
+  float: left;
   text-transform: uppercase;
-  margin-right: 1rem;
+  line-height: 70px;
+  padding-left: 60px;
+  text-decoration: none;
 }
-nav .logo img {
-  max-width: 3rem;
-  margin-left: auto;
+nav .logo :hover {
+  color: #97d9fb;
+  font-size: 30px;
+  float: left;
+  text-transform: uppercase;
+  line-height: 70px;
+  padding-left: 60px;
+  text-decoration: none;
 }
 nav ul {
-  display: flex;
-  flex-wrap: wrap;
   list-style: none;
+  float: right;
+  margin-right: 40px;
+  position: relative;
 }
 nav ul li {
-  margin: 8px 5px;
+  display: inline-block;
+  background: #1b1b1b;
+  margin: 0 5px;
 }
 nav ul li a {
   color: #f2f2f2;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 18px;
   font-weight: 500;
-  padding: 2rem 1rem;
-  border-radius: 5px;
-  transition: all 0.3s ease;
+  padding: 8px 15px;
+  line-height: 70px;
 }
-nav ul li a.active,
+
+nav ul ul {
+  position: absolute;
+  top: 90px;
+  opacity: 0;
+  visibility: hidden;
+  transition: top 0.3s;
+}
+nav ul li:hover > ul {
+  top: 70px;
+  opacity: 1;
+  visibility: visible;
+}
+nav ul ul li {
+  position: relative;
+  margin: 0px;
+  left: -70px;
+  width: 150px;
+  float: none;
+  display: list-item;
+  border-bottom: 1px solid white;
+  color: #111;
+}
+
 nav ul li a:hover {
   color: #97d9fb;
   background: none;
+  box-shadow: 0 0 5px #97d9fb;
+  border-radius: 5px;
 }
+nav ul ul li a {
+  line-height: 50px;
+}
+nav ul ul li a:hover {
+  color: #97d9fb;
+  box-shadow: none;
+}
+nav ul ul ul li {
+  position: relative;
+  top: -70px;
+  left: 117px;
+  z-index: 100;
+}
+
+.show,
+.hamburger,
+input {
+  display: none;
+}
+#arrow {
+  margin-left: 60px;
+  font-size: 15px;
+}
+@media all and (max-width: 968px) {
+  nav ul {
+    margin-right: 0px;
+    float: left;
+  }
+  nav .logo {
+    padding-left: 30px;
+    width: 100%;
+  }
+
+  nav ul li,
+  nav ul ul li {
+    display: block;
+
+    width: 100%;
+  }
+  nav ul ul {
+    top: 70px;
+    position: static;
+    border-top: none;
+    float: none;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .show {
+    display: block;
+    color: white;
+    font-size: 18px;
+    padding: 0 20px;
+    line-height: 70px;
+    cursor: pointer;
+  }
+
+  nav ul ul ul li {
+    position: static;
+  }
+  nav ul ul li {
+    border-bottom: 0px;
+  }
+  nav ul ul a {
+    padding-left: 40px;
+  }
+  nav ul ul ul a {
+    padding-left: 80px;
+  }
+
+  nav ul li a:hover {
+    box-shadow: none;
+  }
+  .show :hover {
+    color: #97d9fb;
+  }
+  .hamburger {
+    display: block;
+    color: white;
+    position: absolute;
+    right: 40px;
+    line-height: 70px;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  .show + a,
+  ul {
+    display: none;
+  }
+  [id^="btn4"]:checked + ul {
+    display: block;
+  }
+}
+
+/*
 nav .menu-btn i {
   color: #fff;
   font-size: 2rem;
   cursor: pointer;
   display: none;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   display: none;
 }
+
 .dropdown .dropbtn {
   font-size: 16px;
   border: none;
@@ -67,7 +198,7 @@ input[type='checkbox'] {
   color: #111;
   min-width: 50px;
   max-width: fit-content;
-  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+ 
   z-index: 1001;
 }
 
@@ -87,7 +218,8 @@ input[type='checkbox'] {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-
+*/
+/*
 @media (max-width: 1440px) {
   nav {
     padding: 0 1em 0 2em;
@@ -124,7 +256,7 @@ input[type='checkbox'] {
     z-index: 1000;
   }
   #click:checked ~ .menu-btn i:before {
-    content: '\f00d';
+    content: "\f00d";
   }
   nav ul {
     position: fixed;
@@ -179,10 +311,9 @@ input[type='checkbox'] {
     color: #111;
     min-width: 50px;
     max-width: fit-content;
-    /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+   
     z-index: 1001;
   }
-
   .dropdown-content a {
     align-items: center;
     color: black;
@@ -199,3 +330,4 @@ input[type='checkbox'] {
     display: block;
   }
 }
+*/ */

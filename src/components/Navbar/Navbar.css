@@ -47,7 +47,7 @@ nav .menu-btn i {
   cursor: pointer;
   display: none;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   display: none;
 }
 @media (max-width: 1440px) {
@@ -86,7 +86,7 @@ input[type='checkbox'] {
     z-index: 1000;
   }
   #click:checked ~ .menu-btn i:before {
-    content: '\f00d';
+    content: "\f00d";
   }
   nav ul {
     position: fixed;
