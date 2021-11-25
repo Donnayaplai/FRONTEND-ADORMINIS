@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-// import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-import Delete from '../../assets/images/delete.png';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { MdMeetingRoom } from 'react-icons/md';
-import './Setting.css';
 import DynamicSelect from '../DynamicSelect/DynamicSelect';
+import './Setting.css';
 
 const CreateRoom = (props) => {
   const [buildingData, setBuildingData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [roomTypesData, setRoomTypesData] = useState([]);
-  // const [roomType, setRoomTypes] = useState([]);
   const [buildingName, setBuildingName] = useState([]);
   const [numOfFloor, setNumOfFloor] = useState([]);
   const [selectedFloor, setSelectedFloor] = useState('');
@@ -226,10 +224,12 @@ const CreateRoom = (props) => {
                         }}
                         onClick={() => handleRemoveClick(i)}
                       >
-                        <img
-                          src={Delete}
-                          alt="Remove room type"
-                          style={{ maxWidth: '2rem', marginTop: '1.5em' }}
+                        <RiDeleteBin6Fill
+                          style={{
+                            color: '#000',
+                            fontSize: '2em',
+                            marginTop: '1em',
+                          }}
                         />
                       </Button>
                     )}
