@@ -18,6 +18,7 @@ const BuildingList = (props) => {
     } else {
       getBuildingList();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.dormId]);
 
   const getBuildingList = async () => {
