@@ -14,9 +14,8 @@ import {
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import RemoveUser from '../../assets/images/delete.png';
-import Edit from '../../assets/images/edit.png';
-import RoomInfo from '../../assets/images/roominfo.png';
+import { RiDeleteBin6Fill, RiEditBoxFill } from 'react-icons/ri';
+import { MdMeetingRoom } from 'react-icons/md';
 
 const RoomData = ({
   roomData,
@@ -70,6 +69,10 @@ const RoomData = ({
       costName: 'อื่น ๆ',
     },
   ]);
+
+  //Error message
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     setFormData(new FormData());
   }, []);
@@ -107,9 +110,6 @@ const RoomData = ({
       }
     }
   };
-
-  //Error message
-  const [error, setError] = useState(null);
 
   //ห้องพักทั้งหมด
   const getRoomList = () => {
@@ -181,19 +181,6 @@ const RoomData = ({
       }
     }
   };
-
-  // const removeResident = async () => {
-  //   try {
-  //     await axios
-  //       .get(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
-  //       .then(setRemoveComplete(true))
-  //       .then(setShowConfirmDeleteModal(false))
-  //       .then(setResInfoModalOpen(false))
-  //       .then(getAllRoom());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   //ข้อมูลห้อง
   const getRoomInfo = async (ROOMID) => {
@@ -317,10 +304,11 @@ const RoomData = ({
                         setRoomModalOpen(true);
                       }}
                     >
-                      <img
-                        src={RoomInfo}
-                        alt="Room Information"
-                        style={{ width: '2em' }}
+                      <MdMeetingRoom
+                        style={{
+                          color: '#000',
+                          fontSize: '2em',
+                        }}
                       />
                     </Button>
                   </td>
@@ -360,11 +348,16 @@ const RoomData = ({
                         state: { buildingId: props.match.params.buildingid },
                       }}
                     >
-                      <button
+                      <Button
                         type="button"
                         className="btn"
                         onClick={() => {
                           setSelectRoomID(room.ROOMID);
+                        }}
+                        style={{
+                          backgroundColor: 'transparent',
+                          border: 'none',
+                          boxShadow: 'none',
                         }}
                       >
                         <i
@@ -374,7 +367,7 @@ const RoomData = ({
                             fontSize: '1.5em',
                           }}
                         ></i>
-                      </button>
+                      </Button>
                     </Link>
                   </td>
                 </tr>
@@ -416,10 +409,11 @@ const RoomData = ({
                           setEditCostMode(true);
                         }}
                       >
-                        <img
-                          src={Edit}
-                          alt="Edit room information"
-                          style={{ width: '1.5em' }}
+                        <RiEditBoxFill
+                          style={{
+                            color: '#000',
+                            fontSize: '2em',
+                          }}
                         />
                       </Button>
                     </Col>
@@ -558,16 +552,17 @@ const RoomData = ({
                                 boxShadow: 'none',
                               }}
                             >
-                              <img
-                                src={Edit}
-                                alt="Edit resident info"
-                                style={{ width: '1.5em' }}
+                              <RiEditBoxFill
+                                style={{
+                                  color: '#000',
+                                  fontSize: '2em',
+                                }}
                                 onClick={() => {
                                   seteditUserID(info.USERID);
                                   setSelectRentID(info.RENTID);
                                   setEditMode(true);
-                                  console.log(info.RENTID);
-                                  console.log(info.USERID);
+                                  // console.log(info.RENTID);
+                                  // console.log(info.USERID);
                                 }}
                               />
                             </Button>
@@ -585,10 +580,11 @@ const RoomData = ({
                                 setResInfoModalOpen(false);
                               }}
                             >
-                              <img
-                                src={RemoveUser}
-                                alt="Remove resident"
-                                style={{ width: '1.5em' }}
+                              <RiDeleteBin6Fill
+                                style={{
+                                  color: '#000',
+                                  fontSize: '2em',
+                                }}
                               />
                             </Button>
                           </ButtonGroup>

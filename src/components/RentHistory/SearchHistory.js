@@ -5,9 +5,8 @@ import axios from 'axios';
 import env from '../../env';
 import { useHistory } from 'react-router';
 import { MdHistory } from 'react-icons/md';
-
 import Data from './Data';
-import './SearchHistory.css';
+
 const SearchHistory = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);

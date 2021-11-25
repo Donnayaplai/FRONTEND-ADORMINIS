@@ -77,9 +77,7 @@ const Data = ({ loading, data }) => {
                 </Row>
               </Container>
               <hr />
-              {/* <Row className="mb-3">
-                <h5 className="fw-bold">ข้อมูลเพิ่มเติม</h5>
-              </Row> */}
+
               <Container style={{ textIndent: '3px' }}>
                 <Row className="mb-3">
                   <Col md={3} sm={7} xs={6}>

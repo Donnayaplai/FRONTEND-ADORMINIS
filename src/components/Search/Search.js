@@ -14,19 +14,6 @@ function Search(props) {
           />
         </Form.Group>
       </Form>
-      {/* <input
-        type="text"
-        className="form-control"
-        aria-label="Search"
-        aria-describedby="search-addon"
-        placeholder="พิมพ์เพื่อค้นหา..."
-        style={{
-          border: '1px solid #9ABCDF',
-        }}
-        value={props.searchText}
-        onChange={props.handleSearchInput}
-        name="search"
-      /> */}
     </>
   );
 }

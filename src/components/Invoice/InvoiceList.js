@@ -15,14 +15,6 @@ const InvoiceList = ({
   const [invoiceDetail, setInvoiceDetail] = useState([]);
   const [invoiceInfoModalOpen, setInvoiceInfoModalOpen] = useState(false);
 
-  // const getInvoiceList = () => {
-  //   if (filteredInvoice.length === 0) {
-  //     return invoiceList;
-  //   } else {
-  //     return filteredInvoice;
-  //   }
-  // };
-
   //Get invoice detail
   const getInvoiceDetail = async (invoiceid) => {
     try {
