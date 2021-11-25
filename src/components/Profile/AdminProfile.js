@@ -54,8 +54,7 @@ const AdminProfile = (props) => {
                 variant="secondary"
                 style={{ float: 'right' }}
               >
-                <i className="fas fa-user-edit"></i>
-                &nbsp;แก้ไขข้อมูล
+                แก้ไขข้อมูล&nbsp;<i className="fas fa-user-edit"></i>
               </Button>
             </Link>
           </Col>
