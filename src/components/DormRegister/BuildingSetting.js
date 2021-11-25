@@ -1,21 +1,22 @@
 import React from 'react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import Edit from '../../assets/images/edit.png';
-import Delete from '../../assets/images/delete.png';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 import './Setting.css';
 
-const RoomTypeSetting = (props) => {
-  const { control, handleSubmit } = useForm({});
+const BuildingSetting = (props) => {
+  const { control, handleSubmit, reset } = useForm({});
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'arrayRoomTypes',
+    name: 'arrayBuilding',
   });
 
   const onSubmit = async (data) => {
-    props.setStep3(data);
-    props.handleSubmit(data);
+    props.setStep2(data);
+    props.setPage(3);
+
+    reset();
   };
 
   return (
@@ -24,14 +25,14 @@ const RoomTypeSetting = (props) => {
         <Container className="w-75">
           <Row>
             <Col xl={4} md={4} sm={8} xs={8}>
-              <h3>ตั้งค่าประเภทห้อง</h3>
+              <h3>ตั้งค่าตึก</h3>
             </Col>
             <Col>
-              <img
+              {/* <img
                 src={Edit}
                 alt="Edit roomtype setting"
-                style={{ maxWidth: '2rem', float: 'right' }}
-              />
+                style={{ maxWidth: "2rem", float: "right" }}
+              /> */}
             </Col>
           </Row>
 
@@ -43,14 +44,14 @@ const RoomTypeSetting = (props) => {
               return (
                 <Row className="mb-3" key={item.id}>
                   <Col xl={4} md={4} sm={4} xs={4}>
-                    <Form.Label>ประเภทห้องพัก</Form.Label>
+                    <Form.Label>ชื่อตึก</Form.Label>
                     <Controller
                       control={control}
-                      name={`arrayRoomTypes.${index}.ROOMNAME`}
+                      name={`arrayBuilding.${index}.BUILDINGNAME`}
                       render={({ field }) => (
                         <Form.Control
                           type="text"
-                          placeholder="ประเภทห้องพัก"
+                          placeholder="ชื่อตึก"
                           {...field}
                         />
                       )}
@@ -58,15 +59,15 @@ const RoomTypeSetting = (props) => {
                   </Col>
                   <Col xl={4} md={4} sm={4} xs={4}>
                     <Form.Group className="mb-3">
-                      <Form.Label>ราคา</Form.Label>
+                      <Form.Label>จำนวนชั้น</Form.Label>
                       <Controller
                         control={control}
-                        name={`arrayRoomTypes.${index}.PRICE`}
-                        defaultValue={item.PRICE}
+                        name={`arrayBuilding.${index}.NUMOFFLOOR`}
+                        defaultValue={item.NUMOFFLOOR}
                         render={({ field }) => (
                           <Form.Control
                             type="number"
-                            placeholder="ราคา"
+                            placeholder="จำนวนชั้น"
                             min="0"
                             {...field}
                           />
@@ -85,10 +86,12 @@ const RoomTypeSetting = (props) => {
                       }}
                       onClick={() => remove(index)}
                     >
-                      <img
-                        src={Delete}
-                        alt="Remove room type"
-                        style={{ maxWidth: '2rem', marginTop: '1.5em' }}
+                      <RiDeleteBin6Fill
+                        style={{
+                          color: '#000',
+                          fontSize: '2em',
+                          marginTop: '1.5em',
+                        }}
                       />
                     </Button>
                   </Col>
@@ -101,10 +104,10 @@ const RoomTypeSetting = (props) => {
                   type="button"
                   id="button-add"
                   onClick={() =>
-                    append({ ROOMTYPEID: '', ROOMNAME: '', PRICE: '' })
+                    append({ BUILDINGID: '', BUILDINGNAME: '', NUMOFFLOOR: '' })
                   }
                 >
-                  เพิ่มประเภทห้องพัก
+                  เพิ่มตึก
                 </Button>
               </Col>
             </Row>
@@ -113,7 +116,7 @@ const RoomTypeSetting = (props) => {
             <Col>
               <Button
                 id="btn-cancel"
-                onClick={() => props.setPage(2)}
+                onClick={() => props.setPage(1)}
                 style={{ float: 'left' }}
               >
                 ย้อนกลับ
@@ -129,4 +132,4 @@ const RoomTypeSetting = (props) => {
   );
 };
 
-export default RoomTypeSetting;
+export default BuildingSetting;

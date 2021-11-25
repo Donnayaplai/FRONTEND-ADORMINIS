@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Table, Modal, Button } from "react-bootstrap";
-import { withRouter } from "react-router";
-import EditUser from "../../assets/images/edit.png";
-import RemoveUser from "../../assets/images/delete.png";
-import env from "../../env";
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import { withRouter } from 'react-router';
+import { RiDeleteBin6Fill, RiEditBoxFill } from 'react-icons/ri';
+// import env from '../../env';
 
 const RoomSetting = (props) => {
   return (
@@ -13,11 +12,11 @@ const RoomSetting = (props) => {
         <Table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
           <thead
             style={{
-              backgroundColor: "#C7E5F0",
-              textAlign: "center",
-              color: "black",
-              fontWeight: "bold",
-              border: "none",
+              backgroundColor: '#C7E5F0',
+              textAlign: 'center',
+              color: 'black',
+              fontWeight: 'bold',
+              border: 'none',
             }}
           >
             <tr>
@@ -30,25 +29,27 @@ const RoomSetting = (props) => {
           <tbody>
             <tr
               style={{
-                backgroundColor: "#EAE7E2",
-                border: "none",
-                textAlign: "center",
+                backgroundColor: '#EAE7E2',
+                border: 'none',
+                textAlign: 'center',
               }}
             >
               <td>ปลาน้อย</td>
               <td>3</td>
               <td>
-                <img
-                  src={EditUser}
-                  alt="Edit resident info"
-                  style={{ width: "1.5em" }}
+                <RiEditBoxFill
+                  style={{
+                    color: '#000',
+                    fontSize: '2em',
+                  }}
                 />
               </td>
               <td>
-                <img
-                  src={RemoveUser}
-                  alt="Remove resident"
-                  style={{ width: "1.5em" }}
+                <RiDeleteBin6Fill
+                  style={{
+                    color: '#000',
+                    fontSize: '2em',
+                  }}
                 />
               </td>
             </tr>
