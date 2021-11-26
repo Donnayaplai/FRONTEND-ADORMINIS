@@ -11,24 +11,22 @@ const AdminHome = (props) => {
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getAllCount();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => {
-    const getAllCount = async () => {
-      try {
-        const countData = await axios.get(
-          `${env.url}dashboard/${props.dormId}`
-        );
-        setData(countData.data);
-      } catch (error) {
-        console.error(error);
-      }
+  const getAllCount = async () => {
+    try {
+      setLoading(true);
+      const countData = await axios.get(`${env.url}dashboard/${props.dormId}`);
+      setData(countData.data);
       setLoading(false);
-    };
-
-    getAllCount();
-  }, [props.dormId]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -38,9 +36,7 @@ const AdminHome = (props) => {
     <>
       <h1>
         ยินดีต้อนรับ
-        <span className="fs-3 ms-3 fw-normal">
-          {props.userFname} {props.userLname}
-        </span>
+        <span className="fs-3 ms-3 fw-normal">"{props.dormName}"</span>
       </h1>
 
       <Container
