@@ -10,14 +10,6 @@ import DynamicSelect from '../DynamicSelect/DynamicSelect';
 
 const Bill = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 0) {
-      history.push('/login');
-    } else {
-      getBill();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const [billList, setBillList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,10 +20,14 @@ const Bill = (props) => {
   const [selectedBillCycle, setSelectBillCycle] = useState();
   const [mainList, setMainList] = useState([]);
 
-  // useEffect(() => {
-  //   getBill();
-  //   //eslint-disable-next-line
-  // }, [props.rentId]);
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    } else {
+      getBill();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let getBill = async () => {
     try {
@@ -152,14 +148,17 @@ const Bill = (props) => {
           searchText={searchText}
           dormId={props.dormId}
         />
-
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          totalData={billList.length}
-          paginate={paginate}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        />
+        {mainList.length > 0 ? (
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalData={billList.length}
+            paginate={paginate}
+            nextPage={nextPage}
+            prevPage={prevPage}
+          />
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );
