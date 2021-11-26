@@ -1,41 +1,81 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
+import { Form, Col, Row, Container, Button } from 'react-bootstrap';
+import { withRouter, useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import env from '../../env';
-import { useHistory, withRouter } from 'react-router';
-import { Link } from 'react-router-dom';
+
 const EditCost = (props) => {
   const history = useHistory();
+  const [error, setError] = useState(null);
+  // const [cost, setCost] = useState([]);
+  const [waterPrice, setWaterPrice] = useState('');
+  const [electricityPrice, setElectricityPrice] = useState('');
+  const [minWaterUnit, setMinWaterUnit] = useState('');
+  const [minWaterPrice, setMinWaterPrice] = useState('');
+  const [guaranteeFee, setGuaranteeFee] = useState('');
+  const [multPrePaid, setMultprepaid] = useState('');
+  const [maintainanceFee, setMaintainanceFee] = useState('');
+  const [parkingFee, setParkingFee] = useState('');
+  const [internetFee, setInternetFee] = useState('');
+  const [cleaningFee, setCleaningFee] = useState('');
+  const [other, setOther] = useState();
+  const [invoiceDate, setInvoiceDate] = useState('');
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
     } else {
-      getDormitoryInfo();
+      getCost();
     }
-  }, [props.dormId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const [cost, setCost] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const getDormitoryInfo = async () => {
+  const getCost = async () => {
     try {
       setLoading(true);
-      const data = await axios.get(`${env.url}setting/getCost/${props.dormId}`);
-      setCost(data.data);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
+      await axios
+        .get(`${env.url}setting/getCost/${props.dormId}`)
+        .then((data) => {
+          setWaterPrice(data.data.WATERPRICE);
+          setElectricityPrice(data.data.ELECTRICITYPRICE);
+          setMinWaterUnit(data.data.MINWATERUNIT);
+          setMinWaterPrice(data.data.MINWATERPRICE);
+          setMultprepaid(data.data.MULTPREPAID);
+          setGuaranteeFee(data.data.GUARANTEEFEE);
+          setMaintainanceFee(data.data.MAINTENANCEFEE);
+          setParkingFee(data.data.PARKINGFEE);
+          setInternetFee(data.data.INTERNETFEE);
+          setCleaningFee(data.data.CLEANINGFEE);
+          setOther(data.data.OTHER);
+          setInvoiceDate(data.data.INVOICEDATE);
+        });
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      }
     }
     setLoading(false);
   };
-  const { register, handleSubmit, trigger } = useForm();
 
-  const EditCostSetting = async (data) => {
+  const EditCostSetting = async () => {
     try {
       await axios
-        .post(`${env.url}setting/setCost/${props.match.params.dormid}`, data)
+        .post(`${env.url}setting/setCost/${props.match.params.dormid}`, {
+          waterPrice: waterPrice,
+          electricityPrice: electricityPrice,
+          minWaterUnit: minWaterUnit,
+          minWaterPrice: minWaterPrice,
+          guaranteeFee: guaranteeFee,
+          multPrePaid: multPrePaid,
+          maintainanceFee: maintainanceFee,
+          parkingFee: parkingFee,
+          internetFee: internetFee,
+          cleaningFee: cleaningFee,
+          other: other,
+          invoiceDate: invoiceDate,
+        })
         .then(window.alert('การแก้ไขข้อมูลค่าใช้จ่ายเสร็จสิ้น'))
         .then(history.push(`/dorm-info`));
     } catch (err) {
@@ -58,7 +98,7 @@ const EditCost = (props) => {
           {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
         </center>
       </Row>
-      <Form onSubmit={handleSubmit(EditCostSetting)}>
+      <Form onSubmit={EditCostSetting}>
         <Container
           className="px-5 py-3 rounded"
           style={{ backgroundColor: '#EAE7E2' }}
@@ -77,12 +117,11 @@ const EditCost = (props) => {
                 </Form.Label>
                 <Form.Control
                   name="waterPrice"
-                  defaultValue={cost.WATERPRICE}
+                  value={waterPrice}
+                  type="text"
                   max="99999"
-                  min="0"
-                  {...register('waterPrice')}
-                  onKeyUp={() => {
-                    trigger('waterPrice');
+                  onChange={(e) => {
+                    setWaterPrice(e.target.value);
                   }}
                 />
               </Form.Group>
@@ -97,10 +136,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="minWaterUnit"
                   type="number"
-                  defaultValue={cost.MINWATERUNIT}
-                  max="99999"
-                  min="0"
-                  {...register('minWaterUnit')}
+                  value={minWaterUnit}
+                  onChange={(e) => {
+                    setMinWaterUnit(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('minWaterUnit')}
                 />
               </Form.Group>
             </Col>
@@ -114,10 +156,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="minWaterPrice"
                   type="number"
-                  defaultValue={cost.MINWATERPRICE}
-                  max="99999"
-                  min="0"
-                  {...register('minWaterPrice')}
+                  value={minWaterPrice}
+                  onChange={(e) => {
+                    setMinWaterPrice(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('minWaterPrice')}
                 />
               </Form.Group>
             </Col>
@@ -137,10 +182,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="electricityPrice"
                   type="number"
-                  defaultValue={cost.ELECTRICITYPRICE}
-                  max="99999"
-                  min="0"
-                  {...register('electricityPrice')}
+                  value={electricityPrice}
+                  onChange={(e) => {
+                    setElectricityPrice(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('electricityPrice')}
                 />
               </Form.Group>
             </Col>
@@ -161,18 +209,21 @@ const EditCost = (props) => {
                 <Form.Control
                   name="guaranteeFee"
                   type="number"
-                  defaultValue={cost.GUARANTEEFEE}
-                  max="99999"
-                  min="0"
-                  {...register('guaranteeFee')}
+                  value={guaranteeFee}
+                  onChange={(e) => {
+                    setGuaranteeFee(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('guaranteeFee')}
                 />
               </Form.Group>
             </Col>
             <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>ค่าเช่าล่วงหน้า (เดือน)</Form.Label>
-                <Form.Select name="multPrePaid" {...register('multPrePaid')}>
-                  <option defaultValue>{cost.MULTPREPAID}</option>
+                <Form.Select name="multPrePaid">
+                  <option defaultValue>{multPrePaid}</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -202,8 +253,8 @@ const EditCost = (props) => {
             <Col xs={10} sm={12} md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>วันที่ออกใบแจ้งหนี้ให้ผู้เช่า </Form.Label>
-                <Form.Select name="invoiceDate" {...register('invoiceDate')}>
-                  <option defaultValue>{cost.INVOICEDATE}</option>
+                <Form.Select name="invoiceDate">
+                  <option defaultValue>{invoiceDate}</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -256,10 +307,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="maintenanceFee"
                   type="number"
-                  defaultValue={cost.MAINTENANCEFEE}
-                  max="99999"
-                  min="0"
-                  {...register('maintenanceFee')}
+                  value={maintainanceFee}
+                  onChange={(e) => {
+                    setMaintainanceFee(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('maintenanceFee')}
                 />
               </Form.Group>
             </Col>
@@ -272,10 +326,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="parkingFee"
                   type="number"
-                  defaultValue={cost.PARKINGFEE}
-                  max="99999"
-                  min="0"
-                  {...register('parkingFee')}
+                  value={parkingFee}
+                  onChange={(e) => {
+                    setParkingFee(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('parkingFee')}
                 />
               </Form.Group>
             </Col>
@@ -288,10 +345,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="internetFee"
                   type="number"
-                  defaultValue={cost.INTERNETFEE}
-                  max="99999"
-                  min="0"
-                  {...register('internetFee')}
+                  value={internetFee}
+                  onChange={(e) => {
+                    setInternetFee(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('internetFee')}
                 />
               </Form.Group>
             </Col>
@@ -306,10 +366,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="cleaningFee"
                   type="number"
-                  defaultValue={cost.CLEANINGFEE}
-                  max="99999"
-                  min="0"
-                  {...register('cleaningFee')}
+                  value={cleaningFee}
+                  onChange={(e) => {
+                    setCleaningFee(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('cleaningFee')}
                 />
               </Form.Group>
             </Col>
@@ -322,10 +385,13 @@ const EditCost = (props) => {
                 <Form.Control
                   name="other"
                   type="number"
-                  defaultValue={cost.OTHER}
-                  max="99999"
-                  min="0"
-                  {...register('other')}
+                  value={other}
+                  onChange={(e) => {
+                    setOther(e.target.value);
+                  }}
+                  // max="99999"
+                  // min="0"
+                  // {...register('other')}
                 />
               </Form.Group>
             </Col>
@@ -334,9 +400,7 @@ const EditCost = (props) => {
         <Row className="mt-3">
           <Col>
             <Link to={`/dorm-info/${props.location.state.dormId}`}>
-              <Button type="button" id="btn-cancel">
-                ย้อนกลับ
-              </Button>
+              <Button id="btn-cancel">ย้อนกลับ</Button>
             </Link>
           </Col>
           <Col>

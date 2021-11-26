@@ -2,47 +2,73 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-
-import { useForm } from 'react-hook-form';
 import { useHistory, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RiFileInfoFill } from 'react-icons/ri';
 // import { Provinces } from '../../systemdata/Provinces';
+
 const Editdorm = (props) => {
+  // const [dorm, setDorm] = useState([]);
+  const [dormNameTH, setDormNameTH] = useState('');
+  const [dormNameENG, setDormNameENG] = useState('');
+  const [address, setAddress] = useState('');
+  const [street, setStreet] = useState('');
+  const [province, setProvince] = useState('');
+  const [postCode, setPostCode] = useState('');
+  const [telNo, setTelNo] = useState('');
+  const [subdistrict, setSubdistrict] = useState('');
+  const [district, setDistrict] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
+    } else {
+      getDormitoryInfo();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const [dorm, setDorm] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const { register, handleSubmit, trigger } = useForm();
-
-  useEffect(() => {
-    const getDormitoryInfo = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`${env.url}dorm/info/${props.dormId}`);
-        setDorm(response.data);
-        setLoading(false);
-      } catch (err) {
-        if (err.response && err.response.data) {
-          setError(err.response.data.message);
-        }
-      }
-    };
-
-    getDormitoryInfo();
-  }, [props.dormId]);
-
-  const Editdorm = async (data) => {
+  const getDormitoryInfo = async () => {
     try {
+      setLoading(true);
+      await axios.get(`${env.url}dorm/info/${props.dormId}`).then((data) => {
+        console.log(data.data);
+        setDormNameTH(data.data.DORMNAMETH);
+        setDormNameENG(data.data.DORMNAMEENG);
+        setAddress(data.data.ADDRESS);
+        setProvince(data.data.PROVINCE);
+        setStreet(data.data.STREET);
+        setPostCode(data.data.POSTCODE);
+        setTelNo(data.data.TELNO);
+        setSubdistrict(data.data.SUBDISTRICT);
+        setDistrict(data.data.DISTRICT);
+      });
+      setLoading(false);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
+      }
+    }
+  };
+
+  const EditDormData = async (e) => {
+    try {
+      // e.preventDefault();
+      // console.log({ province: province });
       await axios
-        .post(`${env.url}dorm/update/${props.match.params.dormid}`, data)
+        .post(`${env.url}dorm/update/${props.match.params.dormid}`, {
+          dormNameTH: dormNameTH,
+          dormNameENG: dormNameENG,
+          address: address,
+          province: province,
+          street: street,
+          postCode: postCode,
+          telNo: telNo,
+          subdistrict: subdistrict,
+          district: district,
+        })
         .then(window.alert('การแก้ไขข้อมูลหอพักเสร็จสิ้น'))
         .then(history.push(`/dorm-info`));
     } catch (err) {
@@ -67,7 +93,7 @@ const Editdorm = (props) => {
       </Row>
 
       <Container className="w-75 mb-5 mt-3">
-        <Form onSubmit={handleSubmit(Editdorm)}>
+        <Form onSubmit={EditDormData}>
           <Container
             className="p-3 rounded mb-3"
             style={{ backgroundColor: '#EAE7E2' }}
@@ -78,12 +104,11 @@ const Editdorm = (props) => {
                   <Form.Label>ชื่อหอพัก (ไทย)</Form.Label>
                   <Form.Control
                     type="text"
-                    defaultValue={dorm.DORMNAMETH}
+                    value={dormNameTH}
                     name="dormNameTH"
-                    // {...register('dormNameTH')}
-                    // onKeyUp={() => {
-                    //   trigger('dormNameTH');
-                    // }}
+                    onChange={(e) => {
+                      setDormNameTH(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -93,11 +118,10 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="dormNameENG"
-                    defaultValue={dorm.DORMNAMEENG}
-                    // {...register('dormNameENG')}
-                    // onKeyUp={() => {
-                    //   trigger('dormNameENG');
-                    // }}
+                    value={dormNameENG}
+                    onChange={(e) => {
+                      setDormNameENG(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -109,11 +133,10 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="telNo"
-                    defaultValue={dorm.TELNO}
-                    // {...register('telNo')}
-                    // onKeyUp={() => {
-                    //   trigger('telNo');
-                    // }}
+                    value={telNo}
+                    onChange={(e) => {
+                      setTelNo(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -123,11 +146,10 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="address"
-                    defaultValue={dorm.ADDRESS}
-                    // {...register('address')}
-                    // onKeyUp={() => {
-                    //   trigger('address');
-                    // }}
+                    value={address}
+                    onChange={(e) => {
+                      setAddress(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -140,11 +162,10 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="street"
-                    defaultValue={dorm.STREET}
-                    // {...register('street')}
-                    // onKeyUp={() => {
-                    //   trigger('street');
-                    // }}
+                    value={street}
+                    onChange={(e) => {
+                      setStreet(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -155,11 +176,10 @@ const Editdorm = (props) => {
                     type="text"
                     placeholder="แขวง"
                     name="subdistrict"
-                    defaultValue={dorm.SUBDISTRICT}
-                    // {...register('subdistrict')}
-                    // onKeyUp={() => {
-                    //   trigger('subdistrict');
-                    // }}
+                    value={subdistrict}
+                    onChange={(e) => {
+                      setSubdistrict(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -171,11 +191,10 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="district"
-                    defaultValue={dorm.DISTRICT}
-                    // {...register('district')}
-                    // onKeyUp={() => {
-                    //   trigger('district');
-                    // }}
+                    value={district}
+                    onChange={(e) => {
+                      setDistrict(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -185,15 +204,31 @@ const Editdorm = (props) => {
                   <Form.Control
                     type="text"
                     name="postCode"
-                    defaultValue={dorm.POSTCODE}
-                    // {...register('postCode')}
-                    // onKeyUp={() => {
-                    //   trigger('postCode');
-                    // }}
+                    value={postCode}
+                    onChange={(e) => {
+                      setPostCode(e.target.value);
+                    }}
                   />
                 </Form.Group>
               </Col>
             </Row>
+            {/* <Row className="mb-3">
+              <Col xs={12} sm={12} md={6}>
+                <Form.Group>
+                  <Form.Label>จังหวัด</Form.Label>
+                  <Form.Select name="province">
+                    {Provinces.map((item) => {
+                      return (
+                        <option key={item.id} value={province}>
+                          {item.label}
+                        </option>
+                      );
+                    })}
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col></Col>
+            </Row> */}
           </Container>
           <Row>
             <Col>
@@ -204,7 +239,12 @@ const Editdorm = (props) => {
               </Link>
             </Col>
             <Col>
-              <Button type="submit" style={{ float: 'right' }} id="btn-next">
+              <Button
+                type="submit"
+                style={{ float: 'right' }}
+                id="btn-next"
+                onClick={EditDormData}
+              >
                 ตกลง
               </Button>
             </Col>
