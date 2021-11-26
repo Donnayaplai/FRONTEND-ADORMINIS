@@ -1,24 +1,24 @@
-import { useState, useEffect } from "react";
-import { Router, Route, Switch } from "react-router-dom";
-import axios from "axios";
-import "./App.css";
-import env from "./env";
-import { useCallback } from "react";
+import { useState, useEffect } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
+import './App.css';
+import env from './env';
+import { useCallback } from 'react';
 
-import Routes from "./Routes";
-import LandingPage from "./components/LandingPage/LandingPage";
-import Navbar from "./components/Navbar/Navbar";
+import Routes from './Routes';
+import LandingPage from './components/LandingPage/LandingPage';
+import Navbar from './components/Navbar/Navbar';
 // import Nav from './components/Navbar/Nav';
-import History from "./components/Others/History";
-import ResidentNav from "./components/Navbar/ResidentNav";
-import AdminNav from "./components/Navbar/AdminNav";
+import History from './components/Others/History';
+import ResidentNav from './components/Navbar/ResidentNav';
+import AdminNav from './components/Navbar/AdminNav';
 //Public
-import adminRegister from "./components/RegisterLogin/adminRegister";
-import CheckExistAccount from "./components/RegisterLogin/CheckExistAccount";
-import residentRegister from "./components/RegisterLogin/residentRegister";
-import SelectRole from "./components/RegisterLogin/SelectRole";
-import Login from "./components/RegisterLogin/Login";
-import NotFound from "./components/Others/NotFound";
+import adminRegister from './components/RegisterLogin/adminRegister';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
+import residentRegister from './components/RegisterLogin/residentRegister';
+import SelectRole from './components/RegisterLogin/SelectRole';
+import Login from './components/RegisterLogin/Login';
+import NotFound from './components/Others/NotFound';
 
 function App() {
   const [roleId, setRoleId] = useState();
@@ -30,11 +30,11 @@ function App() {
   const [dormName, setDormName] = useState();
 
   const fetchMyAPI = useCallback(async () => {
-    if (localStorage.getItem("authorization")) {
+    if (localStorage.getItem('authorization')) {
       await axios
         .get(`${env.url}api/user/detail`, {
           headers: {
-            authorization: localStorage.getItem("authorization"),
+            authorization: localStorage.getItem('authorization'),
           },
         })
         .then((data) => {
@@ -103,6 +103,7 @@ function App() {
           setRoleId={setRoleId}
           setDormId={setDormId}
           setUserId={setUserId}
+          setDormName={setDormName}
         />
       );
     } else {
@@ -121,14 +122,15 @@ function App() {
               setDormId={setDormId}
               setRentId={setRentId}
               setUserId={setUserId}
+              setUserFname={setUserFname}
+              setUserLname={setUserLname}
+              setDormName={setDormName}
               roleId={roleId}
               dormId={dormId}
               rentId={rentId}
               userId={userId}
               userFname={userFname}
               userLname={userLname}
-              setUserFname={setUserFname}
-              setUserLname={setUserLname}
               dormName={dormName}
             />
           </Route>
@@ -147,6 +149,9 @@ function App() {
               setDormId={setDormId}
               setRentId={setRentId}
               setUserId={setUserId}
+              setUserFname={setUserFname}
+              setUserLname={setUserLname}
+              setDormName={setDormName}
               userId={userId}
             />
           </Route>
