@@ -1,43 +1,43 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 //Public
-import adminRegister from "./components/RegisterLogin/adminRegister";
-import CheckExistAccount from "./components/RegisterLogin/CheckExistAccount";
-import residentRegister from "./components/RegisterLogin/residentRegister";
-import SelectRole from "./components/RegisterLogin/SelectRole";
-import Login from "./components/RegisterLogin/Login";
-import NotFound from "./components/Others/NotFound";
+import adminRegister from './components/RegisterLogin/adminRegister';
+import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
+import residentRegister from './components/RegisterLogin/residentRegister';
+import SelectRole from './components/RegisterLogin/SelectRole';
+import Login from './components/RegisterLogin/Login';
+import NotFound from './components/Others/NotFound';
 
 //Admin
-import AdminHome from "./components/Home/AdminHome";
-import AdminProfile from "./components/Profile/AdminProfile";
-import EditAdminProfile from "./components/Profile/EditAdminProfile";
-import DormitoryRegister from "./components/Dorm/DormitoryRegister";
-import DormitoryInfo from "./components/DormitoryData/DormitoryInfo";
-import EditDormInfo from "./components/DormitoryData/EditDormInfo";
-import EditCost from "./components/DormitoryData/EditCost";
-import Setting from "./components/Dorm/Setting";
-import BuildingList from "./components/RoomStatus/BuildingList";
-import CreateRoom from "./components/Dorm/CreateRoom";
-import AddResident from "./components/RoomStatus/AddResident";
-import SelectBuilding from "./components/Utility/SelectBuilding";
-import MeterRecord from "./components/Utility/MeterRecord";
-import UtilityCalculate from "./components/Utility/UtilityCalculate";
-import Invoice from "./components/Invoice/Invoice";
-import MainRoom from "./components/RoomStatus/MainRoom";
-import Complain from "./components/Complain/Complain";
-import ComplainDetail from "./components/Complain/ComplainDetail";
-import SearchHistory from "./components/RentHistory/SearchHistory";
-import RoomSetting from "./components/Setting/RoomSetting";
-import BuildingDisplay from "./components/Setting/BuildingDisplay";
+import AdminHome from './components/Home/AdminHome';
+import AdminProfile from './components/Profile/AdminProfile';
+import EditAdminProfile from './components/Profile/EditAdminProfile';
+import DormitoryRegister from './components/DormRegister/DormitoryRegister';
+import DormitoryInfo from './components/DormitoryData/DormitoryInfo';
+import EditDormInfo from './components/DormitoryData/EditDormInfo';
+import EditCost from './components/DormitoryData/EditCost';
+import Setting from './components/DormRegister/Setting';
+import BuildingList from './components/RoomStatus/BuildingList';
+import CreateRoom from './components/DormRegister/CreateRoom';
+import AddResident from './components/RoomStatus/AddResident';
+import SelectBuilding from './components/Utility/SelectBuilding';
+import MeterRecord from './components/Utility/MeterRecord';
+import UtilityCalculate from './components/Utility/UtilityCalculate';
+import Invoice from './components/Invoice/Invoice';
+import MainRoom from './components/RoomStatus/MainRoom';
+import Complain from './components/Complain/Complain';
+import ComplainDetail from './components/Complain/ComplainDetail';
+import SearchHistory from './components/RentHistory/SearchHistory';
+import Building from './components/DormitoryData/Building';
+import EditRoom from './components/DormitoryData/EditRoom';
 //Resident
-import ResidentHome from "./components/Home/ResidentHome";
-import ResidentProfile from "./components/Resident/ResidentProfile";
-import DormProfile from "./components/Resident/DormProfile";
-import Bill from "./components/Resident/Bill";
-import ResidentComplain from "./components/Resident/Complain";
-import ResidentComplainDetail from "./components/Resident/ResidentComplainDetail";
+import ResidentHome from './components/Home/ResidentHome';
+import ResidentProfile from './components/Resident/ResidentProfile';
+import DormProfile from './components/Resident/DormProfile';
+import Bill from './components/Resident/Bill';
+import ResidentComplain from './components/Resident/Complain';
+import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
 
 const Routes = (props) => {
   return (
@@ -52,6 +52,8 @@ const Routes = (props) => {
             setUserId={props.setUserId}
             setUserFname={props.setUserFname}
             setUserLname={props.setUserLname}
+            setDormName={props.setDormName}
+            userId={props.userId}
           />
         </Route>
         <Route path="/role-selection" component={SelectRole} />
@@ -73,6 +75,8 @@ const Routes = (props) => {
             dormId={props.dormId}
             userFname={props.userFname}
             userLname={props.userLname}
+            dormName={props.dormName}
+            setDormName={props.setDormName}
           />
         </Route>
         <Route path="/admin/profile">
@@ -92,6 +96,12 @@ const Routes = (props) => {
         </Route>
         <Route exact path="/edit/cost-info/:dormid">
           <EditCost roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route exact path="edit/room-setting/:dormid">
+          <EditRoom roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route exact path="/building-setting">
+          <Building roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route path="/dorm-setting">
           <Setting dormId={props.dormId} />
@@ -129,9 +139,7 @@ const Routes = (props) => {
         <Route path="/history">
           <SearchHistory roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        {/* path หลิวสร้างใหม่ */}
-        <Route path="/roomsetting" component={RoomSetting} />
-        <Route path="/buildingdisplay" component={BuildingDisplay} />
+
         {/* Resident routes */}
         <Route path="/resident/home">
           <ResidentHome
