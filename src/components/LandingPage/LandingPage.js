@@ -1,25 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './LandingPage.css';
 import { Row, Col, Button } from 'react-bootstrap';
-import Logo from './home-img.png';
+import Logo from './home.png';
+import { MdLogin, MdManageAccounts } from 'react-icons/md';
+import './LandingPage.css';
+
 const LandingPage = () => {
   return (
     <>
       <section className="home" id="home">
         <div className="content">
-          <span style={{ fontSize: "3em" }}> ADORMINIS</span>
-
+          <span> ADORMINIS</span>
           <p id="detail">Web Application for Dormitory Management</p>
           <Row>
             <Col md={6} sm={12}>
-              <Link to={"/role-selection"}>
-                <Button id="btn">สร้างบัญชีใหม่</Button>
+              <Link to={'/role-selection'}>
+                <Button id="btn">
+                  สร้างบัญชีใหม่ <MdManageAccounts />
+                </Button>
               </Link>
             </Col>
             <Col md={6} sm={12}>
-              <Link to={"/login"}>
-                <Button id="btn">เข้าสู่ระบบ</Button>
+              <Link to={'/login'}>
+                <Button id="btn">
+                  เข้าสู่ระบบ <MdLogin />
+                </Button>
               </Link>
             </Col>
           </Row>

@@ -64,7 +64,9 @@ section {
   width: 35vw;
   animation: float 3s linear infinite;
 }
-
+.image img {
+  padding-left: 5vw;
+}
 @keyframes float {
   0%,
   100% {
@@ -75,19 +77,13 @@ section {
   }
 }
 
-.home .content h3 {
-  font-size: 5.5rem;
-  color: #333;
-  text-transform: uppercase;
-}
-
 .home .content span {
   color: #000;
   text-transform: uppercase;
+  font-size: 3em;
 }
 .home .content span:hover {
   color: var(--blue);
-  text-transform: uppercase;
 }
 
 .home .content p {
