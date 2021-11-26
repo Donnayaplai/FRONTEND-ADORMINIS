@@ -6,17 +6,10 @@ import { useHistory } from 'react-router';
 import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
+import { TiWarningOutline } from 'react-icons/ti';
 
 const ResidentComplain = (props) => {
   const history = useHistory();
-  useEffect(() => {
-    if (props.roleId !== 0) {
-      history.push('/login');
-    } else {
-      getAllResidentProblems();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const [complainList, setComplainList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +19,15 @@ const ResidentComplain = (props) => {
   const [complainModalOpen, setComplainModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
+
+  useEffect(() => {
+    if (props.roleId !== 0) {
+      history.push('/login');
+    } else {
+      getAllResidentProblems();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClose = () => setComplainModalOpen(false);
   const handleShow = () => setComplainModalOpen(true);
@@ -42,10 +44,6 @@ const ResidentComplain = (props) => {
       )
     );
   };
-
-  // useEffect(() => {
-  //   getAllResidentProblems();
-  // }, []);
 
   //Get all problems
   let getAllResidentProblems = async () => {
@@ -108,47 +106,49 @@ const ResidentComplain = (props) => {
         <i className="fas fa-comment-dots"></i>
       </h1>
       <Row className="mt-3 mb-3">
-        <Col xs={8} sm={8} md={8} className="mx-auto">
+        <Col xs={8} sm={8} md={6} className="mx-auto">
           <Search
             handleSearchInput={handleSearchInput}
             searchText={searchText}
+            className="mx-auto"
             placeholder={'โปรดระบุวันที่แจ้งเรื่อง,ชื่อเรื่อง เพื่อค้นหา...'}
           />
         </Col>
       </Row>
       <Container className="w-75">
         <Row>
-          <Col xs={8} sm={7} md={6} className="pt-0 pb-0">
+          <Col xs={8} sm={7} md={6}>
             <h3>ประวัติและสถานะ</h3>
           </Col>
-          <Col xs={4} sm={5} md={6} className="pt-0 pb-0">
-            <h3>
-              <Button
-                variant="secondary"
-                onClick={handleShow}
-                style={{ float: 'right' }}
-              >
-                แจ้งปัญหา
-              </Button>
-            </h3>
+          <Col xs={4} sm={5} md={6}>
+            <Button
+              variant="secondary"
+              onClick={handleShow}
+              style={{ float: 'right' }}
+            >
+              แจ้งปัญหา <TiWarningOutline />
+            </Button>
           </Col>
+          <ResidentComplainList
+            complainList={currentData}
+            loading={loading}
+            filteredComplain={filteredComplain}
+            searchText={searchText}
+            rentId={props.rentId}
+            getAllResidentProblems={getAllResidentProblems}
+          />
+          {complainList.length > 0 ? (
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              totalData={complainList.length}
+              paginate={paginate}
+              nextPage={nextPage}
+              prevPage={prevPage}
+            />
+          ) : (
+            <></>
+          )}
         </Row>
-        <ResidentComplainList
-          complainList={currentData}
-          loading={loading}
-          filteredComplain={filteredComplain}
-          searchText={searchText}
-          rentId={props.rentId}
-          getAllResidentProblems={getAllResidentProblems}
-        />
-
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          totalData={complainList.length}
-          paginate={paginate}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        />
       </Container>
       <Form>
         <Modal

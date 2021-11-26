@@ -1,36 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import env from '../../env';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Overlay, Tooltip } from 'react-bootstrap';
 import { useHistory } from 'react-router';
+import { FaBuilding } from 'react-icons/fa';
+import { MdMeetingRoom } from 'react-icons/md';
+import { useRef } from 'react';
 
 const DormProfile = (props) => {
+  const [dormData, setDormData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
   const history = useHistory();
+
   useEffect(() => {
     if (props.roleId !== 0) {
       history.push('/login');
+    } else {
+      getDormProfile();
     }
-  });
-  const [dormData, setDormData] = useState([]);
-  const [loading, setLoading] = useState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  useEffect(() => {
-    const getDormProfile = async () => {
-      try {
-        const response = await axios.get(
-          `${env.url}api/user/rent/${props.rentId}`
-        );
-        setDormData(response.data);
-        console.log(dormData);
-      } catch (error) {
-        console.error(error);
-      }
+  const getDormProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${env.url}api/user/rent/${props.rentId}`
+      );
+      setDormData(response.data);
       setLoading(false);
-    };
-
-    getDormProfile();
-    //eslint-disable-next-line
-  }, [props.rentId]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -38,11 +42,25 @@ const DormProfile = (props) => {
   return (
     <>
       <h1>
-        ข้อมูลหอพักและห้องพัก &nbsp;<i className="fas fa-info-circle"></i>
+        ข้อมูลหอพัก&nbsp;
+        <i
+          className="fas fa-info-circle"
+          ref={target}
+          onClick={() => setShow(!show)}
+        ></i>
+        <Overlay target={target.current} show={show} placement="right">
+          {(props) => (
+            <Tooltip id="overlay-example" {...props}>
+              ข้อมูลที่เกี่ยวข้องกับหอพักทั้งหมด
+            </Tooltip>
+          )}
+        </Overlay>
       </h1>
 
       <Container className="w-75 mb-5">
-        <h4 className="fw-bold">ข้อมูลหอพัก</h4>
+        <h4>
+          หอพัก <FaBuilding />
+        </h4>
         <Container
           className="px-5 py-3 rounded mb-3 mx-auto mt-3"
           style={{ backgroundColor: '#EAE7E2' }}
@@ -114,7 +132,9 @@ const DormProfile = (props) => {
             </Col>
           </Row>
         </Container>
-        <h4 className="fw-bold">ข้อมูลห้องพัก</h4>
+        <h4>
+          ห้องพัก <MdMeetingRoom />
+        </h4>
         <Container
           className="px-5 py-3 rounded mb-3 mx-auto mt-3"
           style={{ backgroundColor: '#EAE7E2' }}

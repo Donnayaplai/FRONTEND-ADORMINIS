@@ -6,18 +6,17 @@ import { Link } from 'react-router-dom';
 import { withRouter, useHistory } from 'react-router';
 
 const ResidentComplainDetail = (props) => {
+  const [complainDetail, setComplainDetail] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
   useEffect(() => {
     if (props.roleId !== 0) {
       history.push('/login');
+    } else {
+      getComplainDetail();
     }
-  });
-  const [complainDetail, setComplainDetail] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    getComplainDetail();
-    //eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let getComplainDetail = async () => {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Table, Modal, Row } from 'react-bootstrap';
+import { Button, Table, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import Delete from '../../assets/images/delete.png';
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 import axios from 'axios';
 import env from '../../env';
 const ResidentComplainList = ({
@@ -50,19 +50,20 @@ const ResidentComplainList = ({
     setSelectProblemId('');
   };
 
+  if (error) {
+    <center>
+      {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+    </center>;
+  }
+
   return (
     <>
-      <Row>
-        <center>
-          {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
-        </center>
-      </Row>
       {getResidentComplainList().length === 0 ? (
         <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Table
           responsive
-          className="table table-hover table-borderless mx-auto"
+          className="table table-hover table-borderless mx-auto mt-3"
         >
           <thead
             style={{
@@ -75,7 +76,6 @@ const ResidentComplainList = ({
           >
             <tr>
               <th>วันที่แจ้งเรื่อง</th>
-
               <th>ชื่อเรื่อง</th>
               <th>สถานะ</th>
               <th>รายละเอียด</th>
@@ -162,7 +162,6 @@ const ResidentComplainList = ({
                     type="button"
                     className="btn"
                     onClick={() => {
-                      // console.log(list.PROBLEMID);
                       setShowConfirmDeleteModal(true);
                       setSelectProblemId(list.PROBLEMID);
                     }}
@@ -172,11 +171,17 @@ const ResidentComplainList = ({
                       boxShadow: 'none',
                     }}
                   >
-                    <img
+                    <RiDeleteBin6Fill
+                      style={{
+                        color: '#000',
+                        fontSize: '2em',
+                      }}
+                    />
+                    {/* <img
                       src={Delete}
                       alt="Delete Detail"
                       style={{ maxWidth: '1.5em' }}
-                    />
+                    /> */}
                   </Button>
                 </td>
               </tr>
