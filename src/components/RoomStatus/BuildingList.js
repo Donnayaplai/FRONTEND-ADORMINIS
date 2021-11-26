@@ -58,7 +58,7 @@ const BuildingList = (props) => {
           <tr key={buildingList.BUILDINGNO}>
             <th>ชื่อตึก</th>
             <th>จำนวนชั้น</th>
-            <th>เลือกตึก</th>
+            <th>ดูห้องพัก</th>
           </tr>
         </thead>
         {buildingList.map((list) => (
