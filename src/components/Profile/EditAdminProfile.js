@@ -50,10 +50,10 @@ const EditAdminProfile = (props) => {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
 
-  const EditProfile = () => {
+  const EditProfile = async () => {
     try {
       // console.log('แก้ไขข้อมูล');
-      axios
+      await axios
         .post(`${env.url}api/user/edit/${props.match.params.userid}`, {
           fName: fName,
           lName: lName,
