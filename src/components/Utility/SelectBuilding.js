@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Table, Button } from 'react-bootstrap';
+import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
-import { withRouter } from 'react-router';
 import { GrSelect } from 'react-icons/gr';
 
 const SelectBuilding = (props) => {
   const [buildingList, setBuildingList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
   useEffect(() => {
-    getBuildingList();
-    //eslint-disable-next-line
-  }, [props.dormId]);
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getBuildingList();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const getBuildingList = async () => {
     try {
       setLoading(true);
@@ -25,7 +32,6 @@ const SelectBuilding = (props) => {
       console.error(error);
     }
   };
-  // console.log(buildingList);
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;

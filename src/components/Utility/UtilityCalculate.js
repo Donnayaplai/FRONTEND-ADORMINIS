@@ -10,6 +10,13 @@ import { FaCalculator } from 'react-icons/fa';
 
 const UtilityCalculate = (props) => {
   const history = useHistory();
+  const [summaryData, setSummaryData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  // const [filteredData, setFilteredData] = useState([]);
+  // const [searchText, setSearchText] = useState('');
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage] = useState(20);
+
   useEffect(() => {
     if (props.roleId !== 1) {
       history.push('/login');
@@ -18,13 +25,6 @@ const UtilityCalculate = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const [summaryData, setSummaryData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  // const [filteredData, setFilteredData] = useState([]);
-  // const [searchText, setSearchText] = useState('');
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [itemsPerPage] = useState(20);
 
   const getDataSummary = async () => {
     try {
@@ -42,7 +42,8 @@ const UtilityCalculate = (props) => {
 
   console.log(props.match.params.buildingId);
   console.log(summaryData);
-  // //Search
+
+  //Search
   // const handleSearchInput = (e) => {
   //   const text = e.target.value;
   //   setSearchText(text);
