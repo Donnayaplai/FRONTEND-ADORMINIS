@@ -16,7 +16,9 @@ const CreateRoom = (props) => {
   const [selectedFloor, setSelectedFloor] = useState('');
   const [selectedBuilding, setSelectedBuilding] = useState('');
   const [error, setError] = useState(null);
-  const [inputList, setInputList] = useState([{ ROOMNO: '', ROOMNAME: '' }]);
+  const [inputList, setInputList] = useState([
+    { ROOMID: '', ROOMNO: '', ROOMNAME: '' },
+  ]);
 
   useEffect(() => {
     const getBuildingList = async () => {
@@ -113,7 +115,7 @@ const CreateRoom = (props) => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { ROOMNO: '', ROOMNAME: '' }]);
+    setInputList([...inputList, { ROOMID: '', ROOMNO: '', ROOMNAME: '' }]);
   };
 
   const handleSelectFloorChange = (selectedFloor) => {
