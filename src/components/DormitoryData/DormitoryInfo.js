@@ -28,6 +28,11 @@ const DormitoryInfo = (props) => {
       setDormInfo(response.data);
       const cost = await axios.get(`${env.url}setting/getCost/${props.dormId}`);
       setCostInfo(cost.data);
+      // const buildinglist = await axios.get(
+      //   `${env.url}setting/getDropdownBuildings/${props.dormId}`
+      // );
+      // setBuilding(buildinglist.data);
+      // console.log(buildinglist);
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -40,7 +45,7 @@ const DormitoryInfo = (props) => {
       <h1>
         หอพัก <RiBuildingFill />
       </h1>
-      <Container className="w-75">
+      <Container className="w-75 mb-5">
         <Info dormInfo={dormInfo} loading={loading} dormId={props.dormId} />
         <Cost costInfo={costInfo} loading={loading} dormId={props.dormId} />
       </Container>

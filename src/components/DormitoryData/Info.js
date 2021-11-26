@@ -25,7 +25,7 @@ const Info = ({ dormInfo, loading, ...props }) => {
               variant="secondary"
               style={{ float: 'right' }}
             >
-              แก้ไข &nbsp; <i className="far fa-edit"></i>
+              ตั้งค่า &nbsp; <i className="far fa-edit"></i>
             </Button>
           </Link>
         </Col>

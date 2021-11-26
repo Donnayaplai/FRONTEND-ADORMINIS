@@ -1,15 +1,35 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-import { RiDeleteBin6Fill, RiEditBoxFill } from 'react-icons/ri';
-// import env from '../../env';
+import { RiEditBoxFill } from 'react-icons/ri';
 
-const RoomSetting = (props) => {
+const BuildingDisplay = ({
+  building,
+  loading,
+  filteredBuilding,
+  searchText,
+  getAllBuilding,
+  ...props
+}) => {
+  const getBuildingList = () => {
+    if (searchText === '') {
+      return building;
+    } else {
+      return filteredBuilding;
+    }
+  };
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
   return (
     <>
-      <h1>ตั้งค่าตึก</h1>
-      <div className="table-responsive ">
-        <Table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
+      {getBuildingList().length === 0 ? (
+        <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
+      ) : (
+        <Table
+          responsive
+          className="table table-hover table-borderless mt-3 mx-auto"
+        >
           <thead
             style={{
               backgroundColor: '#C7E5F0',
@@ -23,41 +43,45 @@ const RoomSetting = (props) => {
               <th>ชื่อตึก</th>
               <th>จำนวนชั้น</th>
               <th>แก้ไข</th>
-              <th>ลบ</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr
-              style={{
-                backgroundColor: '#EAE7E2',
-                border: 'none',
-                textAlign: 'center',
-              }}
-            >
-              <td>ปลาน้อย</td>
-              <td>3</td>
-              <td>
-                <RiEditBoxFill
-                  style={{
-                    color: '#000',
-                    fontSize: '2em',
-                  }}
-                />
-              </td>
-              <td>
-                <RiDeleteBin6Fill
-                  style={{
-                    color: '#000',
-                    fontSize: '2em',
-                  }}
-                />
-              </td>
-            </tr>
+            {getBuildingList().map((data) => (
+              <tr
+                key={data.BUILDINGID}
+                style={{
+                  backgroundColor: '#EAE7E2',
+                  border: 'none',
+                  textAlign: 'center',
+                }}
+              >
+                <td>{data.BUILDINGNAME}</td>
+                <td>{data.NUMOFFLOOR}</td>
+                <td>
+                  <Button
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      boxShadow: 'none',
+                    }}
+                  >
+                    <RiEditBoxFill
+                      style={{
+                        color: '#000',
+                        fontSize: '2em',
+                      }}
+                      onClick={() => {}}
+                    />
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
-      </div>
+      )}
     </>
   );
 };
 
-export default withRouter(RoomSetting);
+export default withRouter(BuildingDisplay);
