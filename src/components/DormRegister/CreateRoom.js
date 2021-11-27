@@ -8,7 +8,7 @@ import DynamicSelect from '../DynamicSelect/DynamicSelect';
 import './Setting.css';
 
 const CreateRoom = (props) => {
-  const [buildingData, setBuildingData] = useState([]);
+  // const [buildingData, setBuildingData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [roomTypesData, setRoomTypesData] = useState([]);
   const [buildingName, setBuildingName] = useState([]);
@@ -27,7 +27,7 @@ const CreateRoom = (props) => {
         const response = await axios.get(
           `${env.url}setting/getDropdownBuildings/${props.dormId}`
         );
-        setBuildingData(response.data);
+        // setBuildingData(response.data);
         let options = [];
         for (let i = 0; i < response.data.length; i++) {
           options.push(response.data[i].BUILDINGNAME);
@@ -83,11 +83,11 @@ const CreateRoom = (props) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      // await axios.post(`${env.url}setting/setRooms/${props.dormId}`, {
-      //   arrayRoom: inputList,
-      //   buildingName: selectedBuilding,
-      //   floor: selectedFloor,
-      // });
+      await axios.post(`${env.url}setting/setRooms/${props.dormId}`, {
+        arrayRoom: { inputList },
+        buildingName: selectedBuilding,
+        floor: selectedFloor,
+      });
       console.log({ arrayRoom: inputList });
       console.log(selectedBuilding);
       console.log(selectedFloor);
@@ -101,7 +101,9 @@ const CreateRoom = (props) => {
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...inputList];
+    console.log('name', name);
+    console.log('value', value);
+    let list = [...inputList];
     list[index][name] = value;
     setInputList(list);
   };
@@ -127,10 +129,6 @@ const CreateRoom = (props) => {
     // console.log(selectedBuilding.target.value);
     setSelectedBuilding(selectedBuilding.target.value);
   };
-
-  // const handleSelectRoomTypeChange = (selectedRoomType) => {
-  //   setSelectedRoomType(selectedRoomType.target.value);
-  // };
 
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
@@ -160,7 +158,7 @@ const CreateRoom = (props) => {
               <DynamicSelect
                 option={buildingName}
                 handleSelectChange={handleSelectBuildingChange}
-                d
+                value={buildingName[1]}
               />
             </Col>
             <Col>
@@ -168,6 +166,7 @@ const CreateRoom = (props) => {
               <DynamicSelect
                 option={numOfFloor}
                 handleSelectChange={handleSelectFloorChange}
+                value={numOfFloor[1]}
               />
             </Col>
           </Row>
