@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 const DynamicSelect = (props) => {
   return (
     <>
-      <Form.Select onChange={props.handleSelectChange}>
+      <Form.Select onChange={props.handleSelectChange} value={props.value}>
         {props.option.map((data, i) => {
           return (
             <option value={data} key={i}>
