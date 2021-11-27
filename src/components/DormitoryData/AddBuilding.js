@@ -6,6 +6,7 @@ import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import { Link } from 'react-router-dom';
+import { IoIosAddCircleOutline } from 'react-icons/io';
 import '../DormRegister/Setting.css';
 
 const AddBuilding = (props) => {
@@ -32,7 +33,9 @@ const AddBuilding = (props) => {
 
   return (
     <>
-      <h1 className="mb-3">เพิ่มตึก</h1>
+      <h1 className="mb-3">
+        เพิ่มตึก <i className="fas fa-building"></i>
+      </h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Container className="w-75">
           <Container
@@ -106,7 +109,7 @@ const AddBuilding = (props) => {
                     append({ BUILDINGID: '', BUILDINGNAME: '', NUMOFFLOOR: '' })
                   }
                 >
-                  เพิ่มตึก
+                  เพิ่มตึก <IoIosAddCircleOutline />
                 </Button>
               </Col>
             </Row>
