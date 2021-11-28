@@ -13,6 +13,7 @@ const AddRoom = (props) => {
   const [loading, setLoading] = useState(false);
   const [roomTypesData, setRoomTypesData] = useState([]);
   const [buildingName, setBuildingName] = useState([]);
+  const [firstBuilding, setFirstBuilding] = useState('');
   const [numOfFloor, setNumOfFloor] = useState([]);
   const [selectedFloor, setSelectedFloor] = useState('');
   const [selectedBuilding, setSelectedBuilding] = useState('');
@@ -47,6 +48,7 @@ const AddRoom = (props) => {
         options.push(response.data[i].BUILDINGNAME);
       }
       setBuildingName(options);
+      setFirstBuilding(response.data[0].BUILDINGNAME);
       let floor = response.data[0].NUMOFFLOOR;
       let floors = [];
       for (let i = 1; i <= floor; i++) {
@@ -82,22 +84,18 @@ const AddRoom = (props) => {
       );
     }, this);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
-      const arrayRoom = [];
-      arrayRoom.push({ inputList });
-      e.preventDefault();
+      let arrayRoom = [];
+      arrayRoom = inputList;
       await axios
         .post(`${env.url}setting/setRooms/${props.dormId}`, {
           arrayRoom,
-          buildingName: selectedBuilding,
-          floor: selectedFloor,
+          buildingName: selectedBuilding ? selectedBuilding : firstBuilding,
+          floor: selectedFloor ? selectedFloor : 1,
         })
-        .window.alert('การสร้างห้องพักเสร็จสิ้น')
-        .then(history.push(`/room-list`));
-      // console.log(inputList);
-      // console.log(selectedBuilding);
-      // console.log(selectedFloor);
+        .then(window.alert('เพิ่มห้องพักเสร็จสิ้น'))
+        .then(history.push(`/building-list`));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -108,8 +106,8 @@ const AddRoom = (props) => {
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-    console.log('name', name);
-    console.log('value', value);
+    // console.log('name', name);
+    // console.log('value', value);
     let list = [...inputList];
     list[index][name] = value;
     setInputList(list);
@@ -128,12 +126,10 @@ const AddRoom = (props) => {
   };
 
   const handleSelectFloorChange = (selectedFloor) => {
-    console.log(selectedFloor.target.value);
     setSelectedFloor(selectedFloor.target.value);
   };
 
   const handleSelectBuildingChange = (selectedBuilding) => {
-    console.log(selectedBuilding.target.value);
     setSelectedBuilding(selectedBuilding.target.value);
   };
 
@@ -165,6 +161,7 @@ const AddRoom = (props) => {
               <DynamicSelect
                 option={buildingName}
                 handleSelectChange={handleSelectBuildingChange}
+                defaultValue={firstBuilding}
               />
             </Col>
             <Col>

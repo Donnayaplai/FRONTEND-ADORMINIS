@@ -75,24 +75,6 @@ const RoomSetting = (props) => {
         </Col>
       </Row>
       <Container className="w-75">
-        <Row>
-          <Col>
-            <Link
-              to={{
-                pathname: `/add-room`,
-                state: { dormId: props.match.params.dormid },
-              }}
-            >
-              <Button
-                type="button"
-                variant="secondary"
-                style={{ float: 'right' }}
-              >
-                เพิ่มห้อง <IoIosAddCircleOutline />
-              </Button>
-            </Link>
-          </Col>
-        </Row>
         {room.length === 0 ? (
           <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
         ) : (

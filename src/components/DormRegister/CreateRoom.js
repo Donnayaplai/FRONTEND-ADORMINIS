@@ -9,67 +9,69 @@ import './Setting.css';
 import { Link } from 'react-router-dom';
 
 const CreateRoom = (props) => {
-  // const [buildingData, setBuildingData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [roomTypesData, setRoomTypesData] = useState([]);
   const [buildingName, setBuildingName] = useState([]);
+  const [firstBuilding, setFirstBuilding] = useState('');
   const [numOfFloor, setNumOfFloor] = useState([]);
   const [selectedFloor, setSelectedFloor] = useState('');
   const [selectedBuilding, setSelectedBuilding] = useState('');
   const [error, setError] = useState(null);
   const [inputList, setInputList] = useState([
-    { ROOMID: '', ROOMNO: '', ROOMNAME: '' },
+    {
+      ROOMID: '',
+      ROOMNO: '',
+      ROOMNAME: '',
+    },
   ]);
+  const history = useHistory();
 
   useEffect(() => {
-    const getBuildingList = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${env.url}setting/getDropdownBuildings/${props.dormId}`
-        );
-        // setBuildingData(response.data);
-        let options = [];
-        for (let i = 0; i < response.data.length; i++) {
-          options.push(response.data[i].BUILDINGNAME);
-        }
-        setBuildingName(options);
-        let floor = response.data[0].NUMOFFLOOR;
-        let floors = [];
-        for (let i = 1; i <= floor; i++) {
-          floors.push(i);
-        }
-        setNumOfFloor(floors);
-      } catch (error) {
-        console.error(error);
-      }
-      setLoading(false);
-    };
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getBuildingList();
+      getRoomTypes();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    getBuildingList();
-  }, [props.dormId]);
-
-  useEffect(() => {
-    const getRoomTypes = async () => {
-      try {
-        const response = await axios.get(
-          `${env.url}setting/getRoomTypes/${props.dormId}`
-        );
-        setRoomTypesData(response.data);
-        // console.log(roomTypesData);
-        // let options = [];
-        // for (let i = 0; i < response.data.length; i++) {
-        //   options.push(response.data[i].ROOMNAME);
-        // }
-        // setRoomTypes(options);
-        // console.log(options);
-      } catch (error) {
-        console.log(error);
+  const getBuildingList = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${env.url}setting/getDropdownBuildings/${props.dormId}`
+      );
+      let options = [];
+      for (let i = 0; i < response.data.length; i++) {
+        options.push(response.data[i].BUILDINGNAME);
       }
+      setBuildingName(options);
+      setFirstBuilding(response.data[0].BUILDINGNAME);
+      let floor = response.data[0].NUMOFFLOOR;
+      let floors = [];
+      for (let i = 1; i <= floor; i++) {
+        floors.push(i);
+      }
+      setNumOfFloor(floors);
       setLoading(false);
-    };
-    getRoomTypes();
-  }, [props.dormId]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getRoomTypes = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${env.url}setting/getRoomTypes/${props.dormId}`
+      );
+      setRoomTypesData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let roomTypesList =
     roomTypesData.length > 0 &&
@@ -81,19 +83,18 @@ const CreateRoom = (props) => {
       );
     }, this);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
-      e.preventDefault();
+      let arrayRoom = [];
+      arrayRoom = inputList;
       await axios
         .post(`${env.url}setting/setRooms/${props.dormId}`, {
-          inputList,
-          buildingName: selectedBuilding,
-          floor: selectedFloor,
+          arrayRoom,
+          buildingName: selectedBuilding ? selectedBuilding : firstBuilding,
+          floor: selectedFloor ? selectedFloor : 1,
         })
-        .window.alert('การสร้างห้องพักเสร็จสิ้น');
-      // console.log(inputList);
-      // console.log(selectedBuilding);
-      // console.log(selectedFloor);
+        .then(window.alert('สร้างห้องพักเสร็จสิ้น'))
+        .then(history.push(`/admin/home`));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -101,35 +102,28 @@ const CreateRoom = (props) => {
     }
   };
 
-  // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
-    console.log('name', name);
-    console.log('value', value);
     let list = [...inputList];
     list[index][name] = value;
     setInputList(list);
   };
 
-  // handle click event of the Remove button
   const handleRemoveClick = (index) => {
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
   };
 
-  // handle click event of the Add button
   const handleAddClick = () => {
     setInputList([...inputList, { ROOMID: '', ROOMNO: '', ROOMNAME: '' }]);
   };
 
   const handleSelectFloorChange = (selectedFloor) => {
-    // console.log(selectedFloor.target.value);
     setSelectedFloor(selectedFloor.target.value);
   };
 
   const handleSelectBuildingChange = (selectedBuilding) => {
-    // console.log(selectedBuilding.target.value);
     setSelectedBuilding(selectedBuilding.target.value);
   };
 
@@ -149,12 +143,6 @@ const CreateRoom = (props) => {
           </center>
         </Row>
         <Container className="w-75 mb-5">
-          {/* <Row>
-            <Col xl={4} md={4} sm={8} xs={8}>
-              <h3 className="fw-bold">ตั้งค่าห้องพัก</h3>
-            </Col>
-            <Col></Col>
-          </Row> */}
           <Row>
             <Form.Text className="text-muted">
               **ขั้นตอนการสร้างห้องพัก: โปรดเลือกชื่อตึกกับชั้น
@@ -167,15 +155,14 @@ const CreateRoom = (props) => {
               <DynamicSelect
                 option={buildingName}
                 handleSelectChange={handleSelectBuildingChange}
-                value={buildingName[1]}
+                defaultValue={firstBuilding}
               />
             </Col>
             <Col>
-              <p>จำนวนชั้น</p>
+              <p>ชั้น</p>
               <DynamicSelect
                 option={numOfFloor}
                 handleSelectChange={handleSelectFloorChange}
-                value={numOfFloor[1]}
               />
             </Col>
           </Row>
@@ -212,16 +199,7 @@ const CreateRoom = (props) => {
                       >
                         {roomTypesList}
                       </select>
-                      {/* <Form.Select>
-                        <option>{roomTypesList}</option>
-                      </Form.Select> */}
                     </Form.Group>
-                    {/* <DynamicSelect
-                      option={roomType}
-                      name="ROOMNAME"
-                      handleSelectChange={(e) => handleInputChange(e, i)}
-                      value={x.ROOMNAME}
-                    /> */}
                   </Col>
                   <Col md={2}>
                     {inputList.length !== 1 && (
@@ -265,14 +243,19 @@ const CreateRoom = (props) => {
 
           <Row className="mt-3">
             <Col>
-              <Link to="/building-list">
+              <Link to="/admin/home">
                 <Button id="btn-cancel" style={{ float: 'left' }}>
-                  กลับหน้าหลัก
+                  ยกเลิก
                 </Button>
               </Link>
             </Col>
             <Col>
-              <Button id="btn-next" type="submit" style={{ float: 'right' }}>
+              <Button
+                id="btn-next"
+                type="submit"
+                style={{ float: 'right' }}
+                onSubmit={onSubmit}
+              >
                 บันทึก
               </Button>
             </Col>
