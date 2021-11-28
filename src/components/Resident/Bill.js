@@ -117,7 +117,7 @@ const Bill = (props) => {
               <Search
                 handleSearchInput={handleSearchInput}
                 searchText={searchText}
-                placeholder={'โปรดระบุรอบบิล, เดือน,ปี เพื่อค้นหา...'}
+                placeholder={'โปรดระบุเดือน,ปี เพื่อค้นหา...'}
               />
             </Col>
           </Row>

@@ -102,7 +102,7 @@ const ResidentComplainDetail = (props) => {
             <Link
               to={`/resident/complain-request/${props.location.state.rentId}`}
             >
-              <Button id="btn-back">ย้อนกลับ</Button>
+              <Button id="btn-cancel">ย้อนกลับ</Button>
             </Link>
           </Col>
         </Row>
