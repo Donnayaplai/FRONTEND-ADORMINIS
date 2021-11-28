@@ -1,61 +1,73 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Table, Modal, Button } from 'react-bootstrap';
-import { withRouter } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { withRouter, useHistory } from 'react-router';
+import axios from 'axios';
 import env from '../../env';
-import { RiDeleteBin6Fill, RiEditBoxFill } from 'react-icons/ri';
+import RoomDisplay from './RoomDisplay';
+import { MdMeetingRoom } from 'react-icons/md';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { Link } from 'react-router-dom';
 
 const RoomSetting = (props) => {
+  const [room, setRoom] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
+  useEffect(() => {
+    if (props.roleId !== 1) {
+      history.push('/login');
+    } else {
+      getAllRoom();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getAllRoom = async () => {
+    try {
+      setLoading(true);
+      const roomList = await axios.get(
+        `${env.url}api/room/all/${props.match.params.buildingid}`
+      );
+      setRoom(roomList.data);
+      console.log(roomList);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
-      <h1>ตั้งค่าห้องพัก</h1>
-      <div className="table-responsive ">
-        <Table className="table table-hover align: middle table-borderless mt-3 mx-auto w-75">
-          <thead
-            style={{
-              backgroundColor: '#C7E5F0',
-              textAlign: 'center',
-              color: 'black',
-              fontWeight: 'bold',
-              border: 'none',
-            }}
-          >
-            <tr>
-              <th>ห้อง</th>
-              <th>ประเภทห้อง</th>
-              <th>แก้ไข</th>
-              <th>ลบ</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              style={{
-                backgroundColor: '#EAE7E2',
-                border: 'none',
-                textAlign: 'center',
+      <h1>
+        ตั้งค่าห้องพัก <MdMeetingRoom />
+      </h1>
+      <Container className="w-75">
+        <Row>
+          <Col>
+            <Link
+              to={{
+                pathname: `/add-room`,
+                state: { dormId: props.match.params.dormid },
               }}
             >
-              <td>101</td>
-              <td>ห้องธรรมดา</td>
-              <td>
-                <RiEditBoxFill
-                  style={{
-                    color: '#000',
-                    fontSize: '2em',
-                  }}
-                />
-              </td>
-              <td>
-                <RiDeleteBin6Fill
-                  style={{
-                    color: '#000',
-                    fontSize: '2em',
-                  }}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
+              <Button
+                type="button"
+                variant="secondary"
+                style={{ float: 'right' }}
+              >
+                เพิ่มห้อง <IoIosAddCircleOutline />
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+        {room.length === 0 ? (
+          <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
+        ) : (
+          <>
+            <RoomDisplay room={room} loading={loading} dormId={props.dormId} />
+          </>
+        )}
+      </Container>
     </>
   );
 };
