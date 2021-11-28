@@ -12,11 +12,14 @@ const SelectRole = () => {
         เลือกตำแหน่งของคุณ&nbsp;<i className="fas fa-check-circle"></i>
       </h1>
 
-      <Row className="mt-5 mb-5">
-        <Col md={6} sm={6} xs={12} className="mb-3">
-          <Card style={{ maxWidth: '18rem' }} className="mx-auto">
+      <Row className="mt-5 mb-5 justify-content-center">
+        <Col md={4} sm={6} xs={12} className="mb-3">
+          <Card
+            style={{ maxWidth: '20rem', width: '100%', margin: '0' }}
+            className="mx-auto"
+          >
             <Card.Img src={adminIcon} />
-            <Card.Body>
+            <Card.Body style={{ background: 'transparent' }}>
               <Card.Title></Card.Title>
               <Card.Text>
                 <Link to="/admin/register">
@@ -26,10 +29,13 @@ const SelectRole = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={6} sm={6} xs={12}>
-          <Card style={{ maxWidth: '18rem' }} className="mx-auto">
+        <Col md={4} sm={6} xs={12}>
+          <Card
+            style={{ maxWidth: '20rem', width: '100%' }}
+            className="mx-auto"
+          >
             <Card.Img src={residentIcon} />
-            <Card.Body>
+            <Card.Body style={{ background: 'transparent' }}>
               <Card.Title></Card.Title>
               <Card.Text>
                 <Link to="/resident/check-account">
