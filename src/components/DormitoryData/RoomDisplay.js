@@ -73,7 +73,7 @@ const RoomDisplay = ({
         ROOMNAME: roomName,
       });
       await axios
-        .post(`${env.url}setting/setBuildings/${props.dormId}`, {
+        .post(`${env.url}setting/setRooms/${props.dormId}`, {
           arrayRoom,
           floor: selectFloor,
           buildingName: selectBuildingName,
