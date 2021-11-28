@@ -8,7 +8,7 @@ const DynamicSelect = (props) => {
         {props.option.map((data, i) => {
           return (
             <option value={data} key={i}>
-              {data}
+              {!!data.label ? data.label : data}
             </option>
           );
         })}
