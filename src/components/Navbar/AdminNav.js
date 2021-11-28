@@ -1,132 +1,66 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useHistory } from "react-router";
-import env from "../../env";
-import axios from "axios";
-import "./AdminNavBar.css";
-import { FiUser } from "react-icons/fi";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { useHistory } from 'react-router';
+import env from '../../env';
+import axios from 'axios';
+import { FiUser } from 'react-icons/fi';
+import { MdLogout } from 'react-icons/md';
+import logo from '../../assets/building-nav.png';
+import './AdminNav.css';
+
 const AdminNav = (props) => {
   const history = useHistory();
 
   //ออกจากระบบ
   const logout = () => {
-    localStorage.removeItem("authorization");
+    localStorage.removeItem('authorization');
     props.setRoleId(null);
     props.setDormId(null);
-    history.push("/login");
+    props.setUserId(null);
+    props.setUserFname(null);
+    props.setUserLname(null);
+    props.setDormName(null);
+    history.push('/login');
   };
 
   //สร้างบิลตอนกดปุ่มจดมิเตอร์
   const createInvoiceBySendDormId = async () => {
     try {
-      // await axios.post(`${env.url}invoice/create/${props.dormId}`);
-      console.log("hello");
+      await axios.post(`${env.url}invoice/create/${props.dormId}`);
+      // console.log(props.dormId);
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <div className="App">
-      <Navbar id="navbar1" sticky="top" expand="sm">
-        <Nav.Link href={`/admin/home`} id="title1">
-          ADORMINIS
-        </Nav.Link>
-
-        <Navbar.Toggle className="coloring" />
-        <Navbar.Collapse>
-          <Nav>
-            <NavDropdown title="หอพัก" id="title2">
-              <NavDropdown.Item href="#products/tea">ข้อมูล</NavDropdown.Item>
-              <NavDropdown title="ตั้งค่า">
-                <NavDropdown.Item href="#products/tea">
-                  ค่าใช้จ่าย
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#products/coffee">ตึก</NavDropdown.Item>
-                <NavDropdown.Item href="#products/coffee">
-                  ห้องพัก
-                </NavDropdown.Item>
-              </NavDropdown>
-            </NavDropdown>
-            <Nav.Link href={`/all-building`} id="title2">
-              ตึกและห้องพัก
-            </Nav.Link>
-            {/* <Nav.Link */}
-
-            <Link
-              to={`/select-building/meter-record`}
-              onClick={createInvoiceBySendDormId}
-              id="titlelink"
-            >
-              จดมิเตอร์
-            </Link>
-
-            {/* </Nav.Link> */}
-            <Nav.Link href={`/all-invoice`} id="title2">
-              ใบแจ้งหนี้
-            </Nav.Link>
-            <Nav.Link href={`/complain-list`} id="title2">
-              เรื่องร้องเรียน
-            </Nav.Link>
-            <Nav.Link href={`/history`} id="title2">
-              ประวัติการเช่าพัก
-            </Nav.Link>
-            <NavDropdown title="โปรไฟล์" id="title2">
-              {props.userFname}&nbsp;{props.userLname} <FiUser />
-              <NavDropdown.Item href="/admin/profile">
-                ข้อมูลส่วนตัว
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={logout}>ออกจากระบบ</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    </div>
-  );
-
-  /* <nav>
+    <nav>
       <div className="logo">
-        <Link to="/admin/home">adorminis</Link>
+        <h2 className="title">
+          <Link to="/admin/home">
+            adorminis&nbsp;
+            <img src={logo} alt="ADORMINIS-ICON" />
+          </Link>
+        </h2>
       </div>
-
-      <label for="btn4" className="hamburger">
-        <i class="fas fa-bars"></i>
+      <input type="checkbox" id="click" style={{ display: 'none' }} />
+      <label htmlFor="click" className="menu-btn">
+        <i className="fas fa-bars"></i>
       </label>
-      <input type="checkbox" id="btn4" style={{ display: "none" }}></input>
-
       <ul>
         <li>
-          <label for="btn-1" className="show">
-            หอพัก +
-          </label>
-
-          <a href="#">หอพัก</a>
-          <input type="checkbox" id="btn-1"></input>
-          <ul>
-            <li>
-              <Link to={`/all-building`}>ข้อมูล</Link>
-            </li>
-
-            <li>
-              <label for="btn-3" className="show">
-                ตั้งค่า +
-              </label>
-              <a href="#">
-                ตั้งค่า<i className="fas fa-caret-right" id="arrow"></i>
-              </a>
-              <input type="checkbox" id="btn-3"></input>
-              <ul>
-                <li>
-                  <Link to={`/all-building`}>ค่าใช้จ่าย</Link>
-                </li>
-                <li>
-                  <Link to={`/all-building`}>ห้องพัก</Link>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <Link to="/about-dormitory/setting">เกี่ยวกับหอพัก</Link>
         </li>
+        {/* <li>
+          <Link to={'/room-setting'}>ตั้งค่าห้องพัก</Link>
+        </li> */}
+        {/* <li>
+          <Link to={'/create-room'}>สร้างห้อง</Link>
+        </li> */}
+        {/* <li>
+          <Link to={'/dorm-info'}>ข้อมูลหอพัก</Link>
+        </li> */}
         <li>
           <Link to={`/all-building`}>ตึกและห้องพัก</Link>
         </li>
@@ -147,26 +81,94 @@ const AdminNav = (props) => {
         <li>
           <Link to="/history">ประวัติการเช่าพัก</Link>
         </li>
+        {/* <li>
+          <Link to="/admin/profile">ข้อมูลส่วนตัว</Link>
+        </li> */}
         <li>
-          <label for="btn-2" className="show">
-            สมศรี +
-          </label>
-
-          <a href="#">สมศรี</a>
-          <input type="checkbox" id="btn-2"></input>
-          <ul>
+          <Link to="/admin/profile">
+            <span>
+              "{props.userFname}&nbsp;{props.userLname}"
+            </span>
+            <FiUser style={{ color: '#97d9fb', fontSize: '1.2em' }} />
+          </Link>
+        </li>
+        <li>
+          <Button id="logout-button" size="md" onClick={logout}>
+            ออกจากระบบ <MdLogout />
+          </Button>
+        </li>
+        {/* <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="true"
+          >
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <Link to={`/all-building`}>ข้อมูลส่วนตัว</Link>
+              <a class="dropdown-item" href="/">
+                Action
+              </a>
             </li>
-
             <li>
-              <Link to={`/all-building`}>ออกจากระบบ</Link>
+              <a class="dropdown-item" href="#">
+                Another action
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Something else here
+              </a>
             </li>
           </ul>
-        </li>
-        
+        </li> */}
+
+        {/* <NavDropdown title="วิชัย ใจดี" id="navbarDropdown">
+          <NavDropdown.Item href="#action3">ข้อมูลส่วนตัว</NavDropdown.Item>
+
+          <NavDropdown.Item onClick={logout}>ออกจากระบบ</NavDropdown.Item>
+        </NavDropdown>
+        <i className="far fa-user-circle"></i> */}
+        {/* <li>
+          <Button onClick={logout}>ออกจากระบบ</Button>
+        </li> */}
+        {/* <li className="nav-item dropdown">
+          <a
+            className="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i className="far fa-user-circle"></i> มัทยา
+          </a>
+          <ul
+            className="dropdown-menu"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a className="dropdown-item" href="#">
+                ข้อมูลส่วนตัว
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" onClick={logout}>
+                ออกจากระบบ
+              </a>
+            </li>
+          </ul>
+        </li> */}
       </ul>
-    </nav> */
+    </nav>
+  );
 };
 
 export default AdminNav;
