@@ -8,10 +8,10 @@ import { useCallback } from 'react';
 import Routes from './Routes';
 import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
-// import Nav from './components/Navbar/Nav';
 import History from './components/Others/History';
 import ResidentNav from './components/Navbar/ResidentNav';
 import AdminNav from './components/Navbar/AdminNav';
+
 //Public
 import adminRegister from './components/RegisterLogin/adminRegister';
 import CheckExistAccount from './components/RegisterLogin/CheckExistAccount';
