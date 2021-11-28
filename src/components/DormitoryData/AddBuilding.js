@@ -21,9 +21,7 @@ const AddBuilding = (props) => {
   const onSubmit = async (data) => {
     try {
       await axios
-        .post(`${env.url}setting/setBuildings/${props.dormId}`, {
-          data,
-        })
+        .post(`${env.url}setting/setBuildings/${props.dormId}`, data)
         .then(window.alert('การเพิ่มตึกเสร็จสิ้น'))
         .then(history.push(`/building-list`));
     } catch (err) {
