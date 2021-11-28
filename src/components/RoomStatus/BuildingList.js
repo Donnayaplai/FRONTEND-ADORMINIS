@@ -5,7 +5,6 @@ import { useHistory } from 'react-router';
 import env from '../../env';
 import axios from 'axios';
 import { GrSelect } from 'react-icons/gr';
-import './BuildingList.css';
 
 const BuildingList = (props) => {
   const history = useHistory();
