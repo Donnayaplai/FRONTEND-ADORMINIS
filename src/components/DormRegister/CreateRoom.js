@@ -6,6 +6,7 @@ import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { MdMeetingRoom } from 'react-icons/md';
 import DynamicSelect from '../DynamicSelect/DynamicSelect';
 import './Setting.css';
+import { Link } from 'react-router-dom';
 
 const CreateRoom = (props) => {
   // const [buildingData, setBuildingData] = useState([]);
@@ -83,14 +84,16 @@ const CreateRoom = (props) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      await axios.post(`${env.url}setting/setRooms/${props.dormId}`, {
-        arrayRoom: { inputList },
-        buildingName: selectedBuilding,
-        floor: selectedFloor,
-      });
-      console.log({ arrayRoom: inputList });
-      console.log(selectedBuilding);
-      console.log(selectedFloor);
+      await axios
+        .post(`${env.url}setting/setRooms/${props.dormId}`, {
+          inputList,
+          buildingName: selectedBuilding,
+          floor: selectedFloor,
+        })
+        .window.alert('การสร้างห้องพักเสร็จสิ้น');
+      // console.log(inputList);
+      // console.log(selectedBuilding);
+      // console.log(selectedFloor);
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -152,6 +155,12 @@ const CreateRoom = (props) => {
             </Col>
             <Col></Col>
           </Row> */}
+          <Row>
+            <Form.Text className="text-muted">
+              **ขั้นตอนการสร้างห้องพัก: โปรดเลือกชื่อตึกกับชั้น
+              ก่อนทำการกรอกเลขห้องและประเภทห้อง**
+            </Form.Text>
+          </Row>
           <Row className="mb-3 mt-3">
             <Col>
               <p>ชื่อตึก</p>
@@ -256,9 +265,13 @@ const CreateRoom = (props) => {
 
           <Row className="mt-3">
             <Col>
-              <Button id="btn-cancel" style={{ float: 'left' }}>
-                ยกเลิก
-              </Button>
+              <Link to="/building-list">
+                <Button id="btn-cancel" style={{ float: 'left' }}>
+                  กลับหน้าหลัก
+                </Button>
+              </Link>
+            </Col>
+            <Col>
               <Button id="btn-next" type="submit" style={{ float: 'right' }}>
                 บันทึก
               </Button>
