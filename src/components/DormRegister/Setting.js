@@ -23,39 +23,15 @@ const Setting = (props) => {
 
   const handleSubmit = async (step3) => {
     try {
-      // console.log(step1);
-      // console.log(step2);
-      // console.log(step3);
       //ส่งแยก 3 path
-      let costSetting = await axios.post(
-        `${env.url}setting/setCost/${props.dormId}`,
-        step1
-      );
-      console.log(costSetting);
-      let buildingSetting = await axios.post(
-        `${env.url}setting/setBuildings/${props.dormId}`,
-        {
-          arrayBuilding: step2.arrayBuilding,
-        }
-      );
-      console.log(buildingSetting);
-      // let buildingSetting = await fetch(
-      //   `${env.url}setting/setBuildings/${props.dormId}`,
-      //   {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       arrayBuilding: step2,
-      //     }),
-      //   }
-      // );
-      // console.log(buildingSetting);
-      let roomTypeSetting = await axios.post(
-        `${env.url}setting/setRoomTypes/${props.dormId}`,
-        {
-          arrayRoomTypes: step3.arrayRoomTypes,
-        }
-      );
-      console.log(roomTypeSetting);
+      await axios.post(`${env.url}setting/setCost/${props.dormId}`, step1);
+      // console.log(costSetting);
+      await axios.post(`${env.url}setting/setBuildings/${props.dormId}`, {
+        arrayBuilding: step2.arrayBuilding,
+      });
+      await axios.post(`${env.url}setting/setRoomTypes/${props.dormId}`, {
+        arrayRoomTypes: step3.arrayRoomTypes,
+      });
 
       history.push(`/create-room`);
     } catch (err) {
