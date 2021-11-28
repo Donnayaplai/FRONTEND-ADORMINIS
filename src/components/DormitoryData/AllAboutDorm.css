@@ -1,0 +1,192 @@
+div.d-flex.justify-content-center.mb-3.col-md-4.col-sm-10.col-10 {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  line-height: 24px;
+  margin: 0 0 1rem;
+  max-width: 100%;
+  padding: 0;
+  text-decoration: none;
+  border: none;
+}
+
+div.d-flex.justify-content-center.mb-3.col-md-4.col-sm-10.col-10 a {
+  border-style: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+div.d-flex.justify-content-center.mb-3.col-md-4.col-sm-10.col-10 a:hover {
+  color: #0a58ca;
+  background-color: azure;
+}
+
+div.text-center.card {
+  background-clip: border-box;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Bai Jamjuree', sans-serif;
+  line-height: 24px;
+  margin: 0;
+  max-width: 25rem;
+  min-width: 0;
+  overflow-wrap: break-word;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+div.card-body {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  flex: 1 1 auto;
+  font-family: 'Bai Jamjuree', sans-serif;
+  line-height: 24px;
+  margin: 0;
+  overflow-wrap: break-word;
+  padding: 1rem;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+div.card-title.h5 {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  display: flex;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 1.2em;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
+  overflow-wrap: break-word;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+div.d-flex.justify-content-center.mb-3.col-md-4.col-sm-10.col-10
+  div.card-title.h5
+  svg {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  font-size: 19.2px;
+  font-weight: 500;
+  line-height: 23.04px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+div.d-flex.justify-content-center.mb-3.col-md-4.col-sm-10.col-10 svg path {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  font-size: 19.2px;
+  font-weight: 500;
+  line-height: 23.04px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+div.px-5.py-3.card-body {
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  flex: 1 1 auto;
+  font-family: 'Bai Jamjuree', sans-serif;
+  line-height: 24px;
+  margin: 0;
+  overflow-wrap: break-word;
+  padding: 1rem 3rem;
+  text-align: center;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+div.px-5.py-3.card-body:hover {
+  background-color: #97d9fb;
+}
+
+img.card-img {
+  border-radius: calc(0.25rem - 1px);
+  border-style: none;
+  box-sizing: border-box;
+  color: #212529;
+  cursor: pointer;
+  font-family: 'Bai Jamjuree', sans-serif;
+  line-height: 24px;
+  margin: 0 auto;
+  max-width: 10em;
+  overflow-wrap: break-word;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+a.card-link {
+  border-style: none;
+  box-sizing: border-box;
+  color: #0d6efd;
+  cursor: pointer;
+  font-family: 'Bai Jamjuree', sans-serif;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: underline;
+  word-wrap: break-word;
+}
+
+a.card-link:hover {
+  color: #0a58ca;
+}
+
+a.card-link:not([href]):not([class]) {
+  color: inherit;
+  text-decoration-line: none;
+}
+
+a.card-link:not([href]):not([class]):hover {
+  color: inherit;
+  text-decoration-line: none;
+}
+div.card-body {
+  background-color: #c7e5f0;
+}
+div.card-body:hover {
+  background-color: #97d9fb;
+}
