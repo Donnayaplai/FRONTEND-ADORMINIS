@@ -175,15 +175,6 @@ a.card-link:hover {
   color: #0a58ca;
 }
 
-a.card-link:not([href]):not([class]) {
-  color: inherit;
-  text-decoration-line: none;
-}
-
-a.card-link:not([href]):not([class]):hover {
-  color: inherit;
-  text-decoration-line: none;
-}
 div.card-body {
   background-color: #c7e5f0;
 }
