@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { Table, Button } from 'react-bootstrap';
-import { withRouter, useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import EditRoomModal from './EditRoomModal';
 
-const RoomDisplay = ({ room, loading, ...props }) => {
+const RoomDisplay = ({ room, loading, getAllRoom, ...props }) => {
   const [editModeModal, setEditModeModal] = useState(false);
   const [selectRoomID, setSelectRoomID] = useState('');
   const [focusData, setFocusData] = useState({});
@@ -39,29 +38,25 @@ const RoomDisplay = ({ room, loading, ...props }) => {
     setEditModeModal(false);
   };
 
-  // const EditRoomSetting = async () => {
-  //   try {
-  //     const arrayBuilding = [];
-  //     arrayBuilding.push({
-  //       BUILDINGID: selectBuildingID,
-  //       BUILDINGNAME: buildingName,
-  //       NUMOFFLOOR: numOfFloor,
-  //     });
-  //     // console.log(arrayBuilding);
-  //     // console.log(buildingName);
-  //     // console.log(numOfFloor);
-  //     // console.log(selectBuildingID);
-  //     await axios
-  //       .post(`${env.url}setting/setBuildings/${props.dormId}`, {
-  //         arrayBuilding,
-  //       })
-  //       .then(window.alert('การแก้ไขข้อมูลตึกเสร็จสิ้น'))
-  //       .then(setEditModeModal(false))
-  //       .then(getAllBuilding());
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const EditRoomSetting = async () => {
+    try {
+      const arrayRoom = [];
+      arrayRoom.push({
+        ROOMID: selectRoomID,
+        ROOMO: roomNo,
+        ROOMNAME: roomName,
+      });
+      await axios
+        .post(`${env.url}setting/setBuildings/${props.dormId}`, {
+          arrayRoom,
+        })
+        .then(window.alert('การแก้ไขข้อมูลตึกเสร็จสิ้น'))
+        .then(setEditModeModal(false))
+        .then(getAllRoom());
+    } catch (error) {
+      console.error(error);
+    }
+  };
   if (loading) {
     return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
   }
@@ -132,6 +127,7 @@ const RoomDisplay = ({ room, loading, ...props }) => {
             editModeModal={editModeModal}
             setRoomNo={setRoomNo}
             setRoomName={setRoomName}
+            EditRoomSetting={EditRoomSetting}
           />
         </tbody>
       </Table>

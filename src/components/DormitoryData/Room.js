@@ -64,7 +64,12 @@ const RoomSetting = (props) => {
           <h3 className="text-dark fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
         ) : (
           <>
-            <RoomDisplay room={room} loading={loading} dormId={props.dormId} />
+            <RoomDisplay
+              room={room}
+              loading={loading}
+              dormId={props.dormId}
+              getAllRoom={getAllRoom}
+            />
           </>
         )}
       </Container>
