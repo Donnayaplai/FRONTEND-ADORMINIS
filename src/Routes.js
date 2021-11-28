@@ -14,8 +14,8 @@ import AdminHome from './components/Home/AdminHome';
 import AdminProfile from './components/Profile/AdminProfile';
 import EditAdminProfile from './components/Profile/EditAdminProfile';
 import DormitoryRegister from './components/DormRegister/DormitoryRegister';
-import DormitoryInfo from './components/DormitoryData/DormitoryInfo';
 import EditDormInfo from './components/DormitoryData/EditDormInfo';
+import Cost from './components/DormitoryData/Cost';
 import EditCost from './components/DormitoryData/EditCost';
 import Setting from './components/DormRegister/Setting';
 import BuildingList from './components/RoomStatus/BuildingList';
@@ -30,7 +30,9 @@ import Complain from './components/Complain/Complain';
 import ComplainDetail from './components/Complain/ComplainDetail';
 import SearchHistory from './components/RentHistory/SearchHistory';
 import Building from './components/DormitoryData/Building';
-import EditRoom from './components/DormitoryData/EditRoom';
+import Room from './components/DormitoryData/Room';
+import AddBuilding from './components/DormitoryData/AddBuilding';
+import AllAboutDorm from './components/DormitoryData/AllAboutDorm';
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
 import ResidentProfile from './components/Resident/ResidentProfile';
@@ -38,6 +40,7 @@ import DormProfile from './components/Resident/DormProfile';
 import Bill from './components/Resident/Bill';
 import ResidentComplain from './components/Resident/Complain';
 import ResidentComplainDetail from './components/Resident/ResidentComplainDetail';
+import Info from './components/DormitoryData/Info';
 
 const Routes = (props) => {
   return (
@@ -89,21 +92,30 @@ const Routes = (props) => {
           <DormitoryRegister roleId={props.roleId} userId={props.userId} />
         </Route>
         <Route path="/dorm-info">
-          <DormitoryInfo roleId={props.roleId} dormId={props.dormId} />
+          <Info roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route exact path="/edit/dorm-info/:dormid">
           <EditDormInfo roleId={props.roleId} dormId={props.dormId} />
         </Route>
+        <Route exact path="/cost-info">
+          <Cost roleId={props.roleId} dormId={props.dormId} />
+        </Route>
         <Route exact path="/edit/cost-info/:dormid">
           <EditCost roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route exact path="edit/room-setting/:dormid">
-          <EditRoom roleId={props.roleId} dormId={props.dormId} />
+        <Route exact path="/about-dormitory/setting">
+          <AllAboutDorm roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route exact path="/building-setting">
+        <Route exact path="/room-list/:buildingid">
+          <Room roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route exact path="/building-list">
           <Building roleId={props.roleId} dormId={props.dormId} />
         </Route>
-        <Route path="/dorm-setting">
+        <Route exact path="/add-building">
+          <AddBuilding roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route exact path="/setting">
           <Setting dormId={props.dormId} />
         </Route>
         <Route path="/create-room">
