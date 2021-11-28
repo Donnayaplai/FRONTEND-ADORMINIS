@@ -55,7 +55,7 @@ const AdminHome = (props) => {
                   <i className="fas fa-door-open"></i>
                 </h4>
               </Card.Header>
-              <Card.Body className="p-3 text-center">
+              <Card.Body className="p-3 text-center bg-light">
                 <Row>
                   <Card.Text className="text-center">
                     <p className="fs-1 fw-bold">
@@ -77,7 +77,7 @@ const AdminHome = (props) => {
                   <i className="fas fa-door-open"></i>
                 </h4>
               </Card.Header>
-              <Card.Body className="p-3 text-center">
+              <Card.Body className="p-3 text-center bg-light">
                 <Card.Text className="text-center">
                   <p className="fs-1 fw-bold">
                     {data.availableRoom}
@@ -98,7 +98,7 @@ const AdminHome = (props) => {
                   <i className="fas fa-door-open"></i>
                 </h4>
               </Card.Header>
-              <Card.Body className="p-3">
+              <Card.Body className="p-3 bg-light">
                 <Card.Text className="text-center">
                   <p className="fs-1 fw-bold">
                     {data.notAvailableRoom}
@@ -120,7 +120,7 @@ const AdminHome = (props) => {
                   จำนวนผู้เช่าทั้งหมด &nbsp;<i className="fas fa-user"></i>
                 </h4>
               </Card.Header>
-              <Card.Body className="p-3">
+              <Card.Body className="p-3 bg-light">
                 <Card.Text className="text-center">
                   <p className="fs-1 fw-bold">
                     {data.resident}
@@ -134,7 +134,7 @@ const AdminHome = (props) => {
           <Col md={4} sm={12} className="mb-5">
             <Card style={{ maxWidth: '25rem' }} className="mx-auto">
               <Card.Header
-                className="p-3 text-center"
+                className="p-3 text-center "
                 style={{ backgroundColor: '#F3B0C3' }}
               >
                 <h4>
@@ -142,7 +142,7 @@ const AdminHome = (props) => {
                   <i className="fas fa-comment-dots"></i>
                 </h4>
               </Card.Header>
-              <Card.Body className="p-3">
+              <Card.Body className="p-3 bg-light">
                 <Card.Text className="text-center">
                   <p className="fs-1 fw-bold">
                     {data.complaint}
