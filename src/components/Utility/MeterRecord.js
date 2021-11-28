@@ -49,6 +49,10 @@ const MeterRecord = (props) => {
     }
   };
 
+  if (loading) {
+    return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
+  }
+
   // const handleClick = () => {
   //   console.log('allRoom', allRoom);
   // };
@@ -88,11 +92,9 @@ const MeterRecord = (props) => {
 
           <Row className="mt-3">
             <Col>
-              {/* <Link
-                  to={`/select-building/meter-record/${props.location.state.buildingId}`}
-                > */}
-              <Button id="btn-cancel">ย้อนกลับ</Button>
-              {/* </Link> */}
+              <Link to={`/select-building/meter-record/`}>
+                <Button id="btn-cancel">ย้อนกลับ</Button>
+              </Link>
             </Col>
             <Col>
               <Link
