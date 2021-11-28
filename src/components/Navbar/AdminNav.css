@@ -129,6 +129,12 @@ a.nav-link:hover {
     color: #97d9fb;
     background: none;
   }
+
+  nav ul li a:active {
+    color: #97d9fb;
+    background: none;
+  }
+
   nav .menu-btn i {
     color: #fff;
     font-size: 2rem;
