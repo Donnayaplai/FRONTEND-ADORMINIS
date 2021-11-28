@@ -106,7 +106,11 @@ const BillingList = ({
               animation={false}
               centered
             >
-              <Modal.Header closeButton onClick={Cancle}>
+              <Modal.Header
+                closeButton
+                onClick={Cancle}
+                style={{ backgroundColor: '#C7E5F0' }}
+              >
                 <Modal.Title>
                   รายละเอียดใบแจ้งหนี้&nbsp;
                   <i className="fas fa-file-invoice"></i>
