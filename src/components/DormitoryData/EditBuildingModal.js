@@ -21,7 +21,11 @@ const EditBuildingModal = ({
         // key={info.BUILDINGID}
       >
         <Form>
-          <Modal.Header closeButton onClick={Cancle}>
+          <Modal.Header
+            closeButton
+            onClick={Cancle}
+            style={{ backgroundColor: '#C7E5F0' }}
+          >
             <Modal.Title>แก้ไขข้อมูลตึก: {building.BUILDINGNAME} </Modal.Title>
           </Modal.Header>
           <Modal.Body>

@@ -77,10 +77,10 @@ const BuildingDisplay = ({
               <th>ตั้งค่าห้องพัก</th>
             </tr>
           </thead>
-          {building.map((data) => (
+          {building.map((data, i) => (
             <tbody>
               <tr
-                key={data.BUILDINGID}
+                key={i}
                 style={{
                   backgroundColor: '#EAE7E2',
                   border: 'none',
@@ -112,6 +112,7 @@ const BuildingDisplay = ({
                     />
                   </Button>
                   <EditBuildingModal
+                    dormId={props.dormId}
                     building={focusData}
                     Cancle={Cancle}
                     setEditModeModal={setEditModeModal}
