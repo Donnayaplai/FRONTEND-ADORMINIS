@@ -32,9 +32,9 @@ const InvoiceList = ({
     setInvoiceDetail([]);
   };
 
-  if (loading) {
-    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  }
+  // if (loading) {
+  //   return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  // }
   return (
     <>
       {invoiceList.length === 0 ? (

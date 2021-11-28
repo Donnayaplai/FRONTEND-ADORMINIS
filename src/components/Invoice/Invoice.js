@@ -38,6 +38,7 @@ const Invoice = (props) => {
 
   const getAllInvoice = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `${env.url}invoice/list/${props.dormId}`
       );
@@ -51,19 +52,21 @@ const Invoice = (props) => {
         }
       }
       setYear(options);
-      // console.log(options);
       let month = 12;
       let months = [];
       for (let i = 1; i <= month; i++) {
         months.push(i);
       }
       setMonth(months);
-      // console.log(months);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
   };
+
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
 
   const handleSelectMonthChange = (selectedMonth) => {
     setSelectedMonth(selectedMonth.target.value);
