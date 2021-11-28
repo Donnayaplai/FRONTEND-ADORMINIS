@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { withRouter, useHistory } from 'react-router';
 import axios from 'axios';
 import env from '../../env';
 import RoomDisplay from './RoomDisplay';
 import { MdMeetingRoom } from 'react-icons/md';
-import { IoIosAddCircleOutline } from 'react-icons/io';
-import { Link } from 'react-router-dom';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
 
