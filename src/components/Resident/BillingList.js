@@ -100,9 +100,17 @@ const BillingList = ({
                 </td>
               </tr>
             ))}
-            <Modal show={billInfoModalOpen} onHide={Cancle} animation={false}>
+            <Modal
+              show={billInfoModalOpen}
+              onHide={Cancle}
+              animation={false}
+              centered
+            >
               <Modal.Header closeButton onClick={Cancle}>
-                <Modal.Title>รายละเอียดใบแจ้งหนี้</Modal.Title>
+                <Modal.Title>
+                  รายละเอียดใบแจ้งหนี้&nbsp;
+                  <i className="fas fa-file-invoice"></i>
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body style={{ backgroundColor: '#C7E5F0' }}>
                 {billDetail.length === 0 ? (
