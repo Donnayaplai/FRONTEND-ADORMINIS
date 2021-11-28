@@ -10,8 +10,6 @@ const MeterRecord = (props) => {
   const history = useHistory();
   const [oldMeter, setOldMeter] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [filteredData, setFilteredData] = useState([]);
-  // const [searchText, setSearchText] = useState('');
   const [allRoom, setAllRoom] = useState([]);
 
   useEffect(() => {
@@ -37,19 +35,8 @@ const MeterRecord = (props) => {
     setLoading(false);
   };
 
-  // Search
-  // const handleSearchInput = (e) => {
-  //   const text = e.target.value;
-  //   setSearchText(text);
-  //   let copyData = [...oldMeter];
-  //   setFilteredData(
-  //     copyData.filter(
-  //       (meter) => meter.roomNo.includes(text) || meter.floor.includes(text)
-  //     )
-  //   );
-  // };
-
   const callBackFromParent = (value) => {
+    /* eslint eqeqeq: 0 */
     let flag = allRoom.find((room) => room.id == value.id);
     // console.log('callFromParent', flag);
     if (flag) {
@@ -62,22 +49,6 @@ const MeterRecord = (props) => {
     }
   };
 
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     console.log(allRoom);
-  //     // await axios
-  //     //   .post(
-  //     //     `${env.url}calculate/${props.dormId}/${props.match.params.buildingId}`
-  //     //   )
-  //     //   .then(window.alert('คำนวณเสร็จสิ้น'));
-  //   } catch (err) {
-  //     if (err.response && err.response.data) {
-  //       console.log(err);
-  //     }
-  //   }
-  // };
-
   // const handleClick = () => {
   //   console.log('allRoom', allRoom);
   // };
@@ -85,15 +56,7 @@ const MeterRecord = (props) => {
   return (
     <Container className="mb-5">
       <h1>คำนวณค่าน้ำ/ ค่าไฟ</h1>
-      {/* <Row className="mt-3">
-        <Col xs={8} sm={8} md={8} className="mx-auto">
-          <Search
-            handleSearchInput={handleSearchInput}
-            searchText={searchText}
-            placeholder={'พิมพ์เพื่อค้นหา...'}
-          />
-        </Col>
-      </Row> */}
+
       <Container className="mt-3">
         <Col lg={9} sm={10} xs={10} className="mx-auto">
           <p className="text-muted text-center">
@@ -106,13 +69,6 @@ const MeterRecord = (props) => {
               <span className="fw-normal">{oldMeter.thisBillingCycle}</span>
             </h4>
           </Row>
-          {/* <Button
-            id="btn-next"
-            style={{ float: 'right' }}
-            onClick={() => handleClick()}
-          >
-            สรุปผล
-          </Button> */}
           {oldMeter?.arrayRoomWithMeter?.length === 0 ? (
             <h3 className="text-danger fw-bold text-center mt-5">
               ไม่พบข้อมูล
@@ -124,8 +80,6 @@ const MeterRecord = (props) => {
                 meter={meter}
                 getOldMeter={getOldMeter}
                 loading={loading}
-                // filteredData={filteredData}
-                // searchText={searchText}
                 dormId={props.dormId}
                 callBackToParent={callBackFromParent}
               />
