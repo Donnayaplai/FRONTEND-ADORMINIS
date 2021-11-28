@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import env from '../../env';
-import { withRouter, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import { MdMeetingRoom } from 'react-icons/md';
 import DynamicSelect from '../DynamicSelect/DynamicSelect';
