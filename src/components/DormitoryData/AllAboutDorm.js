@@ -5,6 +5,7 @@ import { GoLink } from 'react-icons/go';
 import Dorm from '../../assets/dorm.png';
 import Room from '../../assets/hotel.png';
 import Cost from '../../assets/budget.png';
+import Building from '../../assets/buildings.png';
 import { Link } from 'react-router-dom';
 import './AllAboutDorm.css';
 const AllAboutDorm = () => {
@@ -14,17 +15,17 @@ const AllAboutDorm = () => {
         เกี่ยวกับหอพัก &nbsp;
         <BsFillInfoSquareFill style={{ fontSize: '1em' }} />
       </h1>
-      <Container className="mt-5">
+      <Container className="mt-5 mb-5">
         <Row>
           <Col
-            md={4}
-            sm={10}
-            xs={10}
+            md={6}
+            sm={6}
+            xs={12}
             className="d-flex justify-content-center mb-3"
           >
             <Link to="/dorm-info">
               <Card
-                style={{ maxWidth: '25rem' }}
+                style={{ width: '500px' }}
                 className="text-center border-0"
                 id="card-bg"
               >
@@ -37,23 +38,28 @@ const AllAboutDorm = () => {
                     <Card.Img
                       src={Dorm}
                       alt="หอพัก"
-                      style={{ maxWidth: '10em', width: '100%' }}
+                      style={{ width: '200px' }}
                     />
+                    <Card.Text
+                      className="mt-3"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      สามารถแก้ไขข้อมูลทั่วไปของหอพัก
+                    </Card.Text>
                   </Card.Body>
-                  {/* <Card.Link href="#">Card Link</Card.Link> */}
                 </Card.Body>
               </Card>
             </Link>
           </Col>
           <Col
-            md={4}
-            sm={10}
-            xs={10}
+            md={6}
+            sm={6}
+            xs={12}
             className="d-flex justify-content-center mb-3"
           >
             <Link to="/cost-info" id="card-bg">
               <Card
-                style={{ maxWidth: '25rem' }}
+                style={{ width: '500px' }}
                 id="card-bg"
                 className="text-center border-0"
               >
@@ -65,37 +71,75 @@ const AllAboutDorm = () => {
                     <Card.Img
                       src={Cost}
                       alt="ค่าใช้จ่าย"
-                      style={{ maxWidth: '10em', width: '100%' }}
+                      style={{ width: '200px' }}
                     />
+                    <Card.Text
+                      className="mt-3"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      สามารถแก้ไขการตั้งค่าค่าใช้จ่าย
+                    </Card.Text>
                   </Card.Body>
-                  {/* <Card.Link href="#">Card Link</Card.Link> */}
                 </Card.Body>
               </Card>
             </Link>
           </Col>
+        </Row>
+        <Row>
           <Col
-            md={4}
-            sm={10}
-            xs={10}
+            md={6}
+            sm={6}
+            xs={12}
             className="d-flex justify-content-center mb-3"
           >
             <Link to="/building-list">
-              <Card
-                style={{ maxWidth: '25rem' }}
-                className="text-center border-0"
-              >
+              <Card style={{ width: '500px' }} className="text-center border-0">
                 <Card.Body>
                   <Card.Title className="fw-bold">
                     ตั้งค่าตึกและห้องพัก &nbsp; <GoLink />
                   </Card.Title>
                   <Card.Body className="px-5 py-3">
                     <Card.Img
+                      src={Building}
+                      alt="ตึกและห้องพัก"
+                      style={{ width: '200px' }}
+                    />
+                    <Card.Text
+                      className="mt-3"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      สามารถเพิ่มตึกใหม่ และแก้ไขข้อมูลตึกและห้องพัก
+                    </Card.Text>
+                  </Card.Body>
+                </Card.Body>
+              </Card>
+            </Link>
+          </Col>
+          <Col
+            md={6}
+            sm={6}
+            xs={12}
+            className="d-flex justify-content-center mb-3"
+          >
+            <Link to="/add-room">
+              <Card style={{ width: '500px' }} className="text-center border-0">
+                <Card.Body>
+                  <Card.Title className="fw-bold">
+                    เพิ่มห้องพัก &nbsp; <GoLink />
+                  </Card.Title>
+                  <Card.Body className="px-5 py-3">
+                    <Card.Img
                       src={Room}
                       alt="ห้องพัก"
-                      style={{ maxWidth: '10em', width: '100%' }}
+                      style={{ width: '200px' }}
                     />
+                    <Card.Text
+                      className="mt-3"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      สามารถเพิ่มห้องพักใหม่
+                    </Card.Text>
                   </Card.Body>
-                  {/* <Card.Link href="#">Card Link</Card.Link> */}
                 </Card.Body>
               </Card>
             </Link>
