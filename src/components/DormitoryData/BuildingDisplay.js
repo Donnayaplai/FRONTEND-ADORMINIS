@@ -125,7 +125,8 @@ const BuildingDisplay = ({
                 <td>
                   <Link
                     to={{
-                      pathname: `/room-list`,
+                      pathname: `/room-list/${data.BUILDINGID}`,
+                      state: { buildingId: props.match.params.buildingid },
                     }}
                   >
                     <Button className="btn btn-light" id="btn-select">
