@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import env from "../../env";
-import { Card, Container, Form, Button, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import "./RegisterLogin.css";
-import axios from "axios";
-import { useHistory } from "react-router";
+import React, { useState } from 'react';
+import env from '../../env';
+import { Card, Container, Form, Button, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import './RegisterLogin.css';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const Login = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const history = useHistory();
 
@@ -23,7 +23,7 @@ const Login = (props) => {
         .then(async (res) => {
           console.log(res.data);
           localStorage.setItem(
-            "authorization",
+            'authorization',
             res.data.TOKEN,
             res.data.USERID
           );
@@ -32,7 +32,7 @@ const Login = (props) => {
           await axios
             .get(`${env.url}api/user/detail`, {
               headers: {
-                authorization: localStorage.getItem("authorization"),
+                authorization: localStorage.getItem('authorization'),
               },
             })
             .then(async (data) => {
@@ -43,26 +43,25 @@ const Login = (props) => {
               props.setRentId(data.data.RENTID);
               props.setUserFname(data.data.FNAME);
               props.setUserLname(data.data.LNAME);
+              props.setDormName(data.data.DORMNAMETH);
               let checkFirstLogin = await axios.get(
                 `${env.url}api/user/check/${data.data.USERID}`
               );
               if (
                 checkFirstLogin.data === false &&
                 data.data.ROLEID === 1 &&
-                data.data.DORMID === ""
+                data.data.DORMID === ''
               ) {
                 console.log(checkFirstLogin);
-                history.push("/dorm-registration");
-                console.log("No manage!!");
+                history.push('/dorm-registration');
+                console.log('No manage!!');
               } else if (res.data.ROLEID === 0) {
                 history.push(`/resident/home`); //resident
-              } else if (
-                res.data.ROLEID === 1 &&
-                checkFirstLogin.data === true
-              ) {
+              }
+              if (res.data.ROLEID === 1) {
                 history.push(`/admin/home`); //admin
               } else {
-                window.alert("มีบางอย่างผิดพลาด");
+                window.alert('มีบางอย่างผิดพลาด');
               }
             });
         });
@@ -83,9 +82,9 @@ const Login = (props) => {
       <Card
         className="mx-auto p-5 border-0"
         style={{
-          backgroundColor: "#EAE7E2",
-          maxWidth: "400px",
-          width: "100%",
+          backgroundColor: '#EAE7E2',
+          maxWidth: '400px',
+          width: '100%',
         }}
       >
         <Form onSubmit={submit}>
@@ -118,8 +117,8 @@ const Login = (props) => {
               type="submit"
               id="btn-save"
               style={{
-                marginLeft: "50%",
-                transform: "translateX(-50%)",
+                marginLeft: '50%',
+                transform: 'translateX(-50%)',
               }}
             >
               เข้าสู่ระบบ <i className="fas fa-sign-in-alt"></i>
