@@ -38,14 +38,11 @@ const UtilCal = ({
       // });
       setSaveData(true);
       await axios
-        .post(
-          `${env.url}calculate/${props.dormId}/${props.match.params.buildingId}`,
-          {
-            roomID: roomID,
-            waterMeterNo: waterMeterNo,
-            electricMeterNo: electricMeterNo,
-          }
-        )
+        .post(`${env.url}calculate/${props.dormId}`, {
+          roomID: roomID,
+          waterMeterNo: waterMeterNo,
+          electricMeterNo: electricMeterNo,
+        })
         .then(window.alert('คำนวณเสร็จสิ้น'));
     } catch (err) {
       if (err.response && err.response.data) {
