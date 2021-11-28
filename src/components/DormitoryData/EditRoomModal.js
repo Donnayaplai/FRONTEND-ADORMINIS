@@ -1,22 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import DynamicSelect from '../DynamicSelect/DynamicSelect';
 
 const EditRoomModal = ({
   room,
   roomTypes,
   Cancle,
-  editModeModal,
-  setRoomNo,
+  roomNo,
+  roomName,
+  EditRoomSetting,
   setRoomName,
-  selectBuildingID,
-  ...props
+  setRoomNo,
+  editModeModal,
+  callBackToParent,
 }) => {
-  //   const [selectedRoomType, setSelectedRoomType] = useState();
+  // const [roomNo, setRoomNo] = useState('');
+  // const [roomName, setRoomName] = useState('');
 
-  //   const handleSelectRoomTypeChange = (selectedRoomType) => {
-  //     setSelectedRoomType(selectedRoomType.target.value);
-  //   };
+  // const handleSelectChange = (e) => {
+  //   setRoomName(e.target.value);
+  // };
+
+  useEffect(() => {
+    setRoomName(room.ROOMNAME);
+  });
+
+  const onSubmit = async () => {
+    try {
+      console.log('==== log ====');
+      callBackToParent({
+        ROOMNO: roomNo,
+        ROOMNAME: roomName,
+      });
+
+      console.log({
+        ROOMNO: roomNo,
+        ROOMNAME: roomName,
+      });
+    } catch (err) {
+      if (err.response && err.response.data) {
+        console.log(err);
+      }
+    }
+  };
   return (
     <>
       <Modal
@@ -25,28 +50,34 @@ const EditRoomModal = ({
         backdrop="static"
         keyboard={false}
       >
-        <Form>
-          <Modal.Header closeButton onClick={Cancle}>
+        <Form onSubmit={onSubmit}>
+          <Modal.Header
+            closeButton
+            onClick={Cancle}
+            style={{ backgroundColor: '#C7E5F0' }}
+          >
             <Modal.Title>แก้ไขข้อมูลห้องพัก: {room.ROOMNO} </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group className="mb-3">
               <Form.Label>เลขห้อง</Form.Label>
               <Form.Control
+                name="roomNo"
                 type="text"
                 placeholder="เลขห้อง"
                 defaultValue={room.ROOMNO}
                 onChange={(e) => setRoomNo(e.target.value)}
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>ประเภทห้อง</Form.Label>
+            {/* <Form.Group className="mb-3">
               <DynamicSelect
+                name="roomName"
                 option={roomTypes}
-                // handleSelectRoomTypeChange={handleSelectRoomTypeChange}
-                value={room.ROOMNAME}
+                handleSelectChange={(e) => setRoomName(e.target.value)}
+                // value={room.ROOMNAME}
+                // defaultValue={room.ROOMNAME}
               />
-            </Form.Group>
+            </Form.Group> */}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={Cancle}>
@@ -54,9 +85,9 @@ const EditRoomModal = ({
             </Button>
             <Button
               variant="primary"
-              //   onClick={() => {
-              //     EditBuildingSetting(selectBuildingID);
-              //   }}
+              onClick={() => {
+                EditRoomSetting();
+              }}
             >
               ตกลง
             </Button>
