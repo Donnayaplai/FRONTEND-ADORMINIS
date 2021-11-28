@@ -1,6 +1,5 @@
 import axios from 'axios';
 import env from '../../env';
-import './AddResident.css';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -82,7 +81,6 @@ const AddResident = (props) => {
     } else {
       all.splice(clickedCostList, 1);
     }
-    // console.log(all);
     setChecked(all);
     formData.set('costList', all);
   };
@@ -400,11 +398,13 @@ const AddResident = (props) => {
                 <Link to={`/all-room/${props.location.state.buildingId}`}>
                   {/* //ส่ง state ไปกับ link */}
                   {/* {console.log(props.location.state)} */}
-                  <Button id="btn-back">ย้อนกลับ</Button>
+                  <Button id="btn-cancel" style={{ float: 'left' }}>
+                    ย้อนกลับ
+                  </Button>
                 </Link>
               </Col>
               <Col>
-                <Button id="btn-add" type="submit">
+                <Button id="btn-next" type="submit" style={{ float: 'right' }}>
                   ตกลง
                 </Button>
               </Col>
