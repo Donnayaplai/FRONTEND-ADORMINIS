@@ -32,6 +32,7 @@ import SearchHistory from './components/RentHistory/SearchHistory';
 import Building from './components/DormitoryData/Building';
 import Room from './components/DormitoryData/Room';
 import AddBuilding from './components/DormitoryData/AddBuilding';
+import AddRoom from './components/DormitoryData/AddRoom';
 import AllAboutDorm from './components/DormitoryData/AllAboutDorm';
 //Resident
 import ResidentHome from './components/Home/ResidentHome';
@@ -114,6 +115,9 @@ const Routes = (props) => {
         </Route>
         <Route exact path="/add-building">
           <AddBuilding roleId={props.roleId} dormId={props.dormId} />
+        </Route>
+        <Route exact path="/add-room">
+          <AddRoom roleId={props.roleId} dormId={props.dormId} />
         </Route>
         <Route exact path="/setting">
           <Setting dormId={props.dormId} />
