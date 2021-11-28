@@ -103,6 +103,7 @@ const InvoiceList = ({
               onHide={Cancle}
               animation={false}
               size="lg"
+              centered
             >
               <Modal.Header closeButton onClick={Cancle}>
                 <Modal.Title>

@@ -3,9 +3,10 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
-import DormInfo from '../../assets/dormitory.png';
+import DormInfo from '../../assets/dorm.png';
 import Complain from '../../assets/complain.png';
-import Billing from '../../assets/receipt.png';
+import Billing from '../../assets/bill.png';
+import { GoLink } from 'react-icons/go';
 
 const ResidentHome = (props) => {
   const history = useHistory();
@@ -40,7 +41,7 @@ const ResidentHome = (props) => {
           <Link to={`/resident/home`} style={{ textDecoration: 'none' }}>
             <Card
               style={{ maxWidth: '20rem', border: 'rounded' }}
-              className="mx-auto"
+              className="mx-auto border-0"
             >
               <Card.Body>
                 <Card.Title>
@@ -48,7 +49,10 @@ const ResidentHome = (props) => {
                     to={`/resident/dorm-info`}
                     style={{ textDecoration: 'none' }}
                   >
-                    <h3 className="mb-3 fw-bold">ข้อมูลหอพัก</h3>
+                    <h3 className="mb-3 text-dark">
+                      ข้อมูลหอพัก&nbsp;
+                      <GoLink />
+                    </h3>
                   </Link>
                 </Card.Title>
                 <Card.Text>
@@ -77,7 +81,7 @@ const ResidentHome = (props) => {
         <Col md={3} sm={10} xs={10} className="mb-3 mx-auto">
           <Card
             style={{ maxWidth: '20rem', border: 'rounded' }}
-            className="mx-auto"
+            className="mx-auto border-0"
           >
             <Card.Body>
               <Card.Title>
@@ -85,7 +89,10 @@ const ResidentHome = (props) => {
                   to={`/resident/all-bill`}
                   style={{ textDecoration: 'none' }}
                 >
-                  <h3 className="mb-3 fw-bold">ใบแจ้งหนี้</h3>
+                  <h3 className="mb-3 text-dark">
+                    ใบแจ้งหนี้&nbsp;
+                    <GoLink />
+                  </h3>
                 </Link>
               </Card.Title>
               <Card.Text>
@@ -116,7 +123,7 @@ const ResidentHome = (props) => {
               maxWidth: '20rem',
               border: 'rounded',
             }}
-            className="mx-auto"
+            className="mx-auto border-0"
           >
             <Card.Body>
               <Card.Title>
@@ -124,7 +131,10 @@ const ResidentHome = (props) => {
                   to={`/resident/complain-request`}
                   style={{ textDecoration: 'none' }}
                 >
-                  <h3 className="mb-3 fw-bold">แจ้งปัญหา</h3>
+                  <h3 className="mb-3 text-dark">
+                    แจ้งปัญหา&nbsp;
+                    <GoLink />
+                  </h3>
                 </Link>
               </Card.Title>
               <Card.Text>
@@ -143,8 +153,9 @@ const ResidentHome = (props) => {
               </Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">
-                แจ้งปัญหาที่เกิดภายในห้องพักและประวัติการแจ้งปัญหา
+              <small className="text-muted text-center">
+                แจ้งปัญหาที่เกิดภายในห้องพักและ
+                <br /> ประวัติการแจ้งปัญหา
               </small>
             </Card.Footer>
           </Card>

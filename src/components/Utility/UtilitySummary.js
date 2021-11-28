@@ -65,7 +65,7 @@ const UtilitySummary = ({ summaryData, loading, ...props }) => {
         <Col>
           <Link to={`/admin/home`}>
             <Button id="btn-next" style={{ float: 'right' }}>
-              กลับไปหน้าหลัก
+              กลับหน้าหลัก
             </Button>
           </Link>
         </Col>

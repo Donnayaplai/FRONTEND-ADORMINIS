@@ -44,7 +44,6 @@ const MainRoom = (props) => {
     const text = e.target.value;
     setSearchText(text);
     let copyRoom = [...roomData];
-    console.log(copyRoom.filter((room) => room.ROOMNO === text));
     setFilteredRoom(copyRoom.filter((room) => room.ROOMNO.includes(text)));
   };
 
