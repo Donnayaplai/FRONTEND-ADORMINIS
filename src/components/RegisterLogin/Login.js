@@ -21,7 +21,7 @@ const Login = (props) => {
           password,
         })
         .then(async (res) => {
-          console.log(res.data);
+          // console.log(res.data);
           localStorage.setItem(
             'authorization',
             res.data.TOKEN,
@@ -36,7 +36,7 @@ const Login = (props) => {
               },
             })
             .then(async (data) => {
-              console.log(data.data);
+              // console.log(data.data);
               props.setUserId(data.data.USERID);
               props.setRoleId(data.data.ROLEID);
               props.setDormId(data.data.DORMID);
@@ -57,8 +57,7 @@ const Login = (props) => {
                 console.log('No manage!!');
               } else if (res.data.ROLEID === 0) {
                 history.push(`/resident/home`); //resident
-              }
-              if (res.data.ROLEID === 1) {
+              } else if (res.data.ROLEID === 1) {
                 history.push(`/admin/home`); //admin
               } else {
                 window.alert('มีบางอย่างผิดพลาด');
