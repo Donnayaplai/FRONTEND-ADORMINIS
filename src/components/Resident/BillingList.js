@@ -6,6 +6,7 @@ import env from '../../env';
 
 const BillingList = ({
   loading,
+  setLoading,
   billList,
   filteredBill,
   searchText,
@@ -14,14 +15,6 @@ const BillingList = ({
   const [billDetail, setBillDetail] = useState([]);
   const [billInfoModalOpen, setBillInfoModalOpen] = useState(false);
 
-  //Get all Bill
-  // const getBillList = () => {
-  //   if (searchText === '') {
-  //     return billList;
-  //   } else {
-  //     return filteredBill;
-  //   }
-  // };
   const Cancle = () => {
     setBillInfoModalOpen(false);
   };
@@ -29,6 +22,7 @@ const BillingList = ({
   //Get bill detail
   const getBillDetail = async (invoiceid) => {
     try {
+      setLoading(true);
       let response = await axios.get(
         `${env.url}invoice/${invoiceid}/${props.dormId}`
       );
@@ -117,8 +111,15 @@ const BillingList = ({
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body style={{ backgroundColor: '#C7E5F0' }}>
-                {billDetail.length === 0 ? (
-                  <h4>ไม่พบข้อมูล</h4>
+                {/* con ? {...} : con ? {...} : {...} */}
+                {loading ? (
+                  <h2 className="text-dark text-center fs-3 mt-5">
+                    Loading...
+                  </h2>
+                ) : billDetail.length === 0 ? (
+                  <h4 className="text-dark text-center fs-3 mt-5">
+                    ไม่พบข้อมูล
+                  </h4>
                 ) : (
                   <Container
                     key={billDetail.roomNo}

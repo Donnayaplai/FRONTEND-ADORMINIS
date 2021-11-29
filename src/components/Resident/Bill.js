@@ -58,13 +58,6 @@ const Bill = (props) => {
   const handleSearchInput = (e) => {
     const text = e.target.value;
     setSearchText(text);
-    // let copyBill = [...billList];
-    // setFilteredBill(
-    //   copyBill.filter(
-    //     (bill) =>
-    //       bill.billingMonth.includes(text) || bill.billingYear.includes(text)
-    //   )
-    // );
   };
 
   const clearFilter = () => {
@@ -95,7 +88,6 @@ const Bill = (props) => {
   // Pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentData = billList.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -142,11 +134,11 @@ const Bill = (props) => {
 
         <BillingList
           billList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
-          // billList={currentData}
           loading={loading}
           filteredBill={filteredBill}
           searchText={searchText}
           dormId={props.dormId}
+          setLoading={setLoading}
         />
         {mainList.length > 0 ? (
           <Pagination
