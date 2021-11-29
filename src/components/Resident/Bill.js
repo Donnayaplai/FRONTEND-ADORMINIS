@@ -101,7 +101,6 @@ const Bill = (props) => {
         ใบแจ้งหนี้ทั้งหมด &nbsp;
         <i className="fas fa-file-invoice-dollar"></i>
       </h1>
-
       <Container className="w-75 mx-auto">
         <Container className="border mt-3 mb-3 p-3">
           <Row className="mt-3">
@@ -131,25 +130,31 @@ const Bill = (props) => {
             </Col>
           </Row>
         </Container>
-
-        <BillingList
-          billList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
-          loading={loading}
-          filteredBill={filteredBill}
-          searchText={searchText}
-          dormId={props.dormId}
-          setLoading={setLoading}
-        />
-        {mainList.length > 0 ? (
-          <Pagination
-            itemsPerPage={itemsPerPage}
-            totalData={billList.length}
-            paginate={paginate}
-            nextPage={nextPage}
-            prevPage={prevPage}
-          />
+        {loading ? (
+          <h2 className="text-center fs-3 mt-5">Loading...</h2>
         ) : (
-          <></>
+          <>
+            {' '}
+            <BillingList
+              billList={mainList.slice(indexOfFirstItem, indexOfLastItem)}
+              loading={loading}
+              filteredBill={filteredBill}
+              searchText={searchText}
+              dormId={props.dormId}
+              setLoading={setLoading}
+            />
+            {mainList.length > 0 ? (
+              <Pagination
+                itemsPerPage={itemsPerPage}
+                totalData={billList.length}
+                paginate={paginate}
+                nextPage={nextPage}
+                prevPage={prevPage}
+              />
+            ) : (
+              <></>
+            )}
+          </>
         )}
       </Container>
     </>

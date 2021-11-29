@@ -27,14 +27,11 @@ const BillingList = ({
         `${env.url}invoice/${invoiceid}/${props.dormId}`
       );
       setBillDetail(response.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
-
-  if (loading) {
-    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  }
 
   return (
     <>
