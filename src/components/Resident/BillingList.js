@@ -27,11 +27,14 @@ const BillingList = ({
         `${env.url}invoice/${invoiceid}/${props.dormId}`
       );
       setBillDetail(response.data);
-      setLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
+
+  if (loading) {
+    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
+  }
 
   return (
     <>
@@ -108,15 +111,8 @@ const BillingList = ({
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body style={{ backgroundColor: '#C7E5F0' }}>
-                {/* con ? {...} : con ? {...} : {...} */}
-                {loading ? (
-                  <h2 className="text-dark text-center fs-3 mt-5">
-                    Loading...
-                  </h2>
-                ) : billDetail.length === 0 ? (
-                  <h4 className="text-dark text-center fs-3 mt-5">
-                    ไม่พบข้อมูล
-                  </h4>
+                {billDetail.length === 0 ? (
+                  <></>
                 ) : (
                   <Container
                     key={billDetail.roomNo}
