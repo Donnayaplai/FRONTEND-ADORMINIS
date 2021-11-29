@@ -7,6 +7,7 @@ import ResidentComplainList from './ResidentComplainList';
 import Search from '../Search/Search';
 import Pagination from '../Pagination/Pagination';
 import { TiWarningOutline } from 'react-icons/ti';
+import { AiFillWarning } from 'react-icons/ai';
 
 const ResidentComplain = (props) => {
   const history = useHistory();
@@ -115,41 +116,46 @@ const ResidentComplain = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75">
-        <Row>
-          <Col xs={8} sm={7} md={6}>
-            <h3>ประวัติและสถานะ</h3>
-          </Col>
-          <Col xs={4} sm={5} md={6}>
-            <Button
-              variant="secondary"
-              onClick={handleShow}
-              style={{ float: 'right' }}
-            >
-              แจ้งปัญหา <TiWarningOutline />
-            </Button>
-          </Col>
-          <ResidentComplainList
-            complainList={currentData}
-            loading={loading}
-            filteredComplain={filteredComplain}
-            searchText={searchText}
-            rentId={props.rentId}
-            getAllResidentProblems={getAllResidentProblems}
-          />
-          {complainList.length > 0 ? (
-            <Pagination
-              itemsPerPage={itemsPerPage}
-              totalData={complainList.length}
-              paginate={paginate}
-              nextPage={nextPage}
-              prevPage={prevPage}
+      {loading ? (
+        <h2 className="text-center fs-3 mt-5">Loading...</h2>
+      ) : (
+        <Container className="w-75">
+          <Row>
+            <Col xs={8} sm={7} md={6}>
+              <h3>ประวัติและสถานะ</h3>
+            </Col>
+            <Col xs={4} sm={5} md={6}>
+              <Button
+                variant="secondary"
+                onClick={handleShow}
+                style={{ float: 'right' }}
+              >
+                แจ้งปัญหา <TiWarningOutline />
+              </Button>
+            </Col>
+            <ResidentComplainList
+              complainList={currentData}
+              loading={loading}
+              filteredComplain={filteredComplain}
+              searchText={searchText}
+              rentId={props.rentId}
+              getAllResidentProblems={getAllResidentProblems}
             />
-          ) : (
-            <></>
-          )}
-        </Row>
-      </Container>
+            {complainList.length > 0 ? (
+              <Pagination
+                itemsPerPage={itemsPerPage}
+                totalData={complainList.length}
+                paginate={paginate}
+                nextPage={nextPage}
+                prevPage={prevPage}
+              />
+            ) : (
+              <></>
+            )}
+          </Row>
+        </Container>
+      )}
+
       <Form>
         <Modal
           show={complainModalOpen}
@@ -159,7 +165,9 @@ const ResidentComplain = (props) => {
         >
           <Modal.Header closeButton onClick={Cancle}>
             <Modal.Title>
-              <h2>แจ้งปัญหา</h2>
+              <h2>
+                แจ้งปัญหา <AiFillWarning />
+              </h2>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body style={{ backgroundColor: '#EAE7E2' }}>

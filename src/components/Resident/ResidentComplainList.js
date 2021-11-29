@@ -7,7 +7,6 @@ import axios from 'axios';
 import env from '../../env';
 const ResidentComplainList = ({
   complainList,
-  loading,
   filteredComplain,
   searchText,
   getAllResidentProblems,
@@ -25,16 +24,13 @@ const ResidentComplainList = ({
     }
   };
 
-  if (loading) {
-    return <h2 className="text-center fs-3 mt-5">Loading...</h2>;
-  }
-
   let deleteComplain = () => {
     try {
       axios
         .delete(`${env.url}complaint/remove/${problemID}`)
         .then(window.alert('ปัญหาที่ร้องเรียนถูกลบแล้ว'))
         .then(setShowConfirmDeleteModal(false))
+        .then(setSelectProblemId(''))
         .then(() => {
           getAllResidentProblems();
         });
