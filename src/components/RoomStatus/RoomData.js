@@ -99,9 +99,10 @@ const RoomData = ({
         .post(`${env.url}api/room/cost/${selectRoomID}`, {
           listOfCost: listOfCost,
         })
-        .then(setEditCostMode(false))
         .then(window.alert('การแก้ไขค่าใช้จ่ายเพิ่มเติมเสร็จสิ้น'))
-        .then(window.location.reload());
+        .then(setEditCostMode(false))
+        .then(setSelectRoomID(''))
+        .then(getAllRoom());
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -134,10 +135,6 @@ const RoomData = ({
 
   //แก้ไขข้อมูลผู้เช่า
   const editResidentInfo = async (RENTID, i) => {
-    // console.log(residentInfo[i], 'resident[i]');
-    // console.log(i, 'i');
-    // console.log(residentInfo, 'resinfo');
-    // console.log(RENTID, 'RENTID');
     residentInfo[i].fName = residentInfo[i].FNAME;
     residentInfo[i].lName = residentInfo[i].LNAME;
     residentInfo[i].gender = residentInfo[i].GENDER;
@@ -147,7 +144,7 @@ const RoomData = ({
     residentInfo[i].startDate = residentInfo[i].STARTDATE;
     residentInfo[i].endDate = residentInfo[i].ENDDATE;
     residentInfo[i].checkInDate = residentInfo[i].CHECKINDATE;
-    console.log(residentInfo[i], 'resident[i]');
+    // console.log(residentInfo[i], 'resident[i]');
 
     try {
       await axios
@@ -157,7 +154,7 @@ const RoomData = ({
         .then(history.go(1))
         .then(setEditMode(false))
         .then(setResInfoModalOpen(false))
-        .then(seteditUserID(null));
+        .then(seteditUserID(''));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -171,10 +168,11 @@ const RoomData = ({
       await axios
         .post(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
         .then(window.alert('การลบผู้เช่าเสร็จสิ้น'))
-        .then(getAllRoom())
         .then(setShowConfirmDeleteModal(false))
         .then(setResInfoModalOpen(false))
-        .then(history.go(1));
+        .then(setSelectRoomID(''))
+        .then(setSelectRentID(''))
+        .then(getAllRoom());
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -324,7 +322,8 @@ const RoomData = ({
                       }}
                       onClick={() => {
                         getResidentInfo(room.ROOMID);
-                        if (room.STATUS === true) {
+                        // eslint-disable-next-line
+                        if (room.STATUS == true) {
                           setResInfoModalOpen(false);
                         } else {
                           setResInfoModalOpen(true);
@@ -561,8 +560,6 @@ const RoomData = ({
                                   seteditUserID(info.USERID);
                                   setSelectRentID(info.RENTID);
                                   setEditMode(true);
-                                  // console.log(info.RENTID);
-                                  // console.log(info.USERID);
                                 }}
                               />
                             </Button>
