@@ -73,23 +73,27 @@ const MainRoom = (props) => {
           />
         </Col>
       </Row>
-      <Container className="w-75">
-        <RoomData
-          roomData={currentData}
-          getAllRoom={getAllRoom}
-          loading={loading}
-          filteredRoom={filteredRoom}
-          searchText={searchText}
-          dormId={props.dormId}
-        />
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          totalData={roomData.length}
-          paginate={paginate}
-          nextPage={nextPage}
-          prevPage={prevPage}
-        />
-      </Container>
+      {loading ? (
+        <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>
+      ) : (
+        <Container className="w-75">
+          <RoomData
+            roomData={currentData}
+            getAllRoom={getAllRoom}
+            loading={loading}
+            filteredRoom={filteredRoom}
+            searchText={searchText}
+            dormId={props.dormId}
+          />
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalData={roomData.length}
+            paginate={paginate}
+            nextPage={nextPage}
+            prevPage={prevPage}
+          />
+        </Container>
+      )}
     </Container>
   );
 };

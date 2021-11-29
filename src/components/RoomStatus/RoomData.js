@@ -19,7 +19,6 @@ import { MdMeetingRoom } from 'react-icons/md';
 
 const RoomData = ({
   roomData,
-  loading,
   filteredRoom,
   searchText,
   getAllRoom,
@@ -100,9 +99,9 @@ const RoomData = ({
           listOfCost: listOfCost,
         })
         .then(window.alert('การแก้ไขค่าใช้จ่ายเพิ่มเติมเสร็จสิ้น'))
+        .then(getAllRoom())
         .then(setEditCostMode(false))
-        .then(setSelectRoomID(''))
-        .then(getAllRoom());
+        .then(setSelectRoomID(''));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -202,18 +201,17 @@ const RoomData = ({
     setEditCostMode(false);
   };
 
-  if (error) return window.alert({ error }) && window.location.reload();
-
-  if (loading) {
-    return <h2 className="text-center text-dark fs-3 mt-5">Loading...</h2>;
-  }
-
   return (
     <>
       {getRoomList().length === 0 ? (
         <h3 className="text-danger fw-bold text-center mt-5">ไม่พบข้อมูล</h3>
       ) : (
         <Form onSubmit={onSubmit}>
+          <Row>
+            <center>
+              {error && <h6 className="text-danger mb-3 mt-3">{error}</h6>}
+            </center>
+          </Row>
           <Table
             responsive
             className="table table-hover table-borderless mt-3 mx-auto"
@@ -603,9 +601,6 @@ const RoomData = ({
                               disabled={info.USERID !== editUserID}
                               name="fName"
                               onChange={(e) => {
-                                // console.log(e.target.value);
-                                // console.log(residentInfo[i]);
-                                // console.log(residentInfo);
                                 setResidentInfo((prev) => {
                                   prev[i].FNAME = e.target.value;
                                   return prev;
