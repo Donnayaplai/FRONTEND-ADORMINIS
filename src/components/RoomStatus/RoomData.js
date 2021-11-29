@@ -168,11 +168,11 @@ const RoomData = ({
       await axios
         .post(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
         .then(window.alert('การลบผู้เช่าเสร็จสิ้น'))
+        .then(getAllRoom())
         .then(setShowConfirmDeleteModal(false))
         .then(setResInfoModalOpen(false))
         .then(setSelectRoomID(''))
-        .then(setSelectRentID(''))
-        .then(getAllRoom());
+        .then(setSelectRentID(''));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
