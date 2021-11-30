@@ -63,7 +63,7 @@ const AddResident = (props) => {
           data
         )
         .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
-        .then(history.push(`/all-room/${props.location.state.buildingId}`));
+        .then(history.go(1));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);

@@ -16,6 +16,7 @@ import axios from 'axios';
 import env from '../../env';
 import { RiDeleteBin6Fill, RiEditBoxFill } from 'react-icons/ri';
 import { MdMeetingRoom } from 'react-icons/md';
+import Popup from '../Modal/Modal';
 
 const RoomData = ({
   roomData,
@@ -26,14 +27,13 @@ const RoomData = ({
 }) => {
   const [residentInfo, setResidentInfo] = useState([]);
   const [roomInfo, setRoomInfo] = useState([]);
-  // const [selectRoom, setSelectRoom] = useState();
   const [selectRoomID, setSelectRoomID] = useState();
   const [selectRentID, setSelectRentID] = useState();
 
   //Modal status
   const [resInfoModalOpen, setResInfoModalOpen] = useState(false);
   const [roomModalOpen, setRoomModalOpen] = useState(false);
-  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   //Action status
   const [isEditMode, setEditMode] = useState(false);
@@ -168,7 +168,7 @@ const RoomData = ({
         .post(`${env.url}api/room/remove/${selectRoomID}/${selectRentID}`)
         .then(window.alert('การลบผู้เช่าเสร็จสิ้น'))
         .then(getAllRoom())
-        .then(setShowConfirmDeleteModal(false))
+        .then(setModalOpen(false))
         .then(setResInfoModalOpen(false))
         .then(setSelectRoomID(''))
         .then(setSelectRentID(''));
@@ -196,7 +196,7 @@ const RoomData = ({
     setSelectRentID('');
     setResInfoModalOpen(false);
     setRoomModalOpen(false);
-    setShowConfirmDeleteModal(false);
+    setModalOpen(false);
     setEditMode(false);
     setEditCostMode(false);
   };
@@ -571,7 +571,7 @@ const RoomData = ({
                               onClick={() => {
                                 setSelectRentID(info.RENTID);
                                 setSelectRoomID(info.ROOMID);
-                                setShowConfirmDeleteModal(true);
+                                setModalOpen(true);
                                 setResInfoModalOpen(false);
                               }}
                             >
@@ -803,20 +803,13 @@ const RoomData = ({
                   ))}
                 </Modal.Body>
               </Modal>
-              <Modal show={showConfirmDeleteModal} onHide={Cancle}>
-                <Modal.Header closeButton onClick={Cancle}>
-                  <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>คุณต้องการลบผู้เช่าใช่หรือไม่</Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={Cancle}>
-                    ยกเลิก
-                  </Button>
-                  <Button variant="primary" onClick={() => removeResident()}>
-                    ตกลง
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              <Popup
+                modalOpen={modalOpen}
+                title={'ยืนยันการลบข้อมูล'}
+                body={'คุณแน่ใจแล้วว่าต้องการลบข้อมูล'}
+                Cancle={Cancle}
+                Confirm={removeResident}
+              />
             </tbody>
           </Table>
         </Form>
