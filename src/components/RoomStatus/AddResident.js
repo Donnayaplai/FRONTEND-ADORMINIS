@@ -63,7 +63,7 @@ const AddResident = (props) => {
           data
         )
         .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
-        .then(history.go(1));
+        .then(history.go(0));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
