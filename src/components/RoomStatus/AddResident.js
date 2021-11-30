@@ -2,10 +2,9 @@ import axios from 'axios';
 import env from '../../env';
 import { Row, Container, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { withRouter, useHistory } from 'react-router';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
 
 const AddResident = (props) => {
   const [error, setError] = useState(null);
@@ -63,7 +62,7 @@ const AddResident = (props) => {
           data
         )
         .then(window.alert('เพิ่มผู้เช่าเสร็จสิ้น'))
-        .then(history.go(0));
+        .then(history.push(`/all-room/${props.location.state.buildingId}`));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
