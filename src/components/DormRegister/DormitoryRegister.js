@@ -21,7 +21,7 @@ const DormitoryRegister = (props) => {
       await axios
         .post(`${env.url}dorm/${props.userId}`, data)
         .then(window.alert('การลงทะเบียนหอพักเสร็จสิ้น'))
-        .then(history.push(`/dorm-setting`));
+        .then(history.push(`/setting`));
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message);
@@ -40,7 +40,6 @@ const DormitoryRegister = (props) => {
       </Row>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Container className="w-75">
-          {/* <h5 className="fw-bold">ข้อมูลและที่อยู่</h5> */}
           <Container
             className="p-3 rounded mb-3"
             style={{ backgroundColor: '#EAE7E2' }}
@@ -139,7 +138,6 @@ const DormitoryRegister = (props) => {
                 </Form.Group>
               </Col>
             </Row>
-
             <Row className="mb-3">
               <Col xs={12} sm={12} md={6}>
                 <Form.Group>
