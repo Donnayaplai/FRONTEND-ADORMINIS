@@ -29,9 +29,9 @@ function App() {
   const [userLname, setUserLname] = useState();
   const [dormName, setDormName] = useState();
 
-  const fetchMyAPI = useCallback(async () => {
+  const fetchMyAPI = useCallback(() => {
     if (localStorage.getItem('authorization')) {
-      await axios
+      axios
         .get(`${env.url}api/user/detail`, {
           headers: {
             authorization: localStorage.getItem('authorization'),
@@ -115,7 +115,7 @@ function App() {
       <Router history={History}>
         {RenderNav()}
         <Switch>
-          <Route exact path="/" component={LandingPage} />
+          {/* <Route exact path="/" component={LandingPage} /> */}
           <Route>
             <Routes
               setRoleId={setRoleId}
