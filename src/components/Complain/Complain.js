@@ -22,7 +22,7 @@ const Complain = (props) => {
       getAllComplain();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history, props.roleId]);
+  }, []);
 
   //Search filter
   const handleSearchInput = (e) => {
@@ -49,7 +49,6 @@ const Complain = (props) => {
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
   };
 
   // Pagination

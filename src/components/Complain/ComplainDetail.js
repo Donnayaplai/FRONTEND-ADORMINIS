@@ -18,6 +18,7 @@ const ComplainDetail = (props) => {
 
   let getComplainDetail = async () => {
     try {
+      setLoading(true);
       let response = await axios.get(
         `${env.url}complaint/${props.match.params.problemID}`
       );

@@ -112,7 +112,6 @@ const ComplainList = ({
                     <Button
                       type="button"
                       className="btn"
-                      onClick={() => {}}
                       style={{
                         backgroundColor: 'transparent',
                         border: 'none',
