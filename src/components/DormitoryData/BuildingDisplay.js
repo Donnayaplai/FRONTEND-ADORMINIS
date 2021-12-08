@@ -77,8 +77,8 @@ const BuildingDisplay = ({
               <th>ตั้งค่าห้องพัก</th>
             </tr>
           </thead>
-          {building.map((data, i) => (
-            <tbody>
+          <tbody>
+            {building.map((data, i) => (
               <tr
                 key={i}
                 style={{
@@ -111,17 +111,6 @@ const BuildingDisplay = ({
                       }}
                     />
                   </Button>
-                  <EditBuildingModal
-                    dormId={props.dormId}
-                    building={focusData}
-                    Cancle={Cancle}
-                    setEditModeModal={setEditModeModal}
-                    editModeModal={editModeModal}
-                    setNumOfFloor={setNumOfFloor}
-                    selectBuildingID={selectBuildingID}
-                    setBuildingName={setBuildingName}
-                    EditBuildingSetting={EditBuildingSetting}
-                  />
                 </td>
                 <td>
                   <Link
@@ -136,8 +125,19 @@ const BuildingDisplay = ({
                   </Link>
                 </td>
               </tr>
-            </tbody>
-          ))}
+            ))}
+            <EditBuildingModal
+              dormId={props.dormId}
+              building={focusData}
+              Cancle={Cancle}
+              setEditModeModal={setEditModeModal}
+              editModeModal={editModeModal}
+              setNumOfFloor={setNumOfFloor}
+              selectBuildingID={selectBuildingID}
+              setBuildingName={setBuildingName}
+              EditBuildingSetting={EditBuildingSetting}
+            />
+          </tbody>
         </Table>
       )}
     </>
