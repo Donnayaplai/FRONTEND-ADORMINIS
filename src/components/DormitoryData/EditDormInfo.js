@@ -34,7 +34,6 @@ const Editdorm = (props) => {
     try {
       setLoading(true);
       await axios.get(`${env.url}dorm/info/${props.dormId}`).then((data) => {
-        console.log(data.data);
         setDormNameTH(data.data.DORMNAMETH);
         setDormNameENG(data.data.DORMNAMEENG);
         setAddress(data.data.ADDRESS);
@@ -55,8 +54,6 @@ const Editdorm = (props) => {
 
   const EditDormData = async (e) => {
     try {
-      // e.preventDefault();
-      // console.log({ province: province });
       await axios
         .post(`${env.url}dorm/update/${props.match.params.dormid}`, {
           dormNameTH: dormNameTH,
