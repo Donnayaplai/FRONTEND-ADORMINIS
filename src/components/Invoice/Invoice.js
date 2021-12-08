@@ -130,9 +130,6 @@ const Invoice = (props) => {
     }
     setFilteredInvoice(filtered);
     setMainList(filtered);
-    console.log(searchText);
-    console.log(selectedYear);
-    console.log(selectedMonth);
   };
 
   // Pagination

@@ -52,7 +52,6 @@ const EditAdminProfile = (props) => {
 
   const EditProfile = async () => {
     try {
-      // console.log('แก้ไขข้อมูล');
       await axios
         .post(`${env.url}api/user/edit/${props.match.params.userid}`, {
           fName: fName,
