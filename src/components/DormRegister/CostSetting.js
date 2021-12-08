@@ -12,7 +12,7 @@ const CostSetting = (props) => {
   };
 
   return (
-    <Container className="w-75">
+    <Container className="w-75 mb-5">
       <Row>
         <Col>
           <h3>ค่าใช้จ่าย</h3>

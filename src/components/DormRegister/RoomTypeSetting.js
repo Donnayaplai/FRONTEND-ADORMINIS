@@ -20,7 +20,7 @@ const RoomTypeSetting = (props) => {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Container className="w-75">
+        <Container className="w-75 mb-5">
           <Row>
             <Col xl={4} md={4} sm={8} xs={8}>
               <h3>ตั้งค่าประเภทห้อง</h3>

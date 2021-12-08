@@ -9,60 +9,61 @@ import BuildingSetting from './BuildingSetting';
 import RoomType from './RoomTypeSetting';
 
 const Setting = (props) => {
-  const [step1, setStep1] = useState();
-  const [step2, setStep2] = useState();
-  const [step3, setStep3] = useState();
-  const [page, setPage] = useState(1);
-  const [error, setError] = useState(null);
-  const history = useHistory();
-  <Switch>
-    <Route path="/cost-setting" component={CostSetting} />
-    <Route path="/building-setting" component={BuildingSetting} />
-    <Route path="/roomtype-setting" component={RoomType} />
-  </Switch>;
+    const [step1, setStep1] = useState();
+    const [step2, setStep2] = useState();
+    const [step3, setStep3] = useState();
+    const [page, setPage] = useState(1);
+    const [error, setError] = useState(null);
+    const history = useHistory();
+    <Switch>
+        <Route path="/cost-setting" component={CostSetting} />
+        <Route path="/building-setting" component={BuildingSetting} />
+        <Route path="/roomtype-setting" component={RoomType} />
+    </Switch>;
 
-  const handleSubmit = async (step3) => {
-    try {
-      //ส่งแยก 3 path
-      await axios.post(`${env.url}setting/setCost/${props.dormId}`, step1);
-      // console.log(costSetting);
-      await axios.post(`${env.url}setting/setBuildings/${props.dormId}`, {
-        arrayBuilding: step2.arrayBuilding,
-      });
-      await axios.post(`${env.url}setting/setRoomTypes/${props.dormId}`, {
-        arrayRoomTypes: step3.arrayRoomTypes,
-      });
+    const handleSubmit = async (step3) => {
+        try {
+            //ส่งแยก 3 path
+            await axios.post(`${env.url}setting/setCost/${props.dormId}`, step1);
 
-      history.push(`/create-room`);
-    } catch (err) {
-      console.log(err);
-      if (err.response && err.response.data) {
-        setError(err.response.data.message);
-        window.alert(error);
-      }
-    }
-  };
-  console.log(step3);
-  return (
-    <>
-      <h1>ตั้งค่าหอพัก</h1>
-      <Container>
-        <div style={{ display: page === 1 ? 'block' : 'none' }}>
-          <CostSetting setStep1={setStep1} setPage={setPage} />
-        </div>
-        <div style={{ display: page === 2 ? 'block' : 'none' }}>
-          <BuildingSetting setStep2={setStep2} setPage={setPage} />
-        </div>
-        <div style={{ display: page === 3 ? 'block' : 'none' }}>
-          <RoomType
-            setStep3={setStep3}
-            handleSubmit={handleSubmit}
-            setPage={setPage}
-          />
-        </div>
-      </Container>
-    </>
-  );
+            await axios.post(`${env.url}setting/setBuildings/${props.dormId}`, {
+                arrayBuilding: step2.arrayBuilding,
+            });
+            await axios.post(`${env.url}setting/setRoomTypes/${props.dormId}`, {
+                arrayRoomTypes: step3.arrayRoomTypes,
+            });
+
+            history.push(`/create-room`);
+        } catch (err) {
+            console.log(err);
+            if (err.response && err.response.data) {
+                setError(err.response.data.message);
+                window.alert(error);
+            }
+        }
+    };
+    // eslint-disable-next-line
+    console.log(step3);
+    return (
+        <>
+            <h1>ตั้งค่าหอพัก</h1>
+            <Container>
+                <div style={{ display: page === 1 ? 'block' : 'none' }}>
+                    <CostSetting setStep1={setStep1} setPage={setPage} />
+                </div>
+                <div style={{ display: page === 2 ? 'block' : 'none' }}>
+                    <BuildingSetting setStep2={setStep2} setPage={setPage} />
+                </div>
+                <div style={{ display: page === 3 ? 'block' : 'none' }}>
+                    <RoomType
+                        setStep3={setStep3}
+                        handleSubmit={handleSubmit}
+                        setPage={setPage}
+                    />
+                </div>
+            </Container>
+        </>
+    );
 };
 
 export default Setting;
