@@ -22,7 +22,6 @@ const BillingList = ({
   //Get bill detail
   const getBillDetail = async (invoiceid) => {
     try {
-      setLoading(true);
       let response = await axios.get(
         `${env.url}invoice/${invoiceid}/${props.dormId}`
       );
