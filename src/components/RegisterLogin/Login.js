@@ -20,7 +20,7 @@ const Login = (props) => {
           email,
           password,
         })
-        .then(async (res) => {
+        .then((res) => {
           // console.log(res.data);
           localStorage.setItem(
             'authorization',
@@ -29,7 +29,7 @@ const Login = (props) => {
           );
           // setROLEID(res.data.ROLEID);
           // setUSERID(res.data.USERID);
-          await axios
+          axios
             .get(`${env.url}api/user/detail`, {
               headers: {
                 authorization: localStorage.getItem('authorization'),
