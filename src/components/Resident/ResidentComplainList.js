@@ -142,7 +142,7 @@ const ResidentComplainList = ({
                     <Button
                       type="button"
                       className="btn"
-                      onClick={() => {}}
+                      onClick={() => { }}
                       style={{
                         backgroundColor: 'transparent',
                         border: 'none',
@@ -154,31 +154,27 @@ const ResidentComplainList = ({
                   </Link>
                 </td>
                 <td>
-                  <Button
-                    type="button"
-                    className="btn"
-                    onClick={() => {
-                      setShowConfirmDeleteModal(true);
-                      setSelectProblemId(list.PROBLEMID);
-                    }}
-                    style={{
-                      backgroundColor: 'transparent',
-                      border: 'none',
-                      boxShadow: 'none',
-                    }}
-                  >
-                    <RiDeleteBin6Fill
-                      style={{
-                        color: '#000',
-                        fontSize: '2em',
+                  {list.STATUS === 1 ? <></> :
+                    <Button
+                      type="button"
+                      className="btn"
+                      onClick={() => {
+                        setShowConfirmDeleteModal(true);
+                        setSelectProblemId(list.PROBLEMID);
                       }}
-                    />
-                    {/* <img
-                      src={Delete}
-                      alt="Delete Detail"
-                      style={{ maxWidth: '1.5em' }}
-                    /> */}
-                  </Button>
+                      style={{
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        boxShadow: 'none',
+                      }}
+                    >
+                      <RiDeleteBin6Fill
+                        style={{
+                          color: '#000',
+                          fontSize: '2em',
+                        }}
+                      />
+                    </Button>}
                 </td>
               </tr>
             ))}
@@ -187,7 +183,7 @@ const ResidentComplainList = ({
             <Modal.Header closeButton onClick={Cancle}>
               <Modal.Title>ยืนยันการลบข้อมูล</Modal.Title>
             </Modal.Header>
-            <Modal.Body>คุณต้องลบการแจ้งปัญหาดังกล่าวใช่หรือไม่</Modal.Body>
+            <Modal.Body>คุณต้องยกเลิกการแจ้งปัญหาดังกล่าวใช่หรือไม่</Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={Cancle}>
                 ยกเลิก
