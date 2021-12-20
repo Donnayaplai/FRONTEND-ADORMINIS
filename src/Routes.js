@@ -198,41 +198,6 @@ const Routes = (props) => {
         </Route>
         <Route path="*" component={NotFound} />
       </Switch>
-      {/* Unused route */}
-      {/* <Route path="/all-building/:dormid" component={BuildingList} /> */}
-      {/* <Route path="/all-room">
-          <Room buildingId={props.buildingId} />
-        </Route> */}
-      {/* <Route
-          path="/all-room/:buildingid"
-          component={Room}
-          buildingId={props.buildingId}
-          dormId={props.dormId}
-        /> */}
-      {/* {console.log(props.dormId, '=--------')} */}
-      {/* <Route path="/profile/:personalCode" component={Profile} /> */}
-      {/* <Route path="/form" exact component={DynamicForm} /> */}
-      {/* <Route
-          path="/select-building/meter-record"
-          component={SelectBuilding}
-        /> */}
-      {/* <Route path="/resident/bill-detail/:invoiceid">
-          <BillingDetail
-            roleId={props.roleId}
-            dormId={props.dormId}
-            rentId={props.rentId}
-          />
-        </Route> */}
-      {/* <Route path="/all-room/:buildingid">
-          <Room
-            buildingId={props.buildingId}
-            dormId={props.dormId}
-            roleId={props.roleId}
-          />
-        </Route> */}
-      {/* <Route path="/invoice-detail">
-          <InvoiceDetail roleId={props.roleId} dormId={props.dormId} />
-        </Route> */}
     </>
   );
 };
