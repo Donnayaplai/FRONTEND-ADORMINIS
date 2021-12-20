@@ -48,26 +48,6 @@ function App() {
         });
     }
   }, []);
-  // useEffect(async () => {
-  //   if (localStorage.getItem('authorization')) {
-  //     await axios
-  //       .get(`${env.url}api/user/detail`, {
-  //         headers: {
-  //           authorization: localStorage.getItem('authorization'),
-  //         },
-  //       })
-  //       .then((data) => {
-  //         console.log(data.data);
-  //         setUserId(data.data.USERID);
-  //         setRoleId(data.data.ROLEID);
-  //         setDormId(data.data.DORMID);
-  //         setRentId(data.data.RENTID);
-  //         setUserFname(data.data.FNAME);
-  //         setUserLname(data.data.LNAME);
-  //         setDormName(data.data.DORMNAMETH);
-  //       });
-  //   }
-  // }, []);
 
   useEffect(() => {
     fetchMyAPI();
@@ -115,7 +95,6 @@ function App() {
       <Router history={History}>
         {RenderNav()}
         <Switch>
-          {/* <Route exact path="/" component={LandingPage} /> */}
           <Route>
             <Routes
               setRoleId={setRoleId}
